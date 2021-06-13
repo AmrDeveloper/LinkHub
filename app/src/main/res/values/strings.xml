@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">LinkHub</string>
+
+    <string name="top_folders">Top Folders</string>
+    <string name="folders">Folders</string>
+    <string name="links">Links</string>
+    <string name="search">Search</string>
+    <string name="link_icon">Link Icon</string>
+    <string name="next_folders">Next Folders</string>
+    <string name="link_title">Link Title</string>
+    <string name="link_subtitle">Link SubTitle</string>
+    <string name="link_url">Link url</string>
+    <string name="add_link">Add Link</string>
+    <string name="add_new_link">Add new Link</string>
+    <string name="pinned">Pinned</string>
+    <string name="folder_name">Folder name</string>
+    <string name="show_add_options">Show add Options</string>
+    <string name="add_link_option">Add Link Option</string>
+    <string name="add_folder_option">Add Folder Option</string>
+    <string name="none">None</string>
+    <string name="save">Save</string>
+    <string name="folders_empty_msg">You have 0 Folders</string>
+    <string name="links_empty_msg">You have 0 Links</string>
 </resources>

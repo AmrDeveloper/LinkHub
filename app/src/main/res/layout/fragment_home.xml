@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".HomeFragment">
+
+            <TextView
+                android:id="@+id/folder_header_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen5dp"
+                android:fontFamily="serif"
+                android:padding="@dimen/dimen5dp"
+                android:text="@string/top_folders"
+                android:textColor="@color/sky"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/folder_next_img"
+                android:layout_width="@dimen/dimen25dp"
+                android:layout_height="@dimen/dimen25dp"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/next_folders"
+                android:src="@drawable/ic_next_arrow" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/folder_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/folder_header_txt"
+                tools:itemCount="3"
+                tools:listitem="@layout/list_item_folder" />
+
+            <TextView
+                android:id="@+id/link_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/folder_list"
+                android:layout_marginTop="@dimen/dimen5dp"
+                android:layout_marginBottom="@dimen/dimen5dp"
+                android:fontFamily="serif"
+                android:padding="@dimen/dimen5dp"
+                android:text="@string/links"
+                android:textColor="@color/sky"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/link_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/link_header"
+                tools:listitem="@layout/list_item_link" />
+
+            <ImageView
+                android:id="@+id/link_empty_icon"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen200dp"
+                android:layout_below="@id/link_header"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/links_empty_msg"
+                android:src="@drawable/ic_broken_link"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/folder_empty_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/link_empty_icon"
+                android:gravity="center"
+                android:text="@string/links_empty_msg"
+                android:textColor="@color/dark_sky"
+                android:textSize="@dimen/dimen20sp"
+                android:textStyle="bold|italic"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_link_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/add_folder_option"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/dimen16dp"
+        android:contentDescription="@string/add_link_option"
+        android:src="@drawable/ic_link"
+        android:visibility="gone"
+        app:backgroundTint="@color/dark_sky" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_folder_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/show_add_options"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dimen16dp"
+        android:layout_marginEnd="@dimen/dimen16dp"
+        android:contentDescription="@string/add_folder_option"
+        android:src="@drawable/ic_directory"
+        android:visibility="gone"
+        app:backgroundTint="@color/dark_sky" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/show_add_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dimen16dp"
+        android:contentDescription="@string/show_add_options"
+        android:src="@drawable/ic_add"
+        android:tint="@color/white"
+        app:backgroundTint="@color/sky" />
+</RelativeLayout>

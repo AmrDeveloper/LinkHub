@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen2dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="@dimen/dimen2dp"
+    app:cardElevation="@dimen/dimen1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen2dp">
+
+        <ImageView
+            android:id="@+id/link_image"
+            android:layout_width="@dimen/dimen35dp"
+            android:layout_height="@dimen/dimen35dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/link_icon"
+            android:src="@drawable/ic_link" />
+
+        <TextView
+            android:id="@+id/link_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen30dp"
+            android:layout_marginStart="@dimen/dimen5dp"
+            android:layout_toEndOf="@id/link_image"
+            android:fontFamily="serif"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            tools:text="Youtube talk" />
+
+        <TextView
+            android:id="@+id/link_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen20dp"
+            android:layout_below="@id/link_title"
+            android:layout_marginStart="@dimen/dimen5dp"
+            android:layout_toEndOf="@id/link_image"
+            android:lines="1"
+            tools:text="Youtube talk subtitle" />
+
+        <ImageView
+            android:id="@+id/link_pin_img"
+            android:layout_width="@dimen/dimen25dp"
+            android:layout_height="@dimen/dimen25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/dimen2dp"
+            android:contentDescription="@string/pinned"
+            android:padding="@dimen/dimen2dp"
+            android:src="@drawable/ic_pinned" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

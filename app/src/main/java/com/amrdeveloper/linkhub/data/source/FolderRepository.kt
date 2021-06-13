@@ -1,0 +1,43 @@
+package com.amrdeveloper.linkhub.data.source
+
+import com.amrdeveloper.linkhub.data.Folder
+import com.amrdeveloper.linkhub.data.Result
+
+class FolderRepository(private val dataSource: FolderDataSource) {
+
+    suspend fun insertFolder(folder: Folder) {
+        dataSource.insertFolder(folder)
+    }
+
+    suspend fun getFolderList(): Result<List<Folder>> {
+        return dataSource.getFolderList()
+    }
+
+    suspend fun getSortedFolderList(): Result<List<Folder>> {
+        return dataSource.getSortedFolderList()
+    }
+
+    suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> {
+        return dataSource.getLimitedSortedFolderList(limit)
+    }
+
+    suspend fun getSortedFolderListByKeyword(keyword: String): Result<List<Folder>> {
+        return dataSource.getSortedFolderListByKeyword(keyword)
+    }
+
+    suspend fun updateFolder(folder: Folder) {
+        dataSource.updateFolder(folder)
+    }
+
+    suspend fun deleteFolder(folder: Folder) {
+        dataSource.deleteFolder(folder)
+    }
+
+    suspend fun deleteFolderByID(id: Int) {
+        dataSource.deleteFolderByID(id)
+    }
+
+    suspend fun deleteAll() {
+        dataSource.deleteAll()
+    }
+}

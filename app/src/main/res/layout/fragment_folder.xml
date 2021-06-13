@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FolderFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/folder_logo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen200dp"
+            android:contentDescription="@string/link_title"
+            android:src="@drawable/ic_folders" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/folder_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/folder_logo"
+            android:layout_margin="@dimen/dimen10dp"
+            android:hint="@string/folder_name"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/sky">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/folder_title_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/folder_pinned_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/folder_title_layout"
+            android:layout_centerHorizontal="true"
+            android:checked="false"
+            android:text="@string/pinned"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen18sp"
+            app:thumbTint="@color/sky"
+            app:trackTint="@color/grey" />
+    </RelativeLayout>
+</ScrollView>
