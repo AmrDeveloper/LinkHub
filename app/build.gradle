@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id "androidx.navigation.safeargs"
+    id 'kotlin-kapt'
 }
 
 android {
@@ -20,7 +21,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,9 +49,11 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
     implementation "androidx.cardview:cardview:$rootProject.cardviewVersion"
 
-    // Database
+    // Room Database
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
 
@@ -62,8 +66,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navvigationVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    // Debuging
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    // Debugging
+    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leackcanaryVersion"
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

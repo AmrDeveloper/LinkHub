@@ -11,6 +11,18 @@ import com.amrdeveloper.linkhub.databinding.ListItemLinkBinding
 
 class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback()) {
 
+    interface OnLinkClickListener {
+        fun onLinkClick(link: Link)
+    }
+
+    private lateinit var onLinkClick : OnLinkClickListener
+
+    interface OnLinkLongClickListener {
+        fun onLinkLongClick(link: Link)
+    }
+
+    private lateinit var onLinkLongClick : OnLinkLongClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ListItemLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LinkViewHolder(binding)
@@ -19,6 +31,26 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val link = getItem(position)
         (holder as LinkViewHolder).bind(link)
+        if(::onLinkClick.isInitialized) {
+            holder.itemView.setOnClickListener {
+                onLinkClick.onLinkClick(link)
+            }
+        }
+
+        if(::onLinkLongClick.isInitialized) {
+            holder.itemView.setOnLongClickListener {
+                onLinkLongClick.onLinkLongClick(link)
+                true
+            }
+        }
+    }
+
+    fun setOnLinkClickListener(listener: OnLinkClickListener) {
+        onLinkClick = listener
+    }
+
+    fun setOnLinkLongClickListener(listener : OnLinkLongClickListener) {
+        onLinkLongClick = listener
     }
 
     class LinkViewHolder(private val binding: ListItemLinkBinding) :

@@ -5,8 +5,12 @@ import com.amrdeveloper.linkhub.data.Result
 
 class FolderRepository(private val dataSource: FolderDataSource) {
 
-    suspend fun insertFolder(folder: Folder) {
-        dataSource.insertFolder(folder)
+    suspend fun insertFolder(folder: Folder): Result<Long> {
+        return dataSource.insertFolder(folder)
+    }
+
+    suspend fun getFolderById(folderId : Int) : Result<Folder> {
+        return dataSource.getFolderById(folderId)
     }
 
     suspend fun getFolderList(): Result<List<Folder>> {
@@ -25,19 +29,19 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.getSortedFolderListByKeyword(keyword)
     }
 
-    suspend fun updateFolder(folder: Folder) {
-        dataSource.updateFolder(folder)
+    suspend fun updateFolder(folder: Folder): Result<Int> {
+        return dataSource.updateFolder(folder)
     }
 
-    suspend fun deleteFolder(folder: Folder) {
-        dataSource.deleteFolder(folder)
+    suspend fun deleteFolder(folder: Folder): Result<Int> {
+        return dataSource.deleteFolder(folder)
     }
 
-    suspend fun deleteFolderByID(id: Int) {
-        dataSource.deleteFolderByID(id)
+    suspend fun deleteFolderByID(id: Int): Result<Int> {
+        return dataSource.deleteFolderByID(id)
     }
 
-    suspend fun deleteAll() {
-        dataSource.deleteAll()
+    suspend fun deleteAll(): Result<Int> {
+        return dataSource.deleteAll()
     }
 }

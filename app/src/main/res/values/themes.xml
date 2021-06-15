@@ -22,7 +22,7 @@
         <item name="android:editTextColor">@android:color/black</item>
         <item name="android:textColorHint">@android:color/black</item>
         <item name="hintTextColor">@android:color/black</item>
-<!--        <item name="tint">@color/sky</item>-->
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="LightToolBar" parent="@style/Widget.MaterialComponents.Toolbar">

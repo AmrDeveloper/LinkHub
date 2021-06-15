@@ -2,6 +2,7 @@
     <string name="app_name">LinkHub</string>
 
     <string name="top_folders">Top Folders</string>
+    <string name="folder">Folder</string>
     <string name="folders">Folders</string>
     <string name="links">Links</string>
     <string name="search">Search</string>
@@ -19,6 +20,37 @@
     <string name="add_folder_option">Add Folder Option</string>
     <string name="none">None</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="open_in_browser">Open in Browser</string>
+    <string name="copy">Copy</string>
+    <string name="share">Share</string>
     <string name="folders_empty_msg">You have 0 Folders</string>
     <string name="links_empty_msg">You have 0 Links</string>
+
+    <string name="link_copy">Link url is copied Now</string>
+    <string name="link_invalid">Can\'t open link url in the browser</string>
+
+    <string name="folder_count">Folders: %1$d</string>
+    <string name="links_count">Links: %1$d</string>
+
+    <!--Error Messages-->
+    <!--Link Error Messages-->
+    <string name="error_get_links">Can\'t find links</string>
+    <string name="error_insert_link">Can\'t add this link</string>
+    <string name="error_update_link">Can\'t update this link</string>
+    <string name="error_delete_link">Can\'t delete this link</string>
+    <string name="error_link_title_empty">Link title can\'t be empty</string>
+    <string name="error_link_subtitle_empty">Link subtitle can\'t be empty</string>
+    <string name="error_link_url_empty">Link url can\'t be empty</string>
+    <string name="error_link_same_title">You have an existing link with same title</string>
+
+    <!--Folder Error Messages-->
+    <string name="error_get_top_folders">Can\'t find top folders</string>
+    <string name="error_get_folders">Can\'t find folders</string>
+    <string name="error_insert_folder">Can\'t add this folder</string>
+    <string name="error_update_folder">Can\'t update this folder</string>
+    <string name="error_delete_folder">Can\'t delete this folder</string>
+    <string name="error_folder_name_empty">Folder name can\'t be empty</string>
+    <string name="error_folder_name_small">Folder name can\'t be less than 3 characters</string>
+    <string name="error_folder_same_name">You have an existing folder with same name</string>
 </resources>

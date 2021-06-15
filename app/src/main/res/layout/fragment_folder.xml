@@ -25,13 +25,17 @@
             android:layout_below="@id/folder_logo"
             android:layout_margin="@dimen/dimen10dp"
             android:hint="@string/folder_name"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/sky">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/folder_title_edit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:maxLength="10"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.switchmaterial.SwitchMaterial

@@ -5,7 +5,9 @@ import com.amrdeveloper.linkhub.data.Result
 
 interface FolderDataSource {
 
-    suspend fun insertFolder(folder: Folder)
+    suspend fun insertFolder(folder: Folder): Result<Long>
+
+    suspend fun getFolderById(id : Int): Result<Folder>
 
     suspend fun getFolderList(): Result<List<Folder>>
 
@@ -15,11 +17,12 @@ interface FolderDataSource {
 
     suspend fun getSortedFolderListByKeyword(keyword: String): Result<List<Folder>>
 
-    suspend fun updateFolder(folder: Folder)
+    suspend fun updateFolder(folder: Folder): Result<Int>
 
-    suspend fun deleteFolder(folder: Folder)
+    suspend fun deleteFolder(folder: Folder): Result<Int>
 
-    suspend fun deleteFolderByID(id: Int)
+    suspend fun deleteFolderByID(id: Int): Result<Int>
 
-    suspend fun deleteAll()
+    suspend fun deleteAll(): Result<Int>
+
 }

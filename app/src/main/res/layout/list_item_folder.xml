@@ -9,17 +9,42 @@
     app:cardElevation="@dimen/dimen1dp"
     app:elevation="@dimen/dimen5dp">
 
-    <TextView
-        android:id="@+id/folder_name_txt"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen2dp"
-        android:drawablePadding="@dimen/dimen5dp"
-        android:fontFamily="serif"
-        android:gravity="center_vertical"
-        android:padding="@dimen/dimen5dp"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen18sp"
-        app:drawableStartCompat="@drawable/ic_directory"
-        tools:text="Work" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/folder_icon_img"
+            android:layout_width="@dimen/dimen20dp"
+            android:layout_height="@dimen/dimen20dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/dimen2dp"
+            android:contentDescription="@string/folder"
+            android:src="@drawable/ic_directory" />
+
+        <TextView
+            android:id="@+id/folder_name_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen2dp"
+            android:layout_toEndOf="@id/folder_icon_img"
+            android:drawablePadding="@dimen/dimen5dp"
+            android:fontFamily="serif"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dimen5dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen18sp"
+            tools:text="Work" />
+
+        <ImageView
+            android:id="@+id/folder_pin_img"
+            android:layout_width="@dimen/dimen15dp"
+            android:layout_height="@dimen/dimen15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/dimen2dp"
+            android:contentDescription="@string/pinned"
+            android:src="@drawable/ic_pinned" />
+    </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

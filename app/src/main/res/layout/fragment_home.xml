@@ -23,7 +23,8 @@
                 android:padding="@dimen/dimen5dp"
                 android:text="@string/top_folders"
                 android:textColor="@color/sky"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/folder_next_img"
@@ -72,7 +73,7 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/folder_empty_text"
+                android:id="@+id/link_empty_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/link_empty_icon"

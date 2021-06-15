@@ -2,14 +2,17 @@ package com.amrdeveloper.linkhub
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderListBinding
+import com.amrdeveloper.linkhub.util.hide
+import com.amrdeveloper.linkhub.util.show
 
 class FolderListFragment : Fragment() {
 
@@ -17,7 +20,11 @@ class FolderListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var folderAdapter: FolderAdapter
-    private lateinit var navController: NavController
+
+    private val folderListViewModel: FolderListViewModel by viewModels {
+        val application = (activity?.application as LinkApplication)
+        FolderListViewModelFactory(application.folderRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,28 +36,61 @@ class FolderListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFolderListBinding.inflate(inflater, container, false)
+
+        setupFolderRecyclerView()
+        setupObservers()
+
+        folderListViewModel.getSortedFolderList()
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupFolderRecyclerView()
-        navController = Navigation.findNavController(view)
+    private fun setupObservers() {
+        folderListViewModel.foldersLiveData.observe(viewLifecycleOwner, {
+            binding.foldersCountTxt.text = getString(R.string.folder_count, it.size)
+            setupFoldersListState(it)
+        })
+
+        folderListViewModel.dataLoading.observe(viewLifecycleOwner, {
+            binding.loadingIndicator.visibility = if(it) View.VISIBLE else View.GONE
+        })
+
+        folderListViewModel.errorMessages.observe(viewLifecycleOwner, {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun setupFoldersListState(folders : List<Folder>) {
+        if(folders.isEmpty()) {
+            binding.folderEmptyIcon.show()
+            binding.folderEmptyText.show()
+            binding.folderList.hide()
+        } else {
+            binding.folderEmptyIcon.hide()
+            binding.folderEmptyText.hide()
+            binding.folderList.show()
+            folderAdapter.submitList(folders)
+        }
     }
 
     private fun setupFolderRecyclerView() {
         folderAdapter = FolderAdapter()
 
-        binding.folderList.apply {
-            setHasFixedSize(true)
-            adapter = folderAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
+        binding.folderList.adapter = folderAdapter
+        binding.folderList.layoutManager = LinearLayoutManager(activity)
 
         folderAdapter.setOnFolderClickListener(object : FolderAdapter.OnFolderClickListener {
             override fun onFolderClick(folder: Folder) {
+                // TODO 5: Update click count
                 val bundle = bundleOf("folder" to folder)
-                navController.navigate(R.id.action_folderListFragment_to_linkListFragment, bundle)
+                findNavController().navigate(R.id.action_folderListFragment_to_linkListFragment, bundle)
+            }
+        })
+
+        folderAdapter.setOnFolderLongClickListener(object : FolderAdapter.OnFolderLongClickListener {
+            override fun onFolderLongClick(folder: Folder) {
+                val bundle = bundleOf("folder" to folder)
+                findNavController().navigate(R.id.action_folderListFragment_to_folderFragment, bundle)
             }
         })
     }
@@ -64,21 +104,24 @@ class FolderListFragment : Fragment() {
         searchView.setIconifiedByDefault(true)
         searchView.setOnQueryTextListener(searchViewQueryListener)
 
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private val searchViewQueryListener = object : SearchView.OnQueryTextListener {
 
-        override fun onQueryTextSubmit(currencyName: String?): Boolean {
+        override fun onQueryTextSubmit(keyword: String?): Boolean {
             return false
         }
 
-        override fun onQueryTextChange(newText: String?): Boolean {
+        override fun onQueryTextChange(keyword: String?): Boolean {
+            if(keyword.isNullOrEmpty()) folderListViewModel.getSortedFolderList()
+            else folderListViewModel.getSortedFolderListByKeyword(keyword.trim())
             return false
         }
     }
 
     override fun onDestroyView() {
+        binding.folderList.adapter = null
         super.onDestroyView()
         _binding = null
     }

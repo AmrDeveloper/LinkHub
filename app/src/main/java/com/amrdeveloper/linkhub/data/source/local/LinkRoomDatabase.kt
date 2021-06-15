@@ -10,7 +10,7 @@ import com.amrdeveloper.linkhub.data.Link
 const val DATABASE_NAME = "link_database"
 
 @Database(entities = [Link::class, Folder::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+abstract class LinkRoomDatabase : RoomDatabase() {
 
     abstract fun linkDao(): LinkDao
 
@@ -19,14 +19,14 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
 
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE: LinkRoomDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(context: Context): LinkRoomDatabase {
 
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java, DATABASE_NAME
+                    LinkRoomDatabase::class.java, DATABASE_NAME
                 ).build()
                 INSTANCE = instance
                 instance

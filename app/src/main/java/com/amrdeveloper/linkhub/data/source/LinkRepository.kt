@@ -5,11 +5,11 @@ import com.amrdeveloper.linkhub.data.Result
 
 class LinkRepository(private val dataSource: LinkDataSource) {
 
-    suspend fun insertLink(link: Link) {
-        dataSource.insertLink(link)
+    suspend fun insertLink(link: Link): Result<Long> {
+        return dataSource.insertLink(link)
     }
 
-    suspend fun getLinkList() : Result<List<Link>> {
+    suspend fun getLinkList(): Result<List<Link>> {
         return dataSource.getLinkList()
     }
 
@@ -17,27 +17,35 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getSortedLinkList()
     }
 
-    suspend fun getSortedLinkListByKeyword(keyword : String) : Result<List<Link>> {
+    suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>> {
+        return dataSource.getSortedFolderLinkList(id)
+    }
+
+    suspend fun getSortedLinkListByKeyword(keyword: String): Result<List<Link>> {
         return dataSource.getSortedLinkListByKeyword(keyword)
     }
 
-    suspend fun updateLink(link: Link) {
-        dataSource.updateLink(link)
+    suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String) : Result<List<Link>> {
+        return dataSource.getSortedFolderLinkListByKeyword(id, keyword)
     }
 
-    suspend fun deleteLink(link: Link) {
-        dataSource.deleteLink(link)
+    suspend fun updateLink(link: Link): Result<Int> {
+        return dataSource.updateLink(link)
     }
 
-    suspend fun deleteLinkByID(id : Int) {
-        dataSource.deleteLinkByID(id)
+    suspend fun deleteLink(link: Link): Result<Int> {
+        return dataSource.deleteLink(link)
     }
 
-    suspend fun deleteFolderLinks(folderId : Int) {
-        dataSource.deleteFolderLinks(folderId)
+    suspend fun deleteLinkByID(id: Int): Result<Int> {
+        return dataSource.deleteLinkByID(id)
     }
 
-    suspend fun deleteAll() {
-        dataSource.deleteAll()
+    suspend fun deleteFolderLinks(folderId: Int): Result<Int> {
+        return dataSource.deleteFolderLinks(folderId)
+    }
+
+    suspend fun deleteAll(): Result<Int> {
+        return dataSource.deleteAll()
     }
 }

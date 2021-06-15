@@ -2,14 +2,19 @@ package com.amrdeveloper.linkhub
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkListBinding
-
-private const val TAG = "LinkListFragment"
+import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
+import com.amrdeveloper.linkhub.util.hide
+import com.amrdeveloper.linkhub.util.show
 
 class LinkListFragment : Fragment() {
 
@@ -18,6 +23,11 @@ class LinkListFragment : Fragment() {
 
     private lateinit var currentFolder: Folder
     private lateinit var linkAdapter: LinkAdapter
+
+    private val linkListViewModel: LinkListViewModel by viewModels {
+        val application = (activity?.application as LinkApplication)
+        LinkListViewModelFactory(application.linkRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,44 +41,63 @@ class LinkListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLinkListBinding.inflate(inflater, container, false)
+
         setupLinksList()
+        setupObservers()
+
+        linkListViewModel.getFolderLinkList(currentFolder.id)
+
         return binding.root
+    }
+
+
+    private fun setupObservers() {
+        linkListViewModel.linksLiveData.observe(viewLifecycleOwner, {
+            binding.linksCountTxt.text = getString(R.string.links_count, it.size)
+            setupLinksListState(it)
+        })
+
+        linkListViewModel.dataLoading.observe(viewLifecycleOwner, {
+            binding.loadingIndicator.visibility = if(it) View.VISIBLE else View.GONE
+        })
+
+        linkListViewModel.errorMessages.observe(viewLifecycleOwner, {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun setupLinksListState(links : List<Link>) {
+        if(links.isEmpty()) {
+            binding.linkEmptyIcon.show()
+            binding.linkEmptyText.show()
+            binding.linkList.hide()
+        } else {
+            binding.linkEmptyIcon.hide()
+            binding.linkEmptyText.hide()
+            binding.linkList.show()
+            linkAdapter.submitList(links)
+        }
     }
 
     private fun setupLinksList(){
         linkAdapter = LinkAdapter()
 
-        binding.linkList.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = linkAdapter
-        }
+        binding.linkList.layoutManager = LinearLayoutManager(context)
+        binding.linkList.adapter = linkAdapter
 
-        val list = arrayListOf(
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-            Link(1, "Youtube talk 1", "Youtube talk 2", ""),
-        )
+        linkAdapter.setOnLinkClickListener(object : LinkAdapter.OnLinkClickListener {
+            override fun onLinkClick(link: Link) {
+                // TODO 5: Update click count
+                LinkBottomSheetDialog.launch(requireContext(), link)
+            }
+        })
 
-        linkAdapter.submitList(list)
+        linkAdapter.setOnLinkLongClickListener(object : LinkAdapter.OnLinkLongClickListener {
+            override fun onLinkLongClick(link: Link) {
+                val bundle = bundleOf("link" to link)
+                findNavController().navigate(R.id.action_linkListFragment_to_linkFragment, bundle)
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,7 +109,7 @@ class LinkListFragment : Fragment() {
         searchView.setIconifiedByDefault(true)
         searchView.setOnQueryTextListener(searchViewQueryListener)
 
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private val searchViewQueryListener = object : SearchView.OnQueryTextListener {
@@ -89,12 +118,15 @@ class LinkListFragment : Fragment() {
             return false
         }
 
-        override fun onQueryTextChange(newText: String?): Boolean {
+        override fun onQueryTextChange(keyword: String?): Boolean {
+            if(keyword.isNullOrEmpty()) linkListViewModel.getFolderLinkList(currentFolder.id)
+            else linkListViewModel.getFolderLinkListByKeyword(currentFolder.id, keyword)
             return false
         }
     }
 
     override fun onDestroyView() {
+        binding.linkList.adapter = null
         super.onDestroyView()
         _binding = null
     }
