@@ -65,7 +65,6 @@ class HomeFragment : Fragment() {
 
         homeViewModel.linkLiveData.observe(viewLifecycleOwner, {
             setupLinksListState(it)
-            binding.linkList.adapter = linkAdapter
         })
 
         homeViewModel.errorMessages.observe(viewLifecycleOwner, {

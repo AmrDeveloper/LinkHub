@@ -53,4 +53,8 @@
     <string name="error_folder_name_empty">Folder name can\'t be empty</string>
     <string name="error_folder_name_small">Folder name can\'t be less than 3 characters</string>
     <string name="error_folder_same_name">You have an existing folder with same name</string>
+
+    <!--Shortcuts-->
+    <string name="folder_create">Create Folder</string>
+    <string name="link_create">Create Link</string>
 </resources>
