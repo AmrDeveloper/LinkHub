@@ -1,26 +1,28 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--Create Link Shortcut-->
     <shortcut
-        android:shortcutId="create_link"
-        android:enabled="true"
-        android:icon="@drawable/ic_link"
-        android:shortcutShortLabel="@string/link_create"
-        android:shortcutLongLabel="@string/link_create">
-        <intent
-            android:action="com.amrdeveloper.linkhub.action.create_link"
-            android:targetPackage="com.amrdeveloper.linkhub"
-            android:targetClass="com.amrdeveloper.linkhub.MainActivity" />
-    </shortcut>
-
-    <shortcut
-        android:shortcutId="create_folder"
         android:enabled="true"
         android:icon="@drawable/ic_folders"
-        android:shortcutShortLabel="@string/folder_create"
-        android:shortcutLongLabel="@string/folder_create">
+        android:shortcutId="create_folder"
+        android:shortcutLongLabel="@string/folder_create"
+        android:shortcutShortLabel="@string/folder_create">
         <intent
             android:action="com.amrdeveloper.linkhub.action.create_folder"
-            android:targetPackage="com.amrdeveloper.linkhub"
-            android:targetClass="com.amrdeveloper.linkhub.MainActivity" />
+            android:targetClass="com.amrdeveloper.linkhub.MainActivity"
+            android:targetPackage="com.amrdeveloper.linkhub" />
+    </shortcut>
+
+    <!--Create Folder Shortcut-->
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_link"
+        android:shortcutId="create_link"
+        android:shortcutLongLabel="@string/link_create"
+        android:shortcutShortLabel="@string/link_create">
+        <intent
+            android:action="com.amrdeveloper.linkhub.action.create_link"
+            android:targetClass="com.amrdeveloper.linkhub.MainActivity"
+            android:targetPackage="com.amrdeveloper.linkhub" />
     </shortcut>
 </shortcuts>
