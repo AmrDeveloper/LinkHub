@@ -27,15 +27,14 @@
             android:hint="@string/folder_name"
             app:counterEnabled="true"
             app:counterMaxLength="10"
-            android:textColorHint="@color/black"
             app:hintTextColor="@color/sky">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/folder_title_edit"
                 android:layout_width="match_parent"
-                android:maxLength="10"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.switchmaterial.SwitchMaterial
@@ -46,7 +45,6 @@
             android:layout_centerHorizontal="true"
             android:checked="false"
             android:text="@string/pinned"
-            android:textColor="@color/black"
             android:textSize="@dimen/dimen18sp"
             app:thumbTint="@color/sky"
             app:trackTint="@color/grey" />

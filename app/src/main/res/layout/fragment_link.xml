@@ -25,7 +25,6 @@
             android:layout_below="@id/link_logo"
             android:layout_margin="@dimen/dimen5dp"
             android:hint="@string/link_title"
-            android:textColorHint="@color/black"
             app:hintTextColor="@color/sky">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -41,7 +40,6 @@
             android:layout_below="@id/link_title_layout"
             android:layout_margin="@dimen/dimen5dp"
             android:hint="@string/link_subtitle"
-            android:textColorHint="@color/black"
             app:hintTextColor="@color/sky">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -57,7 +55,6 @@
             android:layout_below="@id/link_subtitle_layout"
             android:layout_margin="@dimen/dimen5dp"
             android:hint="@string/link_url"
-            android:textColorHint="@color/black"
             app:hintTextColor="@color/sky">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -74,7 +71,6 @@
             android:layout_below="@+id/link_url_layout"
             android:layout_margin="@dimen/dimen5dp"
             android:hint="@string/folder_name"
-            android:textColorHint="@color/black"
             app:hintTextColor="@color/sky">
 
             <AutoCompleteTextView
@@ -93,7 +89,6 @@
             android:layout_centerHorizontal="true"
             android:checked="false"
             android:text="@string/pinned"
-            android:textColor="@color/black"
             android:textSize="@dimen/dimen18sp"
             app:thumbTint="@color/sky"
             app:trackTint="@color/grey" />

@@ -33,7 +33,6 @@
             android:fontFamily="serif"
             android:gravity="center_vertical"
             android:padding="@dimen/dimen5dp"
-            android:textColor="@color/black"
             android:textSize="@dimen/dimen18sp"
             tools:text="Work" />
 
