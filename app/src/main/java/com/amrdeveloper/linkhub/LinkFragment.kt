@@ -42,6 +42,7 @@ class LinkFragment : Fragment() {
     ): View {
         _binding = FragmentLinkBinding.inflate(inflater, container, false)
 
+        handleIntentSharedLink()
         handleLinkArgument()
         setupObservers()
         setupFolderListMenu()
@@ -49,6 +50,13 @@ class LinkFragment : Fragment() {
         linkViewModel.getFolderList()
 
         return binding.root
+    }
+
+    private fun handleIntentSharedLink() {
+        val sharedLink = arguments?.get("shared_link")
+        if(sharedLink != null) {
+            binding.linkUrlEdit.setText(sharedLink.toString())
+        }
     }
 
     private fun handleLinkArgument() {
