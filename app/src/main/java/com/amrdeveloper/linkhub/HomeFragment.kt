@@ -110,7 +110,7 @@ class HomeFragment : Fragment() {
 
         folderAdapter.setOnFolderClickListener(object : FolderAdapter.OnFolderClickListener {
             override fun onFolderClick(folder: Folder) {
-                // TODO 5: Update click count
+                homeViewModel.updateFolderClickCount(folder.id, folder.clickedCount.plus(1))
                 val bundle = bundleOf("folder" to folder)
                 findNavController().navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
             }
@@ -133,7 +133,7 @@ class HomeFragment : Fragment() {
 
         linkAdapter.setOnLinkClickListener(object : LinkAdapter.OnLinkClickListener {
             override fun onLinkClick(link: Link) {
-                // TODO 5: Update click count
+                homeViewModel.updateLinkClickCount(link.id, link.clickedCount.plus(1))
                 LinkBottomSheetDialog.launch(requireContext(), link)
             }
         })

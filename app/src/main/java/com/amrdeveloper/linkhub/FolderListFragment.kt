@@ -81,7 +81,7 @@ class FolderListFragment : Fragment() {
 
         folderAdapter.setOnFolderClickListener(object : FolderAdapter.OnFolderClickListener {
             override fun onFolderClick(folder: Folder) {
-                // TODO 5: Update click count
+                folderListViewModel.updateFolderClickCount(folder.id, folder.clickedCount.plus(1))
                 val bundle = bundleOf("folder" to folder)
                 findNavController().navigate(R.id.action_folderListFragment_to_linkListFragment, bundle)
             }

@@ -56,7 +56,7 @@ class LinkFragment : Fragment() {
             binding.linkSubtitleEdit.setText(currentLink.subtitle)
             binding.linkUrlEdit.setText(currentLink.url)
             binding.linkPinnedSwitch.isChecked = currentLink.isPinned
-            if(currentLink.folder_id != -1) linkViewModel.getFolderWithId(currentLink.folder_id)
+            if(currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
         }
     }
 
@@ -134,7 +134,7 @@ class LinkFragment : Fragment() {
         }
 
         val link = Link(title, subtitle, url, isPinned)
-        if(linkFolderID != -1) link.folder_id = linkFolderID
+        if(linkFolderID != -1) link.folderId = linkFolderID
 
         linkViewModel.createNewLink(link)
     }
@@ -164,7 +164,7 @@ class LinkFragment : Fragment() {
         currentLink.subtitle = subtitle
         currentLink.url = url
         currentLink.isPinned = isPinned
-        if(linkFolderID != -1) currentLink.folder_id = linkFolderID
+        if(linkFolderID != -1) currentLink.folderId = linkFolderID
 
         linkViewModel.updateLink(currentLink)
     }

@@ -50,6 +50,11 @@ class FolderListViewModel(
         }
     }
 
+    fun updateFolderClickCount(folderId:  Int, count : Int) {
+        viewModelScope.launch {
+            folderRepository.updateClickCountByFolderId(folderId, count)
+        }
+    }
 }
 
 class FolderListViewModelFactory(

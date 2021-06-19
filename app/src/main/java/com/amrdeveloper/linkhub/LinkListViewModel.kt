@@ -50,6 +50,11 @@ class LinkListViewModel(
         }
     }
 
+    fun updateLinkClickCount(linkId : Int, count : Int) {
+        viewModelScope.launch {
+            linkRepository.updateClickCountByLinkId(linkId, count)
+        }
+    }
 }
 
 class LinkListViewModelFactory(

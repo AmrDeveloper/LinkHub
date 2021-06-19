@@ -37,6 +37,12 @@ class HomeViewModel(
         }
     }
 
+    fun updateFolderClickCount(folderId:  Int, count : Int) {
+        viewModelScope.launch {
+            folderRepository.updateClickCountByFolderId(folderId, count)
+        }
+    }
+
     fun getSortedLinks() {
         viewModelScope.launch {
             val result = linkRepository.getSortedLinkList()
@@ -58,6 +64,12 @@ class HomeViewModel(
             } else {
                 _errorMessages.value = R.string.error_get_links
             }
+        }
+    }
+
+    fun updateLinkClickCount(linkId : Int, count : Int) {
+        viewModelScope.launch {
+            linkRepository.updateClickCountByLinkId(linkId, count)
         }
     }
 }
