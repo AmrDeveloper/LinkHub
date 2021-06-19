@@ -33,16 +33,16 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.updateLink(link)
     }
 
+    suspend fun updateClickCountByLinkId(linkId: Int, count: Int): Result<Int> {
+        return dataSource.updateClickCountByLinkId(linkId, count)
+    }
+
     suspend fun deleteLink(link: Link): Result<Int> {
         return dataSource.deleteLink(link)
     }
 
     suspend fun deleteLinkByID(id: Int): Result<Int> {
         return dataSource.deleteLinkByID(id)
-    }
-
-    suspend fun deleteFolderLinks(folderId: Int): Result<Int> {
-        return dataSource.deleteFolderLinks(folderId)
     }
 
     suspend fun deleteAll(): Result<Int> {

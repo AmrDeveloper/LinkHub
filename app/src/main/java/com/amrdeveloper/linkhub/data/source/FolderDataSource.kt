@@ -7,7 +7,7 @@ interface FolderDataSource {
 
     suspend fun insertFolder(folder: Folder): Result<Long>
 
-    suspend fun getFolderById(id : Int): Result<Folder>
+    suspend fun getFolderById(id: Int): Result<Folder>
 
     suspend fun getFolderList(): Result<List<Folder>>
 
@@ -19,10 +19,9 @@ interface FolderDataSource {
 
     suspend fun updateFolder(folder: Folder): Result<Int>
 
-    suspend fun deleteFolder(folder: Folder): Result<Int>
+    suspend fun updateClickCountByFolderId(folderId : Int, count : Int) : Result<Int>
 
-    suspend fun deleteFolderByID(id: Int): Result<Int>
+    suspend fun deleteFolderWithLinks(folderId: Int): Result<Int>
 
     suspend fun deleteAll(): Result<Int>
-
 }

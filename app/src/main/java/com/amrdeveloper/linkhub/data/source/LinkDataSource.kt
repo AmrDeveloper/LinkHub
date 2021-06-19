@@ -19,11 +19,11 @@ interface LinkDataSource {
 
     suspend fun updateLink(link: Link): Result<Int>
 
+    suspend fun updateClickCountByLinkId(linkId : Int, count : Int) : Result<Int>
+
     suspend fun deleteLink(link: Link): Result<Int>
 
     suspend fun deleteLinkByID(id: Int): Result<Int>
-
-    suspend fun deleteFolderLinks(folderId: Int): Result<Int>
 
     suspend fun deleteAll(): Result<Int>
 }

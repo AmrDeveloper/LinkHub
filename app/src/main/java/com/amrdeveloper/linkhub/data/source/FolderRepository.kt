@@ -33,12 +33,12 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.updateFolder(folder)
     }
 
-    suspend fun deleteFolder(folder: Folder): Result<Int> {
-        return dataSource.deleteFolder(folder)
+    suspend fun updateClickCountByFolderId(folderId: Int, count: Int): Result<Int> {
+        return dataSource.updateClickCountByFolderId(folderId, count)
     }
 
     suspend fun deleteFolderByID(id: Int): Result<Int> {
-        return dataSource.deleteFolderByID(id)
+        return dataSource.deleteFolderWithLinks(id)
     }
 
     suspend fun deleteAll(): Result<Int> {

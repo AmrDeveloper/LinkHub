@@ -70,17 +70,17 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
-    override suspend fun deleteFolder(folder: Folder): Result<Int> = withContext(ioDispatcher) {
+    override suspend fun updateClickCountByFolderId(folderId: Int, count: Int): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.delete(folder))
+            Result.Success(folderDao.updateClickCountByFolderId(folderId, count))
         } catch (e: Exception) {
             Result.Error(e)
         }
     }
 
-    override suspend fun deleteFolderByID(id: Int): Result<Int> = withContext(ioDispatcher) {
+    override suspend fun deleteFolderWithLinks(folderId: Int): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.deleteById(id))
+            Result.Success(folderDao.deleteFolderWithLinks(folderId))
         } catch (e: Exception) {
             Result.Error(e)
         }
@@ -93,5 +93,4 @@ class FolderLocalDataSource internal constructor(
             Result.Error(e)
         }
     }
-
 }

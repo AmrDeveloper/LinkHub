@@ -118,7 +118,7 @@ class FolderFragment : Fragment() {
     }
 
     private fun deleteFolder() {
-        folderViewModel.deleteFolder(currentFolder)
+        folderViewModel.deleteFolder(currentFolder.id)
     }
 
     override fun onDestroyView() {

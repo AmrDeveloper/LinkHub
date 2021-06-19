@@ -68,6 +68,14 @@ class LinkLocalDataSource internal constructor(
         }
     }
 
+    override suspend fun updateClickCountByLinkId(linkId: Int, count: Int): Result<Int> = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(linkDao.updateClickCountByLinkId(linkId, count))
+        } catch (e : Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun deleteLink(link: Link) : Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
             Result.Success(linkDao.delete(link))
@@ -79,14 +87,6 @@ class LinkLocalDataSource internal constructor(
     override suspend fun deleteLinkByID(id: Int) : Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
             Result.Success(linkDao.deleteLinkById(id))
-        } catch (e : Exception) {
-            Result.Error(e)
-        }
-    }
-
-    override suspend fun deleteFolderLinks(folderId: Int) : Result<Int> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.Success(linkDao.deleteFolderLinks(folderId))
         } catch (e : Exception) {
             Result.Error(e)
         }

@@ -22,11 +22,11 @@ interface LinkDao : BaseDao<Link> {
     @Query("SELECT * FROM link WHERE folder_id = :id AND title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count ASC")
     suspend fun getSortedLinkListByKeywordByFolderId(id: Int, keyword : String) : List<Link>
 
+    @Query("UPDATE link SET click_count = :count WHERE id = :linkId")
+    suspend fun updateClickCountByLinkId(linkId : Int, count : Int) : Int
+
     @Query("DELETE FROM link WHERE id = :id")
     suspend fun deleteLinkById(id: Int): Int
-
-    @Query("DELETE FROM link WHERE folder_id = :folderId")
-    suspend fun deleteFolderLinks(folderId: Int): Int
 
     @Query("DELETE FROM link")
     suspend fun deleteAll(): Int

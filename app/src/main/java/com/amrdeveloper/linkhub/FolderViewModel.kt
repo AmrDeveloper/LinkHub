@@ -42,9 +42,9 @@ class FolderViewModel(
         }
     }
 
-    fun deleteFolder(folder: Folder) {
+    fun deleteFolder(folderId: Int) {
         viewModelScope.launch {
-            val result = folderRepository.deleteFolder(folder)
+            val result = folderRepository.deleteFolderByID(folderId)
             if (result is Result.Success && result.data > 0) {
                 _completeSuccessTask.value = true
             } else {
