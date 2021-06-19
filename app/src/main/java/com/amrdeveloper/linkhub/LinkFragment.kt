@@ -2,6 +2,7 @@ package com.amrdeveloper.linkhub
 
 import android.os.Bundle
 import android.view.*
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -133,6 +134,11 @@ class LinkFragment : Fragment() {
             return
         }
 
+        if(URLUtil.isValidUrl(url).not()) {
+            binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
+            return
+        }
+
         val link = Link(title, subtitle, url, isPinned)
         if(linkFolderID != -1) link.folderId = linkFolderID
 
@@ -157,6 +163,11 @@ class LinkFragment : Fragment() {
 
         if(url.isEmpty()) {
             binding.linkUrlLayout.showError(R.string.error_link_url_empty)
+            return
+        }
+
+        if(URLUtil.isValidUrl(url).not()) {
+            binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
             return
         }
 

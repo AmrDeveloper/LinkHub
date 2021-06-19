@@ -42,6 +42,7 @@
     <string name="error_link_title_empty">Link title can\'t be empty</string>
     <string name="error_link_subtitle_empty">Link subtitle can\'t be empty</string>
     <string name="error_link_url_empty">Link url can\'t be empty</string>
+    <string name="error_link_url_invalid">Link url is invalid</string>
     <string name="error_link_same_title">You have an existing link with same title</string>
 
     <!--Folder Error Messages-->
