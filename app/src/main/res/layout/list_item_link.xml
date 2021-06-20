@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen2dp"
-    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="@dimen/dimen2dp"
-    app:cardElevation="@dimen/dimen1dp">
+    app:cardElevation="@dimen/dimen1dp"
+    app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,6 +42,19 @@
             android:layout_toEndOf="@id/link_image"
             android:lines="1"
             tools:text="Youtube talk subtitle" />
+
+        <TextView
+            android:id="@+id/link_click_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/link_subtitle"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="@dimen/dimen2dp"
+            android:fontFamily="serif"
+            android:gravity="center"
+
+            app:drawableEndCompat="@drawable/ic_click"
+            tools:text="12" />
 
         <ImageView
             android:id="@+id/link_pin_img"

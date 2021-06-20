@@ -87,8 +87,10 @@ class LinkListFragment : Fragment() {
 
         linkAdapter.setOnLinkClickListener(object : LinkAdapter.OnLinkClickListener {
             override fun onLinkClick(link: Link) {
-                linkListViewModel.updateLinkClickCount(link.id, link.clickedCount.plus(1))
+                link.clickedCount++
+                linkListViewModel.updateLinkClickCount(link.id, link.clickedCount)
                 LinkBottomSheetDialog.launch(requireContext(), link)
+                linkAdapter.notifyDataSetChanged()
             }
         })
 
