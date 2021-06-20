@@ -52,7 +52,7 @@
             android:drawablePadding="@dimen/dimen2dp"
             android:fontFamily="serif"
             android:gravity="center"
-
+            android:textSize="@dimen/dimen12sp"
             app:drawableEndCompat="@drawable/ic_click"
             tools:text="12" />
 
