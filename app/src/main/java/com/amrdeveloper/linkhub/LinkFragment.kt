@@ -193,6 +193,7 @@ class LinkFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        binding.folderNameMenu.setAdapter(null)
         super.onDestroyView()
         _binding = null
     }
