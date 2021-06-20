@@ -31,4 +31,11 @@
         <item name="titleTextColor">@color/sky</item>
     </style>
 
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="boxStrokeColor">@color/sky</item>
+        <item name="hintTextColor">@color/sky</item>
+        <item name="android:layout_margin">@dimen/dimen5dp</item>
+    </style>
 </resources>

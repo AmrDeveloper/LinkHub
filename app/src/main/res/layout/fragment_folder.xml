@@ -20,19 +20,18 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/folder_title_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@id/folder_logo"
             android:layout_margin="@dimen/dimen10dp"
             android:hint="@string/folder_name"
+            style="@style/TextInputLayoutStyle"
             app:counterEnabled="true"
-            app:counterMaxLength="10"
-            app:hintTextColor="@color/sky">
+            app:counterMaxLength="10">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/folder_title_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="serif"
                 android:inputType="text"
                 android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>

@@ -20,47 +20,41 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/link_title_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextInputLayoutStyle"
             android:layout_below="@id/link_logo"
-            android:layout_margin="@dimen/dimen5dp"
-            android:hint="@string/link_title"
-            app:hintTextColor="@color/sky">
+            android:hint="@string/link_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/link_title_edit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="serif" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/link_subtitle_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextInputLayoutStyle"
             android:layout_below="@id/link_title_layout"
-            android:layout_margin="@dimen/dimen5dp"
-            android:hint="@string/link_subtitle"
-            app:hintTextColor="@color/sky">
+            android:hint="@string/link_subtitle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/link_subtitle_edit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="serif" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/link_url_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextInputLayoutStyle"
             android:layout_below="@id/link_subtitle_layout"
-            android:layout_margin="@dimen/dimen5dp"
-            android:hint="@string/link_url"
-            app:hintTextColor="@color/sky">
+            android:hint="@string/link_url">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/link_url_edit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="serif" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -78,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
+                android:fontFamily="serif"
                 android:text="@string/none" />
         </com.google.android.material.textfield.TextInputLayout>
 
