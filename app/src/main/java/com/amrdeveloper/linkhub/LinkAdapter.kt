@@ -60,7 +60,7 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
             binding.linkTitle.text = link.title
             binding.linkSubtitle.text = link.subtitle
             binding.linkClickCount.text = link.clickedCount.toString()
-            binding.linkPinImg.visibility = if (link.isPinned) View.VISIBLE else View.GONE
+            binding.linkPinImg.visibility = if (link.isPinned) View.VISIBLE else View.INVISIBLE
         }
     }
 }
