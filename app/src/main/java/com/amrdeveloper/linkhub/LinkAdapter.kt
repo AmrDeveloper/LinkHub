@@ -12,7 +12,7 @@ import com.amrdeveloper.linkhub.databinding.ListItemLinkBinding
 class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback()) {
 
     interface OnLinkClickListener {
-        fun onLinkClick(link: Link)
+        fun onLinkClick(link: Link, position: Int)
     }
 
     private lateinit var onLinkClick : OnLinkClickListener
@@ -33,7 +33,7 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
         (holder as LinkViewHolder).bind(link)
         if(::onLinkClick.isInitialized) {
             holder.itemView.setOnClickListener {
-                onLinkClick.onLinkClick(link)
+                onLinkClick.onLinkClick(link, position)
             }
         }
 
