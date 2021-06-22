@@ -176,6 +176,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
+        inflater.inflate(R.menu.menu_setting, menu)
 
         val menuItem = menu.findItem(R.id.search_action)
         val searchView = menuItem?.actionView as SearchView
@@ -185,6 +186,17 @@ class HomeFragment : Fragment() {
 
         super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.setting_action -> {
+                findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     private val searchViewQueryListener = object : SearchView.OnQueryTextListener {
 

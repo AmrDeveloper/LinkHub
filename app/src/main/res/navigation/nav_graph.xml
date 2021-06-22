@@ -42,6 +42,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/linkFragment"
@@ -110,4 +117,9 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.amrdeveloper.linkhub.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

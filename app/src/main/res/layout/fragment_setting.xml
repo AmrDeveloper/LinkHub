@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingFragment">
+
+    <TextView
+        android:id="@+id/version_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen10dp"
+        android:fontFamily="serif"
+        android:padding="@dimen/dimen10dp"
+        android:textColor="@color/dark_sky"
+        android:textSize="@dimen/dimen25sp"
+        app:drawableStartCompat="@drawable/ic_version"
+        tools:text="Version 1.0.0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/source_code_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen10dp"
+        android:fontFamily="serif"
+        android:padding="@dimen/dimen10dp"
+        android:text="@string/source_code"
+        android:textColor="@color/dark_sky"
+        android:textSize="@dimen/dimen25sp"
+        app:drawableStartCompat="@drawable/ic_code" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/contributors_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen10dp"
+        android:fontFamily="serif"
+        android:padding="@dimen/dimen10dp"
+        android:text="@string/contributors"
+        android:textColor="@color/dark_sky"
+        android:textSize="@dimen/dimen25sp"
+        app:drawableStartCompat="@drawable/ic_team" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/issues_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen10dp"
+        android:fontFamily="serif"
+        android:padding="@dimen/dimen10dp"
+        android:text="@string/issues"
+        android:textColor="@color/dark_sky"
+        android:textSize="@dimen/dimen25sp"
+        app:drawableStartCompat="@drawable/ic_problems" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/share_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen10dp"
+        android:fontFamily="serif"
+        android:padding="@dimen/dimen10dp"
+        android:text="@string/share"
+        android:textColor="@color/dark_sky"
+        android:textSize="@dimen/dimen25sp"
+        app:drawableStartCompat="@drawable/ic_share" />
+</LinearLayout>

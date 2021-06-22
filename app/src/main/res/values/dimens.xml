@@ -19,4 +19,5 @@
     <dimen name="dimen12sp">12sp</dimen>
     <dimen name="dimen18sp">18sp</dimen>
     <dimen name="dimen20sp">20sp</dimen>
+    <dimen name="dimen25sp">25sp</dimen>
 </resources>

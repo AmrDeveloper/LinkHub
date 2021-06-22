@@ -17,9 +17,8 @@ object LinkBottomSheetDialog {
         bottomSheetDialog.setContentView(dialogBinding.root)
 
         dialogBinding.dialogOpenAction.setOnClickListener {
-            val openIntent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(link.url))
             try {
-                context.startActivity(openIntent)
+                openLinkIntent(context, link.url)
             } catch (e : ActivityNotFoundException) {
                 Toast.makeText(context, R.string.link_invalid, Toast.LENGTH_SHORT).show()
             }
@@ -34,11 +33,7 @@ object LinkBottomSheetDialog {
         }
 
         dialogBinding.dialogShareAction.setOnClickListener {
-            val sendIntent = Intent(Intent.ACTION_SEND)
-            sendIntent.putExtra(Intent.EXTRA_TEXT, link.title)
-            sendIntent.type = "text/plain"
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            context.startActivity(shareIntent)
+            shareTextIntent(context, link.title)
             bottomSheetDialog.dismiss()
         }
 
