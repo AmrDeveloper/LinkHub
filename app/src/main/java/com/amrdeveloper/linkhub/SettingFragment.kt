@@ -1,10 +1,10 @@
 package com.amrdeveloper.linkhub
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.amrdeveloper.linkhub.databinding.FragmentSettingBinding
 import com.amrdeveloper.linkhub.util.*
 

@@ -2,7 +2,6 @@ package com.amrdeveloper.linkhub
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -13,6 +12,7 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderListBinding
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show
+import com.amrdeveloper.linkhub.util.showSnackBar
 
 class FolderListFragment : Fragment() {
 
@@ -55,8 +55,8 @@ class FolderListFragment : Fragment() {
             binding.loadingIndicator.visibility = if(it) View.VISIBLE else View.GONE
         })
 
-        folderListViewModel.errorMessages.observe(viewLifecycleOwner, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        folderListViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+            activity.showSnackBar(messageId)
         })
     }
 

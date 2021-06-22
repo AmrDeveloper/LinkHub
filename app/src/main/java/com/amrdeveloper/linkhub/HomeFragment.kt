@@ -3,7 +3,6 @@ package com.amrdeveloper.linkhub
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -17,6 +16,7 @@ import com.amrdeveloper.linkhub.databinding.FragmentHomeBinding
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show
+import com.amrdeveloper.linkhub.util.showSnackBar
 
 class HomeFragment : Fragment() {
 
@@ -67,8 +67,8 @@ class HomeFragment : Fragment() {
             setupLinksListState(it)
         })
 
-        homeViewModel.errorMessages.observe(viewLifecycleOwner, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        homeViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+            activity.showSnackBar(messageId)
         })
     }
 
@@ -135,7 +135,7 @@ class HomeFragment : Fragment() {
             override fun onLinkClick(link: Link, position: Int) {
                 link.clickedCount++
                 homeViewModel.updateLinkClickCount(link.id, link.clickedCount)
-                LinkBottomSheetDialog.launch(requireContext(), link)
+                LinkBottomSheetDialog.launch(requireActivity(), link)
                 linkAdapter.notifyItemChanged(position)
             }
         })

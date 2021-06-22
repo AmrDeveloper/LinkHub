@@ -2,13 +2,13 @@ package com.amrdeveloper.linkhub
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
 import com.amrdeveloper.linkhub.util.showError
+import com.amrdeveloper.linkhub.util.showSnackBar
 
 class FolderFragment : Fragment() {
 
@@ -57,7 +57,7 @@ class FolderFragment : Fragment() {
         })
 
         folderViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
-            Toast.makeText(context, messageId, Toast.LENGTH_SHORT).show()
+            activity.showSnackBar(messageId)
         })
     }
 

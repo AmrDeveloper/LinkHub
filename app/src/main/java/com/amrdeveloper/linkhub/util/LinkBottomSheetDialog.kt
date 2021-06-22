@@ -1,9 +1,11 @@
 package com.amrdeveloper.linkhub.util
 
-import android.content.*
-import android.net.Uri
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.view.LayoutInflater
-import android.widget.Toast
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.BottomSheetDialogBinding
@@ -11,29 +13,29 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 object LinkBottomSheetDialog {
 
-    fun launch(context: Context, link : Link) {
-        val bottomSheetDialog = BottomSheetDialog(context)
-        val dialogBinding = BottomSheetDialogBinding.inflate(LayoutInflater.from(context))
+    fun launch(activity: Activity, link : Link) {
+        val bottomSheetDialog = BottomSheetDialog(activity)
+        val dialogBinding = BottomSheetDialogBinding.inflate(LayoutInflater.from(activity))
         bottomSheetDialog.setContentView(dialogBinding.root)
 
         dialogBinding.dialogOpenAction.setOnClickListener {
             try {
-                openLinkIntent(context, link.url)
+                openLinkIntent(activity, link.url)
             } catch (e : ActivityNotFoundException) {
-                Toast.makeText(context, R.string.link_invalid, Toast.LENGTH_SHORT).show()
+                activity.showSnackBar(R.string.link_invalid)
             }
             bottomSheetDialog.dismiss()
         }
 
         dialogBinding.dialogCopyAction.setOnClickListener {
-            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.setPrimaryClip(ClipData.newPlainText(link.title, link.url))
             bottomSheetDialog.dismiss()
-            Toast.makeText(context, R.string.link_copy, Toast.LENGTH_SHORT).show()
+            activity.showSnackBar(R.string.link_copy)
         }
 
         dialogBinding.dialogShareAction.setOnClickListener {
-            shareTextIntent(context, link.title)
+            shareTextIntent(activity, link.title)
             bottomSheetDialog.dismiss()
         }
 

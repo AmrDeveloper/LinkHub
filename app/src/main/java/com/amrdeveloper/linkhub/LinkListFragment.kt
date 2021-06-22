@@ -2,7 +2,6 @@ package com.amrdeveloper.linkhub
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import com.amrdeveloper.linkhub.databinding.FragmentLinkListBinding
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show
+import com.amrdeveloper.linkhub.util.showSnackBar
 
 class LinkListFragment : Fragment() {
 
@@ -61,8 +61,8 @@ class LinkListFragment : Fragment() {
             binding.loadingIndicator.visibility = if(it) View.VISIBLE else View.GONE
         })
 
-        linkListViewModel.errorMessages.observe(viewLifecycleOwner, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        linkListViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+            activity.showSnackBar(messageId)
         })
     }
 
@@ -89,7 +89,7 @@ class LinkListFragment : Fragment() {
             override fun onLinkClick(link: Link, position: Int) {
                 link.clickedCount++
                 linkListViewModel.updateLinkClickCount(link.id, link.clickedCount)
-                LinkBottomSheetDialog.launch(requireContext(), link)
+                LinkBottomSheetDialog.launch(requireActivity(), link)
                 linkAdapter.notifyItemChanged(position)
             }
         })

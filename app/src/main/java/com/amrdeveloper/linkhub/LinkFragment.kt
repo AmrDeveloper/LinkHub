@@ -3,7 +3,6 @@ package com.amrdeveloper.linkhub
 import android.os.Bundle
 import android.view.*
 import android.webkit.URLUtil
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,6 +10,7 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkBinding
 import com.amrdeveloper.linkhub.util.showError
+import com.amrdeveloper.linkhub.util.showSnackBar
 
 class LinkFragment : Fragment() {
 
@@ -84,7 +84,7 @@ class LinkFragment : Fragment() {
         })
 
         linkViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
-            Toast.makeText(context, messageId, Toast.LENGTH_SHORT).show()
+            activity.showSnackBar(messageId)
         })
     }
 
