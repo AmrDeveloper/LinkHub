@@ -68,7 +68,7 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
 private class LinkDiffCallback : DiffUtil.ItemCallback<Link>() {
 
     override fun areItemsTheSame(oldItem: Link, newItem: Link): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Link, newItem: Link): Boolean {
