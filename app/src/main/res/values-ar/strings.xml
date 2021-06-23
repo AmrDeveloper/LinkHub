@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">مجمع الروابط</string>
+    <string name="app_name">حفظ الروابط</string>
     <string name="folder">مجلد</string>
     <string name="folders">مجلدات</string>
     <string name="links">روابط</string>
