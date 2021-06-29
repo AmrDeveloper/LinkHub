@@ -48,7 +48,7 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
 
     private fun updateClickCounter(position: Int) {
         getItem(position).clickedCount++;
-        notifyDataSetChanged();
+        notifyItemChanged(position);
     }
 
     fun setOnLinkClickListener(listener: OnLinkClickListener) {

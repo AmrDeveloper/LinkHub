@@ -14,6 +14,8 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentHomeBinding
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
+import com.amrdeveloper.linkhub.util.hide
+import com.amrdeveloper.linkhub.util.show
 import com.amrdeveloper.linkhub.util.showSnackBar
 
 class HomeFragment : Fragment() {
