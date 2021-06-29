@@ -50,7 +50,6 @@ class LinkListFragment : Fragment() {
         return binding.root
     }
 
-
     private fun setupObservers() {
         linkListViewModel.linksLiveData.observe(viewLifecycleOwner, {
             binding.linksCountTxt.text = getString(R.string.links_count, it.size)
@@ -87,10 +86,8 @@ class LinkListFragment : Fragment() {
 
         linkAdapter.setOnLinkClickListener(object : LinkAdapter.OnLinkClickListener {
             override fun onLinkClick(link: Link, position: Int) {
-                link.clickedCount++
-                linkListViewModel.updateLinkClickCount(link.id, link.clickedCount)
+                linkListViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
                 LinkBottomSheetDialog.launch(requireActivity(), link)
-                linkAdapter.notifyItemChanged(position)
             }
         })
 
