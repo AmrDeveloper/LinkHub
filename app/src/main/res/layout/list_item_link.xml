@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/dimen2dp"
+    app:cardCornerRadius="@dimen/dimen1dp"
     app:cardElevation="@dimen/dimen1dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    app:strokeColor="@color/gunmetal_gray"
+    app:strokeWidth="@dimen/dimen1dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,8 +41,8 @@
             android:layout_height="@dimen/dimen24dp"
             android:layout_below="@id/link_title"
             android:layout_marginStart="@dimen/dimen5dp"
-            android:layout_toEndOf="@id/link_image"
             android:layout_toStartOf="@id/link_click_count"
+            android:layout_toEndOf="@id/link_image"
             android:lines="1"
             android:padding="@dimen/dimen2dp"
             tools:text="Youtube talk subtitle" />

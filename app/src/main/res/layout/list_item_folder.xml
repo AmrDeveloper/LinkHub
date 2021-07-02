@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/dimen4dp"
-    app:cardElevation="@dimen/dimen2dp"
+    app:cardCornerRadius="@dimen/dimen2dp"
+    app:cardElevation="@dimen/dimen1dp"
     app:cardUseCompatPadding="true"
-    app:elevation="@dimen/dimen5dp">
+    app:strokeColor="@color/white_smoke"
+    app:strokeWidth="@dimen/dimen1dp"
+    app:elevation="@dimen/dimen2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/folder_icon_img"
@@ -19,7 +21,7 @@
             android:layout_height="@dimen/dimen20dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/dimen2dp"
+            android:layout_marginStart="@dimen/dimen5dp"
             android:contentDescription="@string/folder"
             android:src="@drawable/ic_directory" />
 
