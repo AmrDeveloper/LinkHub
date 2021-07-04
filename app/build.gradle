@@ -85,8 +85,14 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leackcanaryVersion"
 
-    // Testing
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // Local Testing
+    testImplementation "junit:junit:$rootProject.junitVersion"
+
+    // Android Testing
+    androidTestImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "com.google.truth:truth:$rootProject.truthVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.junitExtVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.archCoreTestVersion"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesTestVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
 }

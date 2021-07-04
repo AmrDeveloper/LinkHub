@@ -6,9 +6,6 @@ import com.amrdeveloper.linkhub.data.Folder
 @Dao
 interface FolderDao : BaseDao<Folder> {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(item : Folder) : Long
-
     @Query("SELECT * FROM folder WHERE id = :id LIMIT 1")
     suspend fun getFolderById(id : Int) : Folder
 
