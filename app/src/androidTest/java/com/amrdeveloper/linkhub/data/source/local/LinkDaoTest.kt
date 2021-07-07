@@ -24,7 +24,7 @@ class LinkDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var database: LinkRoomDatabase
-    private lateinit var linkDao : LinkDao
+    private lateinit var linkDao: LinkDao
 
     @Before
     fun setupDatabase() {
@@ -52,38 +52,38 @@ class LinkDaoTest {
 
     @Test
     fun read_sortedLinkListByClickCount() = runBlockingTest {
-        val link = Link("title", "subtitle", "url", clickedCount = 5)
+        val link = Link("title", "subtitle", "url", id = 1, clickedCount = 5)
         linkDao.insert(link)
 
-        val link2 = Link("title2", "subtitle2", "url2", clickedCount = 10)
+        val link2 = Link("title2", "subtitle2", "url2", id = 2, clickedCount = 10)
         linkDao.insert(link2)
 
         val sortedList = linkDao.getSortedLinkList()
-        assertThat(sortedList.first().title).isEqualTo("title2")
+        assertThat(sortedList.first()).isEqualTo(link2)
     }
 
     @Test
     fun read_sortedLinkListByPinned() = runBlockingTest {
-        val link = Link("title", "subtitle", "url")
+        val link = Link("title", "subtitle", "url", id = 1)
         linkDao.insert(link)
 
-        val link2 = Link("title2", "subtitle2", "url2", isPinned = true)
+        val link2 = Link("title2", "subtitle2", "url2", id = 2, isPinned = true)
         linkDao.insert(link2)
 
         val sortedList = linkDao.getSortedLinkList()
-        assertThat(sortedList.first().title).isEqualTo("title2")
+        assertThat(sortedList.first()).isEqualTo(link2)
     }
 
     @Test
     fun read_sortedLinkListByPinnedFirst() = runBlockingTest {
-        val link = Link("title", "subtitle", "url", clickedCount = 10)
+        val link = Link("title", "subtitle", "url", id = 1, clickedCount = 10)
         linkDao.insert(link)
 
-        val link2 = Link("title2", "subtitle2", "url2", clickedCount = 5, isPinned = true)
+        val link2 = Link("title2", "subtitle2", "url2", id = 2, clickedCount = 5, isPinned = true)
         linkDao.insert(link2)
 
         val sortedList = linkDao.getSortedLinkList()
-        assertThat(sortedList.first().title).isEqualTo("title2")
+        assertThat(sortedList.first()).isEqualTo(link2)
     }
 
     @After
