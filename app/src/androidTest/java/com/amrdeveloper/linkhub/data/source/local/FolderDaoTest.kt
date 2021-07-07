@@ -53,38 +53,38 @@ class FolderDaoTest {
 
     @Test
     fun read_sortedFolderListByClickCount() = runBlockingTest {
-        val folder = Folder("Word", clickedCount = 1)
+        val folder = Folder("Word", id = 1, clickedCount = 1)
         folderDao.insert(folder)
 
-        val folder2 = Folder("Jobs", clickedCount = 5)
+        val folder2 = Folder("Jobs", id = 2, clickedCount = 5)
         folderDao.insert(folder2)
 
         val sortedList = folderDao.getSortedFolderList()
-        assertThat(sortedList.first().name).isEqualTo("Jobs")
+        assertThat(sortedList.first()).isEqualTo(folder2)
     }
 
     @Test
     fun read_sortedFolderListByPinned() = runBlockingTest {
-        val folder = Folder("Word", isPinned = false)
+        val folder = Folder("Word", id = 1, isPinned = false)
         folderDao.insert(folder)
 
-        val folder2 = Folder("Jobs", isPinned = true)
+        val folder2 = Folder("Jobs", id = 2, isPinned = true)
         folderDao.insert(folder2)
 
         val sortedList = folderDao.getSortedFolderList()
-        assertThat(sortedList.first().name).isEqualTo("Jobs")
+        assertThat(sortedList.first()).isEqualTo(folder2)
     }
 
     @Test
     fun read_sortedFolderListByPinnedFirst() = runBlockingTest {
-        val folder = Folder("Word", clickedCount = 10, isPinned = false)
+        val folder = Folder("Word", id = 1, clickedCount = 10, isPinned = false)
         folderDao.insert(folder)
 
-        val folder2 = Folder("Jobs", clickedCount = 5, isPinned = true)
+        val folder2 = Folder("Jobs", id = 2, clickedCount = 5, isPinned = true)
         folderDao.insert(folder2)
 
         val sortedList = folderDao.getSortedFolderList()
-        assertThat(sortedList.first().name).isEqualTo("Jobs")
+        assertThat(sortedList.first()).isEqualTo(folder2)
     }
 
     @Test
