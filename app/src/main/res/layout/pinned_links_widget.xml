@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/appWidgetBackgroundColor"
+    android:padding="@dimen/widget_margin"
+    android:theme="@style/ThemeOverlay.LinkHub.AppWidgetContainer">
+
+    <ListView
+        android:id="@+id/links_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/widget_item_link" />
+
+    <TextView
+        android:id="@+id/links_widget_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="@string/links_empty_msg"
+        android:textColor="@color/sky"
+        android:textSize="@dimen/dimen20sp" />
+</FrameLayout>

@@ -38,4 +38,9 @@
         <item name="hintTextColor">@color/sky</item>
         <item name="android:layout_margin">@dimen/dimen5dp</item>
     </style>
+
+    <style name="ThemeOverlay.LinkHub.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/white</item>
+        <item name="appWidgetTextColor">@color/black</item>
+    </style>
 </resources>
