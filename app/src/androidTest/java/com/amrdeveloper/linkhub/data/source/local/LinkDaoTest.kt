@@ -51,6 +51,20 @@ class LinkDaoTest {
     }
 
     @Test
+    fun read_pinnedLinkList() = runBlockingTest {
+        val link = Link("title", "subtitle", "url", id = 1, isPinned = false)
+        val link2 = Link("title2", "subtitle2", "url2", id = 2, isPinned = true)
+
+        linkDao.insert(link)
+        linkDao.insert(link2)
+
+        val pinnedList = linkDao.getPinnedLinkList()
+
+        assertThat(pinnedList.size).isEqualTo(1)
+        assertThat(pinnedList[0]).isEqualTo(link2)
+    }
+
+    @Test
     fun read_sortedLinkListByClickCount() = runBlockingTest {
         val link = Link("title", "subtitle", "url", id = 1, clickedCount = 5)
         linkDao.insert(link)

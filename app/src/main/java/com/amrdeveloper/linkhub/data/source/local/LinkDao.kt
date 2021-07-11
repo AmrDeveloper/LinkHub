@@ -10,6 +10,9 @@ interface LinkDao : BaseDao<Link> {
     @Query("SELECT * FROM link")
     suspend fun getLinkList(): List<Link>
 
+    @Query("SELECT * FROM link WHERE pinned = 1")
+    suspend fun getPinnedLinkList() : List<Link>
+
     @Query("SELECT * FROM link ORDER BY pinned DESC, click_count DESC")
     suspend fun getSortedLinkList(): List<Link>
 

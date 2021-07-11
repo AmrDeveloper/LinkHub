@@ -13,6 +13,10 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getLinkList()
     }
 
+    suspend fun getPinnedLinkList(): Result<List<Link>> {
+        return dataSource.getPinnedLinkList()
+    }
+
     suspend fun getSortedLinkList(): Result<List<Link>> {
         return dataSource.getSortedLinkList()
     }

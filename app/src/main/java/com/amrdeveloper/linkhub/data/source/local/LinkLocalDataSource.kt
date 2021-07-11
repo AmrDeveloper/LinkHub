@@ -28,6 +28,14 @@ class LinkLocalDataSource internal constructor(
         }
     }
 
+    override suspend fun getPinnedLinkList(): Result<List<Link>> = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(linkDao.getPinnedLinkList())
+        } catch (e : Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getSortedLinkList(): Result<List<Link>> = withContext(ioDispatcher) {
         return@withContext try {
             Result.Success(linkDao.getSortedLinkList())
