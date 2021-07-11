@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/appWidgetBackgroundColor"
-    android:padding="@dimen/widget_margin"
-    android:theme="@style/ThemeOverlay.LinkHub.AppWidgetContainer">
+    android:padding="@dimen/dimen0dp"
+    android:theme="@style/ThemeOverlay.LinkHub.AppWidgetContainer"
+    tools:viewBindingIgnore="true">
 
     <ListView
         android:id="@+id/links_listview"
