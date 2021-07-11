@@ -80,6 +80,7 @@ class LinkFragment : Fragment() {
         })
 
         linkViewModel.completeSuccessTask.observe(viewLifecycleOwner, {
+            PinnedLinksWidget.refresh(requireContext())
             findNavController().navigateUp()
         })
 

@@ -30,7 +30,8 @@
             android:layout_marginStart="@dimen/dimen5dp"
             android:layout_toEndOf="@id/link_image"
             android:fontFamily="serif"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|start"
+            android:layout_toStartOf="@id/link_pin_img"
             android:lines="1"
             android:textStyle="bold"
             tools:text="Youtube talk" />
