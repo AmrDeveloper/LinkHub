@@ -9,9 +9,12 @@ import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val folderRepository: FolderRepository,
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
@@ -37,7 +40,7 @@ class HomeViewModel(
         }
     }
 
-    fun updateFolderClickCount(folderId:  Int, count : Int) {
+    fun updateFolderClickCount(folderId: Int, count: Int) {
         viewModelScope.launch {
             folderRepository.updateClickCountByFolderId(folderId, count)
         }
@@ -55,7 +58,7 @@ class HomeViewModel(
         }
     }
 
-    fun getSortedLinksByKeyword(keyword : String) {
+    fun getSortedLinksByKeyword(keyword: String) {
         viewModelScope.launch {
             val result = linkRepository.getSortedLinkListByKeyword(keyword)
             if (result is Result.Success) {
@@ -67,7 +70,7 @@ class HomeViewModel(
         }
     }
 
-    fun updateLinkClickCount(linkId : Int, count : Int) {
+    fun updateLinkClickCount(linkId: Int, count: Int) {
         viewModelScope.launch {
             linkRepository.updateClickCountByLinkId(linkId, count)
         }

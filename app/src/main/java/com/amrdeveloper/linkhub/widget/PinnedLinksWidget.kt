@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.widget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.util.WIDGET_ITEM_CLICK_ACTION
 import com.amrdeveloper.linkhub.util.WIDGET_REFRESH_ACTION
 import com.amrdeveloper.linkhub.util.openLinkIntent

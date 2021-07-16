@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id "androidx.navigation.safeargs"
+    id "dagger.hilt.android.plugin"
     id 'kotlin-kapt'
 }
 
@@ -70,8 +71,10 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
+    // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
 
+    // LiveData, ViewModel, Fragment Extension
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
@@ -80,6 +83,10 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navvigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navvigationVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
 
     // Debugging
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"

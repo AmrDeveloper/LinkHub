@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.amrdeveloper.linkhub.databinding.FragmentSettingBinding
 import com.amrdeveloper.linkhub.util.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingFragment : Fragment() {
 
     private var _binding : FragmentSettingBinding? = null

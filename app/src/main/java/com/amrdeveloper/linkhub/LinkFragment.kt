@@ -11,7 +11,10 @@ import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkBinding
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
+import com.amrdeveloper.linkhub.widget.PinnedLinksWidget
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LinkFragment : Fragment() {
 
     private var _binding: FragmentLinkBinding? = null
@@ -20,11 +23,7 @@ class LinkFragment : Fragment() {
     private lateinit var currentLink: Link
     private var linkFolderID : Int = -1
     private lateinit var folderMenuAdapter: FolderArrayAdapter
-
-    private val linkViewModel: LinkViewModel by viewModels {
-        val application = (activity?.application as LinkApplication)
-        LinkViewModelFactory(application.folderRepository, application.linkRepository)
-    }
+    private val linkViewModel by viewModels<LinkViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

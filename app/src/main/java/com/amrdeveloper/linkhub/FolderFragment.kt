@@ -9,18 +9,16 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FolderFragment : Fragment() {
 
     private var _binding : FragmentFolderBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var currentFolder: Folder
-
-    private val folderViewModel: FolderViewModel by viewModels {
-        val application = (activity?.application as LinkApplication)
-        FolderViewModelFactory(application.folderRepository)
-    }
+    private val folderViewModel by viewModels<FolderViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

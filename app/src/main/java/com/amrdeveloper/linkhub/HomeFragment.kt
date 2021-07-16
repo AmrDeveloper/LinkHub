@@ -17,7 +17,9 @@ import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show
 import com.amrdeveloper.linkhub.util.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -25,14 +27,10 @@ class HomeFragment : Fragment() {
 
     private lateinit var folderAdapter: FolderAdapter
     private lateinit var linkAdapter: LinkAdapter
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     private val rotateOpen by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_open) }
     private val rotateClose by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_close) }
-
-    private val homeViewModel: HomeViewModel by viewModels {
-        val application = (activity?.application as LinkApplication)
-        HomeViewModelFactory(application.folderRepository, application.linkRepository)
-    }
 
     private var isOptionsButtonClicked = false
 

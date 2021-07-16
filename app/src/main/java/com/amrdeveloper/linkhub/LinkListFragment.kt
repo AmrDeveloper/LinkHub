@@ -15,7 +15,9 @@ import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show
 import com.amrdeveloper.linkhub.util.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LinkListFragment : Fragment() {
 
     private var _binding: FragmentLinkListBinding? = null
@@ -23,11 +25,7 @@ class LinkListFragment : Fragment() {
 
     private lateinit var currentFolder: Folder
     private lateinit var linkAdapter: LinkAdapter
-
-    private val linkListViewModel: LinkListViewModel by viewModels {
-        val application = (activity?.application as LinkApplication)
-        LinkListViewModelFactory(application.linkRepository)
-    }
+    private val linkListViewModel by viewModels<LinkListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

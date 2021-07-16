@@ -1,23 +1,28 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.widget
 
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.LinkRepository
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PinnedLinksWidgetService : RemoteViewsService() {
 
+    @Inject lateinit var linkRepository : LinkRepository
+
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
-        val linkRepository = (application as LinkApplication).linkRepository
         return PinnedWidgetItemFactory(this, linkRepository)
     }
 
-    private inner class PinnedWidgetItemFactory(
+    private inner class PinnedWidgetItemFactory (
         private val context: Context,
         private val linkRepository: LinkRepository
     ) : RemoteViewsFactory {

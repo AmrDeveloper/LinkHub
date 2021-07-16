@@ -7,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FolderViewModel(
+@HiltViewModel
+class FolderViewModel @Inject constructor(
     private val folderRepository: FolderRepository
 ) : ViewModel() {
 
