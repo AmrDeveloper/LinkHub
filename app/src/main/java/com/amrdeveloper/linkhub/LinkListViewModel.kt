@@ -2,7 +2,6 @@ package com.amrdeveloper.linkhub
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.Result
@@ -57,17 +56,5 @@ class LinkListViewModel @Inject constructor(
         viewModelScope.launch {
             linkRepository.updateClickCountByLinkId(linkId, count)
         }
-    }
-}
-
-class LinkListViewModelFactory(
-    private val linkRepository: LinkRepository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LinkListViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return LinkListViewModel(linkRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

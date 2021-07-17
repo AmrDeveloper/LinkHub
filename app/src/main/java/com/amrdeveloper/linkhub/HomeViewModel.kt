@@ -2,7 +2,6 @@ package com.amrdeveloper.linkhub
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
@@ -74,18 +73,5 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             linkRepository.updateClickCountByLinkId(linkId, count)
         }
-    }
-}
-
-class HomeViewModelFactory(
-    private val folderRepository: FolderRepository,
-    private val linkRepository: LinkRepository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return HomeViewModel(folderRepository, linkRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

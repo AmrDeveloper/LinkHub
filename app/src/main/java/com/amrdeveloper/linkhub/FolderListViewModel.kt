@@ -2,7 +2,6 @@ package com.amrdeveloper.linkhub
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Result
@@ -57,17 +56,5 @@ class FolderListViewModel @Inject constructor(
         viewModelScope.launch {
             folderRepository.updateClickCountByFolderId(folderId, count)
         }
-    }
-}
-
-class FolderListViewModelFactory(
-    private val folderRepository: FolderRepository,
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(FolderListViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return FolderListViewModel(folderRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
