@@ -9,7 +9,7 @@
     <string name="folder_create">إنشاء مجلد</string>
     <string name="link_create">إنشاء رابط</string>
     <string name="search">ابحث</string>
-    <string name="link_icon">رمز اللرابط</string>
+    <string name="link_icon">رمز الرابط</string>
     <string name="next_folders">المجلدات التاليه</string>
     <string name="link_title">عنوان الرابط</string>
     <string name="link_url">الرابط</string>
@@ -36,7 +36,7 @@
     <string name="error_link_subtitle_empty">وصف الرابط لايمكن ان يكون فارغا</string>
     <string name="error_link_url_empty">الرابط لايمكن ان يكون فارغا</string>
     <string name="error_link_url_invalid">الرابط خطا</string>
-    <string name="error_link_same_title">يوجد ليك رابط بنفس الاسم</string>
+    <string name="error_link_same_title">يوجد لديك رابط بنفس الاسم</string>
     <string name="error_get_top_folders">لايمكن إيجاد افضل المجلدات</string>
     <string name="error_get_folders">لايمكن إيجاد المجلدات</string>
     <string name="error_insert_folder">لايمكن إضافه المجلد</string>
@@ -50,8 +50,8 @@
     <string name="add_link_option">اختيار اضافه رابط</string>
     <string name="pinned">تثبيت</string>
     <string name="show_add_options">اظهار الاختيارات</string>
-    <string name="folder_count">%1$d المجلدات</string>
-    <string name="links_count">%1$d الروابط</string>
-    <string name="version">%1$s الاإصدار</string>
+    <string name="folder_count"> المجلدات %1$d</string>
+    <string name="links_count"> الروابط %1$d</string>
+    <string name="version"> الإصدار %1$s</string>
     <string name="top_folders">أفضل المجلدات</string>
 </resources>
