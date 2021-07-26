@@ -11,15 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LinkHub">
-        <receiver android:name=".widget.PinnedLinksWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/pinned_links_widget_info" />
-        </receiver>
 
         <activity
             android:name=".MainActivity"
@@ -54,6 +45,17 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+
+        <!-- Widget receiver -->
+        <receiver android:name=".widget.PinnedLinksWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pinned_links_widget_info" />
+        </receiver>
 
         <!-- Widget Service -->
         <service
