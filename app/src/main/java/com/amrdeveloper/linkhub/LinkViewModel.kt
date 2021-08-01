@@ -5,11 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.LinkInfo
 import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
+import com.amrdeveloper.linkhub.util.generateLinkInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +27,9 @@ class LinkViewModel @Inject constructor(
 
     private val _foldersLiveData = MutableLiveData<List<Folder>>()
     val folderLiveData = _foldersLiveData
+
+    private val _linkInfoLiveData = MutableLiveData<LinkInfo>()
+    val linkInfoLiveData = _linkInfoLiveData
 
     private val _completeSuccessTask = MutableLiveData<Boolean>()
     val completeSuccessTask = _completeSuccessTask
@@ -60,6 +67,15 @@ class LinkViewModel @Inject constructor(
                 _completeSuccessTask.value = true
             } else {
                 _errorMessages.value = R.string.error_delete_link
+            }
+        }
+    }
+
+    fun generateLinkTitleAndSubTitle(url : String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val linkInfo = generateLinkInfo(url)
+            withContext(Dispatchers.Main) {
+                linkInfoLiveData.value = linkInfo
             }
         }
     }

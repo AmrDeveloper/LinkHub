@@ -86,6 +86,7 @@ dependencies {
 
     // Local Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "com.google.truth:truth:$rootProject.truthVersion"
 
     // Android Testing
     androidTestImplementation "junit:junit:$rootProject.junitVersion"

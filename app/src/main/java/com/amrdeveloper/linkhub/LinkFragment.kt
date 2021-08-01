@@ -13,7 +13,6 @@ import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import com.amrdeveloper.linkhub.widget.PinnedLinksWidget
 import dagger.hilt.android.AndroidEntryPoint
-import java.net.URI
 
 @AndroidEntryPoint
 class LinkFragment : Fragment() {
@@ -63,14 +62,7 @@ class LinkFragment : Fragment() {
                 return
             }
 
-            var host = URI(url).host
-            if(host.startsWith("www.")) host = host.drop(4)
-
-            val generatedTitle = "$host Link"
-            binding.linkTitleEdit.setText(generatedTitle)
-
-            val generatedSubTitle = "Link from $host website"
-            binding.linkSubtitleEdit.setText(generatedSubTitle)
+            linkViewModel.generateLinkTitleAndSubTitle(url)
         }
     }
 
@@ -92,6 +84,11 @@ class LinkFragment : Fragment() {
 
         linkViewModel.folderLiveData.observe(viewLifecycleOwner, {
             folderMenuAdapter.addAll(it)
+        })
+
+        linkViewModel.linkInfoLiveData.observe(viewLifecycleOwner, {
+            binding.linkTitleEdit.setText(it.linkTitle)
+            binding.linkSubtitleEdit.setText(it.linkSubtitle)
         })
 
         linkViewModel.completeSuccessTask.observe(viewLifecycleOwner, {
