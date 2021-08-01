@@ -25,11 +25,16 @@ In Link Hub links are automatically sorted depend on if they are pinned and how 
 
 With LinkHub you can copy, edit, open your link just by one click
 
-You can add a new link in many different ways,
-- Open the App and click on the circle button then on the link icon
-- Just long click on the app and choose to create a link
-- Select link URL and from the context menu choose LinkHub
-- Share a URL from any app and choose LinkHub
+## Features
+- Free And open source with no ads
+- Create Folder with name
+- Create Link with title, subtitle, url
+- Links and Folders are sorted depending on your usage
+- Search easily in links and folders
+- Shortcuts, Context menu and receive links from other apps
+- Auto generated title and subtitle for shared links
+- Dark theme support
+- Widget for Pinned links
 
 You can put each similar link in the same folder, for example, folders for e-books, jobs, courses, talks, articles... etc
 
