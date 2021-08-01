@@ -13,6 +13,7 @@ import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import com.amrdeveloper.linkhub.widget.PinnedLinksWidget
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.URI
 
 @AndroidEntryPoint
 class LinkFragment : Fragment() {
@@ -54,7 +55,22 @@ class LinkFragment : Fragment() {
     private fun handleIntentSharedLink() {
         val sharedLink = arguments?.get("shared_link")
         if(sharedLink != null) {
-            binding.linkUrlEdit.setText(sharedLink.toString())
+            val url = sharedLink.toString()
+            binding.linkUrlEdit.setText(url)
+
+            if(URLUtil.isValidUrl(url).not()) {
+                binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
+                return
+            }
+
+            var host = URI(url).host
+            if(host.startsWith("www.")) host = host.drop(4)
+
+            val generatedTitle = "$host Link"
+            binding.linkTitleEdit.setText(generatedTitle)
+
+            val generatedSubTitle = "Link from $host website"
+            binding.linkSubtitleEdit.setText(generatedSubTitle)
         }
     }
 
