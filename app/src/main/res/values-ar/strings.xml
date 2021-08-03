@@ -54,4 +54,7 @@
     <string name="links_count"> الروابط %1$d</string>
     <string name="version"> الإصدار %1$s</string>
     <string name="top_folders">أفضل المجلدات</string>
+    <string name="folder_color_preview">لون المجلد الحالي</string>
+    <string name="next_folder_color">لون المجلد التالي</string>
+    <string name="previous_folder_color">لون المجلد السابق</string>
 </resources>

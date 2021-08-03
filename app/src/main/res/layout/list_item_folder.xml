@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dimen5dp"
             android:contentDescription="@string/folder"
-            android:src="@drawable/ic_directory" />
+            android:src="@drawable/ic_directory_blue" />
 
         <TextView
             android:id="@+id/folder_name_txt"

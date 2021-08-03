@@ -107,7 +107,7 @@
         android:layout_marginTop="@dimen/dimen16dp"
         android:layout_marginEnd="@dimen/dimen16dp"
         android:contentDescription="@string/add_folder_option"
-        android:src="@drawable/ic_directory"
+        android:src="@drawable/ic_directory_blue"
         android:visibility="gone"
         app:backgroundTint="@color/dark_sky" />
 

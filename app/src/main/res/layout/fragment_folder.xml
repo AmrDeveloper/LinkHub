@@ -36,11 +36,18 @@
                 android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.amrdeveloper.linkhub.ColorSelector
+            android:id="@+id/folder_color_selector"
+            android:layout_below="@+id/folder_title_layout"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"/>
+
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/folder_pinned_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/folder_title_layout"
+            android:layout_below="@+id/folder_color_selector"
             android:layout_centerHorizontal="true"
             android:checked="false"
             android:text="@string/pinned"

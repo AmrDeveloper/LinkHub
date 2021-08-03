@@ -59,6 +59,7 @@ class FolderAdapter : ListAdapter<Folder, RecyclerView.ViewHolder>(FolderDiffCal
         fun bind(folder: Folder) {
             binding.folderNameTxt.text = folder.name
             binding.folderPinImg.visibility = if (folder.isPinned) View.VISIBLE else View.GONE
+            binding.folderIconImg.setImageResource(folder.folderColor.drawableId)
         }
     }
 }

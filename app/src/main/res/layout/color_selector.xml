@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:contentDescription="@string/previous_folder_color"
+        android:id="@+id/selector_prev_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen15dp"
+        android:rotation="180"
+        android:src="@drawable/ic_next_arrow" />
+
+    <ImageView
+        android:contentDescription="@string/folder_color_preview"
+        android:id="@+id/preview_folder_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen15dp"
+        android:src="@drawable/ic_directory_blue" />
+
+    <ImageView
+        android:contentDescription="@string/next_folder_color"
+        android:id="@+id/selector_next_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen15dp"
+        android:src="@drawable/ic_next_arrow" />
+</merge>

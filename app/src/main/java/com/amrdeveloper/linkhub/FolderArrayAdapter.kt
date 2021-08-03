@@ -21,6 +21,7 @@ class FolderArrayAdapter(
         if(folder != null) {
             binding.folderNameTxt.text = folder.name
             binding.folderPinImg.visibility = if(folder.isPinned) View.VISIBLE else View.INVISIBLE
+            binding.folderIconImg.setImageResource(folder.folderColor.drawableId)
         }
         return view
     }

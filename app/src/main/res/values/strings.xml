@@ -63,4 +63,8 @@
     <!--Shortcuts-->
     <string name="folder_create">Create Folder</string>
     <string name="link_create">Create Link</string>
+
+    <string name="folder_color_preview">Folder Color Preview</string>
+    <string name="next_folder_color">Next Folder Color</string>
+    <string name="previous_folder_color">Previous Folder Color</string>
 </resources>

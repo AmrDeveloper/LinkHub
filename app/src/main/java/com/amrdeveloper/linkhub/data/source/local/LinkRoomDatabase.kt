@@ -1,15 +1,25 @@
 package com.amrdeveloper.linkhub.data.source.local
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 
 const val DATABASE_NAME = "link_database"
+const val DATABASE_VERSION = 2
 
-@Database(entities = [Link::class, Folder::class], version = 1)
+@Database(
+    entities = [Link::class, Folder::class],
+    version = DATABASE_VERSION,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2)
+    ]
+)
+@TypeConverters(FolderColorConverter::class)
 abstract class LinkRoomDatabase : RoomDatabase() {
 
     abstract fun linkDao(): LinkDao

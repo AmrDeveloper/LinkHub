@@ -56,8 +56,8 @@ private fun getLastIdentifierFromLink(link: String): String {
 }
 
 private fun parseGithubUrl(url: String): LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
     when {
         GITHUB_USER_PATTERN.isPatternMatches(url) -> {
             val username = getLastIdentifierFromLink(url)
@@ -78,8 +78,8 @@ private fun parseGithubUrl(url: String): LinkInfo {
 }
 
 private fun parseStackOverflowUrl(url: String) : LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
     when {
         STACKOVERFLOW_QUESTION_PATTERN.isPatternMatches(url) -> {
             linkTitle = "Programming question"
@@ -94,8 +94,8 @@ private fun parseStackOverflowUrl(url: String) : LinkInfo {
 }
 
 private fun parseTwitterUrl(url: String): LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
     when {
         TWITTER_USER_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
@@ -111,8 +111,8 @@ private fun parseTwitterUrl(url: String): LinkInfo {
 }
 
 private fun parseFacebookUrl(url: String): LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
     when {
         FACEBOOK_PROFILE_PATTERN.isPatternMatches(url)-> {
             val handler = getLastIdentifierFromLink(url)
@@ -132,8 +132,8 @@ private fun parseFacebookUrl(url: String): LinkInfo {
 }
 
 private fun parseInstagramUrl(url: String): LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
     when {
         INSTAGRAM_PROFILE_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
@@ -149,8 +149,8 @@ private fun parseInstagramUrl(url: String): LinkInfo {
 }
 
 private fun parseRedditUrl(url: String): LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
     when {
         REDDIT_USER_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
@@ -171,8 +171,8 @@ private fun parseRedditUrl(url: String): LinkInfo {
 }
 
 private fun parseLinkedinUrl(url: String): LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
     when {
         LINKEDIN_USER_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
@@ -197,8 +197,8 @@ private fun parseLinkedinUrl(url: String): LinkInfo {
 }
 
 private fun parseYoutubeUrl(url: String): LinkInfo {
-    var linkTitle = ""
-    var linkSubtitle = ""
+    val linkTitle: String
+    val linkSubtitle : String
 
     when {
         YOUTUBE_CHANNEL_PATTERN.isPatternMatches(url) -> {

@@ -46,6 +46,7 @@ class FolderFragment : Fragment() {
         if(::currentFolder.isInitialized) {
             binding.folderTitleEdit.setText(currentFolder.name)
             binding.folderPinnedSwitch.isChecked = currentFolder.isPinned
+            binding.folderColorSelector.setCurrentFolderColor(currentFolder.folderColor)
         }
     }
 
@@ -94,7 +95,9 @@ class FolderFragment : Fragment() {
         }
 
         val isPinned = binding.folderPinnedSwitch.isChecked
-        val folder = Folder(name, isPinned)
+        val folderColor = binding.folderColorSelector.getCurrentFolderColor()
+        val folder = Folder(name, isPinned, folderColor = folderColor)
+
         folderViewModel.createNewFolder(folder)
     }
 
@@ -112,6 +115,8 @@ class FolderFragment : Fragment() {
 
         currentFolder.name = name
         currentFolder.isPinned = binding.folderPinnedSwitch.isChecked
+        currentFolder.folderColor = binding.folderColorSelector.getCurrentFolderColor()
+
         folderViewModel.updateFolder(currentFolder)
     }
 
