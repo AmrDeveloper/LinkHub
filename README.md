@@ -27,7 +27,7 @@ With LinkHub you can copy, edit, open your link just by one click
 
 ## Features
 - Free And open source with no ads
-- Create Folder with name
+- Create Folder with name and multi colors
 - Create Link with title, subtitle, url
 - Links and Folders are sorted depending on your usage
 - Search easily in links and folders
