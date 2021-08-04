@@ -1,10 +1,11 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.ListItemFolderBinding
 

@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".HomeFragment">
+            tools:context=".ui.home.HomeFragment">
 
             <TextView
                 android:id="@+id/folder_header_txt"

@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub.widget
+package com.amrdeveloper.linkhub.ui.widget
 
 import android.content.Intent
 import android.widget.RemoteViews

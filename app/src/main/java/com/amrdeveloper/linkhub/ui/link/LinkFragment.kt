@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui.link
 
 import android.os.Bundle
 import android.view.*
@@ -6,12 +6,14 @@ import android.webkit.URLUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkBinding
+import com.amrdeveloper.linkhub.ui.adapter.FolderArrayAdapter
+import com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
-import com.amrdeveloper.linkhub.widget.PinnedLinksWidget
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

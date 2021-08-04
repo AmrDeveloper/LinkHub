@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui.linklist
 
 import android.os.Bundle
 import android.view.*
@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkListBinding
+import com.amrdeveloper.linkhub.ui.LinkAdapter
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show

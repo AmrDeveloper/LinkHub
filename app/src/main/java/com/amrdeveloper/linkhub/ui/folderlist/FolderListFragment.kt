@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui.folderlist
 
 import android.os.Bundle
 import android.view.*
@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.amrdeveloper.linkhub.FolderAdapter
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderListBinding
 import com.amrdeveloper.linkhub.util.hide
@@ -85,7 +87,8 @@ class FolderListFragment : Fragment() {
             }
         })
 
-        folderAdapter.setOnFolderLongClickListener(object : FolderAdapter.OnFolderLongClickListener {
+        folderAdapter.setOnFolderLongClickListener(object :
+            FolderAdapter.OnFolderLongClickListener {
             override fun onFolderLongClick(folder: Folder) {
                 val bundle = bundleOf("folder" to folder)
                 findNavController().navigate(R.id.action_folderListFragment_to_folderFragment, bundle)

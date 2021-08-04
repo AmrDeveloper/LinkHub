@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.amrdeveloper.linkhub.HomeFragment"
+        android:name="com.amrdeveloper.linkhub.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/linkFragment"
-        android:name="com.amrdeveloper.linkhub.LinkFragment"
+        android:name="com.amrdeveloper.linkhub.ui.link.LinkFragment"
         android:label="fragment_link"
         tools:layout="@layout/fragment_link">
         <argument
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/folderListFragment"
-        android:name="com.amrdeveloper.linkhub.FolderListFragment"
+        android:name="com.amrdeveloper.linkhub.ui.folderlist.FolderListFragment"
         android:label="fragment_folder_list"
         tools:layout="@layout/fragment_folder_list">
         <action
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/linkListFragment"
-        android:name="com.amrdeveloper.linkhub.LinkListFragment"
+        android:name="com.amrdeveloper.linkhub.ui.linklist.LinkListFragment"
         android:label="fragment_link_list"
         tools:layout="@layout/fragment_link_list">
         <argument
@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/folderFragment"
-        android:name="com.amrdeveloper.linkhub.FolderFragment"
+        android:name="com.amrdeveloper.linkhub.ui.folder.FolderFragment"
         android:label="fragment_folder"
         tools:layout="@layout/fragment_folder">
         <argument
@@ -119,7 +119,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.amrdeveloper.linkhub.SettingFragment"
+        android:name="com.amrdeveloper.linkhub.ui.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>

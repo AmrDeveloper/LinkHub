@@ -1,10 +1,11 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui.folder
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
 import com.amrdeveloper.linkhub.util.showError

@@ -1,10 +1,11 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui
 
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_LINK
 import com.amrdeveloper.linkhub.util.findNavHostController

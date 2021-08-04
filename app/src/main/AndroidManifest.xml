@@ -13,7 +13,7 @@
         android:theme="@style/Theme.LinkHub">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -47,7 +47,7 @@
         </activity>
 
         <!-- Widget receiver -->
-        <receiver android:name=".widget.PinnedLinksWidget">
+        <receiver android:name="com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -59,7 +59,7 @@
 
         <!-- Widget Service -->
         <service
-            android:name=".widget.PinnedLinksWidgetService"
+            android:name="com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 

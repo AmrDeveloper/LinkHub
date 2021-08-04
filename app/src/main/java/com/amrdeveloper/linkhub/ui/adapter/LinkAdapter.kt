@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui
 
 import android.view.LayoutInflater
 import android.view.View

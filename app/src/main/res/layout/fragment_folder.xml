@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FolderFragment">
+    tools:context=".ui.folder.FolderFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.amrdeveloper.linkhub.ColorSelector
+        <com.amrdeveloper.linkhub.ui.view.ColorSelector
             android:id="@+id/folder_color_selector"
             android:layout_below="@+id/folder_title_layout"
             android:layout_width="wrap_content"

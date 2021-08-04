@@ -1,10 +1,12 @@
-package com.amrdeveloper.linkhub
+package com.amrdeveloper.linkhub.ui.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.amrdeveloper.linkhub.BuildConfig
+import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.databinding.FragmentSettingBinding
 import com.amrdeveloper.linkhub.util.*
 import dagger.hilt.android.AndroidEntryPoint
