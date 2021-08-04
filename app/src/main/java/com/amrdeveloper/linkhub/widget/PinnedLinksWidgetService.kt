@@ -1,10 +1,10 @@
 package com.amrdeveloper.linkhub.widget
 
-import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
+import com.amrdeveloper.linkhub.BuildConfig
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.Result
@@ -19,15 +19,14 @@ class PinnedLinksWidgetService : RemoteViewsService() {
     @Inject lateinit var linkRepository : LinkRepository
 
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
-        return PinnedWidgetItemFactory(this, linkRepository)
+        return PinnedWidgetItemFactory(linkRepository)
     }
 
     private inner class PinnedWidgetItemFactory (
-        private val context: Context,
         private val linkRepository: LinkRepository
     ) : RemoteViewsFactory {
 
-        private var links: List<Link> = listOf()
+        private lateinit var links: List<Link>
 
         override fun onCreate() {}
 
@@ -39,7 +38,7 @@ class PinnedLinksWidgetService : RemoteViewsService() {
         override fun getViewAt(position: Int): RemoteViews {
             val link = links[position]
 
-            val remoteView = RemoteViews(context.packageName, R.layout.widget_item_link)
+            val remoteView = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_item_link)
             remoteView.setTextViewText(R.id.link_title, link.title)
             remoteView.setTextViewText(R.id.link_subtitle, link.subtitle)
 

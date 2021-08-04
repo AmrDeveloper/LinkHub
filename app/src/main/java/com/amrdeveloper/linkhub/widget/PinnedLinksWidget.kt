@@ -62,7 +62,7 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     serviceIntent.data = Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))
 
     // Construct the RemoteViews object
-    val views = RemoteViews(context.packageName, R.layout.pinned_links_widget)
+    val views = RemoteViews(context.packageName, R.layout.widget_pinned_links)
     views.setRemoteAdapter(R.id.links_listview, serviceIntent)
     views.setEmptyView(R.id.links_listview, R.id.links_widget_empty_view)
 
