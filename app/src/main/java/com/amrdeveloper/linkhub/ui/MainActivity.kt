@@ -4,21 +4,28 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_LINK
+import com.amrdeveloper.linkhub.util.SettingUtils
 import com.amrdeveloper.linkhub.util.findNavHostController
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject lateinit var settingUtils: SettingUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         handleLinkHubIntent()
+        handleMultiThemeOption()
     }
 
     private fun handleLinkHubIntent() {
@@ -44,5 +51,12 @@ class MainActivity : AppCompatActivity() {
                 findNavHostController(R.id.nav_host_fragment).navigate(R.id.folderFragment)
             }
         }
+    }
+
+    private fun handleMultiThemeOption() {
+        val theme = settingUtils.getThemeType()
+        val themeMode = if (theme == Theme.DARK) AppCompatDelegate.MODE_NIGHT_YES
+        else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(themeMode)
     }
 }

@@ -67,4 +67,5 @@
     <string name="folder_color_preview">Folder Color Preview</string>
     <string name="next_folder_color">Next Folder Color</string>
     <string name="previous_folder_color">Previous Folder Color</string>
+    <string name="dark_theme">Dark Theme</string>
 </resources>

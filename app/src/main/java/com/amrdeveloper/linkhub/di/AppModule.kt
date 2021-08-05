@@ -8,6 +8,7 @@ import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.data.source.local.FolderLocalDataSource
 import com.amrdeveloper.linkhub.data.source.local.LinkLocalDataSource
 import com.amrdeveloper.linkhub.data.source.local.LinkRoomDatabase
+import com.amrdeveloper.linkhub.util.SettingUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,6 +56,12 @@ object AppModule {
     @Provides
     fun provideFolderRepository(folderDataSource: FolderDataSource): FolderRepository {
         return FolderRepository(folderDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSettingUtils(@ApplicationContext context: Context) : SettingUtils {
+        return SettingUtils(context)
     }
 
     @Singleton
