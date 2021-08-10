@@ -5,7 +5,7 @@
     <string name="folders">مجلدات</string>
     <string name="links">روابط</string>
     <string name="settings">الإعدادات</string>
-    <string name="link_copy">تم نسخ الرابط</string>
+    <string name="message_link_copy">تم نسخ الرابط</string>
     <string name="folder_create">إنشاء مجلد</string>
     <string name="link_create">إنشاء رابط</string>
     <string name="search">ابحث</string>
@@ -23,8 +23,8 @@
     <string name="open_in_browser">افتح فى المتصفح</string>
     <string name="copy">نسخ</string>
     <string name="share">مشاركة</string>
-    <string name="folders_empty_msg">لايوجد مجلدات</string>
-    <string name="links_empty_msg">لايوجد روابط</string>
+    <string name="message_folders_empty">لايوجد مجلدات</string>
+    <string name="message_links_empty">لايوجد روابط</string>
     <string name="contributors">المشاركين</string>
     <string name="issues">المشاكل</string>
     <string name="source_code">الكود المصدري</string>
@@ -45,7 +45,7 @@
     <string name="error_folder_name_empty">اسم المجلد لايمكن ان يكون فارغا</string>
     <string name="error_folder_name_small">اسم المجلد لايمكن ان يكون اقل من ثلاثة حروف</string>
     <string name="error_folder_same_name">لديك رابط بنفس الاسم</string>
-    <string name="link_invalid">لايمكن فتح الرابط فى المتصفح</string>
+    <string name="message_link_invalid">لايمكن فتح الرابط فى المتصفح</string>
     <string name="add_folder_option">اختيار اضافه مجلد</string>
     <string name="add_link_option">اختيار اضافه رابط</string>
     <string name="pinned">تثبيت</string>
@@ -58,4 +58,6 @@
     <string name="next_folder_color">لون المجلد التالي</string>
     <string name="previous_folder_color">لون المجلد السابق</string>
     <string name="dark_theme">مظهر داكن</string>
+    <string name="undo">تراجع</string>
+    <string name="message_link_deleted">تم حذف الرابط</string>
 </resources>

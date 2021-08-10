@@ -1,6 +1,6 @@
 <resources>
+    <!--Labels-->
     <string name="app_name">LinkHub</string>
-
     <string name="top_folders">Top Folders</string>
     <string name="folder">Folder</string>
     <string name="folders">Folders</string>
@@ -11,32 +11,43 @@
     <string name="link_title">Link Title</string>
     <string name="link_subtitle">Link SubTitle</string>
     <string name="link_url">Link url</string>
-    <string name="add_link">Add Link</string>
-    <string name="add_new_link">Add new Link</string>
     <string name="pinned">Pinned</string>
     <string name="folder_name">Folder name</string>
-    <string name="show_add_options">Show add Options</string>
-    <string name="add_link_option">Add Link Option</string>
-    <string name="add_folder_option">Add Folder Option</string>
     <string name="none">None</string>
-    <string name="save">Save</string>
-    <string name="delete">Delete</string>
-    <string name="open_in_browser">Open in Browser</string>
-    <string name="copy">Copy</string>
-    <string name="share">Share</string>
     <string name="settings">Settings</string>
     <string name="issues">Issues</string>
     <string name="contributors">Contributors</string>
     <string name="source_code">Source code</string>
-    <string name="version">Version %1$s</string>
-    <string name="folders_empty_msg">You have 0 Folders</string>
-    <string name="links_empty_msg">You have 0 Links</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="folder_color_preview">Folder Color Preview</string>
+    <string name="next_folder_color">Next Folder Color</string>
+    <string name="previous_folder_color">Previous Folder Color</string>
 
-    <string name="link_copy">Link url is copied Now</string>
-    <string name="link_invalid">Can\'t open link url in the browser</string>
+    <!--Actions-->
+    <string name="add_link">Add Link</string>
+    <string name="add_new_link">Add new Link</string>
+    <string name="show_add_options">Show add Options</string>
+    <string name="add_link_option">Add Link Option</string>
+    <string name="add_folder_option">Add Folder Option</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="open_in_browser">Open in Browser</string>
+    <string name="copy">Copy</string>
+    <string name="undo">Undo</string>
+    <string name="share">Share</string>
 
+    <!--Messages-->
+    <string name="message_link_copy">Link url is copied Now</string>
+    <string name="message_link_invalid">Can\'t open link url in the browser</string>
+    <string name="message_link_deleted">Your link is deleted</string>
+    <string name="message_links_empty">You have 0 Links</string>
+
+    <string name="message_folders_empty">You have 0 Folders</string>
+
+    <!--Counters-->
     <string name="folder_count">Folders: %1$d</string>
     <string name="links_count">Links: %1$d</string>
+    <string name="version">Version %1$s</string>
 
     <!--Error Messages-->
     <!--Link Error Messages-->
@@ -63,9 +74,4 @@
     <!--Shortcuts-->
     <string name="folder_create">Create Folder</string>
     <string name="link_create">Create Link</string>
-
-    <string name="folder_color_preview">Folder Color Preview</string>
-    <string name="next_folder_color">Next Folder Color</string>
-    <string name="previous_folder_color">Previous Folder Color</string>
-    <string name="dark_theme">Dark Theme</string>
 </resources>
