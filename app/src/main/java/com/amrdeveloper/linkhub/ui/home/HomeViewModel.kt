@@ -46,6 +46,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun insertLink(link: Link) {
+        viewModelScope.launch {
+            linkRepository.insertLink(link)
+        }
+    }
+
     fun getSortedLinks() {
         viewModelScope.launch {
             val result = linkRepository.getSortedLinkList()
@@ -73,6 +79,13 @@ class HomeViewModel @Inject constructor(
     fun updateLinkClickCount(linkId: Int, count: Int) {
         viewModelScope.launch {
             linkRepository.updateClickCountByLinkId(linkId, count)
+        }
+    }
+
+    fun deleteLink(link: Link) {
+        viewModelScope.launch {
+            linkRepository.deleteLink(link)
+            _linkLiveData.value?.toMutableList()?.remove(link)
         }
     }
 }

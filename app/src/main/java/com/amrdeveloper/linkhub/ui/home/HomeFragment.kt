@@ -1,21 +1,25 @@
 package com.amrdeveloper.linkhub.ui.home
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amrdeveloper.linkhub.FolderAdapter
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentHomeBinding
-import com.amrdeveloper.linkhub.ui.LinkAdapter
+import com.amrdeveloper.linkhub.ui.adapter.FolderAdapter
+import com.amrdeveloper.linkhub.ui.adapter.ItemSwipeCallback
+import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show
@@ -132,6 +136,29 @@ class HomeFragment : Fragment() {
         binding.linkList.layoutManager = LinearLayoutManager(context)
         binding.linkList.adapter = linkAdapter
 
+        val context = requireContext()
+        val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_delete)
+        val background = ColorDrawable(ContextCompat.getColor(context, R.color.red))
+
+        val swipeHandler = ItemSwipeCallback(deleteIcon, background) { holder ->
+            val position = holder.bindingAdapterPosition
+            val link = linkAdapter.currentList[position]
+            val list = linkAdapter.currentList.toMutableList()
+            list.removeAt(position)
+            linkAdapter.submitList(list)
+            homeViewModel.deleteLink(link)
+
+            activity.showSnackBar(R.string.message_link_deleted, R.string.undo) {
+                list.add(position, link)
+                linkAdapter.submitList(list)
+                linkAdapter.notifyItemInserted(position)
+                homeViewModel.insertLink(link)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(binding.linkList)
+
         linkAdapter.setOnLinkClickListener(object : LinkAdapter.OnLinkClickListener {
             override fun onLinkClick(link: Link, position: Int) {
                 homeViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
@@ -195,7 +222,6 @@ class HomeFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
     private val searchViewQueryListener = object : SearchView.OnQueryTextListener {
 

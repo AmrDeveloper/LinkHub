@@ -12,7 +12,7 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkListBinding
-import com.amrdeveloper.linkhub.ui.LinkAdapter
+import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show

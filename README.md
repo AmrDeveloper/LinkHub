@@ -33,6 +33,7 @@ With LinkHub you can copy, edit, open your link just by one click
 - Search easily in links and folders
 - Shortcuts, Context menu and receive links from other apps
 - Auto generated title and subtitle for shared links
+- Swipe to delete links on Home with undo option
 - Dark theme support
 - Widget for Pinned links
 

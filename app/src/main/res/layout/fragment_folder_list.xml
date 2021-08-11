@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen200dp"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/folders_empty_msg"
+        android:contentDescription="@string/message_folders_empty"
         android:src="@drawable/ic_folders"
         android:visibility="gone" />
 
@@ -47,7 +47,7 @@
         android:layout_below="@id/folder_empty_icon"
         android:gravity="center"
         android:fontFamily="serif"
-        android:text="@string/folders_empty_msg"
+        android:text="@string/message_folders_empty"
         android:textColor="@color/dark_sky"
         android:textSize="@dimen/dimen20sp"
         android:textStyle="bold|italic"

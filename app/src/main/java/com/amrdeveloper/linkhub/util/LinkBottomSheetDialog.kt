@@ -22,7 +22,7 @@ object LinkBottomSheetDialog {
             try {
                 openLinkIntent(activity, link.url)
             } catch (e : ActivityNotFoundException) {
-                activity.showSnackBar(R.string.link_invalid)
+                activity.showSnackBar(R.string.message_link_invalid)
             }
             bottomSheetDialog.dismiss()
         }
@@ -31,7 +31,7 @@ object LinkBottomSheetDialog {
             val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.setPrimaryClip(ClipData.newPlainText(link.title, link.url))
             bottomSheetDialog.dismiss()
-            activity.showSnackBar(R.string.link_copy)
+            activity.showSnackBar(R.string.message_link_copy)
         }
 
         dialogBinding.dialogShareAction.setOnClickListener {

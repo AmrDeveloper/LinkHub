@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen200dp"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/links_empty_msg"
+        android:contentDescription="@string/message_links_empty"
         android:src="@drawable/ic_broken_link"
         android:visibility="gone" />
 
@@ -47,7 +47,7 @@
         android:layout_below="@id/link_empty_icon"
         android:gravity="center"
         android:fontFamily="serif"
-        android:text="@string/links_empty_msg"
+        android:text="@string/message_links_empty"
         android:textColor="@color/dark_sky"
         android:textSize="@dimen/dimen20sp"
         android:textStyle="bold|italic"
