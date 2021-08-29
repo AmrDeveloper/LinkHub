@@ -60,4 +60,12 @@
     <string name="dark_theme">مظهر داكن</string>
     <string name="undo">تراجع</string>
     <string name="message_link_deleted">تم حذف الرابط</string>
+    <string name="import_export">أستيراد أو تصدير</string>
+    <string name="imports">أستيراد</string>
+    <string name="export">تصدير</string>
+    <string name="message_invalid_extension">خطا فى صيغه الملف</string>
+    <string name="message_invalid_data_format">خطا فى بيانات الملف</string>
+    <string name="message_invalid_export">خطا اثناء تصدير البيانات</string>
+    <string name="message_data_imported">تم استيراد البيانات بنجاح</string>
+    <string name="message_data_exported">تم تصدير البيانات بنجاح</string>
 </resources>

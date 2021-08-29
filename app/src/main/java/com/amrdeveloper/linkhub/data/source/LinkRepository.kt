@@ -9,6 +9,10 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.insertLink(link)
     }
 
+    suspend fun insertLinks(links: List<Link>): Result<Unit> {
+        return dataSource.insertLinks(links)
+    }
+
     suspend fun getLinkList(): Result<List<Link>> {
         return dataSource.getLinkList()
     }

@@ -20,6 +20,14 @@ class LinkLocalDataSource internal constructor(
         }
     }
 
+    override suspend fun insertLinks(link: List<Link>) : Result<Unit> = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(linkDao.insertList(link))
+        } catch (e : Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getLinkList(): Result<List<Link>> = withContext(ioDispatcher) {
         return@withContext try {
             Result.Success(linkDao.getLinkList())

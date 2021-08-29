@@ -20,6 +20,14 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
+    override suspend fun insertFolders(folder: List<Folder>): Result<Unit>  = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(folderDao.insertList(folder))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getFolderById(id : Int): Result<Folder> = withContext(ioDispatcher) {
         return@withContext try {
             Result.Success(folderDao.getFolderById(id))

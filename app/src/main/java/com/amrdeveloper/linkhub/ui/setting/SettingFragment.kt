@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.BuildConfig
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Theme
@@ -44,6 +45,10 @@ class SettingFragment : Fragment() {
     private fun setupListeners() {
         binding.sourceCodeTxt.setOnClickListener {
             openLinkIntent(requireContext(), REPOSITORY_URL)
+        }
+
+        binding.importExportTxt.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_importExportFragment)
         }
 
         binding.contributorsTxt.setOnClickListener {

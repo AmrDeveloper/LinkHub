@@ -15,7 +15,7 @@
         android:fontFamily="serif"
         android:padding="@dimen/dimen10dp"
         android:textColor="@color/dark_sky"
-        android:textSize="@dimen/dimen25sp"
+        android:textSize="@dimen/dimen20sp"
         app:drawableStartCompat="@drawable/ic_version"
         tools:text="Version 1.0.0" />
 
@@ -33,7 +33,7 @@
         android:padding="@dimen/dimen10dp"
         android:text="@string/dark_theme"
         android:textColor="@color/dark_sky"
-        android:textSize="@dimen/dimen25sp"
+        android:textSize="@dimen/dimen20sp"
         app:drawableStartCompat="@drawable/ic_dark_mode"
         app:thumbTint="@color/sky"
         app:trackTint="@color/grey" />
@@ -52,8 +52,25 @@
         android:padding="@dimen/dimen10dp"
         android:text="@string/source_code"
         android:textColor="@color/dark_sky"
-        android:textSize="@dimen/dimen25sp"
+        android:textSize="@dimen/dimen20sp"
         app:drawableStartCompat="@drawable/ic_code" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/import_export_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen10dp"
+        android:fontFamily="serif"
+        android:padding="@dimen/dimen10dp"
+        android:text="@string/import_export"
+        android:textColor="@color/dark_sky"
+        android:textSize="@dimen/dimen20sp"
+        app:drawableStartCompat="@drawable/ic_import_export" />
 
     <View
         android:layout_width="match_parent"
@@ -69,7 +86,7 @@
         android:padding="@dimen/dimen10dp"
         android:text="@string/contributors"
         android:textColor="@color/dark_sky"
-        android:textSize="@dimen/dimen25sp"
+        android:textSize="@dimen/dimen20sp"
         app:drawableStartCompat="@drawable/ic_team" />
 
     <View
@@ -86,7 +103,7 @@
         android:padding="@dimen/dimen10dp"
         android:text="@string/issues"
         android:textColor="@color/dark_sky"
-        android:textSize="@dimen/dimen25sp"
+        android:textSize="@dimen/dimen20sp"
         app:drawableStartCompat="@drawable/ic_problems" />
 
     <View
@@ -103,6 +120,6 @@
         android:padding="@dimen/dimen10dp"
         android:text="@string/share"
         android:textColor="@color/dark_sky"
-        android:textSize="@dimen/dimen25sp"
+        android:textSize="@dimen/dimen20sp"
         app:drawableStartCompat="@drawable/ic_share" />
 </LinearLayout>

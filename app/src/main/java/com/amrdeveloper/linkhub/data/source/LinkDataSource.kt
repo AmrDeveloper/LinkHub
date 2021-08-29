@@ -7,6 +7,8 @@ interface LinkDataSource {
 
     suspend fun insertLink(link: Link): Result<Long>
 
+    suspend fun insertLinks(link: List<Link>): Result<Unit>
+
     suspend fun getLinkList(): Result<List<Link>>
 
     suspend fun getPinnedLinkList(): Result<List<Link>>

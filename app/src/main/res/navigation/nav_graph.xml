@@ -121,5 +121,18 @@
         android:id="@+id/settingFragment"
         android:name="com.amrdeveloper.linkhub.ui.setting.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_importExportFragment"
+            app:destination="@id/importExportFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/importExportFragment"
+        android:name="com.amrdeveloper.linkhub.ui.importexport.ImportExportFragment"
+        android:label="fragment_import_export"
+        tools:layout="@layout/fragment_import_export" />
 </navigation>

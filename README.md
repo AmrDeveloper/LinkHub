@@ -35,6 +35,7 @@ With LinkHub you can copy, edit, open your link just by one click
 - Auto generated title and subtitle for shared links
 - Swipe to delete links on Home with undo option
 - Dark theme support
+- Import and Export the data in JSON Format
 - Widget for Pinned links
 
 You can put each similar link in the same folder, for example, folders for e-books, jobs, courses, talks, articles... etc

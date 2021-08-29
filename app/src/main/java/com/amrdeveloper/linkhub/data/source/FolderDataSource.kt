@@ -7,6 +7,8 @@ interface FolderDataSource {
 
     suspend fun insertFolder(folder: Folder): Result<Long>
 
+    suspend fun insertFolders(folder: List<Folder>) : Result<Unit>
+
     suspend fun getFolderById(id: Int): Result<Folder>
 
     suspend fun getFolderList(): Result<List<Folder>>
