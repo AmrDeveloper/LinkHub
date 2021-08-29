@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.importexport.ImportExportFragment">
+
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/import_export"
+        android:src="@drawable/ic_import_export" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_image"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/import_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen5dp"
+            android:padding="@dimen/dimen5dp"
+            android:text="@string/imports"
+            android:textAllCaps="false"
+            android:textColor="@color/sky" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/export_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen5dp"
+            android:padding="@dimen/dimen5dp"
+            android:text="@string/export"
+            android:textAllCaps="false"
+            android:textColor="@color/sky" />
+    </LinearLayout>
+</RelativeLayout>
