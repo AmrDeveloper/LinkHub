@@ -3,6 +3,7 @@ package com.amrdeveloper.linkhub.ui.importexport
 import android.content.ContentValues
 import android.content.Context
 import android.os.Build
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -62,18 +63,18 @@ class ImportExportViewModel @Inject constructor (
 
     private fun createdExportedFile(context: Context, data : String) {
         val fileName = System.currentTimeMillis().toString() + ".json"
-        val dataExternalDir = context.getExternalFilesDir("data")
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val resolver = context.contentResolver
             val values = ContentValues()
             values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
             values.put(MediaStore.MediaColumns.MIME_TYPE, "application/json")
-            values.put(MediaStore.MediaColumns.RELATIVE_PATH, dataExternalDir?.path)
-            val uri = resolver.insert(MediaStore.Files.getContentUri("external"), values)
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+            val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
             val outputStream = uri?.let { resolver.openOutputStream(it) }
             outputStream?.write(data.toByteArray())
         } else {
+            val dataExternalDir = context.getExternalFilesDir("data")
             val dataFile = File(dataExternalDir, fileName)
             dataFile.writeText(data)
         }
