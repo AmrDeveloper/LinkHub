@@ -35,7 +35,7 @@ object LinkBottomSheetDialog {
         }
 
         dialogBinding.dialogShareAction.setOnClickListener {
-            shareTextIntent(activity, link.title)
+            shareTextIntent(activity, "${link.title}\n${link.url}")
             bottomSheetDialog.dismiss()
         }
 
