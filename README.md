@@ -2,6 +2,7 @@
 LinkHub is a simple and effective link management application that can help you to easily manage your own links with no ads!  
 
 ![Build CI](https://github.com/amrdeveloper/linkhub/actions/workflows/build.yml/badge.svg)
+[![CodeFactor](https://www.codefactor.io/repository/github/amrdeveloper/linkhub/badge)](https://www.codefactor.io/repository/github/amrdeveloper/linkhub)
 
 <img src="media/banner/linkhub_banner.png" width="100%" height="300" />
 
