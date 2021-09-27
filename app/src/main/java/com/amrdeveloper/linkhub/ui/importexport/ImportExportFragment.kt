@@ -92,20 +92,6 @@ class ImportExportFragment : Fragment() {
         }
     }
 
-//    @RequiresApi(Build.VERSION_CODES.R)
-//    private fun launchStorageManagePermissionRequest() {
-//        try {
-//            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-//            intent.addCategory("android.intent.category.DEFAULT")
-//            intent.data = Uri.parse(String.format("package:%s", requireContext().packageName))
-//            modernAndroidStorageManageResult.launch(intent)
-//        } catch (e: Exception) {
-//            val intent = Intent()
-//            intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
-//            modernAndroidStorageManageResult.launch(intent)
-//        }
-//    }
-
     private fun launchFileChooserIntent() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
@@ -123,13 +109,6 @@ class ImportExportFragment : Fragment() {
                 launchFileChooserIntent()
             }
         }
-
-//    private val modernAndroidStorageManageResult =
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
-//                launchFileChooserIntent()
-//            }
-//        }
 
     private val loadFileActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
