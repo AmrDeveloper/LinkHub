@@ -12,13 +12,13 @@ import com.amrdeveloper.linkhub.databinding.ListItemFolderBinding
 class FolderAdapter : ListAdapter<Folder, RecyclerView.ViewHolder>(FolderDiffCallback()) {
 
     interface OnFolderClickListener {
-        fun onFolderClick(folder: Folder);
+        fun onFolderClick(folder: Folder)
     }
 
     private lateinit var onFolderClickListener: OnFolderClickListener
 
     interface OnFolderLongClickListener {
-        fun onFolderLongClick(folder: Folder);
+        fun onFolderLongClick(folder: Folder)
     }
 
     private lateinit var onFolderLongClickListener: OnFolderLongClickListener
