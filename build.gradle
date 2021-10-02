@@ -46,7 +46,7 @@ ext {
     leackcanaryVersion = '2.7'
 
     junitVersion = '4.13.2'
-    junitExtVersion = '1.1.2'
+    junitExtVersion = '1.1.3'
     truthVersion = '1.0.1'
     archCoreTestVersion = '2.1.0'
     coroutinesTestVersion = '1.2.1'

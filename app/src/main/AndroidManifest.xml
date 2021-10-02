@@ -69,6 +69,7 @@
         <!-- Widget Service -->
         <service
             android:name="com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidgetService"
+            android:exported="true"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
