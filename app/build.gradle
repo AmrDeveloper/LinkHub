@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId "com.amrdeveloper.linkhub"
         minSdkVersion 17
-        targetSdkVersion 30
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 8
         versionName "1.0.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

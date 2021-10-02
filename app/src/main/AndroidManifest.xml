@@ -4,7 +4,9 @@
     package="com.amrdeveloper.linkhub">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
 
     <application
         android:name=".LinkApplication"
@@ -18,6 +20,7 @@
 
         <activity
             android:name=".ui.MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -51,7 +54,9 @@
         </activity>
 
         <!-- Widget receiver -->
-        <receiver android:name="com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget">
+        <receiver
+            android:name="com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
