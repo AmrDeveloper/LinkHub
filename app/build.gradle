@@ -27,6 +27,8 @@ android {
                         "room.expandProjection": "true"]
             }
         }
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -78,6 +80,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navvigationVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    // Airbnb Lottie
+    implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
+
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
@@ -89,6 +94,8 @@ dependencies {
     // Local Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
     testImplementation "com.google.truth:truth:$rootProject.truthVersion"
+
+    implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
 
     // Android Testing
     androidTestImplementation "junit:junit:$rootProject.junitVersion"
