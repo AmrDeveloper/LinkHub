@@ -67,11 +67,13 @@ class LinkListFragment : Fragment() {
 
     private fun setupLinksListState(links : List<Link>) {
         if(links.isEmpty()) {
-            binding.linkEmptyIcon.show()
+            binding.linkEmptyLottie.show()
+            binding.linkEmptyLottie.resumeAnimation()
             binding.linkEmptyText.show()
             binding.linkList.hide()
         } else {
-            binding.linkEmptyIcon.hide()
+            binding.linkEmptyLottie.hide()
+            binding.linkEmptyLottie.pauseAnimation()
             binding.linkEmptyText.hide()
             binding.linkList.show()
             linkAdapter.submitList(links)

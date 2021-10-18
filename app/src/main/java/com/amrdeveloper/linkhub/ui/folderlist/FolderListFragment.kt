@@ -62,11 +62,13 @@ class FolderListFragment : Fragment() {
 
     private fun setupFoldersListState(folders : List<Folder>) {
         if(folders.isEmpty()) {
-            binding.folderEmptyIcon.show()
+            binding.folderEmptyLottie.show()
+            binding.folderEmptyLottie.resumeAnimation()
             binding.folderEmptyText.show()
             binding.folderList.hide()
         } else {
-            binding.folderEmptyIcon.hide()
+            binding.folderEmptyLottie.hide()
+            binding.folderEmptyLottie.pauseAnimation()
             binding.folderEmptyText.hide()
             binding.folderList.show()
             folderAdapter.submitList(folders)

@@ -31,20 +31,21 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/list_item_link" />
 
-    <ImageView
-        android:id="@+id/link_empty_icon"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/link_empty_lottie"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen200dp"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/message_links_empty"
-        android:src="@drawable/ic_broken_link"
-        android:visibility="gone" />
+        android:layout_above="@id/link_empty_text"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/broken_link" />
 
     <TextView
         android:id="@+id/link_empty_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/link_empty_icon"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:fontFamily="serif"
         android:text="@string/message_links_empty"
