@@ -9,7 +9,7 @@
         android:shortcutShortLabel="@string/folder_create">
         <intent
             android:action="com.amrdeveloper.linkhub.action.create_folder"
-            android:targetClass="com.amrdeveloper.linkhub.MainActivity"
+            android:targetClass="com.amrdeveloper.linkhub.ui.MainActivity"
             android:targetPackage="com.amrdeveloper.linkhub" />
     </shortcut>
 
@@ -22,7 +22,7 @@
         android:shortcutShortLabel="@string/link_create">
         <intent
             android:action="com.amrdeveloper.linkhub.action.create_link"
-            android:targetClass="com.amrdeveloper.linkhub.MainActivity"
+            android:targetClass="com.amrdeveloper.linkhub.ui.MainActivity"
             android:targetPackage="com.amrdeveloper.linkhub" />
     </shortcut>
 </shortcuts>
