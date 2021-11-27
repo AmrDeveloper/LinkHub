@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,9 +30,8 @@ class HomeViewModel @Inject constructor(
     fun getTopLimitedFolders(limit: Int) {
         viewModelScope.launch {
             val result = folderRepository.getLimitedSortedFolderList(limit)
-            if (result is Result.Success) {
-                val folders = result.data
-                _folderLiveData.value = folders
+            if (result.isSuccess) {
+                _folderLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_top_folders
             }
@@ -55,9 +53,8 @@ class HomeViewModel @Inject constructor(
     fun getSortedLinks() {
         viewModelScope.launch {
             val result = linkRepository.getSortedLinkList()
-            if (result is Result.Success) {
-                val links = result.data
-                _linkLiveData.value = links
+            if (result.isSuccess) {
+                _linkLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_links
             }
@@ -67,9 +64,8 @@ class HomeViewModel @Inject constructor(
     fun getSortedLinksByKeyword(keyword: String) {
         viewModelScope.launch {
             val result = linkRepository.getSortedLinkListByKeyword(keyword)
-            if (result is Result.Success) {
-                val links = result.data
-                _linkLiveData.value = links
+            if (result.isSuccess) {
+                _linkLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_links
             }

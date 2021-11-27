@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,9 +28,8 @@ class FolderListViewModel @Inject constructor(
         _dataLoading.value = true
         viewModelScope.launch {
             val result = folderRepository.getSortedFolderList()
-            if(result is Result.Success) {
-                val folders = result.data
-                _foldersLiveData.value = folders
+            if(result.isSuccess) {
+                _foldersLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_folders
             }
@@ -43,9 +41,8 @@ class FolderListViewModel @Inject constructor(
         _dataLoading.value = true
         viewModelScope.launch {
             val result = folderRepository.getSortedFolderListByKeyword(keyword)
-            if(result is Result.Success) {
-                val folders = result.data
-                _foldersLiveData.value = folders
+            if(result.isSuccess) {
+                _foldersLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_folders
             }

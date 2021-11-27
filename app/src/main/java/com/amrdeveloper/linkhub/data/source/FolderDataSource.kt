@@ -1,7 +1,6 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.Result
 
 interface FolderDataSource {
 

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,9 +28,8 @@ class LinkListViewModel @Inject constructor(
         _dataLoading.value = true
         viewModelScope.launch {
             val result = linkRepository.getSortedFolderLinkList(folderId)
-            if(result is Result.Success) {
-                val links = result.data
-                _linksLiveData.value = links
+            if(result.isSuccess) {
+                _linksLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_links
             }
@@ -43,9 +41,8 @@ class LinkListViewModel @Inject constructor(
         _dataLoading.value = true
         viewModelScope.launch {
             val result = linkRepository.getSortedFolderLinkListByKeyword(folderId, keyword)
-            if(result is Result.Success) {
-                val links = result.data
-                _linksLiveData.value = links
+            if(result.isSuccess) {
+                _linksLiveData.value = result.getOrNull()
             } else {
                 _errorMessages.value = R.string.error_get_links
             }

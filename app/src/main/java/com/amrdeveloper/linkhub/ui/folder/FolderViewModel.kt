@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,8 +24,8 @@ class FolderViewModel @Inject constructor(
     fun createNewFolder(folder: Folder) {
         viewModelScope.launch {
             val result = folderRepository.insertFolder(folder)
-            if (result is Result.Success) {
-                if(result.data > 0) _completeSuccessTask.value = true
+            if (result.isSuccess) {
+                if(result.getOrDefault(-1) > 0) _completeSuccessTask.value = true
                 else _errorMessages.value = R.string.error_folder_same_name
             } else {
                 _errorMessages.value = R.string.error_insert_folder
@@ -37,7 +36,7 @@ class FolderViewModel @Inject constructor(
     fun updateFolder(folder: Folder) {
         viewModelScope.launch {
             val result = folderRepository.updateFolder(folder)
-            if (result is Result.Success && result.data > 0) {
+            if (result.isSuccess && result.getOrDefault(-1) > 0) {
                 _completeSuccessTask.value = true
             } else {
                 _errorMessages.value = R.string.error_update_folder
@@ -48,7 +47,7 @@ class FolderViewModel @Inject constructor(
     fun deleteFolder(folderId: Int) {
         viewModelScope.launch {
             val result = folderRepository.deleteFolderByID(folderId)
-            if (result is Result.Success && result.data > 0) {
+            if (result.isSuccess && result.getOrDefault(-1) > 0) {
                 _completeSuccessTask.value = true
             } else {
                 _errorMessages.value = R.string.error_delete_folder

@@ -7,7 +7,6 @@ import androidx.core.os.bundleOf
 import com.amrdeveloper.linkhub.BuildConfig
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
@@ -32,7 +31,7 @@ class PinnedLinksWidgetService : RemoteViewsService() {
 
         override fun onDataSetChanged() = runBlocking {
             val result = linkRepository.getPinnedLinkList()
-            if(result is Result.Success) links = result.data
+            if(result.isSuccess) links = result.getOrDefault(listOf())
         }
 
         override fun getViewAt(position: Int): RemoteViews {

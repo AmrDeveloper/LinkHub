@@ -7,7 +7,6 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.LinkInfo
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.util.generateLinkInfo
@@ -41,8 +40,8 @@ class LinkViewModel @Inject constructor(
     fun createNewLink(link: Link) {
         viewModelScope.launch {
             val result = linkRepository.insertLink(link)
-            if (result is Result.Success) {
-                if(result.data > 0) _completeSuccessTask.value = true
+            if (result.isSuccess) {
+                if(result.getOrDefault(-1) > 0) _completeSuccessTask.value = true
                 else _errorMessages.value = R.string.error_link_same_title
             } else {
                 _errorMessages.value = R.string.error_insert_link
@@ -53,7 +52,7 @@ class LinkViewModel @Inject constructor(
     fun updateLink(link: Link) {
         viewModelScope.launch {
             val result = linkRepository.updateLink(link)
-            if (result is Result.Success && result.data > 0) {
+            if (result.isSuccess && result.getOrDefault(-1) > 0) {
                 _completeSuccessTask.value = true
             } else {
                 _errorMessages.value = R.string.error_update_link
@@ -64,7 +63,7 @@ class LinkViewModel @Inject constructor(
     fun deleteLink(link: Link) {
         viewModelScope.launch {
             val result = linkRepository.deleteLink(link)
-            if (result is Result.Success && result.data > 0) {
+            if (result.isSuccess && result.getOrDefault(-1) > 0) {
                 _completeSuccessTask.value = true
             } else {
                 _errorMessages.value = R.string.error_delete_link
@@ -84,9 +83,8 @@ class LinkViewModel @Inject constructor(
     fun getFolderWithId(folderId : Int) {
         viewModelScope.launch {
             val result = folderRepository.getFolderById(folderId)
-            if (result is Result.Success) {
-                val folder = result.data
-                _currentFolderLiveData.value = folder
+            if (result.isSuccess) {
+                _currentFolderLiveData.value = result.getOrNull()
             } else {
                 _errorMessages.value = R.string.error_get_folders
             }
@@ -96,9 +94,8 @@ class LinkViewModel @Inject constructor(
     fun getFolderList() {
         viewModelScope.launch {
             val result = folderRepository.getSortedFolderList()
-            if (result is Result.Success) {
-                val folders = result.data
-                _foldersLiveData.value = folders
+            if (result.isSuccess) {
+                _foldersLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_folders
             }

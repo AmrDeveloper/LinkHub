@@ -1,7 +1,6 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.data.Result
 
 class LinkRepository(private val dataSource: LinkDataSource) {
 

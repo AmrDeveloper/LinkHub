@@ -1,7 +1,6 @@
 package com.amrdeveloper.linkhub.data.source.local
 
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -14,91 +13,91 @@ class FolderLocalDataSource internal constructor(
 
     override suspend fun insertFolder(folder: Folder) : Result<Long> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.insert(folder))
+            Result.success(folderDao.insert(folder))
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun insertFolders(folder: List<Folder>): Result<Unit>  = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.insertList(folder))
+            Result.success(folderDao.insertList(folder))
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun getFolderById(id : Int): Result<Folder> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.getFolderById(id))
+            Result.success(folderDao.getFolderById(id))
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun getFolderList(): Result<List<Folder>> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.getFolderList())
+            Result.success(folderDao.getFolderList())
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun getSortedFolderList(): Result<List<Folder>> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.getSortedFolderList())
+            Result.success(folderDao.getSortedFolderList())
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> =
         withContext(ioDispatcher) {
             return@withContext try {
-                Result.Success(folderDao.getLimitedSortedFolderList(limit))
+                Result.success(folderDao.getLimitedSortedFolderList(limit))
             } catch (e: Exception) {
-                Result.Error(e)
+                Result.failure(e)
             }
         }
 
     override suspend fun getSortedFolderListByKeyword(keyword: String): Result<List<Folder>> =
         withContext(ioDispatcher) {
             return@withContext try {
-                Result.Success(folderDao.getSortedFolderListByKeyword(keyword))
+                Result.success(folderDao.getSortedFolderListByKeyword(keyword))
             } catch (e: Exception) {
-                Result.Error(e)
+                Result.failure(e)
             }
         }
 
     override suspend fun updateFolder(folder: Folder): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.update(folder))
+            Result.success(folderDao.update(folder))
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun updateClickCountByFolderId(folderId: Int, count: Int): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.updateClickCountByFolderId(folderId, count))
+            Result.success(folderDao.updateClickCountByFolderId(folderId, count))
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun deleteFolderWithLinks(folderId: Int): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.deleteFolderWithLinks(folderId))
+            Result.success(folderDao.deleteFolderWithLinks(folderId))
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 
     override suspend fun deleteAll(): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(folderDao.deleteAll())
+            Result.success(folderDao.deleteAll())
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.failure(e)
         }
     }
 }

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.DataPackage
-import com.amrdeveloper.linkhub.data.Result
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.google.gson.Gson
@@ -49,9 +48,9 @@ class ImportExportViewModel @Inject constructor (
         viewModelScope.launch {
             val foldersResult = folderRepository.getFolderList()
             val linksResult = linkRepository.getLinkList()
-            if ((foldersResult is Result.Success) && (linksResult is Result.Success)) {
-                val folders = foldersResult.data
-                val links = linksResult.data
+            if (foldersResult.isSuccess && linksResult.isSuccess) {
+                val folders = foldersResult.getOrDefault(listOf())
+                val links = linksResult.getOrDefault(listOf())
                 val dataPackage = DataPackage(folders, links)
                 val jsonDataPackage = Gson().toJson(dataPackage)
                 createdExportedFile(context, jsonDataPackage)
