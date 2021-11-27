@@ -50,7 +50,6 @@ android {
 
 dependencies {
     // Core
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
 
