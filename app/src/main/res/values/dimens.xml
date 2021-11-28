@@ -13,6 +13,7 @@
     <dimen name="dimen30dp">30dp</dimen>
     <dimen name="dimen35dp">35dp</dimen>
     <dimen name="dimen200dp">200dp</dimen>
+    <dimen name="dimen300dp">300dp</dimen>
 
     <dimen name="dimen12sp">12sp</dimen>
     <dimen name="dimen18sp">18sp</dimen>
