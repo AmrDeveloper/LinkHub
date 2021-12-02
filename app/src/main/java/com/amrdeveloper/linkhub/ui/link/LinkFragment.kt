@@ -33,9 +33,7 @@ class LinkFragment : Fragment() {
         setHasOptionsMenu(true)
 
         val value = arguments?.get("link")
-        if(value != null) {
-            currentLink = value as Link
-        }
+        (value as? Link)?.let { currentLink = it }
     }
 
     override fun onCreateView(
@@ -168,9 +166,7 @@ class LinkFragment : Fragment() {
             return
         }
 
-        val link = Link(title, subtitle, url, isPinned)
-        if(linkFolderID != -1) link.folderId = linkFolderID
-
+        val link = Link(title, subtitle, url, isPinned, folderId = linkFolderID)
         linkViewModel.createNewLink(link)
     }
 
@@ -204,7 +200,7 @@ class LinkFragment : Fragment() {
         currentLink.subtitle = subtitle
         currentLink.url = url
         currentLink.isPinned = isPinned
-        if(linkFolderID != -1) currentLink.folderId = linkFolderID
+        currentLink.folderId = linkFolderID
 
         linkViewModel.updateLink(currentLink)
     }
