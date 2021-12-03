@@ -4,16 +4,12 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,8 +34,13 @@ class ImportExportFragment : Fragment() {
     ): View {
         _binding = FragmentImportExportBinding.inflate(inflater, container, false)
 
+        setupListeners()
         setupObservers()
 
+        return binding.root
+    }
+
+    private fun setupListeners() {
         binding.importAction.setOnClickListener {
             importDataFile()
         }
@@ -47,12 +48,10 @@ class ImportExportFragment : Fragment() {
         binding.exportAction.setOnClickListener {
             exportDataFile()
         }
-
-        return binding.root
     }
 
     private fun setupObservers() {
-        importExportViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+        importExportViewModel.stateMessages.observe(viewLifecycleOwner, { messageId ->
             activity.showSnackBar(messageId)
         })
     }

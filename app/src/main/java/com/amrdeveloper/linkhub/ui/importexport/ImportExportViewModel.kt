@@ -25,21 +25,18 @@ class ImportExportViewModel @Inject constructor (
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
 
-    private val _errorMessages = MutableLiveData<Int>()
-    val errorMessages = _errorMessages
+    private val _stateMessages = MutableLiveData<Int>()
+    val stateMessages = _stateMessages
 
     fun importDataFile(data : String) {
         viewModelScope.launch {
             try {
                 val dataPackage = Gson().fromJson(data, DataPackage::class.java)
-                val folders = dataPackage.folders
-                val links = dataPackage.links
-
-                folderRepository.insertFolders(folders)
-                linkRepository.insertLinks(links)
-                _errorMessages.value = R.string.message_data_imported
+                folderRepository.insertFolders(dataPackage.folders)
+                linkRepository.insertLinks( dataPackage.links)
+                _stateMessages.value = R.string.message_data_imported
             } catch (e : JsonSyntaxException) {
-                _errorMessages.value = R.string.message_invalid_data_format
+                _stateMessages.value = R.string.message_invalid_data_format
             }
         }
     }
@@ -55,7 +52,7 @@ class ImportExportViewModel @Inject constructor (
                 val jsonDataPackage = Gson().toJson(dataPackage)
                 createdExportedFile(context, jsonDataPackage)
             } else {
-                _errorMessages.value = R.string.message_invalid_export
+                _stateMessages.value = R.string.message_invalid_export
             }
         }
     }
@@ -78,7 +75,7 @@ class ImportExportViewModel @Inject constructor (
             dataFile.writeText(data)
         }
 
-        _errorMessages.value = R.string.message_data_exported
+        _stateMessages.value = R.string.message_data_exported
     }
 
 }
