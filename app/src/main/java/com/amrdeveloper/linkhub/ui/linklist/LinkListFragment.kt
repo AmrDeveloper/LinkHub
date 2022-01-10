@@ -86,19 +86,15 @@ class LinkListFragment : Fragment() {
         binding.linkList.layoutManager = LinearLayoutManager(context)
         binding.linkList.adapter = linkAdapter
 
-        linkAdapter.setOnLinkClickListener(object : LinkAdapter.OnLinkClickListener {
-            override fun onLinkClick(link: Link, position: Int) {
-                linkListViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
-                LinkBottomSheetDialog.launch(requireActivity(), link)
-            }
-        })
+        linkAdapter.setOnLinkClickListener { link, _ ->
+            linkListViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
+            LinkBottomSheetDialog.launch(requireActivity(), link)
+        }
 
-        linkAdapter.setOnLinkLongClickListener(object : LinkAdapter.OnLinkLongClickListener {
-            override fun onLinkLongClick(link: Link) {
-                val bundle = bundleOf("link" to link)
-                findNavController().navigate(R.id.action_linkListFragment_to_linkFragment, bundle)
-            }
-        })
+        linkAdapter.setOnLinkLongClickListener {
+            val bundle = bundleOf("link" to it)
+            findNavController().navigate(R.id.action_linkListFragment_to_linkFragment, bundle)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

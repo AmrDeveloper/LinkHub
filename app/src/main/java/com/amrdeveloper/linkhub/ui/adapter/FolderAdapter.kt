@@ -11,17 +11,9 @@ import com.amrdeveloper.linkhub.databinding.ListItemFolderBinding
 
 class FolderAdapter : ListAdapter<Folder, RecyclerView.ViewHolder>(FolderDiffCallback()) {
 
-    interface OnFolderClickListener {
-        fun onFolderClick(folder: Folder)
-    }
+    private lateinit var onFolderClickListener: (Folder) -> Unit
 
-    private lateinit var onFolderClickListener: OnFolderClickListener
-
-    interface OnFolderLongClickListener {
-        fun onFolderLongClick(folder: Folder)
-    }
-
-    private lateinit var onFolderLongClickListener: OnFolderLongClickListener
+    private lateinit var onFolderLongClickListener: (Folder) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
@@ -34,22 +26,22 @@ class FolderAdapter : ListAdapter<Folder, RecyclerView.ViewHolder>(FolderDiffCal
         (holder as FolderViewHolder).bind(folder)
         if (::onFolderClickListener.isInitialized) {
             holder.itemView.setOnClickListener {
-                onFolderClickListener.onFolderClick(folder)
+                onFolderClickListener(folder)
             }
         }
         if (::onFolderLongClickListener.isInitialized) {
             holder.itemView.setOnLongClickListener {
-                onFolderLongClickListener.onFolderLongClick(folder)
+                onFolderLongClickListener(folder)
                 true
             }
         }
     }
 
-    fun setOnFolderClickListener(listener: OnFolderClickListener) {
+    fun setOnFolderClickListener(listener: (Folder) -> Unit) {
         onFolderClickListener = listener
     }
 
-    fun setOnFolderLongClickListener(listener: OnFolderLongClickListener) {
+    fun setOnFolderLongClickListener(listener: (Folder) -> Unit) {
         onFolderLongClickListener = listener
     }
 

@@ -81,21 +81,16 @@ class FolderListFragment : Fragment() {
         binding.folderList.adapter = folderAdapter
         binding.folderList.layoutManager = LinearLayoutManager(activity)
 
-        folderAdapter.setOnFolderClickListener(object : FolderAdapter.OnFolderClickListener {
-            override fun onFolderClick(folder: Folder) {
-                folderListViewModel.updateFolderClickCount(folder.id, folder.clickedCount.plus(1))
-                val bundle = bundleOf("folder" to folder)
-                findNavController().navigate(R.id.action_folderListFragment_to_linkListFragment, bundle)
-            }
-        })
+        folderAdapter.setOnFolderClickListener {
+            folderListViewModel.updateFolderClickCount(it.id, it.clickedCount.plus(1))
+            val bundle = bundleOf("folder" to it)
+            findNavController().navigate(R.id.action_folderListFragment_to_linkListFragment, bundle)
+        }
 
-        folderAdapter.setOnFolderLongClickListener(object :
-            FolderAdapter.OnFolderLongClickListener {
-            override fun onFolderLongClick(folder: Folder) {
-                val bundle = bundleOf("folder" to folder)
-                findNavController().navigate(R.id.action_folderListFragment_to_folderFragment, bundle)
-            }
-        })
+        folderAdapter.setOnFolderLongClickListener {
+            val bundle = bundleOf("folder" to it)
+            findNavController().navigate(R.id.action_folderListFragment_to_folderFragment, bundle)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

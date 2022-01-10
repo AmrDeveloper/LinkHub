@@ -113,21 +113,16 @@ class HomeFragment : Fragment() {
         binding.folderList.layoutManager = GridLayoutManager(context, 2)
         binding.folderList.adapter = folderAdapter
 
-        folderAdapter.setOnFolderClickListener(object : FolderAdapter.OnFolderClickListener {
-            override fun onFolderClick(folder: Folder) {
-                homeViewModel.updateFolderClickCount(folder.id, folder.clickedCount.plus(1))
-                val bundle = bundleOf("folder" to folder)
-                findNavController().navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
-            }
-        })
+        folderAdapter.setOnFolderClickListener {
+            homeViewModel.updateFolderClickCount(it.id, it.clickedCount.plus(1))
+            val bundle = bundleOf("folder" to it)
+            findNavController().navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
+        }
 
-        folderAdapter.setOnFolderLongClickListener(object :
-            FolderAdapter.OnFolderLongClickListener {
-            override fun onFolderLongClick(folder: Folder) {
-                val bundle = bundleOf("folder" to folder)
-                findNavController().navigate(R.id.action_homeFragment_to_folderFragment, bundle)
-            }
-        })
+        folderAdapter.setOnFolderLongClickListener{
+            val bundle = bundleOf("folder" to it)
+            findNavController().navigate(R.id.action_homeFragment_to_folderFragment, bundle)
+        }
     }
 
     private fun setupLinksList() {
@@ -159,19 +154,15 @@ class HomeFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(binding.linkList)
 
-        linkAdapter.setOnLinkClickListener(object : LinkAdapter.OnLinkClickListener {
-            override fun onLinkClick(link: Link, position: Int) {
-                homeViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
-                LinkBottomSheetDialog.launch(requireActivity(), link)
-            }
-        })
+        linkAdapter.setOnLinkClickListener { link, _ ->
+            homeViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
+            LinkBottomSheetDialog.launch(requireActivity(), link)
+        }
 
-        linkAdapter.setOnLinkLongClickListener(object : LinkAdapter.OnLinkLongClickListener {
-            override fun onLinkLongClick(link: Link) {
-                val bundle = bundleOf("link" to link)
-                findNavController().navigate(R.id.action_homeFragment_to_linkFragment, bundle)
-            }
-        })
+        linkAdapter.setOnLinkLongClickListener {
+            val bundle = bundleOf("link" to it)
+            findNavController().navigate(R.id.action_homeFragment_to_linkFragment, bundle)
+        }
     }
 
     private fun setupFoldersListState(folders: List<Folder>) {
