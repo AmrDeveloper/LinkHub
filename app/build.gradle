@@ -52,11 +52,7 @@ dependencies {
     // Core
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
-
-    // Design
     implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
-    implementation "androidx.cardview:cardview:$rootProject.cardviewVersion"
 
     // Room Database
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
