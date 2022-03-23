@@ -64,17 +64,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        homeViewModel.folderLiveData.observe(viewLifecycleOwner, {
+        homeViewModel.folderLiveData.observe(viewLifecycleOwner) {
             setupFoldersListState(it)
-        })
+        }
 
-        homeViewModel.linkLiveData.observe(viewLifecycleOwner, {
+        homeViewModel.linkLiveData.observe(viewLifecycleOwner) {
             setupLinksListState(it)
-        })
+        }
 
-        homeViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+        homeViewModel.errorMessages.observe(viewLifecycleOwner) { messageId ->
             activity.showSnackBar(messageId)
-        })
+        }
     }
 
     private fun setupListeners() {
@@ -136,7 +136,7 @@ class HomeFragment : Fragment() {
         val background = ColorDrawable(ContextCompat.getColor(context, R.color.red))
 
         val swipeHandler = ItemSwipeCallback(deleteIcon, background) { holder ->
-            val position = holder.bindingAdapterPosition
+            val position = holder.adapterPosition
             val link = linkAdapter.currentList[position]
             val list = linkAdapter.currentList.toMutableList()
             list.removeAt(position)
