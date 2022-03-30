@@ -25,13 +25,19 @@ class PinnedLinksWidgetService : RemoteViewsService() {
         private val linkRepository: LinkRepository
     ) : RemoteViewsFactory {
 
-        private lateinit var links: List<Link>
+        private lateinit var links: MutableList<Link>
 
-        override fun onCreate() {}
+        override fun onCreate() {
+            links = mutableListOf()
+        }
 
         override fun onDataSetChanged() = runBlocking {
             val result = linkRepository.getPinnedLinkList()
-            if(result.isSuccess) links = result.getOrDefault(listOf())
+            if (result.isSuccess) {
+                result.getOrNull()?.let {
+                    links.addAll(it)
+                }
+            }
         }
 
         override fun getViewAt(position: Int): RemoteViews {
@@ -49,7 +55,9 @@ class PinnedLinksWidgetService : RemoteViewsService() {
             return remoteView
         }
 
-        override fun onDestroy() {}
+        override fun onDestroy() {
+            links.clear()
+        }
 
         override fun getCount(): Int = links.size
 

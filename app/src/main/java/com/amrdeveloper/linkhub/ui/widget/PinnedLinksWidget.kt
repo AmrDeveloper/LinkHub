@@ -11,7 +11,6 @@ import android.widget.RemoteViews
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.util.WIDGET_ITEM_CLICK_ACTION
 import com.amrdeveloper.linkhub.util.WIDGET_REFRESH_ACTION
-import com.amrdeveloper.linkhub.util.openLinkIntent
 
 class PinnedLinksWidget : AppWidgetProvider() {
 
