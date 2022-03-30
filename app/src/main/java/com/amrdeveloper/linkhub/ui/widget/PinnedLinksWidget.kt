@@ -36,7 +36,9 @@ class PinnedLinksWidget : AppWidgetProvider() {
         when(intent?.action) {
             WIDGET_ITEM_CLICK_ACTION -> {
                 val url = intent.getStringExtra("url")
-                openLinkIntent(context, url.toString())
+                val openIntent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+                openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(openIntent)
             }
             WIDGET_REFRESH_ACTION -> {
                 val widgetManager = AppWidgetManager.getInstance(context)
