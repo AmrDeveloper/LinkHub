@@ -1,12 +1,14 @@
 package com.amrdeveloper.linkhub.data
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 @Entity(tableName = "link", indices = [Index(value = ["title"], unique = true)])
 data class Link (
