@@ -1,7 +1,7 @@
 buildscript {
 
-    ext.kotlin_version = "1.5.31"
-    ext.nav_version = "2.3.5"
+    ext.kotlinVersion = " 1.6.10"
+    ext.navigationVersion = "2.4.1"
     ext.hiltVersion = '2.39.1'
 
     repositories {
@@ -10,8 +10,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
@@ -37,7 +37,6 @@ ext {
 
     gsonVersion = "2.8.8"
 
-    navvigationVersion = '2.3.5'
     lottieVersion = '4.2.0'
 
     timberVersion = '4.7.1'

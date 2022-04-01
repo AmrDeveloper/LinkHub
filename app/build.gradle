@@ -59,7 +59,6 @@ dependencies {
     // Room Database
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
     // Coroutines
@@ -73,8 +72,8 @@ dependencies {
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 
     // Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navvigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navvigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Airbnb Lottie
