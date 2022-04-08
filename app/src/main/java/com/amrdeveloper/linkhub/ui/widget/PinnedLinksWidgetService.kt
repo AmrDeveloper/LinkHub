@@ -50,7 +50,7 @@ class PinnedLinksWidgetService : RemoteViewsService() {
             val extras = bundleOf("url" to link.url)
             val fillInIntent = Intent()
             fillInIntent.putExtras(extras)
-            remoteView.setOnClickFillInIntent(R.id.layout_test, fillInIntent)
+            remoteView.setOnClickFillInIntent(R.id.widget_item_layout, fillInIntent)
 
             return remoteView
         }
