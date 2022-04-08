@@ -70,7 +70,6 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     // Setup View link in browser intent template
     val viewLinkIntent = Intent(context, PinnedLinksWidget::class.java)
     viewLinkIntent.action = WIDGET_ITEM_CLICK_ACTION
-    viewLinkIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
     val viewPendingIntent = PendingIntent.getBroadcast(context, 0, viewLinkIntent, PendingIntent.FLAG_UPDATE_CURRENT)
     views.setPendingIntentTemplate(R.id.links_listview, viewPendingIntent)
 
