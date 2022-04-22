@@ -55,6 +55,20 @@
                 android:textColor="@color/sky"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/links_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/folder_list"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dimen5dp"
+                android:layout_marginEnd="@dimen/dimen5dp"
+                android:layout_marginBottom="@dimen/dimen5dp"
+                android:fontFamily="serif"
+                android:padding="@dimen/dimen5dp"
+                android:textColor="@color/sky"
+                tools:text="0" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/link_list"
                 android:layout_width="match_parent"

@@ -70,6 +70,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.linkLiveData.observe(viewLifecycleOwner) {
             setupLinksListState(it)
+            binding.linksCount.text = it.size.toString()
         }
 
         homeViewModel.errorMessages.observe(viewLifecycleOwner) { messageId ->
