@@ -1,0 +1,22 @@
+<i>LinkHub</i> ist eine einfache und effektive Link-Management-Anwendung, mit der Sie Ihre eigenen Links ganz einfach ohne Werbung verwalten können!
+
+Mit <i>LinkHub</i> können Sie Ordner erstellen und Ihre Links darin ablegen, um sie zu klassifizieren und Ihren Link einfach und schnell zu finden. Sie können auch die Suche mit dem Linktitel verwenden.
+
+In Link Hub werden Links automatisch sortiert, je nachdem, ob sie angeheftet sind und wie oft Sie sie verwenden, und dasselbe gilt für Ordner.
+
+Mit <i>LinkHub</i> können Sie Ihren Link mit nur einem Klick kopieren, bearbeiten und öffnen
+
+<b>Features:</b>
+
+- Kostenlos und Open Source ohne Werbung
+- Ordner mit Namen und mehreren Farben erstellen
+- Link mit Titel, Untertitel, URL erstellen
+- Links und Ordner werden je nach Verwendung sortiert
+- Einfache Suche in Links und Ordnern
+- Verknüpfungen, Kontextmenü und Links von anderen Apps erhalten
+- Automatisch generierter Titel und Untertitel für geteilte Links
+- Unterstützung für dunkle Themen
+- Sichern und Wiederherstellen der Daten
+- Widget für angeheftete Links
+
+Sie können jeden ähnlichen Link im selben Ordner ablegen, zum Beispiel Ordner für E-Books, Jobs, Kurse, Vorträge, Artikel ... etc.

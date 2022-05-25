@@ -1,0 +1,22 @@
+<i>LinkHub</i> is a simple and effective link management application that can help you to easily manage your own links with no ads!
+
+<i>LinkHub</i> enabled you to create folders and put your links inside them to classify them and find your link easily and fast, also you can use searching with link title.
+
+In Link Hub links are automatically sorted depend on if they are pinned and how many times you use them, and the same for Folder.
+
+With LinkHub you can copy, edit, open your link just by one click
+
+<b>Features:</b>
+
+- Free And open source with no ads
+- Create Folder with name and multi colors
+- Create Link with title, subtitle, URL
+- Links and Folders are sorted depending on your usage
+- Search easily in links and folders
+- Shortcuts, Context menu and receive links from other apps
+- Auto generated title and subtitle for shared links
+- Dark theme support
+- Backup and Restore the data
+- Widget for Pinned links
+
+You can put each similar link in the same folder, for example, folders for e-books, jobs, courses, talks, articles... etc
