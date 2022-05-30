@@ -18,6 +18,8 @@ data class Link (
     @ColumnInfo(name = "pinned") var isPinned : Boolean = false,
     @ColumnInfo(name = "folder_id") var folderId : Int = -1,
     @ColumnInfo(name = "click_count") var clickedCount : Int = 0,
+    @ColumnInfo(name = "time_stamp", defaultValue = "0") var timeStamp : Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "is_updated", defaultValue = "0") var isUpdated : Boolean = false,
     @PrimaryKey(autoGenerate = true) val id: Int  =0,
 ) : Parcelable {
     override fun toString(): String = title

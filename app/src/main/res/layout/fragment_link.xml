@@ -87,5 +87,15 @@
             android:textSize="@dimen/dimen18sp"
             app:thumbTint="@color/sky"
             app:trackTint="@color/grey" />
+
+        <TextView
+            android:fontFamily="serif"
+            android:id="@+id/link_update_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/link_pinned_switch"
+            android:layout_margin="@dimen/dimen5dp"
+            android:gravity="center"
+            tools:text="Created at 000000" />
     </RelativeLayout>
 </ScrollView>

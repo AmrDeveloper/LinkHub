@@ -6,13 +6,14 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 
 const val DATABASE_NAME = "link_database"
-const val DATABASE_VERSION = 2
+const val DATABASE_VERSION = 3
 
 @Database(
     entities = [Link::class, Folder::class],
     version = DATABASE_VERSION,
     autoMigrations = [
-        AutoMigration(from = 1, to = 2)
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3)
     ]
 )
 @TypeConverters(FolderColorConverter::class)
@@ -28,7 +29,6 @@ abstract class LinkRoomDatabase : RoomDatabase() {
         private var INSTANCE: LinkRoomDatabase? = null
 
         fun getDatabase(context: Context): LinkRoomDatabase {
-
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,

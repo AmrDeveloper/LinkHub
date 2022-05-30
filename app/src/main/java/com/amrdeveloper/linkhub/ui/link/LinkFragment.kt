@@ -16,6 +16,8 @@ import com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class LinkFragment : Fragment() {
@@ -27,6 +29,8 @@ class LinkFragment : Fragment() {
     private var linkFolderID : Int = -1
     private lateinit var folderMenuAdapter: FolderArrayAdapter
     private val linkViewModel by viewModels<LinkViewModel>()
+
+    private val simpleDateFormatter = SimpleDateFormat("dd/MM/yy hh:mm a", Locale.ENGLISH)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,33 +82,36 @@ class LinkFragment : Fragment() {
             binding.linkSubtitleEdit.setText(currentLink.subtitle)
             binding.linkUrlEdit.setText(currentLink.url)
             binding.linkPinnedSwitch.isChecked = currentLink.isPinned
-            if(currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
+            val linkTimeStamp = if (currentLink.timeStamp == 0L) System.currentTimeMillis() else currentLink.timeStamp
+            val formattedDate = simpleDateFormatter.format(linkTimeStamp)
+            binding.linkUpdateStatus.text = if (currentLink.isUpdated) "Last updated at ${formattedDate}" else "Created at ${formattedDate}"
+            if (currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
         }
     }
 
     private fun setupObservers() {
-        linkViewModel.currentFolderLiveData.observe(viewLifecycleOwner, {
+        linkViewModel.currentFolderLiveData.observe(viewLifecycleOwner) {
             binding.folderNameMenu.setText(it.name, false)
             linkFolderID = it.id
-        })
+        }
 
-        linkViewModel.folderLiveData.observe(viewLifecycleOwner, {
+        linkViewModel.folderLiveData.observe(viewLifecycleOwner) {
             folderMenuAdapter.addAll(it)
-        })
+        }
 
-        linkViewModel.linkInfoLiveData.observe(viewLifecycleOwner, {
+        linkViewModel.linkInfoLiveData.observe(viewLifecycleOwner) {
             binding.linkTitleEdit.setText(it.linkTitle)
             binding.linkSubtitleEdit.setText(it.linkSubtitle)
-        })
+        }
 
-        linkViewModel.completeSuccessTask.observe(viewLifecycleOwner, {
+        linkViewModel.completeSuccessTask.observe(viewLifecycleOwner) {
             PinnedLinksWidget.refresh(requireContext())
             findNavController().navigateUp()
-        })
+        }
 
-        linkViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+        linkViewModel.errorMessages.observe(viewLifecycleOwner) { messageId ->
             activity.showSnackBar(messageId)
-        })
+        }
     }
 
     private fun setupFolderListMenu() {
@@ -200,7 +207,9 @@ class LinkFragment : Fragment() {
         currentLink.subtitle = subtitle
         currentLink.url = url
         currentLink.isPinned = isPinned
+        currentLink.isUpdated = true
         currentLink.folderId = linkFolderID
+        currentLink.timeStamp = System.currentTimeMillis()
 
         linkViewModel.updateLink(currentLink)
     }
