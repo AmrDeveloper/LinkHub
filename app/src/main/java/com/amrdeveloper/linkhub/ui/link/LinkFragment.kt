@@ -82,9 +82,14 @@ class LinkFragment : Fragment() {
             binding.linkSubtitleEdit.setText(currentLink.subtitle)
             binding.linkUrlEdit.setText(currentLink.url)
             binding.linkPinnedSwitch.isChecked = currentLink.isPinned
-            val linkTimeStamp = if (currentLink.timeStamp == 0L) System.currentTimeMillis() else currentLink.timeStamp
-            val formattedDate = simpleDateFormatter.format(linkTimeStamp)
-            binding.linkUpdateStatus.text = if (currentLink.isUpdated) "Last updated at ${formattedDate}" else "Created at ${formattedDate}"
+            val linkCreatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
+            val formattedCreationDate = simpleDateFormatter.format(linkCreatedStamp)
+            val formattedDate = simpleDateFormatter.format(formattedCreationDate)
+            binding.linkCreatedStatus.text ="Created at ${formattedDate}"
+            if (currentLink.isUpdated) {
+                val linkUpdatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
+                binding.linkUpdatedStatus.text ="Last updated at ${linkUpdatedStamp}"
+            }
             if (currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
         }
     }
@@ -209,7 +214,7 @@ class LinkFragment : Fragment() {
         currentLink.isPinned = isPinned
         currentLink.isUpdated = true
         currentLink.folderId = linkFolderID
-        currentLink.timeStamp = System.currentTimeMillis()
+        currentLink.lastUpdatedTime = System.currentTimeMillis()
 
         linkViewModel.updateLink(currentLink)
     }
