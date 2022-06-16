@@ -84,11 +84,11 @@ class LinkFragment : Fragment() {
             binding.linkPinnedSwitch.isChecked = currentLink.isPinned
             val linkCreatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
             val formattedCreationDate = simpleDateFormatter.format(linkCreatedStamp)
-            val formattedDate = simpleDateFormatter.format(formattedCreationDate)
-            binding.linkCreatedStatus.text ="Created at ${formattedDate}"
+            binding.linkCreatedStatus.text ="Created at ${formattedCreationDate}"
             if (currentLink.isUpdated) {
                 val linkUpdatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
-                binding.linkUpdatedStatus.text ="Last updated at ${linkUpdatedStamp}"
+                val formattedUpdateDate = simpleDateFormatter.format(linkUpdatedStamp)
+                binding.linkUpdatedStatus.text ="Last updated at ${formattedUpdateDate}"
             }
             if (currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
         }
