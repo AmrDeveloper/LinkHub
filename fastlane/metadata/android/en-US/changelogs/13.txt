@@ -1,0 +1,4 @@
+* Solved Issue #5: Add timestamp to each link
+* Initial Fastline structure added by @IzzySoft
+* Fix the Creation date crash issue
+* Show update date
