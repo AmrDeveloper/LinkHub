@@ -163,11 +163,6 @@ class LinkFragment : Fragment() {
             return
         }
 
-        if(subtitle.isEmpty()) {
-            binding.linkSubtitleLayout.showError(R.string.error_link_subtitle_empty)
-            return
-        }
-
         if(url.isEmpty()) {
             binding.linkUrlLayout.showError(R.string.error_link_url_empty)
             return
@@ -190,11 +185,6 @@ class LinkFragment : Fragment() {
 
         if(title.isEmpty()) {
             binding.linkTitleLayout.showError(R.string.error_link_title_empty)
-            return
-        }
-
-        if(subtitle.isEmpty()) {
-            binding.linkSubtitleLayout.showError(R.string.error_link_subtitle_empty)
             return
         }
 
