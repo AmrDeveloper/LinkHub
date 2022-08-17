@@ -19,6 +19,7 @@
     <string name="contributors">Contributors</string>
     <string name="source_code">Source code</string>
     <string name="dark_theme">Dark Theme</string>
+    <string name="show_counter">Show counter</string>
     <string name="folder_color_preview">Folder Color Preview</string>
     <string name="next_folder_color">Next Folder Color</string>
     <string name="previous_folder_color">Previous Folder Color</string>

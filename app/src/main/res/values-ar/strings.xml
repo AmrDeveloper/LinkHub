@@ -1,33 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Labels-->
     <string name="app_name">حفظ الروابط</string>
+    <string name="top_folders">أفضل المجلدات</string>
     <string name="folder">مجلد</string>
     <string name="folders">مجلدات</string>
     <string name="links">روابط</string>
-    <string name="settings">الإعدادات</string>
-    <string name="message_link_copy">تم نسخ الرابط</string>
-    <string name="folder_create">إنشاء مجلد</string>
-    <string name="link_create">إنشاء رابط</string>
     <string name="search">ابحث</string>
     <string name="link_icon">رمز الرابط</string>
     <string name="next_folders">المجلدات التاليه</string>
     <string name="link_title">عنوان الرابط</string>
-    <string name="link_url">الرابط</string>
-    <string name="add_link">إضافه رابط</string>
     <string name="link_subtitle">وصف الرابط</string>
-    <string name="add_new_link">إضافه رابط جديد</string>
+    <string name="link_url">الرابط</string>
+    <string name="pinned">تثبيت</string>
     <string name="folder_name">اسم المجلد</string>
     <string name="none">بدون</string>
+    <string name="settings">الإعدادات</string>
+    <string name="issues">المشاكل</string>
+    <string name="contributors">المشاركين</string>
+    <string name="source_code">الكود المصدري</string>
+    <string name="dark_theme">مظهر داكن</string>
+    <string name="show_counter">أظهار العداد</string>
+    <string name="folder_color_preview">لون المجلد الحالي</string>
+    <string name="next_folder_color">لون المجلد التالي</string>
+    <string name="previous_folder_color">لون المجلد السابق</string>
+    <string name="import_export">أستيراد أو تصدير</string>
+
+    <!--Actions-->
+    <string name="add_link">إضافه رابط</string>
+    <string name="add_new_link">إضافه رابط جديد</string>
+    <string name="show_add_options">اظهار الاختيارات</string>
+    <string name="add_link_option">اختيار اضافه رابط</string>
+    <string name="add_folder_option">اختيار اضافه مجلد</string>
     <string name="save">حفظ</string>
     <string name="delete">مسح</string>
     <string name="open_in_browser">افتح فى المتصفح</string>
     <string name="copy">نسخ</string>
+    <string name="undo">تراجع</string>
     <string name="share">مشاركة</string>
-    <string name="message_folders_empty">لايوجد مجلدات</string>
+    <string name="imports">أستيراد</string>
+    <string name="export">تصدير</string>
+
+
+    <!--Messages-->
+    <string name="message_link_copy">تم نسخ الرابط</string>
+    <string name="message_link_invalid">لايمكن فتح الرابط فى المتصفح</string>
+    <string name="message_link_deleted">تم حذف الرابط</string>
     <string name="message_links_empty">لايوجد روابط</string>
-    <string name="contributors">المشاركين</string>
-    <string name="issues">المشاكل</string>
-    <string name="source_code">الكود المصدري</string>
+
+    <string name="message_folders_empty">لايوجد مجلدات</string>
+
+    <string name="message_data_imported">تم استيراد البيانات بنجاح</string>
+    <string name="message_data_exported">تم تصدير البيانات بنجاح</string>
+
+    <string name="message_invalid_extension">خطا فى صيغه الملف</string>
+    <string name="message_invalid_data_format">خطا فى بيانات الملف</string>
+    <string name="message_invalid_export">خطا اثناء تصدير البيانات</string>
+
+    <!--Counters-->
+    <string name="folder_count"> المجلدات %1$d</string>
+    <string name="links_count"> الروابط %1$d</string>
+    <string name="version"> الإصدار %1$s</string>
+
+    <!--Error Messages-->
+    <!--Link Error Messages-->
     <string name="error_get_links">لايمكن إيجاد الروابط</string>
     <string name="error_insert_link">لايمكن إضافه الرابط</string>
     <string name="error_update_link">لايمكن تحديث الرابط</string>
@@ -37,6 +73,8 @@
     <string name="error_link_url_empty">الرابط لايمكن ان يكون فارغا</string>
     <string name="error_link_url_invalid">الرابط خطا</string>
     <string name="error_link_same_title">يوجد لديك رابط بنفس الاسم</string>
+
+    <!--Folder Error Messages-->
     <string name="error_get_top_folders">لايمكن إيجاد افضل المجلدات</string>
     <string name="error_get_folders">لايمكن إيجاد المجلدات</string>
     <string name="error_insert_folder">لايمكن إضافه المجلد</string>
@@ -45,27 +83,8 @@
     <string name="error_folder_name_empty">اسم المجلد لايمكن ان يكون فارغا</string>
     <string name="error_folder_name_small">اسم المجلد لايمكن ان يكون اقل من ثلاثة حروف</string>
     <string name="error_folder_same_name">لديك رابط بنفس الاسم</string>
-    <string name="message_link_invalid">لايمكن فتح الرابط فى المتصفح</string>
-    <string name="add_folder_option">اختيار اضافه مجلد</string>
-    <string name="add_link_option">اختيار اضافه رابط</string>
-    <string name="pinned">تثبيت</string>
-    <string name="show_add_options">اظهار الاختيارات</string>
-    <string name="folder_count"> المجلدات %1$d</string>
-    <string name="links_count"> الروابط %1$d</string>
-    <string name="version"> الإصدار %1$s</string>
-    <string name="top_folders">أفضل المجلدات</string>
-    <string name="folder_color_preview">لون المجلد الحالي</string>
-    <string name="next_folder_color">لون المجلد التالي</string>
-    <string name="previous_folder_color">لون المجلد السابق</string>
-    <string name="dark_theme">مظهر داكن</string>
-    <string name="undo">تراجع</string>
-    <string name="message_link_deleted">تم حذف الرابط</string>
-    <string name="import_export">أستيراد أو تصدير</string>
-    <string name="imports">أستيراد</string>
-    <string name="export">تصدير</string>
-    <string name="message_invalid_extension">خطا فى صيغه الملف</string>
-    <string name="message_invalid_data_format">خطا فى بيانات الملف</string>
-    <string name="message_invalid_export">خطا اثناء تصدير البيانات</string>
-    <string name="message_data_imported">تم استيراد البيانات بنجاح</string>
-    <string name="message_data_exported">تم تصدير البيانات بنجاح</string>
+
+    <!--Shortcuts-->
+    <string name="folder_create">إنشاء مجلد</string>
+    <string name="link_create">إنشاء رابط</string>
 </resources>
