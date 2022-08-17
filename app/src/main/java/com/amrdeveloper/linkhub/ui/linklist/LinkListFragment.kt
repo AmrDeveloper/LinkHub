@@ -13,17 +13,17 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkListBinding
 import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
-import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
-import com.amrdeveloper.linkhub.util.hide
-import com.amrdeveloper.linkhub.util.show
-import com.amrdeveloper.linkhub.util.showSnackBar
+import com.amrdeveloper.linkhub.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LinkListFragment : Fragment() {
 
     private var _binding: FragmentLinkListBinding? = null
     private val binding get() = _binding!!
+
+    @Inject lateinit var settingUtils: SettingUtils
 
     private lateinit var currentFolder: Folder
     private lateinit var linkAdapter: LinkAdapter
@@ -51,18 +51,18 @@ class LinkListFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        linkListViewModel.linksLiveData.observe(viewLifecycleOwner, {
+        linkListViewModel.linksLiveData.observe(viewLifecycleOwner) {
             binding.linksCountTxt.text = getString(R.string.links_count, it.size)
             setupLinksListState(it)
-        })
+        }
 
-        linkListViewModel.dataLoading.observe(viewLifecycleOwner, {
-            binding.loadingIndicator.visibility = if(it) View.VISIBLE else View.GONE
-        })
+        linkListViewModel.dataLoading.observe(viewLifecycleOwner) {
+            binding.loadingIndicator.visibility = if (it) View.VISIBLE else View.GONE
+        }
 
-        linkListViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+        linkListViewModel.errorMessages.observe(viewLifecycleOwner) { messageId ->
             activity.showSnackBar(messageId)
-        })
+        }
     }
 
     private fun setupLinksListState(links : List<Link>) {
@@ -82,6 +82,7 @@ class LinkListFragment : Fragment() {
 
     private fun setupLinksList(){
         linkAdapter = LinkAdapter()
+        linkAdapter.setEnableClickCounter(settingUtils.getEnableClickCounter())
 
         binding.linkList.layoutManager = LinearLayoutManager(context)
         binding.linkList.adapter = linkAdapter

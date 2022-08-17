@@ -40,6 +40,9 @@ class SettingFragment : Fragment() {
         // Setup Theme Switch
         val theme = settingUtils.getThemeType()
         binding.themeSwitch.isChecked = theme == Theme.DARK
+
+        val showCounter = settingUtils.getEnableClickCounter()
+        binding.showCounterSwitch.isChecked = showCounter
     }
 
     private fun setupListeners() {
@@ -70,6 +73,10 @@ class SettingFragment : Fragment() {
 
             val theme = if (isChecked) Theme.DARK else Theme.WHITE
             settingUtils.setThemeType(theme)
+        }
+
+        binding.showCounterSwitch.setOnCheckedChangeListener { _, isChecked ->
+            settingUtils.setEnableClickCounter(isChecked)
         }
     }
 

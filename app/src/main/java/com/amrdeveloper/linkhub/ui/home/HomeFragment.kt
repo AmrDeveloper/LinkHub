@@ -20,17 +20,17 @@ import com.amrdeveloper.linkhub.databinding.FragmentHomeBinding
 import com.amrdeveloper.linkhub.ui.adapter.FolderAdapter
 import com.amrdeveloper.linkhub.ui.adapter.ItemSwipeCallback
 import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
-import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
-import com.amrdeveloper.linkhub.util.hide
-import com.amrdeveloper.linkhub.util.show
-import com.amrdeveloper.linkhub.util.showSnackBar
+import com.amrdeveloper.linkhub.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    @Inject lateinit var settingUtils: SettingUtils
 
     private lateinit var folderAdapter: FolderAdapter
     private lateinit var linkAdapter: LinkAdapter
@@ -128,6 +128,7 @@ class HomeFragment : Fragment() {
 
     private fun setupLinksList() {
         linkAdapter = LinkAdapter()
+        linkAdapter.setEnableClickCounter(settingUtils.getEnableClickCounter())
 
         binding.linkList.layoutManager = LinearLayoutManager(context)
         binding.linkList.adapter = linkAdapter

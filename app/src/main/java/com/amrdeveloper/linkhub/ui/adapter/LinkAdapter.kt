@@ -12,8 +12,8 @@ import com.amrdeveloper.linkhub.databinding.ListItemLinkBinding
 class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback()) {
 
     private lateinit var onLinkClick : (Link, Int) -> Unit
-
     private lateinit var onLinkLongClick : (Link) -> Unit
+    private var enableClickCounter = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ListItemLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,19 +23,6 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val link = getItem(position)
         (holder as LinkViewHolder).bind(link)
-        if(::onLinkClick.isInitialized) {
-            holder.itemView.setOnClickListener {
-                onLinkClick(link, position)
-                updateClickCounter(position)
-            }
-        }
-
-        if(::onLinkLongClick.isInitialized) {
-            holder.itemView.setOnLongClickListener {
-                onLinkLongClick(link)
-                true
-            }
-        }
     }
 
     private fun updateClickCounter(position: Int) {
@@ -51,14 +38,33 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
         onLinkLongClick = listener
     }
 
-    class LinkViewHolder(private val binding: ListItemLinkBinding) :
+    fun setEnableClickCounter(enable : Boolean) {
+        enableClickCounter = enable
+    }
+
+    inner class LinkViewHolder(private val binding: ListItemLinkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(link: Link) {
             binding.linkTitle.text = link.title
             binding.linkSubtitle.text = link.subtitle
-            binding.linkClickCount.text = link.clickedCount.toString()
+            if (enableClickCounter) binding.linkClickCount.text = link.clickedCount.toString()
+            else binding.linkClickCount.visibility = View.GONE
             binding.linkPinImg.visibility = if (link.isPinned) View.VISIBLE else View.INVISIBLE
+
+            if(::onLinkClick.isInitialized) {
+                itemView.setOnClickListener {
+                    onLinkClick(link, position)
+                    updateClickCounter(position)
+                }
+            }
+
+            if(::onLinkLongClick.isInitialized) {
+                itemView.setOnLongClickListener {
+                    onLinkLongClick(link)
+                    true
+                }
+            }
         }
     }
 }
