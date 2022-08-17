@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 1.1.2 *(2022-08-17)*
+-----------------------------
+
+* Add new Setting option to show and hide the link counter
+
 Version 1.1.2 *(2022-06-16)*
 -----------------------------
 
