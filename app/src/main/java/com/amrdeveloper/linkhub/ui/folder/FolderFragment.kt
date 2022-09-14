@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
@@ -18,6 +19,8 @@ class FolderFragment : Fragment() {
     private var _binding : FragmentFolderBinding? = null
     private val binding get() = _binding!!
 
+    private val safeArguments by navArgs<FolderFragmentArgs>()
+
     private lateinit var currentFolder: Folder
     private val folderViewModel by viewModels<FolderViewModel>()
 
@@ -25,10 +28,7 @@ class FolderFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        val value = arguments?.get("folder")
-        if(value != null) {
-            currentFolder = value as Folder
-        }
+        safeArguments.folder?.let { currentFolder = it }
     }
 
     override fun onCreateView(
@@ -52,13 +52,13 @@ class FolderFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        folderViewModel.completeSuccessTask.observe(viewLifecycleOwner, {
+        folderViewModel.completeSuccessTask.observe(viewLifecycleOwner) {
             findNavController().navigateUp()
-        })
+        }
 
-        folderViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
+        folderViewModel.errorMessages.observe(viewLifecycleOwner) { messageId ->
             activity.showSnackBar(messageId)
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

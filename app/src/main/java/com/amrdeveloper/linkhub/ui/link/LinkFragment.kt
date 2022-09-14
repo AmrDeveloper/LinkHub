@@ -7,6 +7,7 @@ import android.webkit.URLUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
@@ -25,6 +26,8 @@ class LinkFragment : Fragment() {
     private var _binding: FragmentLinkBinding? = null
     private val binding get() = _binding!!
 
+    private val safeArguments by navArgs<LinkFragmentArgs>()
+
     private lateinit var currentLink: Link
     private var linkFolderID : Int = -1
     private lateinit var folderMenuAdapter: FolderArrayAdapter
@@ -36,8 +39,7 @@ class LinkFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        val value = arguments?.get("link")
-        (value as? Link)?.let { currentLink = it }
+        safeArguments.link?.let { currentLink = it }
     }
 
     override fun onCreateView(

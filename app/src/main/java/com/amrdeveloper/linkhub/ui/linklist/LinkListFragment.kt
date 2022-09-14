@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
@@ -23,6 +24,8 @@ class LinkListFragment : Fragment() {
     private var _binding: FragmentLinkListBinding? = null
     private val binding get() = _binding!!
 
+    private val safeArguments by navArgs<LinkListFragmentArgs>()
+
     @Inject lateinit var settingUtils: SettingUtils
 
     private lateinit var currentFolder: Folder
@@ -33,7 +36,7 @@ class LinkListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        currentFolder = arguments?.get("folder") as Folder
+        currentFolder = safeArguments.folder
     }
 
     override fun onCreateView(

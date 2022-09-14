@@ -10,6 +10,7 @@
         android:name="com.amrdeveloper.linkhub.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
+
         <action
             android:id="@+id/action_homeFragment_to_linkFragment"
             app:destination="@id/linkFragment"
@@ -18,6 +19,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_homeFragment_to_folderListFragment"
             app:destination="@id/folderListFragment"
@@ -26,6 +28,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_homeFragment_to_linkListFragment"
             app:destination="@id/linkListFragment"
@@ -34,6 +37,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_homeFragment_to_folderFragment"
             app:destination="@id/folderFragment"
@@ -42,28 +46,35 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:destination="@id/settingFragment" />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/linkFragment"
         android:name="com.amrdeveloper.linkhub.ui.link.LinkFragment"
         android:label="fragment_link"
         tools:layout="@layout/fragment_link">
+
         <argument
             android:name="link"
-            app:argType="com.amrdeveloper.linkhub.data.Link" />
+            android:defaultValue="@null"
+            app:argType="com.amrdeveloper.linkhub.data.Link"
+            app:nullable="true" />
     </fragment>
+
     <fragment
         android:id="@+id/folderListFragment"
         android:name="com.amrdeveloper.linkhub.ui.folderlist.FolderListFragment"
         android:label="fragment_folder_list"
         tools:layout="@layout/fragment_folder_list">
+
         <action
             android:id="@+id/action_folderListFragment_to_linkListFragment"
             app:destination="@id/linkListFragment"
@@ -72,22 +83,26 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_folderListFragment_to_folderFragment"
+            app:destination="@id/folderFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:destination="@id/folderFragment" />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/linkListFragment"
         android:name="com.amrdeveloper.linkhub.ui.linklist.LinkListFragment"
         android:label="fragment_link_list"
         tools:layout="@layout/fragment_link_list">
+
         <argument
             android:name="folder"
             app:argType="com.amrdeveloper.linkhub.data.Folder" />
+
         <action
             android:id="@+id/action_linkListFragment_to_folderListFragment"
             app:destination="@id/folderListFragment"
@@ -96,6 +111,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_linkListFragment_to_linkFragment"
             app:destination="@id/linkFragment"
@@ -104,24 +120,31 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/folderFragment"
         android:name="com.amrdeveloper.linkhub.ui.folder.FolderFragment"
         android:label="fragment_folder"
         tools:layout="@layout/fragment_folder">
+
         <argument
             android:name="folder"
-            app:argType="com.amrdeveloper.linkhub.data.Folder" />
+            android:defaultValue="@null"
+            app:argType="com.amrdeveloper.linkhub.data.Folder"
+            app:nullable="true" />
+
         <action
             android:id="@+id/action_folderFragment_to_homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.amrdeveloper.linkhub.ui.setting.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" >
+        tools:layout="@layout/fragment_setting">
+
         <action
             android:id="@+id/action_settingFragment_to_importExportFragment"
             app:destination="@id/importExportFragment"
@@ -130,6 +153,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/importExportFragment"
         android:name="com.amrdeveloper.linkhub.ui.importexport.ImportExportFragment"
