@@ -1,7 +1,6 @@
 package com.amrdeveloper.linkhub.ui.link
 
 import android.os.Bundle
-import android.util.Patterns
 import android.view.*
 import android.webkit.URLUtil
 import androidx.fragment.app.Fragment
@@ -59,23 +58,15 @@ class LinkFragment : Fragment() {
     }
 
     private fun handleIntentSharedLink() {
-        val sharedLink = arguments?.get("shared_link")
-        if(sharedLink != null) {
-            var url = sharedLink.toString()
+        val sharedLink = arguments?.getString("shared_link") ?: return
 
-            if(URLUtil.isValidUrl(url).not()) {
-                val matcher = Patterns.WEB_URL.matcher(url)
-                if (matcher.find()) {
-                    url = matcher.group()
-                } else {
-                    binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
-                    return
-                }
-            }
-
-            binding.linkUrlEdit.setText(url)
-            linkViewModel.generateLinkTitleAndSubTitle(url)
+        if(URLUtil.isValidUrl(sharedLink).not()) {
+            binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
+            return
         }
+
+        binding.linkUrlEdit.setText(sharedLink)
+        linkViewModel.generateLinkTitleAndSubTitle(sharedLink)
     }
 
     private fun handleLinkArgument() {

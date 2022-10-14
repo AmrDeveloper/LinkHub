@@ -1,5 +1,6 @@
 package com.amrdeveloper.linkhub.ui.link
 
+import android.webkit.URLUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -73,6 +74,8 @@ class LinkViewModel @Inject constructor(
 
     fun generateLinkTitleAndSubTitle(url : String) {
         viewModelScope.launch(Dispatchers.IO) {
+            val isValidLink =  URLUtil.isValidUrl(url)
+            if (isValidLink.not()) return@launch
             val linkInfo = generateLinkInfo(url)
             withContext(Dispatchers.Main) {
                 linkInfoLiveData.value = linkInfo

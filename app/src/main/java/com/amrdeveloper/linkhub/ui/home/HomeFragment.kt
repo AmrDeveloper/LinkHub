@@ -168,7 +168,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupFoldersListState(folders: List<Folder>) {
-        if (folders.isNullOrEmpty()) {
+        if (folders.isEmpty()) {
             binding.folderHeaderTxt.hide()
             binding.folderNextImg.hide()
             binding.folderList.hide()
@@ -181,7 +181,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupLinksListState(links: List<Link>) {
-        if (links.isNullOrEmpty()) {
+        if (links.isEmpty()) {
             binding.linkEmptyLottie.show()
             binding.linkEmptyLottie.resumeAnimation()
             binding.linkEmptyText.show()
