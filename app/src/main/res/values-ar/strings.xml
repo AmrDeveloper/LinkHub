@@ -51,7 +51,7 @@
     <string name="message_folders_empty">لايوجد مجلدات</string>
 
     <string name="message_data_imported">تم استيراد البيانات بنجاح</string>
-    <string name="message_data_exported">تم تصدير البيانات بنجاح</string>
+    <string name="message_data_exported">تم تصدير البيانات بنجاح فى ملف التحميلات</string>
 
     <string name="message_invalid_extension">خطا فى صيغه الملف</string>
     <string name="message_invalid_data_format">خطا فى بيانات الملف</string>

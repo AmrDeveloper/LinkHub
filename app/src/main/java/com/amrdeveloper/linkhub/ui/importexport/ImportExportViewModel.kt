@@ -70,8 +70,8 @@ class ImportExportViewModel @Inject constructor (
             val outputStream = uri?.let { resolver.openOutputStream(it) }
             outputStream?.write(data.toByteArray())
         } else {
-            val dataExternalDir = context.getExternalFilesDir("data")
-            val dataFile = File(dataExternalDir, fileName)
+            val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            val dataFile = File(downloadDir, fileName)
             dataFile.writeText(data)
         }
 

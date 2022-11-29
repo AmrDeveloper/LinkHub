@@ -49,7 +49,7 @@
     <string name="message_folders_empty">You have 0 Folders</string>
 
     <string name="message_data_imported">Data is imported Successfully</string>
-    <string name="message_data_exported">Data is exported Successfully</string>
+    <string name="message_data_exported">Data is exported in Download directory Successfully</string>
 
     <string name="message_invalid_extension">Invalid File extensions</string>
     <string name="message_invalid_data_format">Invalid data format</string>
