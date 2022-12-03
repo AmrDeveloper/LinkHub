@@ -1,13 +1,13 @@
 Change Log
 ==========
 
-Version 1.1.2 *(2022-10-14)*
+Version 1.1.4 *(2022-10-14)*
 -----------------------------
 
 * Make link info generator more secure and validate that string is url
 * Replace Deprecated adapter with adapterPosition
 
-Version 1.1.2 *(2022-08-17)*
+Version 1.1.3 *(2022-08-17)*
 -----------------------------
 
 * Add new Setting option to show and hide the link counter
