@@ -15,8 +15,8 @@ android {
         applicationId "com.amrdeveloper.linkhub"
         minSdkVersion 17
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 15
-        versionName "1.1.4"
+        versionCode 16
+        versionName "1.1.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {

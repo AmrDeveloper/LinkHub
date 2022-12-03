@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 1.1.5 *(2022-12-03)*
+-----------------------------
+
+* Change export path for android 9 or less to be download directory
+
 Version 1.1.4 *(2022-10-14)*
 -----------------------------
 
