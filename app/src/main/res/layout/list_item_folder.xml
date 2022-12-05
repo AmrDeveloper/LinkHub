@@ -32,9 +32,12 @@
             android:layout_margin="@dimen/dimen2dp"
             android:layout_toEndOf="@id/folder_icon_img"
             android:drawablePadding="@dimen/dimen5dp"
+            android:ellipsize="end"
             android:fontFamily="serif"
             android:gravity="center_vertical"
+            android:maxLines="1"
             android:padding="@dimen/dimen5dp"
+            android:singleLine="true"
             android:textSize="@dimen/dimen18sp"
             tools:text="Work" />
 
