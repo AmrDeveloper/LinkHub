@@ -83,12 +83,14 @@ class SettingFragment : Fragment() {
         }
 
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            val themeMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+            if (isViewPassedResumedState) {
+                val themeMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
-            AppCompatDelegate.setDefaultNightMode(themeMode)
+                AppCompatDelegate.setDefaultNightMode(themeMode)
 
-            val theme = if (isChecked) Theme.DARK else Theme.WHITE
-            settingUtils.setThemeType(theme)
+                val theme = if (isChecked) Theme.DARK else Theme.WHITE
+                settingUtils.setThemeType(theme)
+            }
         }
 
         binding.showCounterSwitch.setOnCheckedChangeListener { _, isChecked ->

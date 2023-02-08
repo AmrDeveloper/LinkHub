@@ -36,8 +36,15 @@ class ImportExportViewModel @Inject constructor (
                 val dataPackage = Gson().fromJson(data, DataPackage::class.java)
                 folderRepository.insertFolders(dataPackage.folders)
                 linkRepository.insertLinks( dataPackage.links)
+
+                // Import show click count flag if it available
                 val lastShowClickCountConfig = settingUtils.getEnableClickCounter()
                 settingUtils.setEnableClickCounter(dataPackage.showClickCounter ?: lastShowClickCountConfig)
+
+                // Import theme flag if it available
+                val lastThemeOption = settingUtils.getThemeType()
+                settingUtils.setThemeType(dataPackage.theme ?: lastThemeOption)
+
                 _stateMessages.value = R.string.message_data_imported
             } catch (e : JsonSyntaxException) {
                 _stateMessages.value = R.string.message_invalid_data_format
@@ -53,7 +60,8 @@ class ImportExportViewModel @Inject constructor (
                 val folders = foldersResult.getOrDefault(listOf())
                 val links = linksResult.getOrDefault(listOf())
                 val showClickCounter = settingUtils.getEnableClickCounter()
-                val dataPackage = DataPackage(folders, links, showClickCounter)
+                val lastTheme = settingUtils.getThemeType()
+                val dataPackage = DataPackage(folders, links, showClickCounter, lastTheme)
                 val jsonDataPackage = Gson().toJson(dataPackage)
                 createdExportedFile(context, jsonDataPackage)
             } else {
