@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -91,15 +91,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/link_empty_lottie"
-                android:gravity="center"
                 android:layout_centerVertical="true"
+                android:gravity="center"
                 android:text="@string/message_links_empty"
                 android:textColor="@color/dark_sky"
                 android:textSize="@dimen/dimen20sp"
                 android:textStyle="bold|italic"
                 android:visibility="gone" />
         </RelativeLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_link_option"
