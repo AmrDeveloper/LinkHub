@@ -12,6 +12,7 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.DataPackage
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
+import com.amrdeveloper.linkhub.util.SettingUtils
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class ImportExportViewModel @Inject constructor (
     private val folderRepository: FolderRepository,
     private val linkRepository: LinkRepository,
+    private val settingUtils: SettingUtils,
 ) : ViewModel() {
 
     private val _stateMessages = MutableLiveData<Int>()
@@ -34,6 +36,8 @@ class ImportExportViewModel @Inject constructor (
                 val dataPackage = Gson().fromJson(data, DataPackage::class.java)
                 folderRepository.insertFolders(dataPackage.folders)
                 linkRepository.insertLinks( dataPackage.links)
+                val lastShowClickCountConfig = settingUtils.getEnableClickCounter()
+                settingUtils.setEnableClickCounter(dataPackage.showClickCounter ?: lastShowClickCountConfig)
                 _stateMessages.value = R.string.message_data_imported
             } catch (e : JsonSyntaxException) {
                 _stateMessages.value = R.string.message_invalid_data_format
@@ -48,7 +52,8 @@ class ImportExportViewModel @Inject constructor (
             if (foldersResult.isSuccess && linksResult.isSuccess) {
                 val folders = foldersResult.getOrDefault(listOf())
                 val links = linksResult.getOrDefault(listOf())
-                val dataPackage = DataPackage(folders, links)
+                val showClickCounter = settingUtils.getEnableClickCounter()
+                val dataPackage = DataPackage(folders, links, showClickCounter)
                 val jsonDataPackage = Gson().toJson(dataPackage)
                 createdExportedFile(context, jsonDataPackage)
             } else {

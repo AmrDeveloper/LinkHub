@@ -20,7 +20,10 @@ class SettingFragment : Fragment() {
 
     private var _binding : FragmentSettingBinding? = null
     private val binding get() = _binding!!
+
     @Inject lateinit var settingUtils: SettingUtils
+
+    private var isViewPassedResumedState = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,21 +31,34 @@ class SettingFragment : Fragment() {
     ): View {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 
-        setupUiInformation()
+        setupStaticUiInformation()
+        setupDynamicUiInformation()
         setupListeners()
 
         return binding.root
     }
 
-    private fun setupUiInformation() {
+    private fun setupStaticUiInformation() {
         binding.versionTxt.text = getString(R.string.version, BuildConfig.VERSION_NAME)
+    }
 
+    private fun setupDynamicUiInformation() {
         // Setup Theme Switch
-        val theme = settingUtils.getThemeType()
-        binding.themeSwitch.isChecked = theme == Theme.DARK
+        binding.themeSwitch.isChecked = (settingUtils.getThemeType() == Theme.DARK)
 
-        val showCounter = settingUtils.getEnableClickCounter()
-        binding.showCounterSwitch.isChecked = showCounter
+        // Setup Show Counter switch
+        binding.showCounterSwitch.isChecked = settingUtils.getEnableClickCounter()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isViewPassedResumedState = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isViewPassedResumedState = true
+        setupDynamicUiInformation()
     }
 
     private fun setupListeners() {
@@ -76,7 +92,9 @@ class SettingFragment : Fragment() {
         }
 
         binding.showCounterSwitch.setOnCheckedChangeListener { _, isChecked ->
-            settingUtils.setEnableClickCounter(isChecked)
+            if (isViewPassedResumedState) {
+                settingUtils.setEnableClickCounter(isChecked)
+            }
         }
     }
 
