@@ -26,7 +26,7 @@ class LinkListFragment : Fragment() {
 
     private val safeArguments by navArgs<LinkListFragmentArgs>()
 
-    @Inject lateinit var settingUtils: SettingUtils
+    @Inject lateinit var uiPreferences: UiPreferences
 
     private lateinit var currentFolder: Folder
     private lateinit var linkAdapter: LinkAdapter
@@ -85,7 +85,7 @@ class LinkListFragment : Fragment() {
 
     private fun setupLinksList(){
         linkAdapter = LinkAdapter()
-        linkAdapter.setEnableClickCounter(settingUtils.getEnableClickCounter())
+        linkAdapter.setEnableClickCounter(uiPreferences.getEnableClickCounter())
 
         binding.linkList.layoutManager = LinearLayoutManager(context)
         binding.linkList.adapter = linkAdapter

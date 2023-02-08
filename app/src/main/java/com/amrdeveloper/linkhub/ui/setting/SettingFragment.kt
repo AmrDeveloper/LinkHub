@@ -21,7 +21,7 @@ class SettingFragment : Fragment() {
     private var _binding : FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var settingUtils: SettingUtils
+    @Inject lateinit var uiPreferences: UiPreferences
 
     private var isViewPassedResumedState = true
 
@@ -44,10 +44,10 @@ class SettingFragment : Fragment() {
 
     private fun setupDynamicUiInformation() {
         // Setup Theme Switch
-        binding.themeSwitch.isChecked = (settingUtils.getThemeType() == Theme.DARK)
+        binding.themeSwitch.isChecked = (uiPreferences.getThemeType() == Theme.DARK)
 
         // Setup Show Counter switch
-        binding.showCounterSwitch.isChecked = settingUtils.getEnableClickCounter()
+        binding.showCounterSwitch.isChecked = uiPreferences.getEnableClickCounter()
     }
 
     override fun onPause() {
@@ -89,13 +89,13 @@ class SettingFragment : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(themeMode)
 
                 val theme = if (isChecked) Theme.DARK else Theme.WHITE
-                settingUtils.setThemeType(theme)
+                uiPreferences.setThemeType(theme)
             }
         }
 
         binding.showCounterSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isViewPassedResumedState) {
-                settingUtils.setEnableClickCounter(isChecked)
+                uiPreferences.setEnableClickCounter(isChecked)
             }
         }
     }

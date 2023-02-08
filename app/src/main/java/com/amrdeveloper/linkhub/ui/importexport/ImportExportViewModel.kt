@@ -12,7 +12,7 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.DataPackage
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
-import com.amrdeveloper.linkhub.util.SettingUtils
+import com.amrdeveloper.linkhub.util.UiPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class ImportExportViewModel @Inject constructor (
     private val folderRepository: FolderRepository,
     private val linkRepository: LinkRepository,
-    private val settingUtils: SettingUtils,
+    private val uiPreferences: UiPreferences,
 ) : ViewModel() {
 
     private val _stateMessages = MutableLiveData<Int>()
@@ -38,12 +38,12 @@ class ImportExportViewModel @Inject constructor (
                 linkRepository.insertLinks( dataPackage.links)
 
                 // Import show click count flag if it available
-                val lastShowClickCountConfig = settingUtils.getEnableClickCounter()
-                settingUtils.setEnableClickCounter(dataPackage.showClickCounter ?: lastShowClickCountConfig)
+                val lastShowClickCountConfig = uiPreferences.getEnableClickCounter()
+                uiPreferences.setEnableClickCounter(dataPackage.showClickCounter ?: lastShowClickCountConfig)
 
                 // Import theme flag if it available
-                val lastThemeOption = settingUtils.getThemeType()
-                settingUtils.setThemeType(dataPackage.theme ?: lastThemeOption)
+                val lastThemeOption = uiPreferences.getThemeType()
+                uiPreferences.setThemeType(dataPackage.theme ?: lastThemeOption)
 
                 _stateMessages.value = R.string.message_data_imported
             } catch (e : JsonSyntaxException) {
@@ -59,8 +59,8 @@ class ImportExportViewModel @Inject constructor (
             if (foldersResult.isSuccess && linksResult.isSuccess) {
                 val folders = foldersResult.getOrDefault(listOf())
                 val links = linksResult.getOrDefault(listOf())
-                val showClickCounter = settingUtils.getEnableClickCounter()
-                val lastTheme = settingUtils.getThemeType()
+                val showClickCounter = uiPreferences.getEnableClickCounter()
+                val lastTheme = uiPreferences.getThemeType()
                 val dataPackage = DataPackage(folders, links, showClickCounter, lastTheme)
                 val jsonDataPackage = Gson().toJson(dataPackage)
                 createdExportedFile(context, jsonDataPackage)

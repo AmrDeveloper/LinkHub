@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var settingUtils: SettingUtils
+    @Inject lateinit var uiPreferences: UiPreferences
 
     private lateinit var folderAdapter: FolderAdapter
     private lateinit var linkAdapter: LinkAdapter
@@ -128,7 +128,7 @@ class HomeFragment : Fragment() {
 
     private fun setupLinksList() {
         linkAdapter = LinkAdapter()
-        linkAdapter.setEnableClickCounter(settingUtils.getEnableClickCounter())
+        linkAdapter.setEnableClickCounter(uiPreferences.getEnableClickCounter())
 
         binding.linkList.layoutManager = LinearLayoutManager(context)
         binding.linkList.adapter = linkAdapter

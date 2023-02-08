@@ -8,7 +8,7 @@ import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.data.source.local.FolderLocalDataSource
 import com.amrdeveloper.linkhub.data.source.local.LinkLocalDataSource
 import com.amrdeveloper.linkhub.data.source.local.LinkRoomDatabase
-import com.amrdeveloper.linkhub.util.SettingUtils
+import com.amrdeveloper.linkhub.util.UiPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,8 +60,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSettingUtils(@ApplicationContext context: Context) : SettingUtils {
-        return SettingUtils(context)
+    fun provideSettingUtils(@ApplicationContext context: Context) : UiPreferences {
+        return UiPreferences(context)
     }
 
     @Singleton

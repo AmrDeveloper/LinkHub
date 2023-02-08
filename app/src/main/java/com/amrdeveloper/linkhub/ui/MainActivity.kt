@@ -10,7 +10,7 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_LINK
-import com.amrdeveloper.linkhub.util.SettingUtils
+import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.findNavHostController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var settingUtils: SettingUtils
+    @Inject lateinit var uiPreferences: UiPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleMultiThemeOption() {
-        val theme = settingUtils.getThemeType()
+        val theme = uiPreferences.getThemeType()
         val themeMode = if (theme == Theme.DARK) AppCompatDelegate.MODE_NIGHT_YES
         else AppCompatDelegate.MODE_NIGHT_NO
         AppCompatDelegate.setDefaultNightMode(themeMode)
