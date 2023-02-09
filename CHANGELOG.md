@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+Version 1.1.6 *(2023-02-09)*
+-----------------------------
+
+* Improve save and delete icon from Design suggestions #17
+* Import/Export show click count flag
+* Import/Export user Theme Issue #19
+* Fix Smooth scrolling on home page Issue #22
+* Update Link list header to show folder color and name #17 
+
 Version 1.1.5 *(2022-12-03)*
 -----------------------------
 
