@@ -55,7 +55,7 @@ class LinkListFragment : Fragment() {
 
     private fun setupObservers() {
         linkListViewModel.linksLiveData.observe(viewLifecycleOwner) {
-            binding.linksCountTxt.text = getString(R.string.links_count, it.size)
+            setupFolderHeaderInfo(it.size)
             setupLinksListState(it)
         }
 
@@ -99,6 +99,11 @@ class LinkListFragment : Fragment() {
             val bundle = bundleOf("link" to it)
             findNavController().navigate(R.id.action_linkListFragment_to_linkFragment, bundle)
         }
+    }
+
+    private fun setupFolderHeaderInfo(size : Int) {
+        binding.folderInfoHeaderTxt.text = "${currentFolder.name}: ${size}"
+        binding.folderInfoHeaderTxt.setCompoundDrawablesWithIntrinsicBounds(currentFolder.folderColor.drawableId, 0, 0, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

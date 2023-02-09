@@ -59,7 +59,6 @@
 
     <!--Counters-->
     <string name="folder_count"> المجلدات %1$d</string>
-    <string name="links_count"> الروابط %1$d</string>
     <string name="version"> الإصدار %1$s</string>
 
     <!--Error Messages-->
