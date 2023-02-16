@@ -35,6 +35,7 @@ class PinnedLinksWidgetService : RemoteViewsService() {
             val result = linkRepository.getPinnedLinkList()
             if (result.isSuccess) {
                 result.getOrNull()?.let {
+                    links.clear()
                     links.addAll(it)
                 }
             }
