@@ -87,7 +87,7 @@ class FolderFragment : Fragment() {
     private fun createNewFolder() {
         val name = binding.folderTitleEdit.text.toString().trim()
         if(name.isEmpty()) {
-            binding.folderTitleLayout.showError(R.string.error_link_title_empty)
+            binding.folderTitleLayout.showError(R.string.error_folder_name_empty)
             return
         }
         if(name.length < 3) {
