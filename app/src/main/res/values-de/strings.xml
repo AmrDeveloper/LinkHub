@@ -68,4 +68,6 @@
     <string name="error_folder_same_name">Es existiert bereits ein Ordner mit dem gleichen Name.</string>
     <string name="folder_create">Ordner erstellen</string>
     <string name="link_create">Link erstellen</string>
+    <string name="created_at">Erstellt am</string>
+    <string name="updated_at">Aktualisiert am</string>
 </resources>
