@@ -44,6 +44,10 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.updateClickCountByLinkId(linkId, count)
     }
 
+    suspend fun incrementClickCounter(linkId: Int): Result<Int> {
+        return dataSource.incrementClickCounter(linkId)
+    }
+
     suspend fun deleteLink(link: Link): Result<Int> {
         return dataSource.deleteLink(link)
     }

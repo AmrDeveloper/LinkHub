@@ -48,9 +48,9 @@ class PinnedLinksWidgetService : RemoteViewsService() {
             remoteView.setTextViewText(R.id.link_title, link.title)
             remoteView.setTextViewText(R.id.link_subtitle, link.subtitle)
 
-            val extras = bundleOf("url" to link.url)
             val fillInIntent = Intent()
-            fillInIntent.putExtras(extras)
+            fillInIntent.putExtra("url" , link.url)
+            fillInIntent.putExtra("link_id" , link.id)
             remoteView.setOnClickFillInIntent(R.id.widget_item_layout, fillInIntent)
 
             return remoteView

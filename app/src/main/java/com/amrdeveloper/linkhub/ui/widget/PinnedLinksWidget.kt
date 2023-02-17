@@ -9,10 +9,20 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.util.WIDGET_ITEM_CLICK_ACTION
 import com.amrdeveloper.linkhub.util.WIDGET_REFRESH_ACTION
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PinnedLinksWidget : AppWidgetProvider() {
+
+    @Inject lateinit var linkRepository : LinkRepository
 
     companion object {
 
@@ -34,7 +44,16 @@ class PinnedLinksWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
         when (intent?.action) {
             WIDGET_ITEM_CLICK_ACTION -> {
-                val url = intent.getStringExtra("url")
+                val extras = intent.extras ?: return
+
+                // Update current link click counter
+                val linkId = extras.getInt("link_id")
+                CoroutineScope(Dispatchers.IO).launch {
+                    linkRepository.incrementClickCounter(linkId)
+                }
+
+                // Open url using implicit intent
+                val url = extras.getString("url")
                 val openIntent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
                 openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(openIntent)

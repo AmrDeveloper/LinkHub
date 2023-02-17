@@ -28,6 +28,9 @@ interface LinkDao : BaseDao<Link> {
     @Query("UPDATE link SET click_count = :count WHERE id = :linkId")
     suspend fun updateClickCountByLinkId(linkId : Int, count : Int) : Int
 
+    @Query("UPDATE link SET click_count = click_count + 1 WHERE id = :linkId")
+    suspend fun incrementClickCounter(linkId : Int) : Int
+
     @Query("DELETE FROM link WHERE id = :id")
     suspend fun deleteLinkById(id: Int): Int
 

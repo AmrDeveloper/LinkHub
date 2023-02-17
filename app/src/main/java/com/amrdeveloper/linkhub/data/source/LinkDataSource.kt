@@ -24,6 +24,8 @@ interface LinkDataSource {
 
     suspend fun updateClickCountByLinkId(linkId: Int, count: Int): Result<Int>
 
+    suspend fun incrementClickCounter(linkId: Int): Result<Int>
+
     suspend fun deleteLink(link: Link): Result<Int>
 
     suspend fun deleteLinkByID(id: Int): Result<Int>

@@ -91,6 +91,14 @@ class LinkLocalDataSource internal constructor(
         }
     }
 
+    override suspend fun incrementClickCounter(linkId: Int): Result<Int> = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.success(linkDao.incrementClickCounter(linkId))
+        } catch (e : Exception) {
+            Result.failure(e)
+        }
+    }
+
     override suspend fun deleteLink(link: Link) : Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.delete(link))
