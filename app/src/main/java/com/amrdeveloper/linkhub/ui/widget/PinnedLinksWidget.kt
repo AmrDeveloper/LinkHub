@@ -32,7 +32,7 @@ class PinnedLinksWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent?) {
         super.onReceive(context, intent)
-        when(intent?.action) {
+        when (intent?.action) {
             WIDGET_ITEM_CLICK_ACTION -> {
                 val url = intent.getStringExtra("url")
                 val openIntent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
@@ -70,7 +70,12 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     // Setup View link in browser intent template
     val viewLinkIntent = Intent(context, PinnedLinksWidget::class.java)
     viewLinkIntent.action = WIDGET_ITEM_CLICK_ACTION
-    val viewPendingIntent = PendingIntent.getBroadcast(context, 0, viewLinkIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val pendingIntentFlag = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+        PendingIntent.FLAG_MUTABLE
+    } else {
+        PendingIntent.FLAG_UPDATE_CURRENT
+    }
+    val viewPendingIntent = PendingIntent.getBroadcast(context, 0, viewLinkIntent, pendingIntentFlag)
     views.setPendingIntentTemplate(R.id.links_listview, viewPendingIntent)
 
     appWidgetManager.updateAppWidget(appWidgetId, views)
