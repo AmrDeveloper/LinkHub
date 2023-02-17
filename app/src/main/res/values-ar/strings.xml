@@ -14,6 +14,8 @@
     <string name="link_url">الرابط</string>
     <string name="pinned">تثبيت</string>
     <string name="folder_name">اسم المجلد</string>
+    <string name="created_at">تم إنشاء </string>
+    <string name="updated_at">أخر تحديث </string>
     <string name="none">بدون</string>
     <string name="settings">الإعدادات</string>
     <string name="issues">المشاكل</string>
