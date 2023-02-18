@@ -31,7 +31,7 @@ class LinkFragment : Fragment() {
     private lateinit var folderMenuAdapter: FolderArrayAdapter
     private val linkViewModel by viewModels<LinkViewModel>()
 
-    private val dateFormatter = DateFormat.getDateInstance()
+    private val dateFormatter = DateFormat.getDateTimeInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
