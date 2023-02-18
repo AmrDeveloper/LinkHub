@@ -16,8 +16,7 @@ import com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.text.DateFormat
 
 @AndroidEntryPoint
 class LinkFragment : Fragment() {
@@ -32,7 +31,7 @@ class LinkFragment : Fragment() {
     private lateinit var folderMenuAdapter: FolderArrayAdapter
     private val linkViewModel by viewModels<LinkViewModel>()
 
-    private val simpleDateFormatter = SimpleDateFormat("dd/MM/yy hh:mm a", Locale.ENGLISH)
+    private val dateFormatter = DateFormat.getDateInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,11 +75,11 @@ class LinkFragment : Fragment() {
             binding.linkUrlEdit.setText(currentLink.url)
             binding.linkPinnedSwitch.isChecked = currentLink.isPinned
             val linkCreatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
-            val formattedCreationDate = simpleDateFormatter.format(linkCreatedStamp)
+            val formattedCreationDate = dateFormatter.format(linkCreatedStamp)
             binding.linkCreatedStatus.text =getString(R.string.created_at)+" ${formattedCreationDate}"
             if (currentLink.isUpdated) {
                 val linkUpdatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
-                val formattedUpdateDate = simpleDateFormatter.format(linkUpdatedStamp)
+                val formattedUpdateDate = dateFormatter.format(linkUpdatedStamp)
                 binding.linkUpdatedStatus.text =getString(R.string.updated_at)+" ${formattedUpdateDate}"
             }
             if (currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
