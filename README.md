@@ -8,10 +8,10 @@ LinkHub is a simple and effective link management application that can help you 
 
 ## Download
 
-<a href='https://play.google.com/store/apps/details?id=com.amrdeveloper.linkhub'><img alt='Get it on Google Play' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png' width="20%" height="60"/></a>
-<a href="https://galaxystore.samsung.com/detail/com.amrdeveloper.linkhub"><img src="https://img.samsungapps.com/seller/images/badges/galaxyStore/png_big/GalaxyStore_English.png" alt="Samsung Galaxy Store" width="20%" height="60"></a>
-<a href="https://www.amazon.com/gp/product/B09B19R8K5"><img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" alt="Amazon App Store" width="20%" height="60"></a>
-<a href="https://appgallery.huawei.com/#/app/C104553823"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Huawei_AppGallery_white_badge_EN.png" alt="Huawei AppGallery" width="20%" height="60"></a>
+<a href='https://play.google.com/store/apps/details?id=com.amrdeveloper.linkhub'><img alt='Get it on Google Play' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png' width="auto" height="55"/></a>
+<a href="https://galaxystore.samsung.com/detail/com.amrdeveloper.linkhub"><img src="https://img.samsungapps.com/seller/images/badges/galaxyStore/png_big/GalaxyStore_English.png" alt="Samsung Galaxy Store" width="auto" height="55"></a>
+<a href="https://www.amazon.com/gp/product/B09B19R8K5"><img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" alt="Amazon App Store" width="auto" height="55"></a>
+<a href="https://appgallery.huawei.com/#/app/C104553823"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Huawei_AppGallery_white_badge_EN.png" alt="Huawei AppGallery" width="auto" height="55"></a>
 
 ## Screenshots
 <p align="center">
