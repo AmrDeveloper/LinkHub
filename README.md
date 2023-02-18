@@ -4,7 +4,7 @@ LinkHub is a simple and effective link management application that can help you 
 ![Build CI](https://github.com/amrdeveloper/linkhub/actions/workflows/build.yml/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/amrdeveloper/linkhub/badge)](https://www.codefactor.io/repository/github/amrdeveloper/linkhub)
 
-<img src="media/banner/linkhub_banner.png" width="100%" height="300" />
+<img src="media/banner/linkhub_banner.png" width="100%" height="auto" />
 
 ## Download
 
@@ -15,9 +15,9 @@ LinkHub is a simple and effective link management application that can help you 
 
 ## Screenshots
 <p align="center">
-  <img src="media/screenshots/screenshot_1.png" width="30%" height="500">
-  <img src="media/screenshots/screenshot_2.png" width="30%" height="500">
-  <img src="media/screenshots/screenshot_3.png" width="30%" height="500">
+  <img src="media/screenshots/screenshot_1.png" width="30%" height="auto">
+  <img src="media/screenshots/screenshot_2.png" width="30%" height="auto">
+  <img src="media/screenshots/screenshot_3.png" width="30%" height="auto">
 </p>
 
 LinkHub enabled you to create folders and put your links inside them to classify them and find your link easily and fast, also you can use searching with link title. 
