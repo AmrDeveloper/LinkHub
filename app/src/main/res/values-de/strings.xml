@@ -13,7 +13,7 @@
     <string name="link_url">Link-URL</string>
     <string name="pinned">Anpinnen</string>
     <string name="folder_name">Ordnername</string>
-    <string name="none">Ohne</string>
+    <string name="none">- keiner -</string>
     <string name="settings">Einstellungen</string>
     <string name="issues">Probleme</string>
     <string name="contributors">Mitwirkende</string>
