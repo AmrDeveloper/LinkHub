@@ -78,7 +78,7 @@ class LinkFragment : Fragment() {
             val formattedCreationDate = dateFormatter.format(linkCreatedStamp)
             binding.linkCreatedStatus.text =getString(R.string.created_at)+" ${formattedCreationDate}"
             if (currentLink.isUpdated) {
-                val linkUpdatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
+                val linkUpdatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.lastUpdatedTime
                 val formattedUpdateDate = dateFormatter.format(linkUpdatedStamp)
                 binding.linkUpdatedStatus.text =getString(R.string.updated_at)+" ${formattedUpdateDate}"
             }
