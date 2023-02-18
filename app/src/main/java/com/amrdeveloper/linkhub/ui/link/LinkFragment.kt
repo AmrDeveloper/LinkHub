@@ -118,7 +118,7 @@ class LinkFragment : Fragment() {
         }
 
         folderMenuAdapter = FolderArrayAdapter(requireContext())
-        folderMenuAdapter.add(Folder("None", false, id = -1))
+        folderMenuAdapter.add(Folder(getString(R.string.none), false, id = -1))
         binding.folderNameMenu.setAdapter(folderMenuAdapter)
     }
 
