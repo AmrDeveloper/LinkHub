@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/dimen2dp"
+    android:theme="@style/ThemeOverlay.LinkHub.AppWidgetContainer"
     tools:viewBindingIgnore="true">
 
     <ImageView
         android:id="@+id/link_image"
-        android:layout_width="@dimen/dimen35dp"
-        android:layout_height="@dimen/dimen35dp"
+        android:layout_width="@dimen/dimen25dp"
+        android:layout_height="@dimen/dimen25dp"
         android:layout_centerVertical="true"
         android:contentDescription="@string/link_icon"
         android:src="@drawable/ic_link" />
@@ -18,23 +19,26 @@
     <TextView
         android:id="@+id/link_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen30dp"
+        android:layout_height="@dimen/dimen20dp"
         android:layout_marginStart="@dimen/dimen5dp"
         android:layout_toEndOf="@id/link_image"
         android:fontFamily="serif"
         android:gravity="center_vertical"
         android:lines="1"
         android:textStyle="bold"
+        android:textColor="?attr/appWidgetTextColor"
         tools:text="Youtube talk" />
 
     <TextView
         android:id="@+id/link_subtitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen24dp"
+        android:layout_height="@dimen/dimen20dp"
         android:layout_below="@id/link_title"
         android:layout_marginStart="@dimen/dimen5dp"
         android:layout_toEndOf="@id/link_image"
+        android:textSize="@dimen/dimen12dp"
+        android:gravity="center_vertical"
         android:lines="1"
-        android:padding="@dimen/dimen2dp"
+        android:textColor="?attr/appWidgetTextColor"
         tools:text="Youtube talk subtitle" />
 </RelativeLayout>

@@ -23,6 +23,6 @@
 
     <style name="ThemeOverlay.LinkHub.AppWidgetContainer" parent="">
         <item name="appWidgetBackgroundColor">@color/light_blue_900</item>
-        <item name="appWidgetTextColor">@color/light_blue_200</item>
+        <item name="appWidgetTextColor">@color/light_blue_100</item>
     </style>
 </resources>
