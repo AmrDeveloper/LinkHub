@@ -6,7 +6,7 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 
 const val DATABASE_NAME = "link_database"
-const val DATABASE_VERSION = 4
+const val DATABASE_VERSION = 5
 
 @Database(
     entities = [Link::class, Folder::class],
@@ -14,7 +14,8 @@ const val DATABASE_VERSION = 4
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
-        AutoMigration(from = 3, to = 4)
+        AutoMigration(from = 3, to = 4),
+        AutoMigration(from = 4, to = 5)
     ]
 )
 @TypeConverters(FolderColorConverter::class)
