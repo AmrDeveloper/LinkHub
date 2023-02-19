@@ -81,6 +81,7 @@ class HomeFragment : Fragment() {
     private fun setupListeners() {
         binding.folderNextImg.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_folderListFragment)
+            isOptionsButtonClicked=false
         }
 
         binding.showAddOptions.setOnClickListener { updateActionOptions() }
@@ -216,6 +217,7 @@ class HomeFragment : Fragment() {
         return when (item.itemId) {
             R.id.setting_action -> {
                 findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+                isOptionsButtonClicked=false
                 true
             }
             else -> super.onOptionsItemSelected(item)
