@@ -14,7 +14,7 @@ class ColorSelector @JvmOverloads constructor(
 
     private var folderColorsArray = FolderColor.values()
     private var folderColorsArraySize = folderColorsArray.size
-    private var selectedFolderColorIndex = 0
+    private var selectedFolderColorIndex = 1
 
     private val previewFolderImg: ImageView
     private val prevSelectorImg: ImageView
@@ -40,7 +40,7 @@ class ColorSelector @JvmOverloads constructor(
     }
 
     private fun selectPrevFolderColor() {
-        if (selectedFolderColorIndex == 0) selectedFolderColorIndex = folderColorsArraySize
+        if (selectedFolderColorIndex == 1) selectedFolderColorIndex = folderColorsArraySize
         selectedFolderColorIndex--
         val folderColor = folderColorsArray[selectedFolderColorIndex]
         previewFolderImg.setImageResource(folderColor.drawableId)
@@ -48,7 +48,7 @@ class ColorSelector @JvmOverloads constructor(
     }
 
     private fun selectNextFolderColor() {
-        if (selectedFolderColorIndex == folderColorsArray.lastIndex) selectedFolderColorIndex = -1
+        if (selectedFolderColorIndex == folderColorsArray.lastIndex) selectedFolderColorIndex = 0
         selectedFolderColorIndex++
         val folderColor = folderColorsArray[selectedFolderColorIndex]
         previewFolderImg.setImageResource(folderColor.drawableId)
