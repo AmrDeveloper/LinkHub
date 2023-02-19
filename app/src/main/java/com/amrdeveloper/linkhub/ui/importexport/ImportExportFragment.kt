@@ -51,9 +51,9 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        importExportViewModel.stateMessages.observe(viewLifecycleOwner, { messageId ->
+        importExportViewModel.stateMessages.observe(viewLifecycleOwner) { messageId ->
             activity.showSnackBar(messageId)
-        })
+        }
     }
 
     private fun importDataFile() {
@@ -65,11 +65,10 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun importFileFromDeviceWithPermission() {
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val readPGranted = checkSelfPermission(requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-            if (readPGranted) launchFileChooserIntent()
+        // From Android 33 no need for READ_EXTERNAL_STORAGE permission for non media files
+        if (Build.VERSION_CODES.TIRAMISU > Build.VERSION.SDK_INT && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val readPermissionState = checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (readPermissionState == PackageManager.PERMISSION_GRANTED) launchFileChooserIntent()
             else permissionLauncher.launch(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))
         } else {
             launchFileChooserIntent()
@@ -77,14 +76,9 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun exportFileFromDeviceWthPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            importExportViewModel.exportDataFile(requireContext())
-        }
-         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val readPGranted = checkSelfPermission(requireContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-            if (readPGranted) importExportViewModel.exportDataFile(requireContext())
+        if (Build.VERSION_CODES.R > Build.VERSION.SDK_INT && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val readPermissionState = checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (readPermissionState == PackageManager.PERMISSION_GRANTED) importExportViewModel.exportDataFile(requireContext())
             else permissionLauncher.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
         } else {
             importExportViewModel.exportDataFile(requireContext())
@@ -93,7 +87,7 @@ class ImportExportFragment : Fragment() {
 
     private fun launchFileChooserIntent() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"
+        intent.type = "application/json"
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         val chooserIntent = Intent.createChooser(intent, "Select a File to import")
         loadFileActivityResult.launch(chooserIntent)
