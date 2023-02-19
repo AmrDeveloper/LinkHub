@@ -1,8 +1,11 @@
 # LinkHub
-LinkHub is a simple and effective link management application that can help you to easily manage your own links with no ads!  
+LinkHub is a simple and effective link management application that can help you to easily manage your own links with no ads!
 
 ![Build CI](https://github.com/amrdeveloper/linkhub/actions/workflows/build.yml/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d69ad89db65d4608938987db0073a460)](https://www.codacy.com/gh/AmrDeveloper/LinkHub/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AmrDeveloper/LinkHub&amp;utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/amrdeveloper/linkhub/badge)](https://www.codefactor.io/repository/github/amrdeveloper/linkhub)
+[![Github release](https://img.shields.io/github/v/release/amrdeveloper/linkhub?display_name=tag)](https://github.com/amrdeveloper/linkhub/releases/latest)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-LinkHub-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/8305)
 
 <img src="media/banner/linkhub_banner.png" width="100%" height="auto" />
 
@@ -20,7 +23,7 @@ LinkHub is a simple and effective link management application that can help you 
   <img src="media/screenshots/screenshot_3.png" width="30%" height="auto">
 </p>
 
-LinkHub enabled you to create folders and put your links inside them to classify them and find your link easily and fast, also you can use searching with link title. 
+LinkHub enabled you to create folders and put your links inside them to classify them and find your link easily and fast, also you can use searching with link title.
 
 In Link Hub links are automatically sorted depend on if they are pinned and how many times you use them, and the same for Folder.
 
@@ -41,9 +44,15 @@ With LinkHub you can copy, edit, open your link just by one click
 
 You can put each similar link in the same folder, for example, folders for e-books, jobs, courses, talks, articles... etc
 
+## Supporting languages
+- Arabic
+- English
+- Germany
+
 ## How to contribute
 - Before making a feature request or bug report make sure you have the latest version installed on your device and the request is unique
 - If you want to implement new feature or solving bug make sure no one working on this issue and left a comment that you will work on it
+
 
 ```
 MIT License
