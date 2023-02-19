@@ -42,4 +42,9 @@
         <item name="appWidgetBackgroundColor">@color/white</item>
         <item name="appWidgetTextColor">@color/black</item>
     </style>
+
+    <style name="Theme.LinkHub.Button" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/sky</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
 </resources>
