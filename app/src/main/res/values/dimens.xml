@@ -5,6 +5,7 @@
     <dimen name="dimen2dp">2dp</dimen>
     <dimen name="dimen5dp">5dp</dimen>
     <dimen name="dimen10dp">10dp</dimen>
+    <dimen name="dimen12dp">12dp</dimen>
     <dimen name="dimen15dp">15dp</dimen>
     <dimen name="dimen16dp">16dp</dimen>
     <dimen name="dimen20dp">20dp</dimen>

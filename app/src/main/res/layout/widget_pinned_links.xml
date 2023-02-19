@@ -20,6 +20,6 @@
         android:fontFamily="serif"
         android:gravity="center"
         android:text="@string/message_links_empty"
-        android:textColor="@color/sky"
+        android:textColor="?attr/appWidgetTextColor"
         android:textSize="@dimen/dimen20sp" />
 </FrameLayout>
