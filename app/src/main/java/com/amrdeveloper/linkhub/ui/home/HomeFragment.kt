@@ -87,10 +87,12 @@ class HomeFragment : Fragment() {
 
         binding.addLinkOption.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_linkFragment)
+            updateActionOptions()
         }
 
         binding.addFolderOption.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_folderFragment)
+            updateActionOptions()
         }
     }
 
