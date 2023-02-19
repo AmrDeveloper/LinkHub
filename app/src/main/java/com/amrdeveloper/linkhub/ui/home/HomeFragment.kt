@@ -87,12 +87,12 @@ class HomeFragment : Fragment() {
 
         binding.addLinkOption.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_linkFragment)
-            updateActionOptions()
+            isOptionsButtonClicked=false
         }
 
         binding.addFolderOption.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_folderFragment)
-            updateActionOptions()
+            isOptionsButtonClicked=false
         }
     }
 
@@ -125,6 +125,7 @@ class HomeFragment : Fragment() {
         folderAdapter.setOnFolderLongClickListener{
             val bundle = bundleOf("folder" to it)
             findNavController().navigate(R.id.action_homeFragment_to_folderFragment, bundle)
+            isOptionsButtonClicked=false
         }
     }
 
@@ -166,6 +167,7 @@ class HomeFragment : Fragment() {
         linkAdapter.setOnLinkLongClickListener {
             val bundle = bundleOf("link" to it)
             findNavController().navigate(R.id.action_homeFragment_to_linkFragment, bundle)
+            isOptionsButtonClicked=false
         }
     }
 
