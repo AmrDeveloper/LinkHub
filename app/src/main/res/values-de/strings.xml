@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LinkHub</string>
-    <string name="top_folders">Hauptordner</string>
+    <string name="top_folders">Top-Ordner</string>
     <string name="folder">Ordner</string>
     <string name="folders">Ordner</string>
     <string name="links">Links</string>
