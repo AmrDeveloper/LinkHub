@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LinkHub</string>
-    <string name="top_folders">Hauptordner</string>
+    <string name="top_folders">Top-Ordner</string>
     <string name="folder">Ordner</string>
     <string name="folders">Ordner</string>
     <string name="links">Links</string>
     <string name="search">Suchen</string>
     <string name="link_icon">Link-Icon</string>
-    <string name="next_folders">Folgende Ordner</string>
+    <string name="all_folders">Alle Ordner</string>
     <string name="link_title">Link-Name</string>
     <string name="link_subtitle">Link-Untertitel</string>
     <string name="link_url">Link-URL</string>

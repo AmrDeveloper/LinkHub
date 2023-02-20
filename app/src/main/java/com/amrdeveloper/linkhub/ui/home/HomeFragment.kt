@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.folderNextImg.setOnClickListener {
+        binding.folderNextBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_folderListFragment)
             isOptionsButtonClicked=false
         }
@@ -175,11 +175,11 @@ class HomeFragment : Fragment() {
     private fun setupFoldersListState(folders: List<Folder>) {
         if (folders.isEmpty()) {
             binding.folderHeaderTxt.hide()
-            binding.folderNextImg.hide()
+            binding.folderNextBtn.hide()
             binding.folderList.hide()
         } else {
             binding.folderHeaderTxt.show()
-            binding.folderNextImg.show()
+            binding.folderNextBtn.show()
             binding.folderList.show()
             folderAdapter.submitList(folders)
         }

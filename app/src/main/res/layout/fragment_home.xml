@@ -13,32 +13,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".ui.home.HomeFragment">
-
-            <TextView
-                android:id="@+id/folder_header_txt"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/folder_header"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen5dp"
-                android:fontFamily="serif"
-                android:padding="@dimen/dimen5dp"
-                android:text="@string/top_folders"
-                android:textColor="@color/sky"
-                android:textStyle="bold"
-                tools:ignore="RelativeOverlap" />
+                android:paddingHorizontal="@dimen/dimen5dp"
+                android:paddingTop="@dimen/dimen5dp">
+                <TextView
+                    android:id="@+id/folder_header_txt"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen35dp"
+                    android:fontFamily="serif"
+                    android:text="@string/top_folders"
+                    android:textColor="@color/sky"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
 
-            <ImageView
-                android:id="@+id/folder_next_img"
-                android:layout_width="@dimen/dimen25dp"
-                android:layout_height="@dimen/dimen25dp"
-                android:layout_alignParentEnd="true"
-                android:contentDescription="@string/next_folders"
-                android:src="@drawable/ic_next_arrow" />
-
+                <Button
+                    android:id="@+id/folder_next_btn"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen35dp"
+                    android:layout_alignParentEnd="true"
+                    android:includeFontPadding="false"
+                    android:fontFamily="serif"
+                    android:contentDescription="@string/all_folders"
+                    android:text="@string/all_folders"
+                    android:textStyle="normal"
+                    android:textSize="@dimen/dimen12sp"
+                    android:textAllCaps="false"
+                    android:theme="@style/Theme.LinkHub.Button" />
+            </RelativeLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/folder_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/folder_header_txt"
+                android:layout_below="@id/folder_header"
                 tools:itemCount="3"
                 tools:listitem="@layout/list_item_folder" />
 
