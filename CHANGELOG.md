@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+Version 1.2.0 *(2023-02-21)*
+-----------------------------
+
+* Fix show link created time not last updated time PR #30 by @SIRSteiner
+* Update Data Formatter to use the current locale PR #30 by @SIRSteiner
+* Fix pinned links duplications on widget Issue #26 by @AmrDeveloper
+* Add support for german language PR #27 by @SIRSteiner
+* Fix Android 12 crash when creating new widget by @AmrDeveloper
+* Add support for updating link click count from widget Issue #28 by @AmrDeveloper
+* Add support for reading non media file on Android 13 by @AmrDeveloper
+* Improve pinned links widget design PR #35 by @SIRSteiner
+* Fix status of option button after add/edit link/folder PR #34 by @SIRSteiner
+* Fix update option button when click on option button link/folder PR #34 by @SIRSteiner
+* Add button for "all/next folders" instead of the inconspicuous arrow PR #38 by @SIRSteiner
+
 Version 1.1.6 *(2023-02-09)*
 -----------------------------
 
@@ -8,7 +23,7 @@ Version 1.1.6 *(2023-02-09)*
 * Import/Export show click count flag
 * Import/Export user Theme Issue #19
 * Fix Smooth scrolling on home page Issue #22
-* Update Link list header to show folder color and name #17 
+* Update Link list header to show folder color and name #17
 
 Version 1.1.5 *(2022-12-03)*
 -----------------------------
