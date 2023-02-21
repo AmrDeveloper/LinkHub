@@ -47,7 +47,7 @@ You can put each similar link in the same folder, for example, folders for e-boo
 ## Supporting languages
 - Arabic
 - English
-- Germany
+- German
 
 ## How to contribute
 - Before making a feature request or bug report make sure you have the latest version installed on your device and the request is unique
