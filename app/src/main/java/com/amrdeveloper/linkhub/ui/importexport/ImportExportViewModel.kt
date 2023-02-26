@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.DataPackage
+import com.amrdeveloper.linkhub.data.FolderColor
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.util.UiPreferences
@@ -34,8 +35,14 @@ class ImportExportViewModel @Inject constructor (
         viewModelScope.launch {
             try {
                 val dataPackage = Gson().fromJson(data, DataPackage::class.java)
-                folderRepository.insertFolders(dataPackage.folders)
-                linkRepository.insertLinks( dataPackage.links)
+
+                val folders = dataPackage.folders
+                // This code should be removed after found why it not serialized on some devices (see Issue #23)
+                // folderColor field is declared as non nullable type but in this case GSON will break the null safty feature
+                folders.forEach { if (it.folderColor == null) it.folderColor = FolderColor.BLUE }
+                folderRepository.insertFolders(folders)
+
+                linkRepository.insertLinks(dataPackage.links)
 
                 // Import show click count flag if it available
                 val lastShowClickCountConfig = uiPreferences.getEnableClickCounter()
