@@ -1,5 +1,7 @@
 package com.amrdeveloper.linkhub.ui.home
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
@@ -138,7 +140,7 @@ class HomeFragment : Fragment() {
         binding.linkList.adapter = linkAdapter
 
         val context = requireContext()
-        val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_delete)
+        val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_swipe_delete)
         val background = ColorDrawable(ContextCompat.getColor(context, R.color.red))
 
         val swipeHandler = ItemSwipeCallback(deleteIcon, background) { holder ->
