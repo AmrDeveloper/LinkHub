@@ -1,7 +1,7 @@
 <h1 align="center">LinkHub</h1></br>
 
 <p align="center">
-<img src="media/linkhub-logo.svg" />
+<img src="media/linkhub-logo.svg" width="20%" height="20%"/>
 </p>
 
 <p align="center">
@@ -43,8 +43,6 @@ you can copy, edit, open your link just by one click
 - Dark theme support
 - Import and Export the data in JSON Format
 - Widget for Pinned links
-
-You can put each similar link in the same folder, for example, folders for e-books, jobs, courses, talks, articles... etc
 
 ## Supporting languages
 - Arabic
