@@ -62,6 +62,25 @@
         android:layout_height="0.2dp"
         android:background="@android:color/darker_gray" />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/auto_saving_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen10dp"
+        android:fontFamily="serif"
+        android:padding="@dimen/dimen10dp"
+        android:text="@string/auto_saving"
+        android:textColor="@color/dark_sky"
+        android:textSize="@dimen/dimen20sp"
+        app:drawableStartCompat="@drawable/ic_save"
+        app:thumbTint="@color/sky"
+        app:trackTint="@color/grey" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@android:color/darker_gray" />
+
     <TextView
         android:id="@+id/source_code_txt"
         android:layout_width="match_parent"

@@ -25,10 +25,7 @@ class SettingFragment : Fragment() {
 
     private var isViewPassedResumedState = true
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 
         setupStaticUiInformation()
@@ -47,7 +44,10 @@ class SettingFragment : Fragment() {
         binding.themeSwitch.isChecked = (uiPreferences.getThemeType() == Theme.DARK)
 
         // Setup Show Counter switch
-        binding.showCounterSwitch.isChecked = uiPreferences.getEnableClickCounter()
+        binding.showCounterSwitch.isChecked = uiPreferences.isClickCounterEnabled()
+
+        // Setup Auto saving
+        binding.autoSavingSwitch.isChecked = uiPreferences.isAutoSavingEnabled()
     }
 
     override fun onPause() {
@@ -96,6 +96,12 @@ class SettingFragment : Fragment() {
         binding.showCounterSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isViewPassedResumedState) {
                 uiPreferences.setEnableClickCounter(isChecked)
+            }
+        }
+
+        binding.autoSavingSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isViewPassedResumedState) {
+                uiPreferences.setEnableAutoSave(isChecked)
             }
         }
     }

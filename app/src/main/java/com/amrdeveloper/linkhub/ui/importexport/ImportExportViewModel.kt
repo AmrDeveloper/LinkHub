@@ -45,8 +45,12 @@ class ImportExportViewModel @Inject constructor (
                 linkRepository.insertLinks(dataPackage.links)
 
                 // Import show click count flag if it available
-                val lastShowClickCountConfig = uiPreferences.getEnableClickCounter()
+                val lastShowClickCountConfig = uiPreferences.isClickCounterEnabled()
                 uiPreferences.setEnableClickCounter(dataPackage.showClickCounter ?: lastShowClickCountConfig)
+
+                // Import enabling auto saving
+                val lastAutoSavingEnabled = uiPreferences.isAutoSavingEnabled()
+                uiPreferences.setEnableAutoSave(dataPackage.enableAutoSaving ?: lastAutoSavingEnabled)
 
                 // Import theme flag if it available
                 val lastThemeOption = uiPreferences.getThemeType()
@@ -66,9 +70,10 @@ class ImportExportViewModel @Inject constructor (
             if (foldersResult.isSuccess && linksResult.isSuccess) {
                 val folders = foldersResult.getOrDefault(listOf())
                 val links = linksResult.getOrDefault(listOf())
-                val showClickCounter = uiPreferences.getEnableClickCounter()
+                val showClickCounter = uiPreferences.isClickCounterEnabled()
+                val autoSaving = uiPreferences.isAutoSavingEnabled()
                 val lastTheme = uiPreferences.getThemeType()
-                val dataPackage = DataPackage(folders, links, showClickCounter, lastTheme)
+                val dataPackage = DataPackage(folders, links, showClickCounter, autoSaving, lastTheme)
                 val jsonDataPackage = Gson().toJson(dataPackage)
                 createdExportedFile(context, jsonDataPackage)
             } else {

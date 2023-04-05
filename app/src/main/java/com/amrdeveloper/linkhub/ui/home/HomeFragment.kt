@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
 
     private fun setupLinksList() {
         linkAdapter = LinkAdapter()
-        linkAdapter.setEnableClickCounter(uiPreferences.getEnableClickCounter())
+        linkAdapter.setEnableClickCounter(uiPreferences.isClickCounterEnabled())
 
         binding.linkList.layoutManager = LinearLayoutManager(context)
         binding.linkList.adapter = linkAdapter

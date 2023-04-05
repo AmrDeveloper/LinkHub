@@ -13,6 +13,9 @@ data class DataPackage (
     @SerializedName("showClickCounter")
     val showClickCounter : Boolean?,
 
+    @SerializedName("autoSaving")
+    val enableAutoSaving : Boolean?,
+
     @SerializedName("theme")
     val theme : Theme?
 )

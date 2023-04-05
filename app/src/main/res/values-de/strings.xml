@@ -20,6 +20,7 @@
     <string name="source_code">Quellcode</string>
     <string name="dark_theme">Dunkles Design</string>
     <string name="show_counter">Zähler anzeigen</string>
+    <string name="auto_saving">Auto speicherung</string>
     <string name="folder_color_preview">Aktuelle Ordnerfarbe</string>
     <string name="next_folder_color">Nächste Ordnerfarbe</string>
     <string name="previous_folder_color">Vorherige Ordnerfarbe</string>

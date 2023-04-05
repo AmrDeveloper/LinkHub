@@ -1,8 +1,10 @@
 package com.amrdeveloper.linkhub.ui.link
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.webkit.URLUtil
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,10 +15,12 @@ import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkBinding
 import com.amrdeveloper.linkhub.ui.adapter.FolderArrayAdapter
 import com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget
+import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LinkFragment : Fragment() {
@@ -33,6 +37,8 @@ class LinkFragment : Fragment() {
 
     private val dateFormatter = DateFormat.getDateTimeInstance()
 
+    @Inject lateinit var uiPreferences: UiPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -40,10 +46,7 @@ class LinkFragment : Fragment() {
         safeArguments.link?.let { currentLink = it }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLinkBinding.inflate(inflater, container, false)
 
         handleIntentSharedLink()
@@ -131,8 +134,7 @@ class LinkFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.save_action -> {
-                if(::currentLink.isInitialized) updateCurrentLink()
-                else createNewLink()
+                createOrUpdateLink()
                 true
             }
             R.id.delete_action -> {
@@ -142,6 +144,11 @@ class LinkFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun createOrUpdateLink() {
+        if(::currentLink.isInitialized) updateCurrentLink()
+        else createNewLink()
     }
 
     private fun createNewLink() {
@@ -203,6 +210,19 @@ class LinkFragment : Fragment() {
 
     private fun deleteCurrentLink() {
         linkViewModel.deleteLink(currentLink)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val isAutoSavingEnabled = uiPreferences.isAutoSavingEnabled()
+                if (isAutoSavingEnabled) createOrUpdateLink()
+                this.remove()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onDestroyView() {

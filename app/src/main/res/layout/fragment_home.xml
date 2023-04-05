@@ -13,12 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".ui.home.HomeFragment">
+
             <RelativeLayout
                 android:id="@+id/folder_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/dimen5dp"
                 android:paddingTop="@dimen/dimen5dp">
+
                 <TextView
                     android:id="@+id/folder_header_txt"
                     android:gravity="center_vertical"
@@ -45,6 +47,7 @@
                     android:textAllCaps="false"
                     android:theme="@style/Theme.LinkHub.Button" />
             </RelativeLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/folder_list"
                 android:layout_width="match_parent"

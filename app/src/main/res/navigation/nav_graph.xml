@@ -15,9 +15,7 @@
             android:id="@+id/action_homeFragment_to_linkFragment"
             app:destination="@id/linkFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
 
         <action
@@ -42,9 +40,7 @@
             android:id="@+id/action_homeFragment_to_folderFragment"
             app:destination="@id/folderFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
 
         <action
@@ -136,6 +132,10 @@
         <action
             android:id="@+id/action_folderFragment_to_homeFragment"
             app:popUpTo="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
     </fragment>
 

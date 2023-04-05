@@ -1,7 +1,9 @@
 package com.amrdeveloper.linkhub.ui.folder
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -9,9 +11,12 @@ import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
+import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FolderFragment : Fragment() {
@@ -23,6 +28,8 @@ class FolderFragment : Fragment() {
 
     private lateinit var currentFolder: Folder
     private val folderViewModel by viewModels<FolderViewModel>()
+
+    @Inject lateinit var uiPreferences: UiPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +78,7 @@ class FolderFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.save_action -> {
-                if(::currentFolder.isInitialized) updateFolder()
-                else createNewFolder()
+                createOrUpdateFolder()
                 true
             }
             R.id.delete_action -> {
@@ -82,6 +88,11 @@ class FolderFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun createOrUpdateFolder() {
+        if(::currentFolder.isInitialized) updateFolder()
+        else createNewFolder()
     }
 
     private fun createNewFolder() {
@@ -123,6 +134,19 @@ class FolderFragment : Fragment() {
 
     private fun deleteFolder() {
         folderViewModel.deleteFolder(currentFolder.id)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val isAutoSavingEnabled = uiPreferences.isAutoSavingEnabled()
+                if (isAutoSavingEnabled) createOrUpdateFolder()
+                this.remove()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onDestroyView() {

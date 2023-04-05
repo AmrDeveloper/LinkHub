@@ -23,6 +23,7 @@
     <string name="source_code">الكود المصدري</string>
     <string name="dark_theme">مظهر داكن</string>
     <string name="show_counter">أظهار العداد</string>
+    <string name="auto_saving">الحفظ الألي</string>
     <string name="folder_color_preview">لون المجلد الحالي</string>
     <string name="next_folder_color">لون المجلد التالي</string>
     <string name="previous_folder_color">لون المجلد السابق</string>
