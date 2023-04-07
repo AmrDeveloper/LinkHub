@@ -6,6 +6,17 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/dialog_folder_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen5dp"
+        android:padding="@dimen/dimen10dp"
+        android:text="@string/folder_name"
+        android:textColor="@color/dark_sky"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_directory_none" />
+
+    <TextView
         android:id="@+id/dialog_open_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

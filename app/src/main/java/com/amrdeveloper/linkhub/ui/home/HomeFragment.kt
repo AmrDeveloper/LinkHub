@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,6 +23,7 @@ import com.amrdeveloper.linkhub.ui.adapter.ItemSwipeCallback
 import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
 import com.amrdeveloper.linkhub.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var folderAdapter: FolderAdapter
     private lateinit var linkAdapter: LinkAdapter
+
     private val homeViewModel by viewModels<HomeViewModel>()
 
     private val rotateOpen by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_open) }
@@ -162,7 +165,19 @@ class HomeFragment : Fragment() {
 
         linkAdapter.setOnLinkClickListener { link, _ ->
             homeViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
-            LinkBottomSheetDialog.launch(requireActivity(), link)
+
+            if (link.folderId == -1) {
+                LinkBottomSheetDialog.launch(requireActivity(), link)
+                return@setOnLinkClickListener
+            }
+
+            lifecycleScope.launch {
+                val folder = homeViewModel.getFolderById(link.folderId)
+                LinkBottomSheetDialog.launch(requireActivity(), link, folder.getOrNull()) {
+                    val bundle = bundleOf("folder" to it)
+                    findNavController().navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
+                }
+            }
         }
 
         linkAdapter.setOnLinkLongClickListener {

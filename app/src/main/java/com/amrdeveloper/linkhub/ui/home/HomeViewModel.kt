@@ -72,6 +72,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    suspend fun getFolderById(id : Int) : Result<Folder> {
+        return folderRepository.getFolderById(id)
+    }
+
     fun updateLinkClickCount(linkId: Int, count: Int) {
         viewModelScope.launch {
             linkRepository.updateClickCountByLinkId(linkId, count)

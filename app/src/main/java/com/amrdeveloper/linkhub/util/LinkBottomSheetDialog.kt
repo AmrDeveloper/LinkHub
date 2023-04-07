@@ -6,17 +6,29 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.BottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 object LinkBottomSheetDialog {
 
-    fun launch(activity: Activity, link : Link) {
+    fun launch(activity: Activity, link : Link, folder : Folder? = null, onFolderClick : (Folder?) -> Unit = {}) {
         val bottomSheetDialog = BottomSheetDialog(activity)
         val dialogBinding = BottomSheetDialogBinding.inflate(LayoutInflater.from(activity))
         bottomSheetDialog.setContentView(dialogBinding.root)
+
+        folder?.let {
+            dialogBinding.dialogFolderName.visibility = View.VISIBLE
+            dialogBinding.dialogFolderName.text = folder.name
+            dialogBinding.dialogFolderName.setCompoundDrawablesWithIntrinsicBounds(folder.folderColor.drawableId, 0, 0, 0);
+            dialogBinding.dialogFolderName.setOnClickListener {
+                bottomSheetDialog.dismiss()
+                onFolderClick(folder)
+            }
+        }
 
         dialogBinding.dialogOpenAction.setOnClickListener {
             try {
