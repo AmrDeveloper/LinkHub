@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 1.3.0 *(2023-04-09)*
+-----------------------------
+
+* Add Folder Name to bottom sheet dialog Issue #41 by @AmrDeveloper
+* Implement setting option for saving links and folders automatically Issue #24 by @AmrDeveloper
+
 Version 1.2.0 *(2023-02-21)*
 -----------------------------
 
