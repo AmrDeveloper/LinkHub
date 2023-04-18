@@ -85,6 +85,7 @@
             android:checked="false"
             android:text="@string/pinned"
             android:textSize="@dimen/dimen18sp"
+            app:switchPadding="@dimen/dimen5dp"
             app:thumbTint="@color/sky"
             app:trackTint="@color/grey" />
 
