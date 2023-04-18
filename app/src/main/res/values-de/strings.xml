@@ -28,6 +28,8 @@
     <string name="next_folder_color">Nächste Ordnerfarbe</string>
     <string name="previous_folder_color">Vorherige Ordnerfarbe</string>
     <string name="import_export">Import und Export</string>
+    <string name="password">Passwort</string>
+    <string name="enable_password">Passwort aktivieren</string>
 
     <!--Actions-->
     <string name="add_link">Link hinzufügen</string>
@@ -43,6 +45,7 @@
     <string name="share">Teilen</string>
     <string name="imports">Importieren</string>
     <string name="export">Exportieren</string>
+    <string name="check">Prüfen</string>
 
     <!--Messages-->
     <string name="message_link_copy">Die Link-URL wurde in die Zwischenablage kopiert.</string>
@@ -58,6 +61,9 @@
     <string name="message_invalid_extension">Unzulässiger Dateityp</string>
     <string name="message_invalid_data_format">Unzulässiges Datenformat</string>
     <string name="message_invalid_export">Fehlerhafter Datenexport</string>
+
+    <string name="message_password_enabled">Passwort ist aktiviert</string>
+    <string name="message_password_disabled">Passwort ist deaktiviert</string>
 
     <!--Counters-->
     <string name="folder_count">Ordner: %1$d</string>
@@ -84,6 +90,11 @@
     <string name="error_folder_name_empty">Der Ordnername darf nicht leer sein.</string>
     <string name="error_folder_name_small">Der Ordnername muss mindestens 3 Zeichen haben.</string>
     <string name="error_folder_same_name">Es existiert bereits ein Ordner mit dem gleichen Name.</string>
+
+    <!-- Password error message -->
+    <string name="error_password_empty">Das Passwort darf nicht leer sein</string>
+    <string name="error_incorrect_password">Das Passwort ist inkorrekt</string>
+    <string name="error_password_back_from_check">Passwortprüfung kann nicht ignoriert werden</string>
 
     <!--Shortcuts-->
     <string name="folder_create">Ordner erstellen</string>

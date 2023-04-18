@@ -24,11 +24,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        handleLinkHubIntent()
         handleMultiThemeOption()
+
+        if (uiPreferences.isPasswordEnabled()) {
+            findNavHostController(R.id.nav_host_fragment).navigate(R.id.checkPasswordFragment)
+        } else {
+            handleLinkHubIntent()
+        }
     }
 
-    private fun handleLinkHubIntent() {
+    fun handleLinkHubIntent() {
         when(intent.action) {
             Intent.ACTION_VIEW -> return
             Intent.ACTION_SEND -> {

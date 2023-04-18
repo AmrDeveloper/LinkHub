@@ -152,6 +152,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingFragment_to_configPasswordFragment"
+            app:destination="@id/configPasswordFragment" />
     </fragment>
 
     <fragment
@@ -159,4 +162,16 @@
         android:name="com.amrdeveloper.linkhub.ui.importexport.ImportExportFragment"
         android:label="fragment_import_export"
         tools:layout="@layout/fragment_import_export" />
+
+    <fragment
+        android:id="@+id/configPasswordFragment"
+        android:name="com.amrdeveloper.linkhub.ui.password.config.ConfigPasswordFragment"
+        android:label="fragment_config_password"
+        tools:layout="@layout/fragment_config_password" />
+
+    <fragment
+        android:id="@+id/checkPasswordFragment"
+        android:name="com.amrdeveloper.linkhub.ui.password.check.CheckPasswordFragment"
+        android:label="fragment_password_check"
+        tools:layout="@layout/fragment_check_password" />
 </navigation>

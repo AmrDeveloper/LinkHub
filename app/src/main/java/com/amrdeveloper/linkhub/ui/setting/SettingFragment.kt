@@ -82,6 +82,10 @@ class SettingFragment : Fragment() {
             shareTextIntent(requireContext(), PLAY_STORE_URL)
         }
 
+        binding.passwordTxt.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_configPasswordFragment)
+        }
+
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isViewPassedResumedState) {
                 val themeMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES

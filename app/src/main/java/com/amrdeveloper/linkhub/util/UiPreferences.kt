@@ -7,6 +7,8 @@ private const val UI_PREFERENCE_NAME = "linkhub_settings"
 private const val UI_THEME_KEY = "theme"
 private const val UI_COUNTER_KEY = "counter"
 private const val UI_AUTO_SAVE_KEY = "auto_save"
+private const val PASSWORD_ENABLE_KEY = "password_enable"
+private const val PASSWORD_TEXT_KEY = "password_text"
 
 class UiPreferences(private val context: Context) {
 
@@ -34,6 +36,18 @@ class UiPreferences(private val context: Context) {
         return Theme.valueOf(themeName.toString())
     }
 
+    fun setEnablePassword(enable : Boolean) {
+        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
+        editor.putBoolean(PASSWORD_ENABLE_KEY, enable)
+        editor.apply()
+    }
+
+    fun setPasswordText(password : String) {
+        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
+        editor.putString(PASSWORD_TEXT_KEY, password)
+        editor.apply()
+    }
+
     fun isClickCounterEnabled() : Boolean {
         val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
         return preferences.getBoolean(UI_COUNTER_KEY, true)
@@ -42,5 +56,15 @@ class UiPreferences(private val context: Context) {
     fun isAutoSavingEnabled() : Boolean {
         val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
         return preferences.getBoolean(UI_AUTO_SAVE_KEY, true)
+    }
+
+    fun isPasswordEnabled() : Boolean {
+        val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return preferences.getBoolean(PASSWORD_ENABLE_KEY, false)
+    }
+
+    fun getPasswordText() : String {
+        val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return preferences.getString(PASSWORD_TEXT_KEY, "") ?: ""
     }
 }

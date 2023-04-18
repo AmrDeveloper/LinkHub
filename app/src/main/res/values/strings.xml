@@ -27,6 +27,8 @@
     <string name="next_folder_color">Next Folder Color</string>
     <string name="previous_folder_color">Previous Folder Color</string>
     <string name="import_export">Import and Export</string>
+    <string name="password">Password</string>
+    <string name="enable_password">Enable password</string>
 
     <!--Actions-->
     <string name="add_link">Add Link</string>
@@ -42,6 +44,7 @@
     <string name="share">Share</string>
     <string name="imports">Import</string>
     <string name="export">Export</string>
+    <string name="check">Check</string>
 
     <!--Messages-->
     <string name="message_link_copy">Link url is copied Now</string>
@@ -57,6 +60,9 @@
     <string name="message_invalid_extension">Invalid File extensions</string>
     <string name="message_invalid_data_format">Invalid data format</string>
     <string name="message_invalid_export">Invalid export this data</string>
+
+    <string name="message_password_enabled">Password is enabled</string>
+    <string name="message_password_disabled">Password is disabled</string>
 
     <!--Counters-->
     <string name="folder_count">Folders: %1$d</string>
@@ -83,6 +89,11 @@
     <string name="error_folder_name_empty">Folder name can\'t be empty</string>
     <string name="error_folder_name_small">Folder name can\'t be less than 3 characters</string>
     <string name="error_folder_same_name">You have an existing folder with same name</string>
+
+    <!-- Password error message -->
+    <string name="error_password_empty">Password can\'t be empty</string>
+    <string name="error_incorrect_password">Password is incorrect</string>
+    <string name="error_password_back_from_check">Can\'t ignore password check</string>
 
     <!--Shortcuts-->
     <string name="folder_create">Create Folder</string>

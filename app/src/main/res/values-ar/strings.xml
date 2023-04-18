@@ -28,6 +28,8 @@
     <string name="next_folder_color">لون المجلد التالي</string>
     <string name="previous_folder_color">لون المجلد السابق</string>
     <string name="import_export">أستيراد أو تصدير</string>
+    <string name="password">الرقم السري</string>
+    <string name="enable_password">تفعيل الرقم السري</string>
 
     <!--Actions-->
     <string name="add_link">إضافه رابط</string>
@@ -43,6 +45,7 @@
     <string name="share">مشاركة</string>
     <string name="imports">أستيراد</string>
     <string name="export">تصدير</string>
+    <string name="check">فحص</string>
 
 
     <!--Messages-->
@@ -59,6 +62,9 @@
     <string name="message_invalid_extension">خطا فى صيغه الملف</string>
     <string name="message_invalid_data_format">خطا فى بيانات الملف</string>
     <string name="message_invalid_export">خطا اثناء تصدير البيانات</string>
+
+    <string name="message_password_enabled">تفعيل الرقم السري</string>
+    <string name="message_password_disabled">عدم تفعيل الرقم السري</string>
 
     <!--Counters-->
     <string name="folder_count"> المجلدات %1$d</string>
@@ -85,6 +91,10 @@
     <string name="error_folder_name_empty">اسم المجلد لايمكن ان يكون فارغا</string>
     <string name="error_folder_name_small">اسم المجلد لايمكن ان يكون اقل من ثلاثة حروف</string>
     <string name="error_folder_same_name">لديك رابط بنفس الاسم</string>
+
+    <string name="error_password_empty">الرقم السري يجب ان يحتوري علي ارقام</string>
+    <string name="error_incorrect_password">الرقم السري خاطيء</string>
+    <string name="error_password_back_from_check">لايمكن تخطي فحص الرقم السري</string>
 
     <!--Shortcuts-->
     <string name="folder_create">إنشاء مجلد</string>
