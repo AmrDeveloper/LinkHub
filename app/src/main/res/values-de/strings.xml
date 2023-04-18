@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Labels-->
     <string name="app_name">LinkHub</string>
     <string name="top_folders">Top-Ordner</string>
     <string name="folder">Ordner</string>
@@ -14,6 +15,8 @@
     <string name="pinned">Anpinnen</string>
     <string name="folder_name">Ordnername</string>
     <string name="none">kein Ordner</string>
+    <string name="created_at">Erstellt am</string>
+    <string name="updated_at">Aktualisiert am</string>
     <string name="settings">Einstellungen</string>
     <string name="issues">Probleme</string>
     <string name="contributors">Mitwirkende</string>
@@ -25,6 +28,8 @@
     <string name="next_folder_color">Nächste Ordnerfarbe</string>
     <string name="previous_folder_color">Vorherige Ordnerfarbe</string>
     <string name="import_export">Import und Export</string>
+
+    <!--Actions-->
     <string name="add_link">Link hinzufügen</string>
     <string name="add_new_link">Neuen Link hinzufügen</string>
     <string name="show_add_options">Auswahlmöglichkeiten anzeigen</string>
@@ -38,18 +43,28 @@
     <string name="share">Teilen</string>
     <string name="imports">Importieren</string>
     <string name="export">Exportieren</string>
+
+    <!--Messages-->
     <string name="message_link_copy">Die Link-URL wurde in die Zwischenablage kopiert.</string>
     <string name="message_link_invalid">Das Öffnen der Link-URL im Browser ist nicht möglich.</string>
     <string name="message_link_deleted">Der Link wurde gelöscht</string>
     <string name="message_links_empty">Kein Link vorhanden</string>
+
     <string name="message_folders_empty">Kein Ordner vorhanden</string>
+
     <string name="message_data_imported">Die Daten wurden erfolgreich importiert.</string>
     <string name="message_data_exported">Die Daten wurden erfolgreich in den Download-Ordner exportiert.</string>
+
     <string name="message_invalid_extension">Unzulässiger Dateityp</string>
     <string name="message_invalid_data_format">Unzulässiges Datenformat</string>
     <string name="message_invalid_export">Fehlerhafter Datenexport</string>
+
+    <!--Counters-->
     <string name="folder_count">Ordner: %1$d</string>
     <string name="version">Version %1$s</string>
+
+    <!--Error Messages-->
+    <!--Link Error Messages-->
     <string name="error_get_links">Keine Links gefunden</string>
     <string name="error_insert_link">Hinzufügen des Links nicht möglich</string>
     <string name="error_update_link">Aktualisieren des Links nicht möglich</string>
@@ -59,6 +74,8 @@
     <string name="error_link_url_empty">Die Link-URL darf nicht leer sein.</string>
     <string name="error_link_url_invalid">Die Link-URL ist ungültig.</string>
     <string name="error_link_same_title">Es existiert bereits ein Link mit dem gleichen Name.</string>
+
+    <!--Folder Error Messages-->
     <string name="error_get_top_folders">Hauptordner nicht gefunden</string>
     <string name="error_get_folders">Ordner nicht gefunden</string>
     <string name="error_insert_folder">Ordner kann nicht hinzugefügt werden</string>
@@ -67,8 +84,8 @@
     <string name="error_folder_name_empty">Der Ordnername darf nicht leer sein.</string>
     <string name="error_folder_name_small">Der Ordnername muss mindestens 3 Zeichen haben.</string>
     <string name="error_folder_same_name">Es existiert bereits ein Ordner mit dem gleichen Name.</string>
+
+    <!--Shortcuts-->
     <string name="folder_create">Ordner erstellen</string>
     <string name="link_create">Link erstellen</string>
-    <string name="created_at">Erstellt am</string>
-    <string name="updated_at">Aktualisiert am</string>
 </resources>
