@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 1.4.0 *(2023-04-19)*
+-----------------------------
+
+* Add support for password layer
+* Make setting screen scrollable
+* Add padding for switch in link fragment
+
 Version 1.3.0 *(2023-04-09)*
 -----------------------------
 
