@@ -66,6 +66,10 @@ class SettingFragment : Fragment() {
             openLinkIntent(requireContext(), REPOSITORY_URL)
         }
 
+        binding.sponsorUrlTxt.setOnClickListener {
+            openLinkIntent(requireContext(), REPOSITORY_SPONSORSHIP_URL)
+        }
+
         binding.importExportTxt.setOnClickListener {
             findNavController().navigate(R.id.action_settingFragment_to_importExportFragment)
         }

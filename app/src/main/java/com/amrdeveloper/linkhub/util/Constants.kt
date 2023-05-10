@@ -5,6 +5,7 @@ const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=$packa
 const val REPOSITORY_URL = "https://github.com/AmrDeveloper/LinkHub"
 const val REPOSITORY_ISSUES_URL = "$REPOSITORY_URL/issues"
 const val REPOSITORY_CONTRIBUTORS_URL = "$REPOSITORY_URL/graphs/contributors"
+const val REPOSITORY_SPONSORSHIP_URL = "https://github.com/sponsors/AmrDeveloper"
 
 const val WIDGET_REFRESH_ACTION = "${packageName}.action.REFRESH"
 const val WIDGET_ITEM_CLICK_ACTION = "${packageName}.action.ITEM_CLICK"

@@ -21,6 +21,7 @@
     <string name="issues">Probleme</string>
     <string name="contributors">Mitwirkende</string>
     <string name="source_code">Quellcode</string>
+    <string name="sponsor">Sponsor</string>
     <string name="dark_theme">Dunkles Design</string>
     <string name="show_counter">Zähler anzeigen</string>
     <string name="auto_saving">Auto speicherung</string>
