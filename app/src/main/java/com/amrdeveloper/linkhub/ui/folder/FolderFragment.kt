@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
+import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
@@ -110,6 +111,7 @@ class FolderFragment : Fragment() {
         val folderColor = binding.folderColorSelector.getCurrentFolderColor()
         val folder = Folder(name, isPinned, folderColor = folderColor)
 
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(CREATED_FOLDER_NAME_KEY, folder.name)
         folderViewModel.createNewFolder(folder)
     }
 

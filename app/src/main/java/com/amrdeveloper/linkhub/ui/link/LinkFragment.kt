@@ -15,10 +15,14 @@ import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkBinding
 import com.amrdeveloper.linkhub.ui.adapter.FolderArrayAdapter
 import com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget
+import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
+import com.amrdeveloper.linkhub.util.CREATE_FOLDER_ID
+import com.amrdeveloper.linkhub.util.FOLDER_NONE_ID
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.text.DateFormat
 import javax.inject.Inject
 
@@ -79,11 +83,11 @@ class LinkFragment : Fragment() {
             binding.linkPinnedSwitch.isChecked = currentLink.isPinned
             val linkCreatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
             val formattedCreationDate = dateFormatter.format(linkCreatedStamp)
-            binding.linkCreatedStatus.text =getString(R.string.created_at)+" ${formattedCreationDate}"
+            binding.linkCreatedStatus.text = getString(R.string.created_at) + " ${formattedCreationDate}"
             if (currentLink.isUpdated) {
                 val linkUpdatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.lastUpdatedTime
                 val formattedUpdateDate = dateFormatter.format(linkUpdatedStamp)
-                binding.linkUpdatedStatus.text =getString(R.string.updated_at)+" ${formattedUpdateDate}"
+                binding.linkUpdatedStatus.text = getString(R.string.updated_at) + " ${formattedUpdateDate}"
             }
             if (currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
         }
@@ -95,8 +99,19 @@ class LinkFragment : Fragment() {
             linkFolderID = it.id
         }
 
-        linkViewModel.folderLiveData.observe(viewLifecycleOwner) {
-            folderMenuAdapter.addAll(it)
+        linkViewModel.folderLiveData.observe(viewLifecycleOwner) { folders ->
+            folderMenuAdapter.clear()
+            folderMenuAdapter.add(Folder(getString(R.string.folder_create), false, id = CREATE_FOLDER_ID))
+            folderMenuAdapter.add(Folder(getString(R.string.none), false, id = FOLDER_NONE_ID))
+            folderMenuAdapter.addAll(folders)
+            binding.folderNameMenu.text.clear()
+
+            // Check if user created a new folder for this link and suggest it as the current link folder
+            val newFolderCreatedName = findNavController().currentBackStackEntry?.savedStateHandle?.get<String>(CREATED_FOLDER_NAME_KEY) ?: return@observe
+            val lastCreatedFolder = folders.find { it.name == newFolderCreatedName } ?: return@observe
+            binding.folderNameMenu.setText(newFolderCreatedName, false)
+            linkFolderID = lastCreatedFolder.id
+            findNavController().currentBackStackEntry?.savedStateHandle?.remove<String>(CREATED_FOLDER_NAME_KEY)
         }
 
         linkViewModel.linkInfoLiveData.observe(viewLifecycleOwner) {
@@ -116,12 +131,20 @@ class LinkFragment : Fragment() {
 
     private fun setupFolderListMenu() {
         binding.folderNameMenu.setOnItemClickListener { _, _, position, _ ->
-            val folder = folderMenuAdapter.getItem(position)
-            if (folder != null) linkFolderID = folder.id
+            val folder = folderMenuAdapter.getItem(position) ?: return@setOnItemClickListener
+            linkFolderID = when (folder.id) {
+                CREATE_FOLDER_ID -> {
+                    binding.folderNameMenu.setSelection(position + 1)
+                    findNavController().navigate(R.id.action_linkFragment_to_folderFragment)
+                    FOLDER_NONE_ID
+                }
+                else -> {
+                    folder.id
+                }
+            }
         }
 
         folderMenuAdapter = FolderArrayAdapter(requireContext())
-        folderMenuAdapter.add(Folder(getString(R.string.none), false, id = -1))
         binding.folderNameMenu.setAdapter(folderMenuAdapter)
     }
 

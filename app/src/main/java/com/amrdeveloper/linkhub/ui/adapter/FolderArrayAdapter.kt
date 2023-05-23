@@ -9,17 +9,15 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.ListItemFolderBinding
 
-private const val layoutID = R.layout.list_item_folder
-
 class FolderArrayAdapter(
     context: Context,
-) : ArrayAdapter<Folder>(context, layoutID) {
+) : ArrayAdapter<Folder>(context, R.layout.list_item_folder) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(layoutID, parent, false)
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.list_item_folder, parent, false)
         val binding = ListItemFolderBinding.bind(view)
         val folder = getItem(position)
-        if(folder != null) {
+        if (folder != null) {
             binding.folderNameTxt.text = folder.name
             binding.folderPinImg.visibility = if(folder.isPinned) View.VISIBLE else View.INVISIBLE
             binding.folderIconImg.setImageResource(folder.folderColor.drawableId)
