@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 1.5.0 *(2023-05-25)*
+-----------------------------
+
+* Implement creating new folder option from link create view #43 by @AmrDeveloper
+
 Version 1.4.0 *(2023-04-19)*
 -----------------------------
 
