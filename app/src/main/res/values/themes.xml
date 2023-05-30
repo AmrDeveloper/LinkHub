@@ -36,6 +36,11 @@
         <item name="boxStrokeColor">@color/sky</item>
         <item name="hintTextColor">@color/sky</item>
         <item name="android:layout_margin">@dimen/dimen5dp</item>
+        <item name="theme">@style/Widget.AppTheme.TextInputLayout.FilledBox.Dense</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputLayout.FilledBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="colorControlActivated">@color/sky</item>
     </style>
 
     <style name="ThemeOverlay.LinkHub.AppWidgetContainer" parent="">
