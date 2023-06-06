@@ -5,7 +5,7 @@ Version 1.5.1 *(2023-06-06)*
 -----------------------------
 
 * Fixing Empty folder field entries #45 by @AmrDeveloper
-Change cursor color in light and dark theme to be clear #44 by @AmrDeveloper
+* Change cursor color in light and dark theme to be clear #44 by @AmrDeveloper
 
 
 Version 1.5.0 *(2023-05-25)*
