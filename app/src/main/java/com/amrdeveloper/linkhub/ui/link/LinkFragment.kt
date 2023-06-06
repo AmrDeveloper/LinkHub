@@ -107,11 +107,22 @@ class LinkFragment : Fragment() {
             binding.folderNameMenu.text.clear()
 
             // Check if user created a new folder for this link and suggest it as the current link folder
-            val newFolderCreatedName = findNavController().currentBackStackEntry?.savedStateHandle?.get<String>(CREATED_FOLDER_NAME_KEY) ?: return@observe
-            val lastCreatedFolder = folders.find { it.name == newFolderCreatedName } ?: return@observe
-            binding.folderNameMenu.setText(newFolderCreatedName, false)
-            linkFolderID = lastCreatedFolder.id
-            findNavController().currentBackStackEntry?.savedStateHandle?.remove<String>(CREATED_FOLDER_NAME_KEY)
+            val newFolderCreatedName = findNavController().currentBackStackEntry?.savedStateHandle?.get<String>(CREATED_FOLDER_NAME_KEY)
+
+            if (newFolderCreatedName != null) {
+                val lastCreatedFolder =
+                    folders.find { it.name == newFolderCreatedName } ?: return@observe
+                binding.folderNameMenu.setText(newFolderCreatedName, false)
+                linkFolderID = lastCreatedFolder.id
+                findNavController().currentBackStackEntry?.savedStateHandle?.remove<String>(
+                    CREATED_FOLDER_NAME_KEY
+                )
+            } else if (::currentLink.isInitialized) {
+                val folder = folders.find { it.id == currentLink.folderId }
+                folder?.let {
+                    binding.folderNameMenu.setText(it.name, false)
+                }
+            }
         }
 
         linkViewModel.linkInfoLiveData.observe(viewLifecycleOwner) {

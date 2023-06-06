@@ -111,7 +111,15 @@ class FolderFragment : Fragment() {
         val folderColor = binding.folderColorSelector.getCurrentFolderColor()
         val folder = Folder(name, isPinned, folderColor = folderColor)
 
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(CREATED_FOLDER_NAME_KEY, folder.name)
+        // Store the created folder name only if previous fragment is LinkFragment
+        val previousFragment = findNavController().previousBackStackEntry?.destination?.id
+        if (previousFragment == R.id.linkFragment) {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                CREATED_FOLDER_NAME_KEY,
+                folder.name
+            )
+        }
+
         folderViewModel.createNewFolder(folder)
     }
 
