@@ -1,0 +1,102 @@
+<resources>
+    <!--标签-->
+    <string name="app_name">LinkHub</string>
+    <string name="top_folders">置顶文件夹</string>
+    <string name="folder">文件夹</string>
+    <string name="folders">文件夹</string>
+    <string name="links">链接</string>
+    <string name="search">搜索</string>
+    <string name="link_icon">链接图标</string>
+    <string name="all_folders">所有文件夹</string>
+    <string name="link_title">链接标题</string>
+    <string name="link_subtitle">链接副标题</string>
+    <string name="link_url">链接网址</string>
+    <string name="pinned">已固定</string>
+    <string name="folder_name">文件夹名称</string>
+    <string name="none">无</string>
+    <string name="created_at">创建于</string>
+    <string name="updated_at">最近更新于</string>
+    <string name="settings">设置</string>
+    <string name="issues">问题</string>
+    <string name="contributors">贡献者</string>
+    <string name="source_code">源代码</string>
+    <string name="sponsor">赞助商</string>
+    <string name="dark_theme">深色主题</string>
+    <string name="show_counter">显示计数器</string>
+    <string name="auto_saving">自动保存</string>
+    <string name="folder_color_preview">文件夹颜色预览</string>
+    <string name="next_folder_color">下一个文件夹颜色</string>
+    <string name="previous_folder_color">上一个文件夹颜色</string>
+    <string name="import_export">导入和导出</string>
+    <string name="password">密码</string>
+    <string name="enable_password">启用密码</string>
+
+    <!--操作-->
+    <string name="add_link">添加链接</string>
+    <string name="add_new_link">添加新链接</string>
+    <string name="show_add_options">显示添加选项</string>
+    <string name="add_link_option">添加链接选项</string>
+    <string name="add_folder_option">添加文件夹选项</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="open_in_browser">在浏览器中打开</string>
+    <string name="copy">复制</string>
+    <string name="undo">撤销</string>
+    <string name="share">分享</string>
+    <string name="imports">导入</string>
+    <string name="export">导出</string>
+    <string name="check">检查</string>
+
+    <!--消息-->
+    <string name="message_link_copy">链接网址已复制</string>
+    <string name="message_link_invalid">无法在浏览器中打开链接网址</string>
+    <string name="message_link_deleted">您的链接已被删除</string>
+    <string name="message_links_empty">您没有任何链接</string>
+
+    <string name="message_folders_empty">您没有任何文件夹</string>
+
+    <string name="message_data_imported">数据已成功导入</string>
+    <string name="message_data_exported">数据已成功导出至下载目录</string>
+
+    <string name="message_invalid_extension">无效的文件扩展名</string>
+    <string name="message_invalid_data_format">无效的数据格式</string>
+    <string name="message_invalid_export">无效的导出数据</string>
+
+    <string name="message_password_enabled">密码已启用</string>
+    <string name="message_password_disabled">密码已禁用</string>
+
+    <!--计数器-->
+    <string name="folder_count">文件夹：%1$d</string>
+    <string name="version">版本 %1$s</string>
+
+    <!--错误消息-->
+    <!--链接错误消息-->
+    <string name="error_get_links">找不到链接</string>
+    <string name="error_insert_link">无法添加此链接</string>
+    <string name="error_update_link">无法更新此链接</string>
+    <string name="error_delete_link">无法删除此链接</string>
+    <string name="error_link_title_empty">链接标题不能为空</string>
+    <string name="error_link_subtitle_empty">链接副标题不能为空</string>
+    <string name="error_link_url_empty">链接网址不能为空</string>
+    <string name="error_link_url_invalid">链接网址无效</string>
+    <string name="error_link_same_title">已经有了相同标题的链接</string>
+
+    <!--文件夹错误消息-->
+    <string name="error_get_top_folders">找不到置顶文件夹</string>
+    <string name="error_get_folders">找不到文件夹</string>
+    <string name="error_insert_folder">无法添加此文件夹</string>
+    <string name="error_update_folder">无法更新此文件夹</string>
+    <string name="error_delete_folder">无法删除此文件夹</string>
+    <string name="error_folder_name_empty">文件夹名称不能为空</string>
+    <string name="error_folder_name_small">文件夹名称不能少于3个字符</string>
+    <string name="error_folder_same_name">您已存在相同名称的文件夹</string>
+
+    <!--密码错误消息-->
+    <string name="error_password_empty">密码不能为空</string>
+    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_password_back_from_check">无法忽略密码检查</string>
+
+    <!--快捷方式-->
+    <string name="folder_create">创建文件夹</string>
+    <string name="link_create">创建链接</string>
+</resources>
