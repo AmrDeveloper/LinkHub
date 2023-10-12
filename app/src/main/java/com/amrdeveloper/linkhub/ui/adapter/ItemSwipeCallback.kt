@@ -29,14 +29,14 @@ class ItemSwipeCallback(
     override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
                              dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
         val itemView: View = viewHolder.itemView
-        val iconMargin: Int = (itemView.height - intrinsicHeight) / 2
-        val iconTop: Int = itemView.top + (itemView.height - intrinsicHeight) / 2
+        val iconMargin = (itemView.height - intrinsicHeight) / 2
+        val iconTop = itemView.top + iconMargin
         val iconBottom = iconTop + intrinsicHeight
 
         when {
             // Swipe left
             dX > 0 -> {
-                val iconLeft: Int = itemView.left + iconMargin
+                val iconLeft = itemView.left + iconMargin
                 val iconRight = iconLeft + intrinsicWidth
                 icon?.setBounds(iconLeft, iconTop, iconRight, iconBottom)
                 background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt(), itemView.bottom)
