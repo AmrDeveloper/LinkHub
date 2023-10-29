@@ -59,7 +59,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/folder_name_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/link_url_layout"
@@ -67,16 +67,16 @@
             android:hint="@string/folder_name"
             app:hintTextColor="@color/sky">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/folder_name_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
                 android:fontFamily="serif"
+                android:inputType="none"
                 android:text="@string/none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/link_pinned_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             android:text="@string/pinned"
             android:textSize="@dimen/dimen18sp"
             app:switchPadding="@dimen/dimen5dp"
-            app:thumbTint="@color/sky"
+            app:thumbIcon="@drawable/ic_check"
             app:trackTint="@color/grey" />
 
         <TextView

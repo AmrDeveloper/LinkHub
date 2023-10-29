@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.LinkHub" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.LinkHub" parent="Theme.Material3.Dark">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -26,7 +26,7 @@
         <item name="appWidgetTextColor">@color/light_blue_100</item>
     </style>
 
-    <style name="Theme.LinkHub.Button" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.LinkHub.Button" parent="Theme.Material3.Dark">
         <item name="colorPrimary">@color/light_blue_600</item>
         <item name="colorOnPrimary">@color/black</item>
     </style>

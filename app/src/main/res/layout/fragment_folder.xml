@@ -20,10 +20,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/folder_title_layout"
+            style="@style/TextInputLayoutStyle"
             android:layout_below="@id/folder_logo"
             android:layout_margin="@dimen/dimen10dp"
             android:hint="@string/folder_name"
-            style="@style/TextInputLayoutStyle"
             app:counterEnabled="true"
             app:counterMaxLength="30">
 
@@ -38,12 +38,12 @@
 
         <com.amrdeveloper.linkhub.ui.view.ColorSelector
             android:id="@+id/folder_color_selector"
-            android:layout_below="@+id/folder_title_layout"
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/folder_title_layout"
+            android:layout_centerHorizontal="true" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/folder_pinned_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:checked="false"
             android:text="@string/pinned"
             android:textSize="@dimen/dimen18sp"
-            app:thumbTint="@color/sky"
+            app:thumbIcon="@drawable/ic_check"
             app:trackTint="@color/grey" />
     </RelativeLayout>
 </ScrollView>
