@@ -44,7 +44,7 @@ you can copy, edit, open your link just by one click
 - Import and Export the data in JSON Format
 - Widget for Pinned links
 
-## Supporting languages
+## Supported languages
 - Arabic
 - English
 - German
