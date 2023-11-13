@@ -1,0 +1,102 @@
+<resources>
+    <!--Labels-->
+    <string name="app_name">LinkHub</string>
+    <string name="top_folders">Thư mục hàng đầu</string>
+    <string name="folder">Thư mục</string>
+    <string name="folders">Thư mục</string>
+    <string name="links">Liên kết</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="link_icon">Biểu tượng liên kết</string>
+    <string name="all_folders">Tất cả thư mục</string>
+    <string name="link_title">Tiêu đề liên kết</string>
+    <string name="link_subtitle">Tiêu đề phụ liên kết</string>
+    <string name="link_url">Url liên kết</string>
+    <string name="pinned">Đã ghim</string>
+    <string name="folder_name">Tên thư mục</string>
+    <string name="none">Không</string>
+    <string name="created_at">Được tạo lúc</string>
+    <string name="updated_at">Cập nhật lần cuối lúc</string>
+    <string name="settings">Thiết đặt</string>
+    <string name="issues">Vấn đề</string>
+    <string name="contributors">Người đóng góp</string>
+    <string name="source_code">Mã nguồn</string>
+    <string name="sponsor">Nhà tài trợ</string>
+    <string name="dark_theme">Chủ đề tối</string>
+    <string name="show_counter">Hiển thị bộ đếm</string>
+    <string name="auto_saving">Tự động lưu</string>
+    <string name="folder_color_preview">Xem trước màu thư mục</string>
+    <string name="next_folder_color">Màu thư mục tiếp theo</string>
+    <string name="previous_folder_color">Màu thư mục trước đó</string>
+    <string name="import_export">Nhập và xuất</string>
+    <string name="password">Mật khẩu</string>
+    <string name="enable_password">Bật mật khẩu</string>
+
+    <!--Actions-->
+    <string name="add_link">Thêm liên kết</string>
+    <string name="add_new_link">Thêm liên kết mới</string>
+    <string name="show_add_options">Hiển thị tùy chọn thêm</string>
+    <string name="add_link_option">Thêm tùy chọn liên kết</string>
+    <string name="add_folder_option">Thêm tùy chọn thư mục</string>
+    <string name="save">Lưu</string>
+    <string name="delete">Xóa</string>
+    <string name="open_in_browser">Mở trong trình duyệt</string>
+    <string name="copy">Sao chép</string>
+    <string name="undo">Hoàn tác</string>
+    <string name="share">Chia sẻ</string>
+    <string name="imports">Nhập</string>
+    <string name="export">Xuất</string>
+    <string name="check">Kiểm tra</string>
+
+    <!--Messages-->
+    <string name="message_link_copy">Url liên kết hiện đã sao chép</string>
+    <string name="message_link_invalid">Không thể mở url liên kết trong trình duyệt</string>
+    <string name="message_link_deleted">Liên kết của bạn đã bị xóa</string>
+    <string name="message_links_empty">Bạn có 0 liên kết</string>
+
+    <string name="message_folders_empty">Bạn có 0 Thư mục</string>
+
+    <string name="message_data_imported">Dữ liệu được nhập thành công</string>
+    <string name="message_data_exported">Dữ liệu được xuất vào thư mục Tải xuống thành công</string>
+
+    <string name="message_invalid_extension">Phần mở rộng tệp không hợp lệ</string>
+    <string name="message_invalid_data_format">Định dạng dữ liệu không hợp lệ</string>
+    <string name="message_invalid_export">Xuất dữ liệu này không hợp lệ</string>
+
+    <string name="message_password_enabled">Mật khẩu đã được bật</string>
+    <string name="message_password_disabled">Mật khẩu đã bị tắt</string>
+
+    <!--Counters-->
+    <string name="folder_count">Thư mục: %1$d</string>
+    <string name="version">Phiên bản %1$s</string>
+
+    <!--Error Messages-->
+    <!--Link Error Messages-->
+    <string name="error_get_links">Không thể tìm thấy liên kết</string>
+    <string name="error_insert_link">Không thể thêm liên kết này</string>
+    <string name="error_update_link">Không thể cập nhật liên kết này</string>
+    <string name="error_delete_link">Không thể xóa liên kết này</string>
+    <string name="error_link_title_empty">Tiêu đề liên kết không được để trống</string>
+    <string name="error_link_subtitle_empty">Liên kết phụ đề không được để trống</string>
+    <string name="error_link_url_empty">Url liên kết không được để trống</string>
+    <string name="error_link_url_invalid">Url liên kết không hợp lệ</string>
+    <string name="error_link_same_title">Bạn đã có một liên kết có cùng tiêu đề</string>
+
+    <!--Folder Error Messages-->
+    <string name="error_get_top_folders">Không thể tìm thấy thư mục hàng đầu</string>
+    <string name="error_get_folders">Không thể tìm thấy thư mục</string>
+    <string name="error_insert_folder">Không thể thêm thư mục này</string>
+    <string name="error_update_folder">Không thể cập nhật thư mục này</string>
+    <string name="error_delete_folder">Không thể xóa thư mục này</string>
+    <string name="error_folder_name_empty">Tên thư mục không được để trống</string>
+    <string name="error_folder_name_small">Tên thư mục không được ít hơn 3 ký tự</string>
+    <string name="error_folder_same_name">Bạn có một thư mục có cùng tên</string>
+
+    <!-- Password error message -->
+    <string name="error_password_empty">Mật khẩu không được để trống</string>
+    <string name="error_incorrect_password">Mật khẩu không đúng</string>
+    <string name="error_password_back_from_check">Không thể bỏ qua việc kiểm tra mật khẩu</string>
+
+    <!--Shortcuts-->
+    <string name="folder_create">Tạo thư mục</string>
+    <string name="link_create">Tạo liên kết</string>
+</resources>
