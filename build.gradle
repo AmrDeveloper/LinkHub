@@ -50,6 +50,7 @@ ext {
     archCoreTestVersion = '2.1.0'
     coroutinesTestVersion = '1.2.1'
     espressoVersion = '3.5.1'
+    jsoupVersion = '1.13.1'
 }
 
 tasks.register('clean', Delete) {

@@ -10,6 +10,8 @@ interface FolderDataSource {
 
     suspend fun getFolderById(id: Int): Result<Folder>
 
+    suspend fun getFolderByName(name: String): Result<Folder>
+
     suspend fun getFolderList(): Result<List<Folder>>
 
     suspend fun getSortedFolderList(): Result<List<Folder>>

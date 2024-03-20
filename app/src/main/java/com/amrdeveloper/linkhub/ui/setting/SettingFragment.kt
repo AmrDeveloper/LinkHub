@@ -74,6 +74,10 @@ class SettingFragment : Fragment() {
             findNavController().navigate(R.id.action_settingFragment_to_importExportFragment)
         }
 
+        binding.importExportHtmlTxt.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_importExportFragmentHtml)
+        }
+
         binding.contributorsTxt.setOnClickListener {
             openLinkIntent(requireContext(), REPOSITORY_CONTRIBUTORS_URL)
         }
