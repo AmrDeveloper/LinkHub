@@ -14,6 +14,10 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.ImportExportFileType
+import com.amrdeveloper.linkhub.data.parser.HtmlImportExportFileParser
+import com.amrdeveloper.linkhub.data.parser.ImportExportFileParser
+import com.amrdeveloper.linkhub.data.parser.JsonImportExportFileParser
 import com.amrdeveloper.linkhub.databinding.FragmentImportExportBinding
 import com.amrdeveloper.linkhub.util.getFileName
 import com.amrdeveloper.linkhub.util.getFileText
@@ -25,6 +29,7 @@ class ImportExportFragment : Fragment() {
 
     private var _binding: FragmentImportExportBinding? = null
     private val binding get() = _binding!!
+    private lateinit var importExportFileParser: ImportExportFileParser
 
     private val importExportViewModel by viewModels<ImportExportViewModel>()
 
@@ -36,6 +41,13 @@ class ImportExportFragment : Fragment() {
 
         setupListeners()
         setupObservers()
+        //Initialization in real time, because the file type is chosen by a user
+        val args = ImportExportFragmentArgs.fromBundle(requireArguments())
+        val importExportFileType = args.importExportFileType
+        importExportFileParser = when(importExportFileType){
+            ImportExportFileType.JSON -> JsonImportExportFileParser()
+            ImportExportFileType.HTML -> HtmlImportExportFileParser()
+        }
 
         return binding.root
     }
@@ -78,16 +90,17 @@ class ImportExportFragment : Fragment() {
     private fun exportFileFromDeviceWthPermission() {
         if (Build.VERSION_CODES.R > Build.VERSION.SDK_INT && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val readPermissionState = checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            if (readPermissionState == PackageManager.PERMISSION_GRANTED) importExportViewModel.exportDataFile(requireContext())
+            if (readPermissionState == PackageManager.PERMISSION_GRANTED)
+                importExportViewModel.exportDataFile(requireContext(), importExportFileParser)
             else permissionLauncher.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
         } else {
-            importExportViewModel.exportDataFile(requireContext())
+            importExportViewModel.exportDataFile(requireContext(), importExportFileParser)
         }
     }
 
     private fun launchFileChooserIntent() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "application/json"
+        intent.type = importExportFileParser.getFileType().mimeType
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         val chooserIntent = Intent.createChooser(intent, "Select a File to import")
         loadFileActivityResult.launch(chooserIntent)
@@ -96,7 +109,7 @@ class ImportExportFragment : Fragment() {
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
             if(result[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true) {
-                importExportViewModel.exportDataFile(requireContext())
+                importExportViewModel.exportDataFile(requireContext(), importExportFileParser)
             }
             else if(result[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
                 launchFileChooserIntent()
@@ -113,12 +126,12 @@ class ImportExportFragment : Fragment() {
                         val contentResolver =  requireActivity().contentResolver
                         val fileName = contentResolver.getFileName(fileUri)
                         val extension = fileName.substring(fileName.lastIndexOf('.') + 1)
-                        if (extension != "json") {
+                        if ((".$extension") != importExportFileParser.getFileType().extension) {
                             activity?.showSnackBar(R.string.message_invalid_extension)
                             return@registerForActivityResult
                         }
                         val fileContent = contentResolver.getFileText(fileUri)
-                        importExportViewModel.importDataFile(fileContent)
+                        importExportViewModel.importDataFile(fileContent, importExportFileParser)
                     }
                 }
             }
