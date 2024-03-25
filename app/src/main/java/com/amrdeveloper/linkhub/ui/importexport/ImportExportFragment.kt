@@ -51,7 +51,11 @@ class ImportExportFragment : Fragment() {
         }
 
         binding.exportAction.setOnClickListener {
-            exportDataFile()
+            context?.let {  ImportExportFileTypePickerDialog.launch(it) { fileType ->
+                    importExportViewModel.setFileType(fileType)
+                    exportDataFile()
+                }
+            }
         }
     }
 
