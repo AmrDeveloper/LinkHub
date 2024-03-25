@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.BuildConfig
 import com.amrdeveloper.linkhub.R
-import com.amrdeveloper.linkhub.data.ImportExportFileType
 import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.databinding.FragmentSettingBinding
 import com.amrdeveloper.linkhub.util.PLAY_STORE_URL
@@ -79,13 +78,7 @@ class SettingFragment : Fragment() {
         }
 
         binding.importExportTxt.setOnClickListener {
-            val action = SettingFragmentDirections.actionSettingFragmentToImportExportFragment( ImportExportFileType.JSON)
-            findNavController().navigate(action)
-        }
-
-        binding.importExportHtmlTxt.setOnClickListener {
-            val action = SettingFragmentDirections.actionSettingFragmentToImportExportFragment( ImportExportFileType.HTML)
-            findNavController().navigate(action)
+            findNavController().navigate(R.id.action_settingFragment_to_importExportFragment)
         }
 
         binding.contributorsTxt.setOnClickListener {

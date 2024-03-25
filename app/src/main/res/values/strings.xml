@@ -28,7 +28,7 @@
     <string name="next_folder_color">Next Folder Color</string>
     <string name="previous_folder_color">Previous Folder Color</string>
     <string name="import_export">Import and Export</string>
-    <string name="import_export_html">Import and Export HTML file</string>
+    <string name="import_export_choose_file_type">Choose a file type</string>
     <string name="password">Password</string>
     <string name="enable_password">Enable password</string>
 
