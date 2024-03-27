@@ -165,7 +165,12 @@
         android:id="@+id/importExportFragment"
         android:name="com.amrdeveloper.linkhub.ui.importexport.ImportExportFragment"
         android:label="fragment_import_export"
-        tools:layout="@layout/fragment_import_export" />
+        tools:layout="@layout/fragment_import_export" >
+        <argument
+            android:name="importExportFileType"
+            app:argType="com.amrdeveloper.linkhub.data.ImportExportFileType"
+            android:defaultValue="JSON" />
+    </fragment>
 
     <fragment
         android:id="@+id/configPasswordFragment"

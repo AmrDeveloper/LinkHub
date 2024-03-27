@@ -35,6 +35,14 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
+    override suspend fun getFolderByName(name : String): Result<Folder> = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.success(folderDao.getFolderByName(name))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override suspend fun getFolderList(): Result<List<Folder>> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(folderDao.getFolderList())

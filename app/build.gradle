@@ -101,4 +101,7 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.archCoreTestVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesTestVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+
+    // Html parsing lib
+    implementation "org.jsoup:jsoup:$rootProject.jsoupVersion"
 }

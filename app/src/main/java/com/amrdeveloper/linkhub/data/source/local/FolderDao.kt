@@ -11,6 +11,9 @@ interface FolderDao : BaseDao<Folder> {
     @Query("SELECT * FROM folder WHERE id = :id LIMIT 1")
     suspend fun getFolderById(id : Int) : Folder
 
+    @Query("SELECT * FROM folder WHERE name = :name LIMIT 1")
+    suspend fun getFolderByName(name : String) : Folder
+
     @Query("SELECT * FROM folder")
     suspend fun getFolderList(): List<Folder>
 

@@ -11,7 +11,14 @@ import com.amrdeveloper.linkhub.BuildConfig
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.databinding.FragmentSettingBinding
-import com.amrdeveloper.linkhub.util.*
+import com.amrdeveloper.linkhub.util.PLAY_STORE_URL
+import com.amrdeveloper.linkhub.util.REPOSITORY_CONTRIBUTORS_URL
+import com.amrdeveloper.linkhub.util.REPOSITORY_ISSUES_URL
+import com.amrdeveloper.linkhub.util.REPOSITORY_SPONSORSHIP_URL
+import com.amrdeveloper.linkhub.util.REPOSITORY_URL
+import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.openLinkIntent
+import com.amrdeveloper.linkhub.util.shareTextIntent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
