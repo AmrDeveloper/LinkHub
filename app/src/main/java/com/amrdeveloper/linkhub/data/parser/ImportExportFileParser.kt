@@ -7,6 +7,14 @@ import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.util.UiPreferences
 
 interface ImportExportFileParser {
+    object ImportExportFileParserFactory {
+        fun getInstance(fileType: ImportExportFileType): ImportExportFileParser {
+            return when (fileType) {
+                ImportExportFileType.JSON -> JsonImportExportFileParser()
+                ImportExportFileType.HTML -> HtmlImportExportFileParser()
+            }
+        }
+    }
     suspend fun importData(data: String, folderRepository: FolderRepository, linkRepository: LinkRepository): Result<DataPackage?>
     suspend fun exportData(
         folderRepository: FolderRepository,

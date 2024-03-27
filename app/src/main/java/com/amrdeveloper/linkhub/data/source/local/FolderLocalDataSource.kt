@@ -34,6 +34,7 @@ class FolderLocalDataSource internal constructor(
             Result.failure(e)
         }
     }
+
     override suspend fun getFolderByName(name : String): Result<Folder> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(folderDao.getFolderByName(name))

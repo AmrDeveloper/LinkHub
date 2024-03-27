@@ -10,9 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.ImportExportFileType
-import com.amrdeveloper.linkhub.data.parser.HtmlImportExportFileParser
 import com.amrdeveloper.linkhub.data.parser.ImportExportFileParser
-import com.amrdeveloper.linkhub.data.parser.JsonImportExportFileParser
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.util.UiPreferences
@@ -28,27 +26,15 @@ class ImportExportViewModel @Inject constructor (
     private val uiPreferences: UiPreferences,
 ) : ViewModel() {
 
+    private var importExportFileType: ImportExportFileType? = null
     private val _stateMessages = MutableLiveData<Int>()
-    private var importExportFileParser: ImportExportFileParser = JsonImportExportFileParser()
     val stateMessages = _stateMessages
 
-    val mimeType: String
-        get() =
-            importExportFileParser.getFileType().mimeType
-    val extension: String
-        get() =
-            importExportFileParser.getFileType().extension
-
-    fun setFileType(fileType: ImportExportFileType){
-        importExportFileParser = when(fileType){
-            ImportExportFileType.JSON-> JsonImportExportFileParser()
-            ImportExportFileType.HTML-> HtmlImportExportFileParser()
-        }
-    }
-
-    fun importDataFile(data : String) {
+    fun importDataFile(data : String, fileType: ImportExportFileType) {
         viewModelScope.launch {
-                val dataPackageResult = importExportFileParser.importData(data, folderRepository, linkRepository)
+            importExportFileType = fileType
+            val parser = ImportExportFileParser.ImportExportFileParserFactory.getInstance(fileType)
+            val dataPackageResult = parser.importData(data, folderRepository, linkRepository)
                 //dataPackage is null in case of non-configuration import
                 if(dataPackageResult.isSuccess) {
                     dataPackageResult.getOrNull()?.let {
@@ -73,9 +59,11 @@ class ImportExportViewModel @Inject constructor (
         }
     }
 
-    fun exportDataFile(context: Context) {
+    fun exportDataFile(context: Context, fileType: ImportExportFileType) {
         viewModelScope.launch {
-            val exportResult = importExportFileParser.exportData(folderRepository, linkRepository, uiPreferences)
+            importExportFileType = fileType
+            val parser = ImportExportFileParser.ImportExportFileParserFactory.getInstance(fileType)
+            val exportResult = parser.exportData(folderRepository, linkRepository, uiPreferences)
             if (exportResult.isSuccess) {
                 createdExportedFile(context, exportResult.getOrDefault(""))
             } else {
@@ -85,24 +73,30 @@ class ImportExportViewModel @Inject constructor (
     }
 
     private fun createdExportedFile(context: Context, data : String) {
-        val fileName = System.currentTimeMillis().toString() + importExportFileParser.getFileType().extension
+        importExportFileType?.let { fileType->
+            val fileName = System.currentTimeMillis().toString() + fileType.extension
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val resolver = context.contentResolver
-            val values = ContentValues()
-            values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-            values.put(MediaStore.MediaColumns.MIME_TYPE, importExportFileParser.getFileType().mimeType)
-            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-            val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
-            val outputStream = uri?.let { resolver.openOutputStream(it) }
-            outputStream?.write(data.toByteArray())
-        } else {
-            val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val dataFile = File(downloadDir, fileName)
-            dataFile.writeText(data)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val resolver = context.contentResolver
+                val values = ContentValues()
+                values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                values.put(
+                    MediaStore.MediaColumns.MIME_TYPE,
+                    fileType.mimeType
+                )
+                values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
+                val outputStream = uri?.let { resolver.openOutputStream(it) }
+                outputStream?.write(data.toByteArray())
+            } else {
+                val downloadDir =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                val dataFile = File(downloadDir, fileName)
+                dataFile.writeText(data)
+            }
+
+            _stateMessages.value = R.string.message_data_exported
         }
-
-        _stateMessages.value = R.string.message_data_exported
     }
 
 }
