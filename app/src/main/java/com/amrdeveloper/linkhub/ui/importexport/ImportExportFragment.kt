@@ -2,6 +2,8 @@ package com.amrdeveloper.linkhub.ui.importexport
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -16,7 +18,6 @@ import androidx.fragment.app.viewModels
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.ImportExportFileType
 import com.amrdeveloper.linkhub.databinding.FragmentImportExportBinding
-import com.amrdeveloper.linkhub.util.ImportExportFileTypePickerDialog
 import com.amrdeveloper.linkhub.util.getFileName
 import com.amrdeveloper.linkhub.util.getFileText
 import com.amrdeveloper.linkhub.util.showSnackBar
@@ -45,22 +46,31 @@ class ImportExportFragment : Fragment() {
 
     private fun setupListeners() {
         binding.importAction.setOnClickListener {
-            context?.let {
-                ImportExportFileTypePickerDialog.launch(it) { fileType ->
-                    importExportFileType = fileType
-                    importDataFile(fileType)
-                }
+            launchFileTypePickerDialog(requireContext()) { fileType ->
+                importExportFileType = fileType
+                importDataFile(fileType)
             }
         }
 
         binding.exportAction.setOnClickListener {
-            context?.let {
-                ImportExportFileTypePickerDialog.launch(it) { fileType ->
-                    importExportFileType = fileType
-                    exportDataFile(fileType)
-                }
+            launchFileTypePickerDialog(requireContext()) { fileType ->
+                importExportFileType = fileType
+                exportDataFile(fileType)
             }
         }
+    }
+
+     private fun launchFileTypePickerDialog(context: Context, onFileTypeSelected: (ImportExportFileType)->Unit) {
+        val fileTypes = ImportExportFileType.entries.map { it.fileTypeName }
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(context.getString(R.string.import_export_choose_file_type))
+        builder.setItems(fileTypes.toTypedArray()) { dialog, which ->
+            val selectedFileType = ImportExportFileType.entries[which]
+            onFileTypeSelected(selectedFileType)
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun setupObservers() {
