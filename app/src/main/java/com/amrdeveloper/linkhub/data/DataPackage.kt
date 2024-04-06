@@ -16,6 +16,9 @@ data class DataPackage (
     @SerializedName("autoSaving")
     val enableAutoSaving : Boolean?,
 
+    @SerializedName("defaultFolderMode")
+    val defaultFolderMode : Boolean?,
+
     @SerializedName("theme")
     val theme : Theme?
 )

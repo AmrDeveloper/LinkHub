@@ -43,8 +43,9 @@ class JsonImportExportFileParser: ImportExportFileParser {
             val links = linksResult.getOrDefault(listOf())
             val showClickCounter = uiPreferences.isClickCounterEnabled()
             val autoSaving = uiPreferences.isAutoSavingEnabled()
+            val defaultFolder = uiPreferences.isDefaultFolderEnabled()
             val lastTheme = uiPreferences.getThemeType()
-            val dataPackage = DataPackage(folders, links, showClickCounter, autoSaving, lastTheme)
+            val dataPackage = DataPackage(folders, links, showClickCounter, autoSaving, defaultFolder, lastTheme)
             return Result.success(Gson().toJson(dataPackage))
         } else {
             return Result.failure(Throwable());

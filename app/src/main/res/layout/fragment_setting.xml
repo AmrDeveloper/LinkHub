@@ -85,6 +85,25 @@
             android:layout_height="0.2dp"
             android:background="@android:color/darker_gray" />
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/default_folder_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/dimen10dp"
+            android:fontFamily="serif"
+            android:padding="@dimen/dimen10dp"
+            android:text="@string/default_folder"
+            android:textColor="@color/dark_sky"
+            android:textSize="@dimen/dimen20sp"
+            app:drawableStartCompat="@drawable/ic_folders"
+            app:thumbTint="@color/sky"
+            app:trackTint="@color/grey" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:id="@+id/password_txt"
             android:layout_width="match_parent"

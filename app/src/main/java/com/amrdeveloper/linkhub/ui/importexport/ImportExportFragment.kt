@@ -18,10 +18,12 @@ import androidx.fragment.app.viewModels
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.ImportExportFileType
 import com.amrdeveloper.linkhub.databinding.FragmentImportExportBinding
+import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.getFileName
 import com.amrdeveloper.linkhub.util.getFileText
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ImportExportFragment : Fragment() {
@@ -31,6 +33,9 @@ class ImportExportFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val importExportViewModel by viewModels<ImportExportViewModel>()
+
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +54,8 @@ class ImportExportFragment : Fragment() {
             launchFileTypePickerDialog(requireContext()) { fileType ->
                 importExportFileType = fileType
                 importDataFile(fileType)
+                if(uiPreferences.isDefaultFolderEnabled())
+                    uiPreferences.deleteDefaultFolder()
             }
         }
 
