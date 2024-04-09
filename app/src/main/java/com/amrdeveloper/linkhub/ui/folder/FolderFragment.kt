@@ -2,7 +2,12 @@ package com.amrdeveloper.linkhub.ui.folder
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +21,6 @@ import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -143,6 +147,9 @@ class FolderFragment : Fragment() {
     }
 
     private fun deleteFolder() {
+        if(uiPreferences.isDefaultFolderEnabled() &&
+            uiPreferences.getDefaultFolderId() == currentFolder.id)
+            uiPreferences.deleteDefaultFolder()
         folderViewModel.deleteFolder(currentFolder.id)
     }
 

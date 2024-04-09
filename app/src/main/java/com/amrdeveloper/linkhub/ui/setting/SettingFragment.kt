@@ -55,6 +55,9 @@ class SettingFragment : Fragment() {
 
         // Setup Auto saving
         binding.autoSavingSwitch.isChecked = uiPreferences.isAutoSavingEnabled()
+
+        // Setup default folder
+        binding.defaultFolderSwitch.isChecked = uiPreferences.isDefaultFolderEnabled()
     }
 
     override fun onPause() {
@@ -117,6 +120,11 @@ class SettingFragment : Fragment() {
         binding.autoSavingSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isViewPassedResumedState) {
                 uiPreferences.setEnableAutoSave(isChecked)
+            }
+        }
+        binding.defaultFolderSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isViewPassedResumedState) {
+                uiPreferences.setEnableDefaultFolderEnabled(isChecked)
             }
         }
     }

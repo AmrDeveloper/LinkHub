@@ -46,6 +46,11 @@ class ImportExportViewModel @Inject constructor (
                     uiPreferences.setEnableAutoSave(
                         it.enableAutoSaving ?: lastAutoSavingEnabled
                     )
+                    // Import use last folder mode
+                    val defaultFolder = uiPreferences.isDefaultFolderEnabled()
+                    uiPreferences.setEnableDefaultFolderEnabled(
+                        it.defaultFolderMode ?: defaultFolder
+                    )
                     // Import theme flag if it available
                     val lastThemeOption = uiPreferences.getThemeType()
                     uiPreferences.setThemeType(it.theme ?: lastThemeOption)

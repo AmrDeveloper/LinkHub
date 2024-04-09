@@ -31,6 +31,7 @@
     <string name="import_export_choose_file_type">Choose a file type</string>
     <string name="password">Password</string>
     <string name="enable_password">Enable password</string>
+    <string name="default_folder">Remember the last folder</string>
 
     <!--Actions-->
     <string name="add_link">Add Link</string>

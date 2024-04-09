@@ -2,7 +2,12 @@ package com.amrdeveloper.linkhub.ui.link
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.URLUtil
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -22,7 +27,6 @@ import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.text.DateFormat
 import javax.inject.Inject
 
@@ -52,7 +56,7 @@ class LinkFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLinkBinding.inflate(inflater, container, false)
-
+        handleDefaultFolder()
         handleIntentSharedLink()
         handleLinkArgument()
         setupObservers()
@@ -61,6 +65,15 @@ class LinkFragment : Fragment() {
         linkViewModel.getFolderList()
 
         return binding.root
+    }
+
+    private fun handleDefaultFolder(){
+        if (uiPreferences.isDefaultFolderEnabled()){
+            val defFolderId = uiPreferences.getDefaultFolderId()
+            if (defFolderId!=-1){
+                linkViewModel.getFolderWithId(defFolderId)
+            }
+        }
     }
 
     private fun handleIntentSharedLink() {
@@ -93,6 +106,13 @@ class LinkFragment : Fragment() {
         }
     }
 
+    private fun setActiveFolderToFolderList(folders: Iterable<Folder>, id: Int){
+        val folder = folders.find { it.id == currentLink.folderId }
+        folder?.let {
+            binding.folderNameMenu.setText(it.name, false)
+        }
+    }
+
     private fun setupObservers() {
         linkViewModel.currentFolderLiveData.observe(viewLifecycleOwner) {
             binding.folderNameMenu.setText(it.name, false)
@@ -117,11 +137,10 @@ class LinkFragment : Fragment() {
                 findNavController().currentBackStackEntry?.savedStateHandle?.remove<String>(
                     CREATED_FOLDER_NAME_KEY
                 )
-            } else if (::currentLink.isInitialized) {
-                val folder = folders.find { it.id == currentLink.folderId }
-                folder?.let {
-                    binding.folderNameMenu.setText(it.name, false)
-                }
+            } else if (::currentLink.isInitialized ) {
+                setActiveFolderToFolderList(folders, currentLink.folderId)
+            } else if (uiPreferences.isDefaultFolderEnabled() && uiPreferences.getDefaultFolderId()!=-1){
+                setActiveFolderToFolderList(folders, uiPreferences.getDefaultFolderId())
             }
         }
 
@@ -150,6 +169,9 @@ class LinkFragment : Fragment() {
                     FOLDER_NONE_ID
                 }
                 else -> {
+                    if(uiPreferences.isDefaultFolderEnabled()) {
+                        uiPreferences.setDefaultFolderId(folder.id)
+                    }
                     folder.id
                 }
             }
