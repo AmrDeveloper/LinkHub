@@ -56,7 +56,7 @@ class SettingFragment : Fragment() {
         // Setup Auto saving
         binding.autoSavingSwitch.isChecked = uiPreferences.isAutoSavingEnabled()
 
-        // Setup Auto saving
+        // Setup default folder
         binding.defaultFolderSwitch.isChecked = uiPreferences.isDefaultFolderEnabled()
     }
 

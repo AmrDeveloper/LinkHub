@@ -30,6 +30,7 @@
     <string name="import_export">导入和导出</string>
     <string name="password">密码</string>
     <string name="enable_password">启用密码</string>
+    <string name="default_folder">记住最后一个文件夹</string>
 
     <!--操作-->
     <string name="add_link">添加链接</string>

@@ -31,6 +31,7 @@
     <string name="import_export">أستيراد أو تصدير</string>
     <string name="password">الرقم السري</string>
     <string name="enable_password">تفعيل الرقم السري</string>
+    <string name="default_folder">تذكر المجلد الأخير</string>
 
     <!--Actions-->
     <string name="add_link">إضافه رابط</string>

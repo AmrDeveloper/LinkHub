@@ -30,6 +30,7 @@
     <string name="import_export">Nhập và xuất</string>
     <string name="password">Mật khẩu</string>
     <string name="enable_password">Bật mật khẩu</string>
+    <string name="default_folder">Nhớ thư mục cuối cùng</string>
 
     <!--Actions-->
     <string name="add_link">Thêm liên kết</string>
