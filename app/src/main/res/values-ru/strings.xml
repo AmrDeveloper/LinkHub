@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Labels-->
+    <string name="app_name">LinkHub</string>
+    <string name="top_folders">Часто используемые папки</string>
+    <string name="folder">Папка</string>
+    <string name="folders">Папки</string>
+    <string name="links">Ссылки</string>
+    <string name="search">Поиск</string>
+    <string name="link_icon">Значок ссылки</string>
+    <string name="all_folders">Все папки</string>
+    <string name="link_title">Заголовок ссылки</string>
+    <string name="link_subtitle">Подзаголовок ссылки</string>
+    <string name="link_url">URL ссылки</string>
+    <string name="pinned">Закрепленные</string>
+    <string name="folder_name">Имя папки</string>
+    <string name="none">Нет</string>
+    <string name="created_at">Создано</string>
+    <string name="updated_at">Последнее обновление</string>
+    <string name="settings">Настройки</string>
+    <string name="issues">Проблемы</string>
+    <string name="contributors">Участники</string>
+    <string name="source_code">Исходный код</string>
+    <string name="sponsor">Пожертвовать</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="show_counter">Показать счетчик кликов</string>
+    <string name="auto_saving">Автоматическое сохранение</string>
+    <string name="folder_color_preview">Предварительный просмотр цвета папки</string>
+    <string name="next_folder_color">Следующий цвет папки</string>
+    <string name="previous_folder_color">Предыдущий цвет папки</string>
+    <string name="import_export">Импорт и экспорт</string>
+    <string name="import_export_choose_file_type">Выберите тип файла</string>
+    <string name="password">Пароль</string>
+    <string name="enable_password">Включить пароль</string>
+    <string name="default_folder">Запомнить выбор последней папки</string>
+    <!--Actions-->
+    <string name="add_link">Добавить ссылку</string>
+    <string name="add_new_link">Добавить новую ссылку</string>
+    <string name="show_add_options">Показать опции добавления</string>
+    <string name="add_link_option">Опция добавления ссылки</string>
+    <string name="add_folder_option">Опция добавления папки</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="open_in_browser">Открыть в браузере</string>
+    <string name="copy">Копировать</string>
+    <string name="undo">Отменить</string>
+    <string name="share">Поделиться</string>
+    <string name="imports">Импортировать</string>
+    <string name="export">Экспортировать</string>
+    <string name="check">Проверить</string>
+
+    <!--Messages-->
+    <string name="message_link_copy">URL ссылки скопирован</string>
+    <string name="message_link_invalid">Не удается открыть URL ссылки в браузере</string>
+    <string name="message_link_deleted">Ваша ссылка удалена</string>
+    <string name="message_links_empty">У вас нет ссылок</string>
+
+    <string name="message_folders_empty">У вас нет папок</string>
+
+    <string name="message_data_imported">Данные успешно импортированы</string>
+    <string name="message_data_exported">Данные успешно экспортированы в каталог Загрузки</string>
+
+    <string name="message_invalid_extension">Недопустимые расширения файла</string>
+    <string name="message_invalid_data_format">Недопустимый формат данных</string>
+    <string name="message_invalid_export">Недопустимый экспорт этих данных</string>
+
+    <string name="message_password_enabled">Пароль включен</string>
+    <string name="message_password_disabled">Пароль отключен</string>
+
+    <!--Counters-->
+    <string name="folder_count">Папок: %1$d</string>
+    <string name="version">Версия %1$s</string>
+
+    <!--Error Messages-->
+    <!--Link Error Messages-->
+    <string name="error_get_links">Не удается найти ссылки</string>
+    <string name="error_insert_link">Не удается добавить эту ссылку</string>
+    <string name="error_update_link">Не удается обновить эту ссылку</string>
+    <string name="error_delete_link">Не удается удалить эту ссылку</string>
+    <string name="error_link_title_empty">Заголовок ссылки не может быть пустым</string>
+    <string name="error_link_subtitle_empty">Подзаголовок ссылки не может быть пустым</string>
+    <string name="error_link_url_empty">URL ссылки не может быть пустым</string>
+    <string name="error_link_url_invalid">Недопустимый URL ссылки</string>
+    <string name="error_link_same_title">У вас уже есть существующая ссылка с таким же заголовком</string>
+
+    <!--Folder Error Messages-->
+    <string name="error_get_top_folders">Не удается найти часто используемые папки</string>
+    <string name="error_get_folders">Не удается найти папки</string>
+    <string name="error_insert_folder">Не удается добавить эту папку</string>
+    <string name="error_update_folder">Не удается обновить эту папку</string>
+    <string name="error_delete_folder">Не удается удалить эту папку</string>
+    <string name="error_folder_name_empty">Имя папки не может быть пустым</string>
+    <string name="error_folder_name_small">Имя папки не может содержать менее 3 символов</string>
+    <string name="error_folder_same_name">У вас уже есть существующая папка с таким именем</string>
+
+    <!-- Password error message -->
+    <string name="error_password_empty">Пароль не может быть пустым</string>
+    <string name="error_incorrect_password">Пароль неверный</string>
+    <string name="error_password_back_from_check">Невозможно пропустить проверку пароля</string>
+
+    <!--Shortcuts-->
+    <string name="folder_create">Создать папку</string>
+    <string name="link_create">Создать ссылку</string>
+</resources>
