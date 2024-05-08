@@ -50,6 +50,7 @@ you can copy, edit, open your link just by one click
 - German
 - Chinese
 - Vietnamese
+- Russian
 
 ## How to contribute
 - Before making a feature request or bug report make sure you have the latest version installed on your device and the request is unique
