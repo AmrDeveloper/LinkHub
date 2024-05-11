@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 1.6.0 *(2023-05-11)*
+-----------------------------
+
+* Fixing Empty folder field entries #45 by @AmrDeveloper
+* Change cursor color in light and dark theme to be clear #44 by @AmrDeveloper
+
+
 Version 1.5.1 *(2023-06-06)*
 -----------------------------
 
@@ -11,7 +18,13 @@ Version 1.5.1 *(2023-06-06)*
 Version 1.5.0 *(2023-05-25)*
 -----------------------------
 
-* Implement creating new folder option from link create view #43 by @AmrDeveloper
+* Russian translation.
+* Russian Vietnamese.
+* Russian Chinese.
+* Added import/export to html functionality.
+* Update Kotlin and libraries versions
+* Optimize onChildDraw calculating icon top position
+
 
 Version 1.4.0 *(2023-04-19)*
 -----------------------------

@@ -16,7 +16,7 @@ android {
         minSdkVersion 17
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 22
-        versionName "1.5.1"
+        versionName "1.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
