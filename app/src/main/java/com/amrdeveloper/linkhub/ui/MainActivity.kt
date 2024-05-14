@@ -18,7 +18,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var uiPreferences: UiPreferences
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun handleLinkHubIntent() {
-        when(intent.action) {
+        when (intent.action) {
             Intent.ACTION_VIEW -> return
             Intent.ACTION_SEND -> {
                 val sharedLink = intent.getStringExtra(Intent.EXTRA_TEXT)
@@ -42,16 +43,23 @@ class MainActivity : AppCompatActivity() {
                 findNavHostController(R.id.nav_host_fragment).navigate(R.id.linkFragment, bundle)
                 return
             }
+
             Intent.ACTION_PROCESS_TEXT -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    val sharedLink = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
+                    val sharedLink =
+                        intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
                     val bundle = bundleOf("shared_link" to sharedLink)
-                    findNavHostController(R.id.nav_host_fragment).navigate(R.id.linkFragment, bundle)
+                    findNavHostController(R.id.nav_host_fragment).navigate(
+                        R.id.linkFragment,
+                        bundle
+                    )
                 }
             }
+
             ACTION_CREATE_LINK -> {
                 findNavHostController(R.id.nav_host_fragment).navigate(R.id.linkFragment)
             }
+
             ACTION_CREATE_FOLDER -> {
                 findNavHostController(R.id.nav_host_fragment).navigate(R.id.folderFragment)
             }

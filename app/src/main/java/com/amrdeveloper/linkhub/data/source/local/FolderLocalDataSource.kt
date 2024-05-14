@@ -11,7 +11,7 @@ class FolderLocalDataSource internal constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : FolderDataSource {
 
-    override suspend fun insertFolder(folder: Folder) : Result<Long> = withContext(ioDispatcher) {
+    override suspend fun insertFolder(folder: Folder): Result<Long> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(folderDao.insert(folder))
         } catch (e: Exception) {
@@ -19,15 +19,16 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
-    override suspend fun insertFolders(folder: List<Folder>): Result<Unit>  = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(folderDao.insertList(folder))
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun insertFolders(folder: List<Folder>): Result<Unit> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(folderDao.insertList(folder))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
-    }
 
-    override suspend fun getFolderById(id : Int): Result<Folder> = withContext(ioDispatcher) {
+    override suspend fun getFolderById(id: Int): Result<Folder> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(folderDao.getFolderById(id))
         } catch (e: Exception) {
@@ -35,7 +36,7 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
-    override suspend fun getFolderByName(name : String): Result<Folder> = withContext(ioDispatcher) {
+    override suspend fun getFolderByName(name: String): Result<Folder> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(folderDao.getFolderByName(name))
         } catch (e: Exception) {
@@ -85,21 +86,23 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
-    override suspend fun updateClickCountByFolderId(folderId: Int, count: Int): Result<Int> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(folderDao.updateClickCountByFolderId(folderId, count))
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun updateClickCountByFolderId(folderId: Int, count: Int): Result<Int> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(folderDao.updateClickCountByFolderId(folderId, count))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
-    }
 
-    override suspend fun deleteFolderWithLinks(folderId: Int): Result<Int> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(folderDao.deleteFolderWithLinks(folderId))
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun deleteFolderWithLinks(folderId: Int): Result<Int> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(folderDao.deleteFolderWithLinks(folderId))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
-    }
 
     override suspend fun deleteAll(): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {

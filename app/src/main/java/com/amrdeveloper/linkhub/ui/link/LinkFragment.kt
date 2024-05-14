@@ -39,13 +39,14 @@ class LinkFragment : Fragment() {
     private val safeArguments by navArgs<LinkFragmentArgs>()
 
     private lateinit var currentLink: Link
-    private var linkFolderID : Int = -1
+    private var linkFolderID: Int = -1
     private lateinit var folderMenuAdapter: FolderArrayAdapter
     private val linkViewModel by viewModels<LinkViewModel>()
 
     private val dateFormatter = DateFormat.getDateTimeInstance()
 
-    @Inject lateinit var uiPreferences: UiPreferences
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +55,11 @@ class LinkFragment : Fragment() {
         safeArguments.link?.let { currentLink = it }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentLinkBinding.inflate(inflater, container, false)
         handleDefaultFolder()
         handleIntentSharedLink()
@@ -67,10 +72,10 @@ class LinkFragment : Fragment() {
         return binding.root
     }
 
-    private fun handleDefaultFolder(){
-        if (uiPreferences.isDefaultFolderEnabled()){
+    private fun handleDefaultFolder() {
+        if (uiPreferences.isDefaultFolderEnabled()) {
             val defFolderId = uiPreferences.getDefaultFolderId()
-            if (defFolderId!=-1){
+            if (defFolderId != -1) {
                 linkViewModel.getFolderWithId(defFolderId)
             }
         }
@@ -79,7 +84,7 @@ class LinkFragment : Fragment() {
     private fun handleIntentSharedLink() {
         val sharedLink = arguments?.getString("shared_link") ?: return
 
-        if(URLUtil.isValidUrl(sharedLink).not()) {
+        if (URLUtil.isValidUrl(sharedLink).not()) {
             binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
             return
         }
@@ -89,24 +94,28 @@ class LinkFragment : Fragment() {
     }
 
     private fun handleLinkArgument() {
-        if(::currentLink.isInitialized) {
+        if (::currentLink.isInitialized) {
             binding.linkTitleEdit.setText(currentLink.title)
             binding.linkSubtitleEdit.setText(currentLink.subtitle)
             binding.linkUrlEdit.setText(currentLink.url)
             binding.linkPinnedSwitch.isChecked = currentLink.isPinned
-            val linkCreatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
+            val linkCreatedStamp =
+                if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.createdTime
             val formattedCreationDate = dateFormatter.format(linkCreatedStamp)
-            binding.linkCreatedStatus.text = getString(R.string.created_at) + " ${formattedCreationDate}"
+            binding.linkCreatedStatus.text =
+                getString(R.string.created_at) + " ${formattedCreationDate}"
             if (currentLink.isUpdated) {
-                val linkUpdatedStamp = if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.lastUpdatedTime
+                val linkUpdatedStamp =
+                    if (currentLink.createdTime == 0L) System.currentTimeMillis() else currentLink.lastUpdatedTime
                 val formattedUpdateDate = dateFormatter.format(linkUpdatedStamp)
-                binding.linkUpdatedStatus.text = getString(R.string.updated_at) + " ${formattedUpdateDate}"
+                binding.linkUpdatedStatus.text =
+                    getString(R.string.updated_at) + " ${formattedUpdateDate}"
             }
             if (currentLink.folderId != -1) linkViewModel.getFolderWithId(currentLink.folderId)
         }
     }
 
-    private fun setActiveFolderToFolderList(folders: Iterable<Folder>, id: Int){
+    private fun setActiveFolderToFolderList(folders: Iterable<Folder>, id: Int) {
         val folder = folders.find { it.id == currentLink.folderId }
         folder?.let {
             binding.folderNameMenu.setText(it.name, false)
@@ -121,13 +130,22 @@ class LinkFragment : Fragment() {
 
         linkViewModel.folderLiveData.observe(viewLifecycleOwner) { folders ->
             folderMenuAdapter.clear()
-            folderMenuAdapter.add(Folder(getString(R.string.folder_create), false, id = CREATE_FOLDER_ID))
+            folderMenuAdapter.add(
+                Folder(
+                    getString(R.string.folder_create),
+                    false,
+                    id = CREATE_FOLDER_ID
+                )
+            )
             folderMenuAdapter.add(Folder(getString(R.string.none), false, id = FOLDER_NONE_ID))
             folderMenuAdapter.addAll(folders)
             binding.folderNameMenu.text.clear()
 
             // Check if user created a new folder for this link and suggest it as the current link folder
-            val newFolderCreatedName = findNavController().currentBackStackEntry?.savedStateHandle?.get<String>(CREATED_FOLDER_NAME_KEY)
+            val newFolderCreatedName =
+                findNavController().currentBackStackEntry?.savedStateHandle?.get<String>(
+                    CREATED_FOLDER_NAME_KEY
+                )
 
             if (newFolderCreatedName != null) {
                 val lastCreatedFolder =
@@ -137,9 +155,9 @@ class LinkFragment : Fragment() {
                 findNavController().currentBackStackEntry?.savedStateHandle?.remove<String>(
                     CREATED_FOLDER_NAME_KEY
                 )
-            } else if (::currentLink.isInitialized ) {
+            } else if (::currentLink.isInitialized) {
                 setActiveFolderToFolderList(folders, currentLink.folderId)
-            } else if (uiPreferences.isDefaultFolderEnabled() && uiPreferences.getDefaultFolderId()!=-1){
+            } else if (uiPreferences.isDefaultFolderEnabled() && uiPreferences.getDefaultFolderId() != -1) {
                 setActiveFolderToFolderList(folders, uiPreferences.getDefaultFolderId())
             }
         }
@@ -168,8 +186,9 @@ class LinkFragment : Fragment() {
                     findNavController().navigate(R.id.action_linkFragment_to_folderFragment)
                     FOLDER_NONE_ID
                 }
+
                 else -> {
-                    if(uiPreferences.isDefaultFolderEnabled()) {
+                    if (uiPreferences.isDefaultFolderEnabled()) {
                         uiPreferences.setDefaultFolderId(folder.id)
                     }
                     folder.id
@@ -193,17 +212,19 @@ class LinkFragment : Fragment() {
                 createOrUpdateLink()
                 true
             }
+
             R.id.delete_action -> {
-                if(::currentLink.isInitialized) deleteCurrentLink()
+                if (::currentLink.isInitialized) deleteCurrentLink()
                 else findNavController().navigateUp()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun createOrUpdateLink() {
-        if(::currentLink.isInitialized) updateCurrentLink()
+        if (::currentLink.isInitialized) updateCurrentLink()
         else createNewLink()
     }
 
@@ -213,17 +234,17 @@ class LinkFragment : Fragment() {
         val url = binding.linkUrlEdit.text.toString()
         val isPinned = binding.linkPinnedSwitch.isChecked
 
-        if(title.isEmpty()) {
+        if (title.isEmpty()) {
             binding.linkTitleLayout.showError(R.string.error_link_title_empty)
             return
         }
 
-        if(url.isEmpty()) {
+        if (url.isEmpty()) {
             binding.linkUrlLayout.showError(R.string.error_link_url_empty)
             return
         }
 
-        if(URLUtil.isValidUrl(url).not()) {
+        if (URLUtil.isValidUrl(url).not()) {
             binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
             return
         }
@@ -238,17 +259,17 @@ class LinkFragment : Fragment() {
         val url = binding.linkUrlEdit.text.toString()
         val isPinned = binding.linkPinnedSwitch.isChecked
 
-        if(title.isEmpty()) {
+        if (title.isEmpty()) {
             binding.linkTitleLayout.showError(R.string.error_link_title_empty)
             return
         }
 
-        if(url.isEmpty()) {
+        if (url.isEmpty()) {
             binding.linkUrlLayout.showError(R.string.error_link_url_empty)
             return
         }
 
-        if(URLUtil.isValidUrl(url).not()) {
+        if (URLUtil.isValidUrl(url).not()) {
             binding.linkUrlLayout.showError(R.string.error_link_url_invalid)
             return
         }

@@ -1,6 +1,6 @@
 package com.amrdeveloper.linkhub.ui.adapter
 
-import android.graphics.*
+import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 class ItemSwipeCallback(
-    private val icon : Drawable?,
-    private val background : ColorDrawable,
+    private val icon: Drawable?,
+    private val background: ColorDrawable,
     private val onSwipeCallback: (RecyclerView.ViewHolder) -> Unit
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
@@ -26,8 +26,10 @@ class ItemSwipeCallback(
         target: RecyclerView.ViewHolder
     ): Boolean = false
 
-    override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                             dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+    override fun onChildDraw(
+        c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+        dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
+    ) {
         val itemView: View = viewHolder.itemView
         val iconMargin = (itemView.height - intrinsicHeight) / 2
         val iconTop = itemView.top + iconMargin
@@ -39,14 +41,24 @@ class ItemSwipeCallback(
                 val iconLeft = itemView.left + iconMargin
                 val iconRight = iconLeft + intrinsicWidth
                 icon?.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-                background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt(), itemView.bottom)
+                background.setBounds(
+                    itemView.left,
+                    itemView.top,
+                    itemView.left + dX.toInt(),
+                    itemView.bottom
+                )
             }
             // Swipe right
             dX < 0 -> {
                 val iconLeft: Int = itemView.right - iconMargin - intrinsicWidth
                 val iconRight: Int = itemView.right - iconMargin
                 icon?.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-                background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                background.setBounds(
+                    itemView.right + dX.toInt(),
+                    itemView.top,
+                    itemView.right,
+                    itemView.bottom
+                )
             }
             // Not swiped
             else -> {

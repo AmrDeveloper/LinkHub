@@ -25,7 +25,7 @@ class FolderViewModel @Inject constructor(
         viewModelScope.launch {
             val result = folderRepository.insertFolder(folder)
             if (result.isSuccess) {
-                if(result.getOrDefault(-1) > 0) _completeSuccessTask.value = true
+                if (result.getOrDefault(-1) > 0) _completeSuccessTask.value = true
                 else _errorMessages.value = R.string.error_folder_same_name
             } else {
                 _errorMessages.value = R.string.error_insert_folder

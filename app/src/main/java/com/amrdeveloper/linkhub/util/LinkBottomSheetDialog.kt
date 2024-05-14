@@ -15,7 +15,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 object LinkBottomSheetDialog {
 
-    fun launch(activity: Activity, link : Link, folder : Folder? = null, onFolderClick : (Folder?) -> Unit = {}) {
+    fun launch(
+        activity: Activity,
+        link: Link,
+        folder: Folder? = null,
+        onFolderClick: (Folder?) -> Unit = {}
+    ) {
         val bottomSheetDialog = BottomSheetDialog(activity)
         val dialogBinding = BottomSheetDialogBinding.inflate(LayoutInflater.from(activity))
         bottomSheetDialog.setContentView(dialogBinding.root)
@@ -23,7 +28,12 @@ object LinkBottomSheetDialog {
         folder?.let {
             dialogBinding.dialogFolderName.visibility = View.VISIBLE
             dialogBinding.dialogFolderName.text = folder.name
-            dialogBinding.dialogFolderName.setCompoundDrawablesWithIntrinsicBounds(folder.folderColor.drawableId, 0, 0, 0);
+            dialogBinding.dialogFolderName.setCompoundDrawablesWithIntrinsicBounds(
+                folder.folderColor.drawableId,
+                0,
+                0,
+                0
+            );
             dialogBinding.dialogFolderName.setOnClickListener {
                 bottomSheetDialog.dismiss()
                 onFolderClick(folder)
@@ -33,7 +43,7 @@ object LinkBottomSheetDialog {
         dialogBinding.dialogOpenAction.setOnClickListener {
             try {
                 openLinkIntent(activity, link.url)
-            } catch (e : ActivityNotFoundException) {
+            } catch (e: ActivityNotFoundException) {
                 activity.showSnackBar(R.string.message_link_invalid)
             }
             bottomSheetDialog.dismiss()

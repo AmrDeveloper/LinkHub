@@ -2,7 +2,12 @@ package com.amrdeveloper.linkhub.ui.home
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
@@ -21,7 +26,11 @@ import com.amrdeveloper.linkhub.databinding.FragmentHomeBinding
 import com.amrdeveloper.linkhub.ui.adapter.FolderAdapter
 import com.amrdeveloper.linkhub.ui.adapter.ItemSwipeCallback
 import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
-import com.amrdeveloper.linkhub.util.*
+import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
+import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.hide
+import com.amrdeveloper.linkhub.util.show
+import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,7 +41,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var uiPreferences: UiPreferences
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     private lateinit var folderAdapter: FolderAdapter
     private lateinit var linkAdapter: LinkAdapter
@@ -84,25 +94,25 @@ class HomeFragment : Fragment() {
     private fun setupListeners() {
         binding.folderNextBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_folderListFragment)
-            isOptionsButtonClicked=false
+            isOptionsButtonClicked = false
         }
 
         binding.showAddOptions.setOnClickListener { updateActionOptions() }
 
         binding.addLinkOption.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_linkFragment)
-            isOptionsButtonClicked=false
+            isOptionsButtonClicked = false
         }
 
         binding.addFolderOption.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_folderFragment)
-            isOptionsButtonClicked=false
+            isOptionsButtonClicked = false
         }
     }
 
     private fun updateActionOptions() {
         val visibility = if (isOptionsButtonClicked) View.INVISIBLE else View.VISIBLE
-        val animation = if(isOptionsButtonClicked) rotateClose else rotateOpen
+        val animation = if (isOptionsButtonClicked) rotateClose else rotateOpen
         isOptionsButtonClicked = isOptionsButtonClicked.not()
 
         binding.addLinkOption.visibility = visibility
@@ -126,10 +136,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
         }
 
-        folderAdapter.setOnFolderLongClickListener{
+        folderAdapter.setOnFolderLongClickListener {
             val bundle = bundleOf("folder" to it)
             findNavController().navigate(R.id.action_homeFragment_to_folderFragment, bundle)
-            isOptionsButtonClicked=false
+            isOptionsButtonClicked = false
         }
     }
 
@@ -175,7 +185,10 @@ class HomeFragment : Fragment() {
                 val folder = homeViewModel.getFolderById(link.folderId)
                 LinkBottomSheetDialog.launch(requireActivity(), link, folder.getOrNull()) {
                     val bundle = bundleOf("folder" to it)
-                    findNavController().navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
+                    findNavController().navigate(
+                        R.id.action_homeFragment_to_linkListFragment,
+                        bundle
+                    )
                 }
             }
         }
@@ -183,7 +196,7 @@ class HomeFragment : Fragment() {
         linkAdapter.setOnLinkLongClickListener {
             val bundle = bundleOf("link" to it)
             findNavController().navigate(R.id.action_homeFragment_to_linkFragment, bundle)
-            isOptionsButtonClicked=false
+            isOptionsButtonClicked = false
         }
     }
 
@@ -232,9 +245,10 @@ class HomeFragment : Fragment() {
         return when (item.itemId) {
             R.id.setting_action -> {
                 findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
-                isOptionsButtonClicked=false
+                isOptionsButtonClicked = false
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

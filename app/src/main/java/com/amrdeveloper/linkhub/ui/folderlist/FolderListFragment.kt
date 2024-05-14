@@ -1,17 +1,21 @@
 package com.amrdeveloper.linkhub.ui.folderlist
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amrdeveloper.linkhub.ui.adapter.FolderAdapter
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderListBinding
+import com.amrdeveloper.linkhub.ui.adapter.FolderAdapter
 import com.amrdeveloper.linkhub.util.hide
 import com.amrdeveloper.linkhub.util.show
 import com.amrdeveloper.linkhub.util.showSnackBar
@@ -20,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FolderListFragment : Fragment() {
 
-    private var _binding : FragmentFolderListBinding? = null
+    private var _binding: FragmentFolderListBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var folderAdapter: FolderAdapter
@@ -52,7 +56,7 @@ class FolderListFragment : Fragment() {
         })
 
         folderListViewModel.dataLoading.observe(viewLifecycleOwner, {
-            binding.loadingIndicator.visibility = if(it) View.VISIBLE else View.GONE
+            binding.loadingIndicator.visibility = if (it) View.VISIBLE else View.GONE
         })
 
         folderListViewModel.errorMessages.observe(viewLifecycleOwner, { messageId ->
@@ -60,8 +64,8 @@ class FolderListFragment : Fragment() {
         })
     }
 
-    private fun setupFoldersListState(folders : List<Folder>) {
-        if(folders.isEmpty()) {
+    private fun setupFoldersListState(folders: List<Folder>) {
+        if (folders.isEmpty()) {
             binding.folderEmptyLottie.show()
             binding.folderEmptyLottie.resumeAnimation()
             binding.folderEmptyText.show()
@@ -112,7 +116,7 @@ class FolderListFragment : Fragment() {
         }
 
         override fun onQueryTextChange(keyword: String?): Boolean {
-            if(keyword.isNullOrEmpty()) folderListViewModel.getSortedFolderList()
+            if (keyword.isNullOrEmpty()) folderListViewModel.getSortedFolderList()
             else folderListViewModel.getSortedFolderListByKeyword(keyword.trim())
             return false
         }

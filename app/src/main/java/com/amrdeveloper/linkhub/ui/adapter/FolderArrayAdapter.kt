@@ -14,12 +14,13 @@ class FolderArrayAdapter(
 ) : ArrayAdapter<Folder>(context, R.layout.list_item_folder) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.list_item_folder, parent, false)
+        val view = convertView ?: LayoutInflater.from(context)
+            .inflate(R.layout.list_item_folder, parent, false)
         val binding = ListItemFolderBinding.bind(view)
         val folder = getItem(position)
         if (folder != null) {
             binding.folderNameTxt.text = folder.name
-            binding.folderPinImg.visibility = if(folder.isPinned) View.VISIBLE else View.INVISIBLE
+            binding.folderPinImg.visibility = if (folder.isPinned) View.VISIBLE else View.INVISIBLE
             binding.folderIconImg.setImageResource(folder.folderColor.drawableId)
         }
         return view

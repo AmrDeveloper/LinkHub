@@ -13,7 +13,8 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimarySurface</item>
-        <item name="android:navigationBarColor" tools:targetApi="21">?attr/colorPrimarySurface</item>
+        <item name="android:navigationBarColor" tools:targetApi="21">?attr/colorPrimarySurface
+        </item>
 
         <!-- Customize your theme here. -->
         <item name="android:editTextColor">@android:color/white</item>

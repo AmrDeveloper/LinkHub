@@ -7,9 +7,9 @@
     app:cardCornerRadius="@dimen/dimen2dp"
     app:cardElevation="@dimen/dimen1dp"
     app:cardUseCompatPadding="true"
+    app:elevation="@dimen/dimen2dp"
     app:strokeColor="@color/white_smoke"
-    app:strokeWidth="@dimen/dimen1dp"
-    app:elevation="@dimen/dimen2dp">
+    app:strokeWidth="@dimen/dimen1dp">
 
     <RelativeLayout
         android:layout_width="match_parent"

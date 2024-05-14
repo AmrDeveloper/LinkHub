@@ -12,10 +12,11 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.insertFolders(folders)
     }
 
-    suspend fun getFolderById(folderId : Int) : Result<Folder> {
+    suspend fun getFolderById(folderId: Int): Result<Folder> {
         return dataSource.getFolderById(folderId)
     }
-    suspend fun getFolderByName(name : String) : Result<Folder> {
+
+    suspend fun getFolderByName(name: String): Result<Folder> {
         return dataSource.getFolderByName(name)
     }
 

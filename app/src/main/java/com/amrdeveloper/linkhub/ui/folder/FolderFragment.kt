@@ -26,7 +26,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FolderFragment : Fragment() {
 
-    private var _binding : FragmentFolderBinding? = null
+    private var _binding: FragmentFolderBinding? = null
     private val binding get() = _binding!!
 
     private val safeArguments by navArgs<FolderFragmentArgs>()
@@ -34,7 +34,8 @@ class FolderFragment : Fragment() {
     private lateinit var currentFolder: Folder
     private val folderViewModel by viewModels<FolderViewModel>()
 
-    @Inject lateinit var uiPreferences: UiPreferences
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,7 @@ class FolderFragment : Fragment() {
     }
 
     private fun handleFolderArgument() {
-        if(::currentFolder.isInitialized) {
+        if (::currentFolder.isInitialized) {
             binding.folderTitleEdit.setText(currentFolder.name)
             binding.folderPinnedSwitch.isChecked = currentFolder.isPinned
             binding.folderColorSelector.setCurrentFolderColor(currentFolder.folderColor)
@@ -86,27 +87,29 @@ class FolderFragment : Fragment() {
                 createOrUpdateFolder()
                 true
             }
+
             R.id.delete_action -> {
-                if(::currentFolder.isInitialized) deleteFolder()
+                if (::currentFolder.isInitialized) deleteFolder()
                 else findNavController().navigateUp()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun createOrUpdateFolder() {
-        if(::currentFolder.isInitialized) updateFolder()
+        if (::currentFolder.isInitialized) updateFolder()
         else createNewFolder()
     }
 
     private fun createNewFolder() {
         val name = binding.folderTitleEdit.text.toString().trim()
-        if(name.isEmpty()) {
+        if (name.isEmpty()) {
             binding.folderTitleLayout.showError(R.string.error_folder_name_empty)
             return
         }
-        if(name.length < 3) {
+        if (name.length < 3) {
             binding.folderTitleLayout.showError(R.string.error_folder_name_small)
             return
         }
@@ -129,12 +132,12 @@ class FolderFragment : Fragment() {
 
     private fun updateFolder() {
         val name = binding.folderTitleEdit.text.toString().trim()
-        if(name.isEmpty()) {
+        if (name.isEmpty()) {
             binding.folderTitleLayout.showError(R.string.error_folder_name_empty)
             return
         }
 
-        if(name.length < 3) {
+        if (name.length < 3) {
             binding.folderTitleLayout.showError(R.string.error_folder_name_small)
             return
         }
@@ -147,8 +150,9 @@ class FolderFragment : Fragment() {
     }
 
     private fun deleteFolder() {
-        if(uiPreferences.isDefaultFolderEnabled() &&
-            uiPreferences.getDefaultFolderId() == currentFolder.id)
+        if (uiPreferences.isDefaultFolderEnabled() &&
+            uiPreferences.getDefaultFolderId() == currentFolder.id
+        )
             uiPreferences.deleteDefaultFolder()
         folderViewModel.deleteFolder(currentFolder.id)
     }

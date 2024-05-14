@@ -54,7 +54,7 @@ class ImportExportFragment : Fragment() {
             launchFileTypePickerDialog(requireContext()) { fileType ->
                 importExportFileType = fileType
                 importDataFile(fileType)
-                if(uiPreferences.isDefaultFolderEnabled())
+                if (uiPreferences.isDefaultFolderEnabled())
                     uiPreferences.deleteDefaultFolder()
             }
         }
@@ -67,7 +67,10 @@ class ImportExportFragment : Fragment() {
         }
     }
 
-     private fun launchFileTypePickerDialog(context: Context, onFileTypeSelected: (ImportExportFileType)->Unit) {
+    private fun launchFileTypePickerDialog(
+        context: Context,
+        onFileTypeSelected: (ImportExportFileType) -> Unit
+    ) {
         val fileTypes = ImportExportFileType.entries.map { it.fileTypeName }
         val builder = AlertDialog.Builder(context)
         builder.setTitle(context.getString(R.string.import_export_choose_file_type))
@@ -97,8 +100,11 @@ class ImportExportFragment : Fragment() {
     private fun importFileFromDeviceWithPermission(fileType: ImportExportFileType) {
         // From Android 33 no need for READ_EXTERNAL_STORAGE permission for non media files
         if (Build.VERSION_CODES.TIRAMISU > Build.VERSION.SDK_INT && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val readPermissionState = checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-            if (readPermissionState == PackageManager.PERMISSION_GRANTED) launchFileChooserIntent(fileType)
+            val readPermissionState =
+                checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (readPermissionState == PackageManager.PERMISSION_GRANTED) launchFileChooserIntent(
+                fileType
+            )
             else permissionLauncher.launch(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))
         } else {
             launchFileChooserIntent(fileType)
@@ -107,7 +113,8 @@ class ImportExportFragment : Fragment() {
 
     private fun exportFileFromDeviceWthPermission(fileType: ImportExportFileType) {
         if (Build.VERSION_CODES.R > Build.VERSION.SDK_INT && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val readPermissionState = checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val readPermissionState =
+                checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
             if (readPermissionState == PackageManager.PERMISSION_GRANTED)
                 importExportViewModel.exportDataFile(requireContext(), fileType)
             else permissionLauncher.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
@@ -126,11 +133,10 @@ class ImportExportFragment : Fragment() {
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
-            importExportFileType?.let { fileType->
-                if(result[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true) {
+            importExportFileType?.let { fileType ->
+                if (result[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true) {
                     importExportViewModel.exportDataFile(requireContext(), fileType)
-                }
-                else if(result[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
+                } else if (result[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
                     launchFileChooserIntent(fileType)
                 }
             }
@@ -140,11 +146,11 @@ class ImportExportFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val resultIntent = result.data
-                if(resultIntent != null) {
+                if (resultIntent != null) {
                     val fileUri = resultIntent.data
-                    if(fileUri != null) {
-                        importExportFileType?.let { fileType->
-                            val contentResolver =  requireActivity().contentResolver
+                    if (fileUri != null) {
+                        importExportFileType?.let { fileType ->
+                            val contentResolver = requireActivity().contentResolver
                             val fileName = contentResolver.getFileName(fileUri)
                             val extension = fileName.substring(fileName.lastIndexOf('.') + 1)
                             if (".$extension" != fileType.extension) {

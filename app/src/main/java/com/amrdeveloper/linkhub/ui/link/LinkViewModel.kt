@@ -42,7 +42,7 @@ class LinkViewModel @Inject constructor(
         viewModelScope.launch {
             val result = linkRepository.insertLink(link)
             if (result.isSuccess) {
-                if(result.getOrDefault(-1) > 0) _completeSuccessTask.value = true
+                if (result.getOrDefault(-1) > 0) _completeSuccessTask.value = true
                 else _errorMessages.value = R.string.error_link_same_title
             } else {
                 _errorMessages.value = R.string.error_insert_link
@@ -72,9 +72,9 @@ class LinkViewModel @Inject constructor(
         }
     }
 
-    fun generateLinkTitleAndSubTitle(url : String) {
+    fun generateLinkTitleAndSubTitle(url: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val isValidLink =  URLUtil.isValidUrl(url)
+            val isValidLink = URLUtil.isValidUrl(url)
             if (isValidLink.not()) return@launch
             val linkInfo = generateLinkInfo(url)
             withContext(Dispatchers.Main) {
@@ -83,7 +83,7 @@ class LinkViewModel @Inject constructor(
         }
     }
 
-    fun getFolderWithId(folderId : Int) {
+    fun getFolderWithId(folderId: Int) {
         viewModelScope.launch {
             val result = folderRepository.getFolderById(folderId)
             if (result.isSuccess) {

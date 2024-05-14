@@ -25,8 +25,8 @@
         android:fontFamily="serif"
         android:gravity="center_vertical"
         android:lines="1"
-        android:textStyle="bold"
         android:textColor="?attr/appWidgetTextColor"
+        android:textStyle="bold"
         tools:text="Youtube talk" />
 
     <TextView
@@ -36,9 +36,9 @@
         android:layout_below="@id/link_title"
         android:layout_marginStart="@dimen/dimen5dp"
         android:layout_toEndOf="@id/link_image"
-        android:textSize="@dimen/dimen12dp"
         android:gravity="center_vertical"
         android:lines="1"
         android:textColor="?attr/appWidgetTextColor"
+        android:textSize="@dimen/dimen12dp"
         tools:text="Youtube talk subtitle" />
 </RelativeLayout>

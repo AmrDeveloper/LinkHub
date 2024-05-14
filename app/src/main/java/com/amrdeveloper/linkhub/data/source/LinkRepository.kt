@@ -32,7 +32,7 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getSortedLinkListByKeyword(keyword)
     }
 
-    suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String) : Result<List<Link>> {
+    suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String): Result<List<Link>> {
         return dataSource.getSortedFolderLinkListByKeyword(id, keyword)
     }
 

@@ -1,7 +1,11 @@
 package com.amrdeveloper.linkhub.ui.linklist
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -14,7 +18,11 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkListBinding
 import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
-import com.amrdeveloper.linkhub.util.*
+import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
+import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.hide
+import com.amrdeveloper.linkhub.util.show
+import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,7 +34,8 @@ class LinkListFragment : Fragment() {
 
     private val safeArguments by navArgs<LinkListFragmentArgs>()
 
-    @Inject lateinit var uiPreferences: UiPreferences
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     private lateinit var currentFolder: Folder
     private lateinit var linkAdapter: LinkAdapter
@@ -68,8 +77,8 @@ class LinkListFragment : Fragment() {
         }
     }
 
-    private fun setupLinksListState(links : List<Link>) {
-        if(links.isEmpty()) {
+    private fun setupLinksListState(links: List<Link>) {
+        if (links.isEmpty()) {
             binding.linkEmptyLottie.show()
             binding.linkEmptyLottie.resumeAnimation()
             binding.linkEmptyText.show()
@@ -83,7 +92,7 @@ class LinkListFragment : Fragment() {
         }
     }
 
-    private fun setupLinksList(){
+    private fun setupLinksList() {
         linkAdapter = LinkAdapter()
         linkAdapter.setEnableClickCounter(uiPreferences.isClickCounterEnabled())
 
@@ -101,9 +110,14 @@ class LinkListFragment : Fragment() {
         }
     }
 
-    private fun setupFolderHeaderInfo(size : Int) {
+    private fun setupFolderHeaderInfo(size: Int) {
         binding.folderInfoHeaderTxt.text = "${currentFolder.name}: ${size}"
-        binding.folderInfoHeaderTxt.setCompoundDrawablesWithIntrinsicBounds(currentFolder.folderColor.drawableId, 0, 0, 0)
+        binding.folderInfoHeaderTxt.setCompoundDrawablesWithIntrinsicBounds(
+            currentFolder.folderColor.drawableId,
+            0,
+            0,
+            0
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -125,7 +139,7 @@ class LinkListFragment : Fragment() {
         }
 
         override fun onQueryTextChange(keyword: String?): Boolean {
-            if(keyword.isNullOrEmpty()) linkListViewModel.getFolderLinkList(currentFolder.id)
+            if (keyword.isNullOrEmpty()) linkListViewModel.getFolderLinkList(currentFolder.id)
             else linkListViewModel.getFolderLinkListByKeyword(currentFolder.id, keyword)
             return false
         }

@@ -11,18 +11,18 @@ class LinkLocalDataSource internal constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : LinkDataSource {
 
-    override suspend fun insertLink(link: Link) : Result<Long> = withContext(ioDispatcher) {
+    override suspend fun insertLink(link: Link): Result<Long> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.insert(link))
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun insertLinks(link: List<Link>) : Result<Unit> = withContext(ioDispatcher) {
+    override suspend fun insertLinks(link: List<Link>): Result<Unit> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.insertList(link))
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
@@ -30,7 +30,7 @@ class LinkLocalDataSource internal constructor(
     override suspend fun getLinkList(): Result<List<Link>> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.getLinkList())
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
@@ -38,7 +38,7 @@ class LinkLocalDataSource internal constructor(
     override suspend fun getPinnedLinkList(): Result<List<Link>> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.getPinnedLinkList())
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
@@ -46,79 +46,86 @@ class LinkLocalDataSource internal constructor(
     override suspend fun getSortedLinkList(): Result<List<Link>> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.getSortedLinkList())
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(linkDao.getSortedLinkListByFolderId(id))
-        } catch (e : Exception) {
-            Result.failure(e)
+    override suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(linkDao.getSortedLinkListByFolderId(id))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
-    }
 
-    override suspend fun getSortedLinkListByKeyword(keyword: String): Result<List<Link>> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(linkDao.getSortedLinkListByKeyword(keyword))
-        } catch (e : Exception) {
-            Result.failure(e)
+    override suspend fun getSortedLinkListByKeyword(keyword: String): Result<List<Link>> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(linkDao.getSortedLinkListByKeyword(keyword))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
-    }
 
-    override suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String): Result<List<Link>> = withContext(ioDispatcher) {
+    override suspend fun getSortedFolderLinkListByKeyword(
+        id: Int,
+        keyword: String
+    ): Result<List<Link>> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.getSortedLinkListByKeywordByFolderId(id, keyword))
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun updateLink(link: Link) : Result<Int> = withContext(ioDispatcher) {
+    override suspend fun updateLink(link: Link): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.update(link))
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun updateClickCountByLinkId(linkId: Int, count: Int): Result<Int> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(linkDao.updateClickCountByLinkId(linkId, count))
-        } catch (e : Exception) {
-            Result.failure(e)
+    override suspend fun updateClickCountByLinkId(linkId: Int, count: Int): Result<Int> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(linkDao.updateClickCountByLinkId(linkId, count))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
-    }
 
-    override suspend fun incrementClickCounter(linkId: Int): Result<Int> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(linkDao.incrementClickCounter(linkId))
-        } catch (e : Exception) {
-            Result.failure(e)
+    override suspend fun incrementClickCounter(linkId: Int): Result<Int> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(linkDao.incrementClickCounter(linkId))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
-    }
 
-    override suspend fun deleteLink(link: Link) : Result<Int> = withContext(ioDispatcher) {
+    override suspend fun deleteLink(link: Link): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.delete(link))
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun deleteLinkByID(id: Int) : Result<Int> = withContext(ioDispatcher) {
+    override suspend fun deleteLinkByID(id: Int): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.deleteLinkById(id))
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun deleteAll() : Result<Int> = withContext(ioDispatcher) {
+    override suspend fun deleteAll(): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
             Result.success(linkDao.deleteAll())
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }

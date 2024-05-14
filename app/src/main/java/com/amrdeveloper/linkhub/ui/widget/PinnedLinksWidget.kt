@@ -16,13 +16,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class PinnedLinksWidget : AppWidgetProvider() {
 
-    @Inject lateinit var linkRepository : LinkRepository
+    @Inject
+    lateinit var linkRepository: LinkRepository
 
     companion object {
 
@@ -34,7 +34,11 @@ class PinnedLinksWidget : AppWidgetProvider() {
 
     }
 
-    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
@@ -58,6 +62,7 @@ class PinnedLinksWidget : AppWidgetProvider() {
                 openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(openIntent)
             }
+
             WIDGET_REFRESH_ACTION -> {
                 val widgetManager = AppWidgetManager.getInstance(context)
                 val componentName = ComponentName(context, PinnedLinksWidget::class.java)
@@ -76,7 +81,11 @@ class PinnedLinksWidget : AppWidgetProvider() {
     }
 }
 
-internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+internal fun updateAppWidget(
+    context: Context,
+    appWidgetManager: AppWidgetManager,
+    appWidgetId: Int
+) {
     val serviceIntent = Intent(context, PinnedLinksWidgetService::class.java)
     serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
     serviceIntent.data = Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))
@@ -89,12 +98,14 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     // Setup View link in browser intent template
     val viewLinkIntent = Intent(context, PinnedLinksWidget::class.java)
     viewLinkIntent.action = WIDGET_ITEM_CLICK_ACTION
-    val pendingIntentFlag = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-        PendingIntent.FLAG_MUTABLE
-    } else {
-        PendingIntent.FLAG_UPDATE_CURRENT
-    }
-    val viewPendingIntent = PendingIntent.getBroadcast(context, 0, viewLinkIntent, pendingIntentFlag)
+    val pendingIntentFlag =
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_MUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+    val viewPendingIntent =
+        PendingIntent.getBroadcast(context, 0, viewLinkIntent, pendingIntentFlag)
     views.setPendingIntentTemplate(R.id.links_listview, viewPendingIntent)
 
     appWidgetManager.updateAppWidget(appWidgetId, views)

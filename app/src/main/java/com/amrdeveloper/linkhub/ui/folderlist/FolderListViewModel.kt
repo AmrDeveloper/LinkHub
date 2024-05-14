@@ -28,7 +28,7 @@ class FolderListViewModel @Inject constructor(
         _dataLoading.value = true
         viewModelScope.launch {
             val result = folderRepository.getSortedFolderList()
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 _foldersLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_folders
@@ -41,7 +41,7 @@ class FolderListViewModel @Inject constructor(
         _dataLoading.value = true
         viewModelScope.launch {
             val result = folderRepository.getSortedFolderListByKeyword(keyword)
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 _foldersLiveData.value = result.getOrDefault(listOf())
             } else {
                 _errorMessages.value = R.string.error_get_folders
@@ -50,7 +50,7 @@ class FolderListViewModel @Inject constructor(
         }
     }
 
-    fun updateFolderClickCount(folderId:  Int, count : Int) {
+    fun updateFolderClickCount(folderId: Int, count: Int) {
         viewModelScope.launch {
             folderRepository.updateClickCountByFolderId(folderId, count)
         }

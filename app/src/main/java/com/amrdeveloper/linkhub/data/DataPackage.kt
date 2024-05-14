@@ -2,23 +2,23 @@ package com.amrdeveloper.linkhub.data
 
 import com.google.gson.annotations.SerializedName
 
-data class DataPackage (
+data class DataPackage(
 
     @SerializedName("folders")
     val folders: List<Folder>,
 
     @SerializedName("links")
-    val links  : List<Link>,
+    val links: List<Link>,
 
     @SerializedName("showClickCounter")
-    val showClickCounter : Boolean?,
+    val showClickCounter: Boolean?,
 
     @SerializedName("autoSaving")
-    val enableAutoSaving : Boolean?,
+    val enableAutoSaving: Boolean?,
 
     @SerializedName("defaultFolderMode")
-    val defaultFolderMode : Boolean?,
+    val defaultFolderMode: Boolean?,
 
     @SerializedName("theme")
-    val theme : Theme?
+    val theme: Theme?
 )

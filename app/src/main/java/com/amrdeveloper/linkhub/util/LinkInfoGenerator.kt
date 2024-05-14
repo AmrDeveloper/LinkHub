@@ -7,19 +7,26 @@ import java.util.regex.Pattern
 private val TWITTER_USER_PATTERN = Pattern.compile("https://twitter\\.com/[_a-zA-Z0-9]{3,15}$")
 
 private val GITHUB_USER_PATTERN = Pattern.compile("https://github\\.com/[_a-zA-Z0-9]{3,}$")
-private val GITHUB_REPO_PATTERN = Pattern.compile("https://github\\.com/[_a-zA-Z0-9]{3,}/[_a-zA-Z0-9]{3,}$")
+private val GITHUB_REPO_PATTERN =
+    Pattern.compile("https://github\\.com/[_a-zA-Z0-9]{3,}/[_a-zA-Z0-9]{3,}$")
 
-private val STACKOVERFLOW_QUESTION_PATTERN = Pattern.compile("https://stackoverflow\\.com/questions/.+")
+private val STACKOVERFLOW_QUESTION_PATTERN =
+    Pattern.compile("https://stackoverflow\\.com/questions/.+")
 
-private val FACEBOOK_PROFILE_PATTERN = Pattern.compile("https://www\\.facebook\\.com/[_a-zA-Z0-9]{3,}$")
+private val FACEBOOK_PROFILE_PATTERN =
+    Pattern.compile("https://www\\.facebook\\.com/[_a-zA-Z0-9]{3,}$")
 private val FACEBOOK_GROUP_PATTERN = Pattern.compile("https://www\\.facebook\\.com/groups/.+")
 
-private val INSTAGRAM_PROFILE_PATTERN = Pattern.compile("https://www\\.instagram\\.com/[_a-zA-Z0-9]{3,}$")
+private val INSTAGRAM_PROFILE_PATTERN =
+    Pattern.compile("https://www\\.instagram\\.com/[_a-zA-Z0-9]{3,}$")
 
-private val REDDIT_USER_PATTERN = Pattern.compile("https://www\\.reddit\\.com/(user|u)/[_a-zA-Z0-9]{3,15}$")
-private val REDDIT_SUBREDDIT_PATTERN = Pattern.compile("https://www\\.reddit\\.com/r/[_a-zA-Z0-9]{3,15}$")
+private val REDDIT_USER_PATTERN =
+    Pattern.compile("https://www\\.reddit\\.com/(user|u)/[_a-zA-Z0-9]{3,15}$")
+private val REDDIT_SUBREDDIT_PATTERN =
+    Pattern.compile("https://www\\.reddit\\.com/r/[_a-zA-Z0-9]{3,15}$")
 
-private val LINKEDIN_USER_PATTERN = Pattern.compile("https://www\\.linkedin\\.com/in/[_a-zA-Z0-9]{3,}$")
+private val LINKEDIN_USER_PATTERN =
+    Pattern.compile("https://www\\.linkedin\\.com/in/[_a-zA-Z0-9]{3,}$")
 private val LINKEDIN_JOB_PATTERN = Pattern.compile("https://www\\.linkedin\\.com/jobs/.*")
 private val LINKEDIN_COMPANY_PATTERN = Pattern.compile("https://www\\.linkedin\\.com/company/.*")
 
@@ -32,7 +39,7 @@ fun generateLinkInfo(linkUrl: String): LinkInfo {
     if (url.endsWith("/")) url = url.dropLast(1)
 
     val questionMarkIndex = url.lastIndexOf("?")
-    if(questionMarkIndex > -1) url = url.substring(0, questionMarkIndex)
+    if (questionMarkIndex > -1) url = url.substring(0, questionMarkIndex)
 
     if (domain.startsWith("www.")) domain = domain.drop(4)
     if (domain.endsWith(".com")) domain = domain.dropLast(4)
@@ -57,18 +64,20 @@ private fun getLastIdentifierFromLink(link: String): String {
 
 private fun parseGithubUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
     when {
         GITHUB_USER_PATTERN.isPatternMatches(url) -> {
             val username = getLastIdentifierFromLink(url)
             linkTitle = "$username profile"
             linkSubtitle = "$username Github profile"
         }
+
         GITHUB_REPO_PATTERN.isPatternMatches(url) -> {
             val repoName = getLastIdentifierFromLink(url)
             linkTitle = "$repoName Repository"
             linkSubtitle = "$repoName Github Repository"
         }
+
         else -> {
             linkTitle = "Github Link"
             linkSubtitle = "Link from Github.com"
@@ -77,14 +86,15 @@ private fun parseGithubUrl(url: String): LinkInfo {
     return LinkInfo(linkTitle, linkSubtitle)
 }
 
-private fun parseStackOverflowUrl(url: String) : LinkInfo {
+private fun parseStackOverflowUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
     when {
         STACKOVERFLOW_QUESTION_PATTERN.isPatternMatches(url) -> {
             linkTitle = "Programming question"
             linkSubtitle = "Question from stackoverflow.com"
         }
+
         else -> {
             linkTitle = "stackoverflow Link"
             linkSubtitle = "Link from stackoverflow.com"
@@ -95,13 +105,14 @@ private fun parseStackOverflowUrl(url: String) : LinkInfo {
 
 private fun parseTwitterUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
     when {
         TWITTER_USER_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
             linkTitle = "$handler profile"
             linkSubtitle = "$handler twitter profile"
         }
+
         else -> {
             linkTitle = "Tweet"
             linkSubtitle = "Tweet from Twitter.com"
@@ -112,17 +123,19 @@ private fun parseTwitterUrl(url: String): LinkInfo {
 
 private fun parseFacebookUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
     when {
-        FACEBOOK_PROFILE_PATTERN.isPatternMatches(url)-> {
+        FACEBOOK_PROFILE_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
             linkTitle = "$handler profile"
             linkSubtitle = "$handler Facebook profile"
         }
+
         FACEBOOK_GROUP_PATTERN.isPatternMatches(url) -> {
             linkTitle = "Facebook Group"
             linkSubtitle = "Group from Facebook.com"
         }
+
         else -> {
             linkTitle = "Facebook post"
             linkSubtitle = "Post from Facebook.com"
@@ -133,13 +146,14 @@ private fun parseFacebookUrl(url: String): LinkInfo {
 
 private fun parseInstagramUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
     when {
         INSTAGRAM_PROFILE_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
             linkTitle = "$handler profile"
             linkSubtitle = "$handler Instagram profile"
         }
+
         else -> {
             linkTitle = "Instagram post"
             linkSubtitle = "Post from Instagram.com"
@@ -150,18 +164,20 @@ private fun parseInstagramUrl(url: String): LinkInfo {
 
 private fun parseRedditUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
     when {
         REDDIT_USER_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
             linkTitle = "$handler profile"
             linkSubtitle = "$handler Reddit profile"
         }
+
         REDDIT_SUBREDDIT_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
             linkTitle = "$handler Subreddit"
             linkSubtitle = "$handler Subreddit page"
         }
+
         else -> {
             linkTitle = "Reddit Post"
             linkSubtitle = "Post from Reddit.com"
@@ -172,22 +188,25 @@ private fun parseRedditUrl(url: String): LinkInfo {
 
 private fun parseLinkedinUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
     when {
         LINKEDIN_USER_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
             linkTitle = "$handler Profile"
             linkSubtitle = "$handler Linkedin Profile"
         }
+
         LINKEDIN_JOB_PATTERN.isPatternMatches(url) -> {
             linkTitle = "linkedin Job"
             linkSubtitle = "Job from linkedin.com"
         }
+
         LINKEDIN_COMPANY_PATTERN.isPatternMatches(url) -> {
             val handler = getLastIdentifierFromLink(url)
             linkTitle = "$handler Company"
             linkSubtitle = "$handler Company page on Linkedin.com"
         }
+
         else -> {
             linkTitle = "linkedin Post"
             linkSubtitle = "Post from linkedin.com"
@@ -198,7 +217,7 @@ private fun parseLinkedinUrl(url: String): LinkInfo {
 
 private fun parseYoutubeUrl(url: String): LinkInfo {
     val linkTitle: String
-    val linkSubtitle : String
+    val linkSubtitle: String
 
     when {
         YOUTUBE_CHANNEL_PATTERN.isPatternMatches(url) -> {
@@ -206,6 +225,7 @@ private fun parseYoutubeUrl(url: String): LinkInfo {
             linkTitle = "$handler Channel"
             linkSubtitle = "$handler Youtube Channel"
         }
+
         else -> {
             linkTitle = "Youtube video"
             linkSubtitle = "video from Youtube.com"

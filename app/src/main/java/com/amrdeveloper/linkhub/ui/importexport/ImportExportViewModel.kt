@@ -20,7 +20,7 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class ImportExportViewModel @Inject constructor (
+class ImportExportViewModel @Inject constructor(
     private val folderRepository: FolderRepository,
     private val linkRepository: LinkRepository,
     private val uiPreferences: UiPreferences,
@@ -29,12 +29,12 @@ class ImportExportViewModel @Inject constructor (
     private val _stateMessages = MutableLiveData<Int>()
     val stateMessages = _stateMessages
 
-    fun importDataFile(data : String, fileType: ImportExportFileType) {
+    fun importDataFile(data: String, fileType: ImportExportFileType) {
         viewModelScope.launch {
             val parser = ImportExportFileParser.getDataParser(fileType)
             val dataPackageResult = parser.importData(data, folderRepository, linkRepository)
             //dataPackage is null in case of non-configuration import
-            if(dataPackageResult.isSuccess) {
+            if (dataPackageResult.isSuccess) {
                 dataPackageResult.getOrNull()?.let {
                     // Import show click count flag if it available
                     val lastShowClickCountConfig = uiPreferences.isClickCounterEnabled()
@@ -74,7 +74,11 @@ class ImportExportViewModel @Inject constructor (
         }
     }
 
-    private fun createdExportedFile(context: Context, fileType: ImportExportFileType, data : String) {
+    private fun createdExportedFile(
+        context: Context,
+        fileType: ImportExportFileType,
+        data: String
+    ) {
         val fileName = System.currentTimeMillis().toString() + fileType.extension
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val resolver = context.contentResolver

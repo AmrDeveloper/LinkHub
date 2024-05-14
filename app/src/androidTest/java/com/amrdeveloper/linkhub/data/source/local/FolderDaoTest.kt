@@ -43,7 +43,7 @@ class FolderDaoTest {
     }
 
     @Test
-    fun insert_unUniqueFolder() = runBlockingTest  {
+    fun insert_unUniqueFolder() = runBlockingTest {
         val folder = Folder("Word")
         folderDao.insert(folder)
         val folder2 = Folder("Word")

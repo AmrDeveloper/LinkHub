@@ -60,7 +60,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSettingUtils(@ApplicationContext context: Context) : UiPreferences {
+    fun provideSettingUtils(@ApplicationContext context: Context): UiPreferences {
         return UiPreferences(context)
     }
 

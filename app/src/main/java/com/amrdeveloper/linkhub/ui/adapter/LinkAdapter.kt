@@ -11,12 +11,13 @@ import com.amrdeveloper.linkhub.databinding.ListItemLinkBinding
 
 class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback()) {
 
-    private lateinit var onLinkClick : (Link, Int) -> Unit
-    private lateinit var onLinkLongClick : (Link) -> Unit
+    private lateinit var onLinkClick: (Link, Int) -> Unit
+    private lateinit var onLinkLongClick: (Link) -> Unit
     private var enableClickCounter = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ListItemLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ListItemLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LinkViewHolder(binding)
     }
 
@@ -34,11 +35,11 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
         onLinkClick = listener
     }
 
-    fun setOnLinkLongClickListener(listener : (Link) -> Unit) {
+    fun setOnLinkLongClickListener(listener: (Link) -> Unit) {
         onLinkLongClick = listener
     }
 
-    fun setEnableClickCounter(enable : Boolean) {
+    fun setEnableClickCounter(enable: Boolean) {
         enableClickCounter = enable
     }
 
@@ -52,14 +53,14 @@ class LinkAdapter : ListAdapter<Link, RecyclerView.ViewHolder>(LinkDiffCallback(
             else binding.linkClickCount.visibility = View.GONE
             binding.linkPinImg.visibility = if (link.isPinned) View.VISIBLE else View.INVISIBLE
 
-            if(::onLinkClick.isInitialized) {
+            if (::onLinkClick.isInitialized) {
                 itemView.setOnClickListener {
                     onLinkClick(link, adapterPosition)
                     updateClickCounter(adapterPosition)
                 }
             }
 
-            if(::onLinkLongClick.isInitialized) {
+            if (::onLinkLongClick.isInitialized) {
                 itemView.setOnLongClickListener {
                     onLinkLongClick(link)
                     true

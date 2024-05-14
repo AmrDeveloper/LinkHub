@@ -9,13 +9,12 @@ plugins {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.amrdeveloper.linkhub"
         minSdkVersion 17
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 22
+        versionCode 23
         versionName "1.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

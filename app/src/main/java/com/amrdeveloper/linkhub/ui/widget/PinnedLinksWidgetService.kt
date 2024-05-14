@@ -3,7 +3,6 @@ package com.amrdeveloper.linkhub.ui.widget
 import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import androidx.core.os.bundleOf
 import com.amrdeveloper.linkhub.BuildConfig
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
@@ -15,13 +14,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PinnedLinksWidgetService : RemoteViewsService() {
 
-    @Inject lateinit var linkRepository : LinkRepository
+    @Inject
+    lateinit var linkRepository: LinkRepository
 
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
         return PinnedWidgetItemFactory(linkRepository)
     }
 
-    private inner class PinnedWidgetItemFactory (
+    private inner class PinnedWidgetItemFactory(
         private val linkRepository: LinkRepository
     ) : RemoteViewsFactory {
 
@@ -49,8 +49,8 @@ class PinnedLinksWidgetService : RemoteViewsService() {
             remoteView.setTextViewText(R.id.link_subtitle, link.subtitle)
 
             val fillInIntent = Intent()
-            fillInIntent.putExtra("url" , link.url)
-            fillInIntent.putExtra("link_id" , link.id)
+            fillInIntent.putExtra("url", link.url)
+            fillInIntent.putExtra("link_id", link.id)
             remoteView.setOnClickFillInIntent(R.id.widget_item_layout, fillInIntent)
 
             return remoteView

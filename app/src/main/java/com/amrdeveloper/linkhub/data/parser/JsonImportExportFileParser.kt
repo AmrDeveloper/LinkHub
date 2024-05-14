@@ -9,14 +9,14 @@ import com.amrdeveloper.linkhub.util.UiPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 
-class JsonImportExportFileParser: ImportExportFileParser {
+class JsonImportExportFileParser : ImportExportFileParser {
     override fun getFileType(): ImportExportFileType = ImportExportFileType.JSON
     override suspend fun importData(
         data: String,
         folderRepository: FolderRepository,
         linkRepository: LinkRepository
     ): Result<DataPackage?> {
-        try{
+        try {
             val dataPackage = Gson().fromJson(data, DataPackage::class.java)
 
             val folders = dataPackage.folders
@@ -27,15 +27,16 @@ class JsonImportExportFileParser: ImportExportFileParser {
 
             linkRepository.insertLinks(dataPackage.links)
             return Result.success(dataPackage)
-        } catch (e : JsonSyntaxException) {
+        } catch (e: JsonSyntaxException) {
             return Result.failure(e)
         }
     }
-    override  suspend fun exportData(
+
+    override suspend fun exportData(
         folderRepository: FolderRepository,
         linkRepository: LinkRepository,
         uiPreferences: UiPreferences
-    ): Result<String>{
+    ): Result<String> {
         val foldersResult = folderRepository.getFolderList()
         val linksResult = linkRepository.getLinkList()
         if (foldersResult.isSuccess && linksResult.isSuccess) {
@@ -45,7 +46,8 @@ class JsonImportExportFileParser: ImportExportFileParser {
             val autoSaving = uiPreferences.isAutoSavingEnabled()
             val defaultFolder = uiPreferences.isDefaultFolderEnabled()
             val lastTheme = uiPreferences.getThemeType()
-            val dataPackage = DataPackage(folders, links, showClickCounter, autoSaving, defaultFolder, lastTheme)
+            val dataPackage =
+                DataPackage(folders, links, showClickCounter, autoSaving, defaultFolder, lastTheme)
             return Result.success(Gson().toJson(dataPackage))
         } else {
             return Result.failure(Throwable());

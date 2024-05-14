@@ -25,14 +25,19 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SettingFragment : Fragment() {
 
-    private var _binding : FragmentSettingBinding? = null
+    private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var uiPreferences: UiPreferences
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     private var isViewPassedResumedState = true
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 
         setupStaticUiInformation()

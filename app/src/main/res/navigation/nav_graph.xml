@@ -135,11 +135,11 @@
 
         <action
             android:id="@+id/action_folderFragment_to_homeFragment"
-            app:popUpTo="@id/homeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -165,11 +165,11 @@
         android:id="@+id/importExportFragment"
         android:name="com.amrdeveloper.linkhub.ui.importexport.ImportExportFragment"
         android:label="fragment_import_export"
-        tools:layout="@layout/fragment_import_export" >
+        tools:layout="@layout/fragment_import_export">
         <argument
             android:name="importExportFileType"
-            app:argType="com.amrdeveloper.linkhub.data.ImportExportFileType"
-            android:defaultValue="JSON" />
+            android:defaultValue="JSON"
+            app:argType="com.amrdeveloper.linkhub.data.ImportExportFileType" />
     </fragment>
 
     <fragment

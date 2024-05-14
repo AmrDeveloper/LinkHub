@@ -1,7 +1,12 @@
 package com.amrdeveloper.linkhub.ui.password.config
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -17,7 +22,8 @@ class ConfigPasswordFragment : Fragment() {
     private var _binding: FragmentConfigPasswordBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var uiPreferences: UiPreferences
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +52,8 @@ class ConfigPasswordFragment : Fragment() {
 
     private fun setupListeners() {
         binding.enablePasswordSwitch.setOnCheckedChangeListener { _, isChecked ->
-            val message = if (isChecked) R.string.message_password_enabled else R.string.message_password_disabled
+            val message =
+                if (isChecked) R.string.message_password_enabled else R.string.message_password_disabled
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -62,6 +69,7 @@ class ConfigPasswordFragment : Fragment() {
                 savePasswordConfiguration()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -69,7 +77,8 @@ class ConfigPasswordFragment : Fragment() {
     private fun savePasswordConfiguration() {
         val password = binding.passwordEdit.text.toString()
         if (password.isEmpty()) {
-            Toast.makeText(requireContext(), R.string.error_password_empty, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), R.string.error_password_empty, Toast.LENGTH_SHORT)
+                .show()
             return
         }
 

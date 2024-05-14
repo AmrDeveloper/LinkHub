@@ -12,10 +12,14 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Selector
 
-class HtmlImportExportFileParser: ImportExportFileParser {
+class HtmlImportExportFileParser : ImportExportFileParser {
     override fun getFileType(): ImportExportFileType = ImportExportFileType.HTML
 
-    override suspend fun importData(data: String, folderRepository: FolderRepository, linkRepository: LinkRepository): Result<DataPackage?> {
+    override suspend fun importData(
+        data: String,
+        folderRepository: FolderRepository,
+        linkRepository: LinkRepository
+    ): Result<DataPackage?> {
         try {
             val doc: Document = Jsoup.parse(data)
             val folders = doc.select("h3")
@@ -65,10 +69,11 @@ class HtmlImportExportFileParser: ImportExportFileParser {
             }
             linkRepository.insertLinks(folderLinks)
             return Result.success(null)
-        } catch (e: Selector.SelectorParseException){
+        } catch (e: Selector.SelectorParseException) {
             return Result.failure(e)
         }
     }
+
     override suspend fun exportData(
         folderRepository: FolderRepository,
         linkRepository: LinkRepository,

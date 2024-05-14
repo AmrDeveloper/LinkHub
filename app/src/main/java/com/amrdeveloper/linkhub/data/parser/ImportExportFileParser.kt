@@ -16,11 +16,18 @@ interface ImportExportFileParser {
             }
         }
     }
-    suspend fun importData(data: String, folderRepository: FolderRepository, linkRepository: LinkRepository): Result<DataPackage?>
+
+    suspend fun importData(
+        data: String,
+        folderRepository: FolderRepository,
+        linkRepository: LinkRepository
+    ): Result<DataPackage?>
+
     suspend fun exportData(
         folderRepository: FolderRepository,
         linkRepository: LinkRepository,
         uiPreferences: UiPreferences
     ): Result<String>
+
     fun getFileType(): ImportExportFileType
 }

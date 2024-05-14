@@ -72,7 +72,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    suspend fun getFolderById(id : Int) : Result<Folder> {
+    suspend fun getFolderById(id: Int): Result<Folder> {
         return folderRepository.getFolderById(id)
     }
 

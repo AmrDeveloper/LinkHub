@@ -7,9 +7,9 @@ object FolderColorConverter {
 
     @JvmStatic
     @TypeConverter
-    fun fromFolderColor(folderColor: FolderColor) : String = folderColor.name
+    fun fromFolderColor(folderColor: FolderColor): String = folderColor.name
 
     @JvmStatic
     @TypeConverter
-    fun toFolderColor(name: String) : FolderColor = FolderColor.valueOf(name)
+    fun toFolderColor(name: String): FolderColor = FolderColor.valueOf(name)
 }
