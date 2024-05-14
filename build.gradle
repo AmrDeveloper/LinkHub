@@ -1,56 +1,10 @@
-buildscript {
-
-    ext.kotlinVersion = " 1.9.0"
-    ext.navigationVersion = '2.7.4'
-    ext.hiltVersion = '2.46.1'
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-ext {
-    compileSdkVersion = 34
-    targetSdkVersion = 34
-    coreKtxVersion = '1.12.0'
-    appcompatVersion = '1.6.1'
-    fragmentVersion = '1.6.1'
-    lifecycleVersion = '2.6.2'
-    materialVersion = '1.10.0'
-
-    roomVersion = '2.6.0'
-    coroutinesVersion = '1.7.3'
-
-    gsonVersion = "2.10.1"
-
-    lottieVersion = '6.1.0'
-
-    timberVersion = '4.7.1'
-    leackcanaryVersion = '2.7'
-
-    multidexVersion = '2.0.1'
-
-    junitVersion = '4.13.2'
-    junitExtVersion = '1.1.5'
-    truthVersion = '1.0.1'
-    archCoreTestVersion = '2.1.0'
-    coroutinesTestVersion = '1.2.1'
-    espressoVersion = '3.5.1'
-    jsoupVersion = '1.13.1'
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.navigation.safeargs) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ksp) apply false
 }
 
 tasks.register('clean', Delete) {

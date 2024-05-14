@@ -1,31 +1,24 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'androidx.navigation.safeargs.kotlin'
-    id "dagger.hilt.android.plugin"
-    id 'kotlin-kapt'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-
     defaultConfig {
         applicationId "com.amrdeveloper.linkhub"
-        minSdkVersion 17
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion 19
+        compileSdk 34
+        targetSdkVersion 34
         versionCode 23
         versionName "1.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += [
-                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
-                        "room.incremental"     : "true",
-                        "room.expandProjection": "true"
-                ]
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
 
         multiDexEnabled true
@@ -38,69 +31,57 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
-    // Core
-    implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
-    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation(libs.androidx.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.legacy.support)
 
-    // Room Database
-    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
-    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.fragment.ktx)
 
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
-    // LiveData, ViewModel, Fragment Extension
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
+    implementation(libs.kotlinx.coroutines)
 
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
 
-    // Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
-    // Airbnb Lottie
-    implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
+    implementation(libs.gson)
+    implementation(libs.jsoup)
+    implementation(libs.lottie)
 
-    // Dagger Hilt
-    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
+    implementation(libs.timber)
+    debugImplementation(libs.leakcanary.android)
 
-    // Debugging
-    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leackcanaryVersion"
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    implementation(libs.androidx.multidex)
 
-    // Local Testing
-    testImplementation "junit:junit:$rootProject.junitVersion"
-    testImplementation "com.google.truth:truth:$rootProject.truthVersion"
-
-    implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
-
-    // Android Testing
-    androidTestImplementation "junit:junit:$rootProject.junitVersion"
-    androidTestImplementation "com.google.truth:truth:$rootProject.truthVersion"
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.junitExtVersion"
-    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.archCoreTestVersion"
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesTestVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
-
-    // Html parsing lib
-    implementation "org.jsoup:jsoup:$rootProject.jsoupVersion"
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.testing)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
