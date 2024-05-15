@@ -1,14 +1,12 @@
 pluginManagement {
     repositories {
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
         gradlePluginPortal()
         google()
         mavenCentral()
 
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -18,4 +16,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "LinkHub"
-include ':app'
+include(":app")

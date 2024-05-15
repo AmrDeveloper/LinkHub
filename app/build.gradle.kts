@@ -8,41 +8,40 @@ plugins {
 }
 
 android {
+    compileSdk = libs.versions.compileSdk.get().toInt()
+
     defaultConfig {
-        applicationId "com.amrdeveloper.linkhub"
-        minSdkVersion 19
-        compileSdk 34
-        targetSdkVersion 34
-        versionCode 23
-        versionName "1.6.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = "com.amrdeveloper.linkhub"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        multiDexEnabled = true
+        versionCode = 23
+        versionName = "1.6.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
-
-        multiDexEnabled true
     }
 
     buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
-        viewBinding true
+        viewBinding = true
     }
 }
 
