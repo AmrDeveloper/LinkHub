@@ -2,7 +2,7 @@
 kotlin = "1.9.10"
 androidGradlePlugin = "7.4.2"
 compileSdk = "34"
-targetSdk = "33"
+targetSdk = "34"
 minSdk = "19"
 androidx-junit = "1.1.5"
 appcompat = "1.6.1"
