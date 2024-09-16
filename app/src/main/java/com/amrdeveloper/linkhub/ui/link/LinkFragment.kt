@@ -27,6 +27,7 @@ import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.URLEncoder
 import java.text.DateFormat
 import javax.inject.Inject
 
@@ -90,7 +91,9 @@ class LinkFragment : Fragment() {
         }
 
         binding.linkUrlEdit.setText(sharedLink)
-        linkViewModel.generateLinkTitleAndSubTitle(sharedLink)
+
+        val encodedUrl = URLEncoder.encode(sharedLink, "utf-8")
+        linkViewModel.generateLinkTitleAndSubTitle(encodedUrl)
     }
 
     private fun handleLinkArgument() {
