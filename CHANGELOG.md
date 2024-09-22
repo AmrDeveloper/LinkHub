@@ -1,19 +1,34 @@
 Change Log
 ==========
 
+Version 1.6.1 *(2024-09-20)*
+-----------------------------
+
+- Fix: Class not found exception on release mode.
+- Issue #65: Handle url encoding.
+- Update SDK version to 34
+- Migrate from Groovy to Kotlin DSL
+- Migrate to Gradle version catalog
+- Russian translation of the app
+- Created remember the last used folder option
+- fixed string resources for default folder option
+- Added import/export to html functionality
+- Add Vietnamese to the list of supported languages
+- Migrate to Material 3
+- Add Chinese to the supported languages
+- Optimize onChildDraw calculating icon top position
+
 Version 1.6.0 *(2023-05-11)*
 -----------------------------
 
 * Fixing Empty folder field entries #45 by @AmrDeveloper
 * Change cursor color in light and dark theme to be clear #44 by @AmrDeveloper
 
-
 Version 1.5.1 *(2023-06-06)*
 -----------------------------
 
 * Fixing Empty folder field entries #45 by @AmrDeveloper
 * Change cursor color in light and dark theme to be clear #44 by @AmrDeveloper
-
 
 Version 1.5.0 *(2023-05-25)*
 -----------------------------
@@ -24,7 +39,6 @@ Version 1.5.0 *(2023-05-25)*
 * Added import/export to html functionality.
 * Update Kotlin and libraries versions
 * Optimize onChildDraw calculating icon top position
-
 
 Version 1.4.0 *(2023-04-19)*
 -----------------------------
