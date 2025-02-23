@@ -1,6 +1,6 @@
 [versions]
-kotlin = "1.9.10"
-androidGradlePlugin = "7.4.2"
+kotlin = "2.0.21"
+androidGradlePlugin = "8.7.3"
 compileSdk = "34"
 targetSdk = "34"
 minSdk = "19"
@@ -23,11 +23,11 @@ multidex = "2.0.1"
 navigation-fragment-ktx = "2.7.4"
 navigation-safeargs = "2.7.4"
 room = "2.6.0"
-hilt = "2.48"
+hilt = "2.51.1"
 legacy_support = "1.0.0"
 timber = "4.7.1"
 truth = "1.0.1"
-ksp = "1.9.20-1.0.14"
+ksp = "2.0.21-1.0.27"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
