@@ -1,8 +1,8 @@
 [versions]
 kotlin = "2.0.21"
 androidGradlePlugin = "8.7.3"
-compileSdk = "34"
-targetSdk = "34"
+compileSdk = "35"
+targetSdk = "35"
 minSdk = "19"
 androidx-junit = "1.1.5"
 appcompat = "1.6.1"
