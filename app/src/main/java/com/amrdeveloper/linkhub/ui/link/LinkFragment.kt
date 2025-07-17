@@ -92,8 +92,7 @@ class LinkFragment : Fragment() {
 
         binding.linkUrlEdit.setText(sharedLink)
 
-        val encodedUrl = URLEncoder.encode(sharedLink, "utf-8")
-        linkViewModel.generateLinkTitleAndSubTitle(encodedUrl)
+        linkViewModel.generateLinkTitleAndSubTitle(sharedLink)
     }
 
     private fun handleLinkArgument() {
