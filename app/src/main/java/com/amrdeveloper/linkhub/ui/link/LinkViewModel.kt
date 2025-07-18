@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.net.URI
 import javax.inject.Inject
 
 @HiltViewModel
@@ -72,10 +73,12 @@ class LinkViewModel @Inject constructor(
         }
     }
 
+    private fun isValidURI(url: String) =
+        URLUtil.isValidUrl(url) && runCatching { URI(url) }.isSuccess
+
     fun generateLinkTitleAndSubTitle(url: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val isValidLink = URLUtil.isValidUrl(url)
-            if (isValidLink.not()) return@launch
+            if (isValidURI(url).not()) return@launch
             val linkInfo = generateLinkInfo(url)
             withContext(Dispatchers.Main) {
                 linkInfoLiveData.value = linkInfo
