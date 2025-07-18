@@ -60,6 +60,16 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
+    override suspend fun getSortedFolderListByParentId(parentId: Int): Result<List<Folder>> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Result.success(folderDao.getSortedFolderListByParentId(parentId))
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+
+
     override suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> =
         withContext(ioDispatcher) {
             return@withContext try {

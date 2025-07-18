@@ -20,6 +20,9 @@ interface FolderDao : BaseDao<Folder> {
     @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC")
     suspend fun getSortedFolderList(): List<Folder>
 
+    @Query("SELECT * FROM folder WHERE parent_id = :parentId ORDER BY pinned DESC, click_count DESC")
+    suspend fun getSortedFolderListByParentId(parentId: Int): List<Folder>
+
     @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC LIMIT :limit")
     suspend fun getLimitedSortedFolderList(limit: Int): List<Folder>
 

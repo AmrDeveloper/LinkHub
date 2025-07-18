@@ -88,6 +88,20 @@ class FolderDaoTest {
     }
 
     @Test
+    fun read_sortedFolderListByParentId() = runBlockingTest {
+        val parentFolder = Folder("Parent", id = 1)
+        folderDao.insert(parentFolder)
+
+        val childFolder1 = Folder("Child1", id = 2, parentId = 1)
+        folderDao.insert(childFolder1)
+        val childFolder2 = Folder("Child2", id = 3, parentId = 1)
+        folderDao.insert(childFolder2)
+
+        val sortedList = folderDao.getSortedFolderListByParentId(1)
+        assertThat(sortedList).containsExactly(childFolder1, childFolder2)
+    }
+
+    @Test
     fun update_folderClickCount() = runBlockingTest {
         val folder = Folder("Word")
         folderDao.insert(folder)

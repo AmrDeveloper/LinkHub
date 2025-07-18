@@ -28,6 +28,10 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.getSortedFolderList()
     }
 
+    suspend fun getSortedFolderListByParentId(parentId: Int): Result<List<Folder>> {
+        return dataSource.getSortedFolderListByParentId(parentId)
+    }
+
     suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> {
         return dataSource.getLimitedSortedFolderList(limit)
     }

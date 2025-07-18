@@ -16,6 +16,8 @@ interface FolderDataSource {
 
     suspend fun getSortedFolderList(): Result<List<Folder>>
 
+    suspend fun getSortedFolderListByParentId(parentId: Int): Result<List<Folder>>
+
     suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>>
 
     suspend fun getSortedFolderListByKeyword(keyword: String): Result<List<Folder>>
