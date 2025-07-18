@@ -17,7 +17,7 @@ class ShareLinkTest {
     @get:Rule
     val intentsTestRule = IntentsTestRule(MainActivity::class.java, true, false)
 
-    fun runCaseFor(sharedLink: String, title: String, subTitle: String) {
+    private fun runCaseFor(sharedLink: String, title: String, subTitle: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             putExtra(Intent.EXTRA_TEXT, sharedLink)
         }
@@ -43,6 +43,7 @@ class ShareLinkTest {
 
     @Test
     fun linkContainsSpace() {
+        // not a valid URI, skip generation
         runCaseFor("https://www.example.com/hello world", "", "")
     }
 }
