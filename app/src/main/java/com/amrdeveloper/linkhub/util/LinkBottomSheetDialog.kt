@@ -1,7 +1,6 @@
 package com.amrdeveloper.linkhub.util
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -43,7 +42,8 @@ object LinkBottomSheetDialog {
         dialogBinding.dialogOpenAction.setOnClickListener {
             try {
                 openLinkIntent(activity, link.url)
-            } catch (e: ActivityNotFoundException) {
+            } catch (_: Exception) {
+                // TODO: improve error message, and replace try catch with tag union errors
                 activity.showSnackBar(R.string.message_link_invalid)
             }
             bottomSheetDialog.dismiss()
