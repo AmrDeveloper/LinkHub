@@ -1,12 +1,16 @@
 package com.amrdeveloper.linkhub.data.parser
 
 import com.amrdeveloper.linkhub.data.DataPackage
+import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.FolderColor
 import com.amrdeveloper.linkhub.data.ImportExportFileType
+import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
 
 class JsonImportExportFileParser : ImportExportFileParser {
@@ -17,19 +21,52 @@ class JsonImportExportFileParser : ImportExportFileParser {
         linkRepository: LinkRepository
     ): Result<DataPackage?> {
         try {
-            val dataPackage = Gson().fromJson(data, DataPackage::class.java)
+            val jsonElement = JsonParser.parseString(data)
+            if (!jsonElement.isJsonObject) {
+                return Result.success(null)
+            }
 
-            val folders = dataPackage.folders
+            val jsonObject = jsonElement.asJsonObject
+            val jsonObjectKeys = jsonObject.keySet()
+
+            // TODO: Replace with reflection later
+            val validKeysSet = setOf("folders", "links", "showClickCounter", "autoSaving", "defaultFolderMode", "theme")
+            if (jsonObjectKeys.size != validKeysSet.size) {
+                return Result.success(null)
+            }
+
+            val gson = Gson()
+            var dataPackage = DataPackage()
+
+            if (jsonObjectKeys == validKeysSet) {
+                dataPackage = gson.fromJson(data, DataPackage::class.java)
+            } else {
+                val keysAsList = jsonObjectKeys.toList()
+                jsonObject.getAsJsonArray(keysAsList[0])?.let { jsonLinks ->
+                    dataPackage.folders = gson.fromJson(jsonLinks, Array<Folder>::class.java).toList()
+                }
+
+                jsonObject.getAsJsonArray(keysAsList[1])?.let { jsonLinks ->
+                    dataPackage.links = gson.fromJson(jsonLinks, Array<Link>::class.java).toList()
+                }
+
+                dataPackage.showClickCounter = jsonObject[keysAsList[2]].asBoolean
+                dataPackage.enableAutoSaving = jsonObject[keysAsList[3]].asBoolean
+                dataPackage.defaultFolderMode = jsonObject[keysAsList[4]].asBoolean
+
+                jsonObject[keysAsList[5]]?.asString?.let { jsonTheme ->
+                    dataPackage.theme = Theme.entries.firstOrNull { it.name.equals(jsonTheme, ignoreCase = true) }
+                }
+            }
+
             // This code should be removed after found why it not serialized on some devices (see Issue #23)
             // folderColor field is declared as non nullable type but in this case GSON will break the null safety feature
-            folders.forEach { if (it.folderColor == null) it.folderColor = FolderColor.BLUE }
-            folderRepository.insertFolders(folders)
+            dataPackage.folders?.forEach { if (it.folderColor == null) it.folderColor = FolderColor.BLUE }
 
-            linkRepository.insertLinks(dataPackage.links)
+            dataPackage.folders?.let { folderRepository.insertFolders(it) }
+            dataPackage.links?.let { linkRepository.insertLinks(it) }
             return Result.success(dataPackage)
         } catch (e: JsonSyntaxException) {
-            return Result.failure(e)
-        } catch (e: Exception) {
             return Result.failure(e)
         }
     }

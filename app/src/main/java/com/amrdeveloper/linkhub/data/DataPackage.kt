@@ -7,20 +7,20 @@ import com.google.gson.annotations.SerializedName
 data class DataPackage(
 
     @SerializedName("folders")
-    val folders: List<Folder>,
+    var folders: List<Folder>? = listOf(),
 
     @SerializedName("links")
-    val links: List<Link>,
+    var links: List<Link>?= listOf(),
 
     @SerializedName("showClickCounter")
-    val showClickCounter: Boolean?,
+    var showClickCounter: Boolean? = true,
 
     @SerializedName("autoSaving")
-    val enableAutoSaving: Boolean?,
+    var enableAutoSaving: Boolean? = false,
 
     @SerializedName("defaultFolderMode")
-    val defaultFolderMode: Boolean?,
+    var defaultFolderMode: Boolean? = true,
 
     @SerializedName("theme")
-    val theme: Theme?
+    var theme: Theme? = Theme.WHITE
 )
