@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 1.6.4 *(2025-08-10)*
+-----------------------------
+
+- Fix exporting json data in case of name modified by R8.
+
 Version 1.6.3 *(2025-08-10)*
 -----------------------------
 
