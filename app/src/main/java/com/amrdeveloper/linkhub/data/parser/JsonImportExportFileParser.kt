@@ -21,13 +21,15 @@ class JsonImportExportFileParser : ImportExportFileParser {
 
             val folders = dataPackage.folders
             // This code should be removed after found why it not serialized on some devices (see Issue #23)
-            // folderColor field is declared as non nullable type but in this case GSON will break the null safty feature
+            // folderColor field is declared as non nullable type but in this case GSON will break the null safety feature
             folders.forEach { if (it.folderColor == null) it.folderColor = FolderColor.BLUE }
             folderRepository.insertFolders(folders)
 
             linkRepository.insertLinks(dataPackage.links)
             return Result.success(dataPackage)
         } catch (e: JsonSyntaxException) {
+            return Result.failure(e)
+        } catch (e: Exception) {
             return Result.failure(e)
         }
     }

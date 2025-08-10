@@ -1,7 +1,9 @@
 package com.amrdeveloper.linkhub.data
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class DataPackage(
 
     @SerializedName("folders")
