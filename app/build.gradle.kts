@@ -16,8 +16,8 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         multiDexEnabled = true
-        versionCode = 32
-        versionName = "1.6.4"
+        versionCode = 33
+        versionName = "1.6.5"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ksp {
