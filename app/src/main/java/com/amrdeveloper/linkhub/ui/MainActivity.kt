@@ -6,12 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Theme
-import com.amrdeveloper.linkhub.databinding.ActivityMainBinding
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_LINK
 import com.amrdeveloper.linkhub.util.UiPreferences
@@ -25,14 +21,10 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var uiPreferences: UiPreferences
 
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        setupToolbar()
         handleMultiThemeOption()
 
         if (uiPreferences.isPasswordEnabled()) {
@@ -40,10 +32,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             handleLinkHubIntent()
         }
-    }
-
-    private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar)
     }
 
     fun handleLinkHubIntent() {
