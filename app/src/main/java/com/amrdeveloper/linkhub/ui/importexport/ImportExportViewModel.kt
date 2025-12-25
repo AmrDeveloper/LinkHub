@@ -79,7 +79,7 @@ class ImportExportViewModel @Inject constructor(
         fileType: ImportExportFileType,
         data: String
     ) {
-        val fileName = System.currentTimeMillis().toString() + fileType.extension
+        val fileName = "linkhub_${System.currentTimeMillis().toString() + fileType.extension}"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val resolver = context.contentResolver
             val values = ContentValues()
@@ -92,6 +92,7 @@ class ImportExportViewModel @Inject constructor(
             val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
             val outputStream = uri?.let { resolver.openOutputStream(it) }
             outputStream?.write(data.toByteArray())
+            outputStream?.close()
         } else {
             val downloadDir =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
