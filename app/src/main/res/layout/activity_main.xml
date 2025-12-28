@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".ui.MainActivity"
     tools:viewBindingIgnore="true">
@@ -15,5 +16,4 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
-
 </LinearLayout>
