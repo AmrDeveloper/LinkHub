@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 1.6.7 *(2025-12-29)*
+-----------------------------
+
+- Fix edge-to-edge problem.
+- Add linkhub prefix for exported file name.
+
 Version 1.6.6 *(2025-10-28)*
 -----------------------------
 
