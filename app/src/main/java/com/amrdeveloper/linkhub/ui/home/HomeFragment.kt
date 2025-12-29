@@ -12,8 +12,11 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -54,15 +57,11 @@ class HomeFragment : Fragment() {
 
     private var isOptionsButtonClicked = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setupScreenMenu()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setupFoldersList()
@@ -228,29 +227,36 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_home, menu)
-        inflater.inflate(R.menu.menu_setting, menu)
+    private fun setupScreenMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.menu_home, menu)
+                    menuInflater.inflate(R.menu.menu_setting, menu)
 
-        val menuItem = menu.findItem(R.id.search_action)
-        val searchView = menuItem?.actionView as SearchView
-        searchView.queryHint = "Search keyword"
-        searchView.setIconifiedByDefault(true)
-        searchView.setOnQueryTextListener(searchViewQueryListener)
+                    val menuItem = menu.findItem(R.id.search_action)
+                    val searchView = menuItem?.actionView as SearchView
+                    searchView.queryHint = "Search keyword"
+                    searchView.setIconifiedByDefault(true)
+                    searchView.setOnQueryTextListener(searchViewQueryListener)
+                }
 
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.setting_action -> {
+                            findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+                            isOptionsButtonClicked = false
+                            true
+                        }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.setting_action -> {
-                findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
-                isOptionsButtonClicked = false
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
+                        else -> false
+                    }
+                }
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
     private val searchViewQueryListener = object : SearchView.OnQueryTextListener {
