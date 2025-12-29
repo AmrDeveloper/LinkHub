@@ -1,58 +1,68 @@
 package com.amrdeveloper.linkhub.ui.linklist
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class LinksUiState(
+    var links: List<Link> = listOf(),
+    var isLoading: Boolean = false
+)
+
+private data class QueryParam(
+    val folderId: Int,
+    val query: String
+)
 
 @HiltViewModel
 class LinkListViewModel @Inject constructor(
     private val linkRepository: LinkRepository
 ) : ViewModel() {
 
-    private val _linksLiveData = MutableLiveData<List<Link>>()
-    val linksLiveData = _linksLiveData
-
-    private val _dataLoading = MutableLiveData<Boolean>()
-    val dataLoading = _dataLoading
-
-    private val _errorMessages = MutableLiveData<Int>()
-    val errorMessages = _errorMessages
-
-    fun getFolderLinkList(folderId: Int) {
-        _dataLoading.value = true
-        viewModelScope.launch {
-            val result = linkRepository.getSortedFolderLinkList(folderId)
-            if (result.isSuccess) {
-                _linksLiveData.value = result.getOrDefault(listOf())
+    private val searchQuery = MutableStateFlow(value = "")
+    private val currentFolderId = MutableStateFlow(value = -1)
+    val uiState: StateFlow<LinksUiState> =
+        combine(currentFolderId, searchQuery) { folderId, query ->
+            QueryParam(folderId, query)
+        }.flatMapLatest { queryParam ->
+            if (queryParam.query.isEmpty()) {
+                linkRepository.getSortedFolderLinkListByKeywordFlow(
+                    id = queryParam.folderId,
+                    keyword = queryParam.query
+                )
             } else {
-                _errorMessages.value = R.string.error_get_links
+                linkRepository.getSortedFolderLinkListFlow(id = queryParam.folderId)
             }
-            _dataLoading.value = false
-        }
+        }.map {
+            LinksUiState(links = it, isLoading = false)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
+            initialValue = LinksUiState(isLoading = true)
+        )
+
+    fun updateFolderId(folderId: Int) {
+        currentFolderId.value = folderId
     }
 
-    fun getFolderLinkListByKeyword(folderId: Int, keyword: String) {
-        _dataLoading.value = true
-        viewModelScope.launch {
-            val result = linkRepository.getSortedFolderLinkListByKeyword(folderId, keyword)
-            if (result.isSuccess) {
-                _linksLiveData.value = result.getOrNull()
-            } else {
-                _errorMessages.value = R.string.error_get_links
-            }
-            _dataLoading.value = false
-        }
+    fun updateSearchQuery(query: String) {
+        searchQuery.value = query
     }
 
-    fun updateLinkClickCount(linkId: Int, count: Int) {
+    fun incrementLinkClickCount(link: Link) {
         viewModelScope.launch {
-            linkRepository.updateClickCountByLinkId(linkId, count)
+            linkRepository.updateClickCountByLinkId(link.id, link.clickedCount.plus(1))
         }
     }
 }

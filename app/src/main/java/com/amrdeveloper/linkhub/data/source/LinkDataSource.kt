@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Link
+import kotlinx.coroutines.flow.Flow
 
 interface LinkDataSource {
 
@@ -16,9 +17,13 @@ interface LinkDataSource {
 
     suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>>
 
+    fun getSortedFolderLinkListFlow(id: Int): Flow<List<Link>>
+
     suspend fun getSortedLinkListByKeyword(keyword: String): Result<List<Link>>
 
     suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String): Result<List<Link>>
+
+    fun getSortedFolderLinkListByKeywordFlow(id: Int, keyword: String): Flow<List<Link>>
 
     suspend fun updateLink(link: Link): Result<Int>
 

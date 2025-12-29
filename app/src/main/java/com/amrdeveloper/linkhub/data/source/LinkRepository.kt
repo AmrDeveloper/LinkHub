@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Link
+import kotlinx.coroutines.flow.Flow
 
 class LinkRepository(private val dataSource: LinkDataSource) {
 
@@ -28,12 +29,20 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getSortedFolderLinkList(id)
     }
 
+    fun getSortedFolderLinkListFlow(id: Int): Flow<List<Link>> {
+        return dataSource.getSortedFolderLinkListFlow(id)
+    }
+
     suspend fun getSortedLinkListByKeyword(keyword: String): Result<List<Link>> {
         return dataSource.getSortedLinkListByKeyword(keyword)
     }
 
     suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String): Result<List<Link>> {
         return dataSource.getSortedFolderLinkListByKeyword(id, keyword)
+    }
+
+    fun getSortedFolderLinkListByKeywordFlow(id: Int, keyword: String): Flow<List<Link>> {
+        return dataSource.getSortedFolderLinkListByKeywordFlow(id, keyword)
     }
 
     suspend fun updateLink(link: Link): Result<Int> {

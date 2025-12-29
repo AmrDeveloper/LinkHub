@@ -4,6 +4,7 @@ import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.source.LinkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class LinkLocalDataSource internal constructor(
@@ -60,6 +61,9 @@ class LinkLocalDataSource internal constructor(
             }
         }
 
+    override fun getSortedFolderLinkListFlow(id: Int): Flow<List<Link>> =
+        linkDao.getSortedLinkListByFolderIdFlow(id)
+
     override suspend fun getSortedLinkListByKeyword(keyword: String): Result<List<Link>> =
         withContext(ioDispatcher) {
             return@withContext try {
@@ -79,6 +83,11 @@ class LinkLocalDataSource internal constructor(
             Result.failure(e)
         }
     }
+
+    override fun getSortedFolderLinkListByKeywordFlow(
+        id: Int,
+        keyword: String
+    ): Flow<List<Link>> = linkDao.getSortedLinkListByKeywordByFolderIdFlow(id, keyword)
 
     override suspend fun updateLink(link: Link): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {

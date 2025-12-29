@@ -8,121 +8,117 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.databinding.FragmentLinkListBinding
-import com.amrdeveloper.linkhub.ui.adapter.LinkAdapter
+import com.amrdeveloper.linkhub.ui.composables.LinkList
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.UiPreferences
-import com.amrdeveloper.linkhub.util.hide
-import com.amrdeveloper.linkhub.util.show
-import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LinkListFragment : Fragment() {
 
-    private var _binding: FragmentLinkListBinding? = null
-    private val binding get() = _binding!!
-
     private val safeArguments by navArgs<LinkListFragmentArgs>()
 
     @Inject
     lateinit var uiPreferences: UiPreferences
 
-    private lateinit var currentFolder: Folder
-    private lateinit var linkAdapter: LinkAdapter
     private val linkListViewModel by viewModels<LinkListViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
-        currentFolder = safeArguments.folder
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setupScreenMenu()
-        _binding = FragmentLinkListBinding.inflate(inflater, container, false)
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(
+                ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+            )
 
-        setupLinksList()
-        setupObservers()
-
-        linkListViewModel.getFolderLinkList(currentFolder.id)
-
-        return binding.root
-    }
-
-    private fun setupObservers() {
-        linkListViewModel.linksLiveData.observe(viewLifecycleOwner) {
-            setupFolderHeaderInfo(it.size)
-            setupLinksListState(it)
-        }
-
-        linkListViewModel.dataLoading.observe(viewLifecycleOwner) {
-            binding.loadingIndicator.visibility = if (it) View.VISIBLE else View.GONE
-        }
-
-        linkListViewModel.errorMessages.observe(viewLifecycleOwner) { messageId ->
-            activity.showSnackBar(messageId)
+            setContent {
+                LinksScreen(safeArguments.folder, linkListViewModel)
+            }
         }
     }
 
-    private fun setupLinksListState(links: List<Link>) {
-        if (links.isEmpty()) {
-            binding.linkEmptyLottie.show()
-            binding.linkEmptyLottie.resumeAnimation()
-            binding.linkEmptyText.show()
-            binding.linkList.hide()
-        } else {
-            binding.linkEmptyLottie.hide()
-            binding.linkEmptyLottie.pauseAnimation()
-            binding.linkEmptyText.hide()
-            binding.linkList.show()
-            linkAdapter.submitList(links)
+    @Composable
+    fun LinksScreen(currentFolder : Folder, viewModel: LinkListViewModel = viewModel()) {
+        LaunchedEffect(true) {
+            viewModel.updateFolderId(currentFolder.id)
+        }
+
+        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+        Column {
+            FolderHeader(currentFolder, uiState.links.size)
+
+            if (uiState.isLoading) {
+                LinearProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(6.dp)
+                )
+                return
+            }
+
+            LinkList(
+                links = uiState.links, onClick = { link ->
+                    linkListViewModel.incrementLinkClickCount(link)
+                    LinkBottomSheetDialog.launch(requireActivity(), link)
+                }, onLongClick = { link ->
+                    val bundle = bundleOf("link" to link)
+                    findNavController().navigate(
+                        R.id.action_linkListFragment_to_linkFragment,
+                        bundle
+                    )
+                }, showClickCount = uiPreferences.isClickCounterEnabled()
+            )
         }
     }
 
-    private fun setupLinksList() {
-        linkAdapter = LinkAdapter()
-        linkAdapter.setEnableClickCounter(uiPreferences.isClickCounterEnabled())
+    @Composable
+    private fun FolderHeader(folder: Folder, linkCount: Int) {
+        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painter = painterResource(id = folder.folderColor.drawableId),
+                contentDescription = "Folder Icon",
+                tint = Color.Unspecified
+            )
 
-        binding.linkList.layoutManager = LinearLayoutManager(context)
-        binding.linkList.adapter = linkAdapter
+            Spacer(modifier = Modifier.width(8.dp))
 
-        linkAdapter.setOnLinkClickListener { link, _ ->
-            linkListViewModel.updateLinkClickCount(link.id, link.clickedCount + 1)
-            LinkBottomSheetDialog.launch(requireActivity(), link)
+            Text(text = "${folder.name} : ${linkCount}")
         }
-
-        linkAdapter.setOnLinkLongClickListener {
-            val bundle = bundleOf("link" to it)
-            findNavController().navigate(R.id.action_linkListFragment_to_linkFragment, bundle)
-        }
-    }
-
-    private fun setupFolderHeaderInfo(size: Int) {
-        binding.folderInfoHeaderTxt.text = "${currentFolder.name}: ${size}"
-        binding.folderInfoHeaderTxt.setCompoundDrawablesWithIntrinsicBounds(
-            currentFolder.folderColor.drawableId,
-            0,
-            0,
-            0
-        )
     }
 
     private fun setupScreenMenu() {
@@ -154,15 +150,8 @@ class LinkListFragment : Fragment() {
         }
 
         override fun onQueryTextChange(keyword: String?): Boolean {
-            if (keyword.isNullOrEmpty()) linkListViewModel.getFolderLinkList(currentFolder.id)
-            else linkListViewModel.getFolderLinkListByKeyword(currentFolder.id, keyword)
+            linkListViewModel.updateSearchQuery(query = keyword?.trim() ?: "")
             return false
         }
-    }
-
-    override fun onDestroyView() {
-        binding.linkList.adapter = null
-        super.onDestroyView()
-        _binding = null
     }
 }
