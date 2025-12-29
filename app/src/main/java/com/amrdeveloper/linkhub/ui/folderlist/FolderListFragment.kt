@@ -50,7 +50,7 @@ class FolderListFragment : Fragment() {
             )
 
             setContent {
-                FoldersScreen()
+                FoldersScreen(folderListViewModel)
             }
         }
     }
