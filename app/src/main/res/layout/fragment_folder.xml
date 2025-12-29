@@ -8,13 +8,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_height="match_parent">
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/compose_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
         <ImageView
             android:id="@+id/folder_logo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen200dp"
+            android:layout_below="@+id/compose_view"
             android:contentDescription="@string/link_title"
             android:src="@drawable/ic_folders" />
 

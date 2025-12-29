@@ -3,13 +3,20 @@ package com.amrdeveloper.linkhub.ui.link
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
 import androidx.activity.OnBackPressedCallback
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedIconButton
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,7 +34,6 @@ import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
 import com.amrdeveloper.linkhub.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import java.net.URLEncoder
 import java.text.DateFormat
 import javax.inject.Inject
 
@@ -51,8 +57,6 @@ class LinkFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
         safeArguments.link?.let { currentLink = it }
     }
 
@@ -62,6 +66,8 @@ class LinkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLinkBinding.inflate(inflater, container, false)
+
+        tempActions()
         handleDefaultFolder()
         handleIntentSharedLink()
         handleLinkArgument()
@@ -71,6 +77,40 @@ class LinkFragment : Fragment() {
         linkViewModel.getFolderList()
 
         return binding.root
+    }
+
+    // TODO: Will be refactor later and moved to Jetpack compose part
+    private fun tempActions() {
+        binding.composeView.setContent {
+            Row(
+                modifier = Modifier.padding(5.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                OutlinedIconButton(
+                    border = BorderStroke(1.dp, colorResource(R.color.light_blue_600)),
+                    onClick = { createOrUpdateLink() }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_save),
+                        contentDescription = "Save",
+                        tint = colorResource(R.color.light_blue_600),
+                    )
+                }
+
+                OutlinedIconButton(
+                    border = BorderStroke(1.dp, colorResource(R.color.red)),
+                    onClick = {
+                        if (::currentLink.isInitialized) deleteCurrentLink()
+                        else findNavController().navigateUp()
+                    }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_delete),
+                        contentDescription = "Delete",
+                        tint = colorResource(R.color.red),
+
+                        )
+                }
+            }
+        }
     }
 
     private fun handleDefaultFolder() {
@@ -200,29 +240,6 @@ class LinkFragment : Fragment() {
 
         folderMenuAdapter = FolderArrayAdapter(requireContext())
         binding.folderNameMenu.setAdapter(folderMenuAdapter)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_save, menu)
-        inflater.inflate(R.menu.menu_delete, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.save_action -> {
-                createOrUpdateLink()
-                true
-            }
-
-            R.id.delete_action -> {
-                if (::currentLink.isInitialized) deleteCurrentLink()
-                else findNavController().navigateUp()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private fun createOrUpdateLink() {

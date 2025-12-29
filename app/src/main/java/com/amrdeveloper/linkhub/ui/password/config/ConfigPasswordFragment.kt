@@ -2,12 +2,19 @@ package com.amrdeveloper.linkhub.ui.password.config
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedIconButton
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.R
@@ -25,21 +32,37 @@ class ConfigPasswordFragment : Fragment() {
     @Inject
     lateinit var uiPreferences: UiPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentConfigPasswordBinding.inflate(inflater, container, false)
 
+        tempActions()
         setupStaticUiInformation()
         setupListeners()
 
         return binding.root
+    }
+
+    // TODO: Will be refactor later and moved to Jetpack compose part
+    private fun tempActions() {
+        binding.composeView.setContent {
+            Row(
+                modifier = Modifier.padding(5.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                OutlinedIconButton(
+                    border = BorderStroke(1.dp, colorResource(R.color.light_blue_600)),
+                    onClick = { savePasswordConfiguration() }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_save),
+                        contentDescription = "Save",
+                        tint = colorResource(R.color.light_blue_600),
+                    )
+                }
+            }
+        }
     }
 
     private fun setupStaticUiInformation() {
@@ -55,22 +78,6 @@ class ConfigPasswordFragment : Fragment() {
             val message =
                 if (isChecked) R.string.message_password_enabled else R.string.message_password_disabled
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_save, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.save_action -> {
-                savePasswordConfiguration()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

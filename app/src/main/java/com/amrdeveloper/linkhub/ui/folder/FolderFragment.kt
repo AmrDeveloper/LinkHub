@@ -3,12 +3,19 @@ package com.amrdeveloper.linkhub.ui.folder
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedIconButton
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,8 +46,6 @@ class FolderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
         safeArguments.folder?.let { currentFolder = it }
     }
 
@@ -50,10 +55,45 @@ class FolderFragment : Fragment() {
     ): View {
         _binding = FragmentFolderBinding.inflate(inflater, container, false)
 
+        tempActions()
         handleFolderArgument()
         setupObservers()
 
         return binding.root
+    }
+
+    // TODO: Will be refactor later and moved to Jetpack compose part
+    private fun tempActions() {
+        binding.composeView.setContent {
+            Row(
+                modifier = Modifier.padding(5.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                OutlinedIconButton(
+                    border = BorderStroke(1.dp, colorResource(R.color.light_blue_600)),
+                    onClick = { createOrUpdateFolder() }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_save),
+                        contentDescription = "Save",
+                        tint = colorResource(R.color.light_blue_600),
+                    )
+                }
+
+                OutlinedIconButton(
+                    border = BorderStroke(1.dp, colorResource(R.color.red)),
+                    onClick = {
+                        if (::currentFolder.isInitialized) deleteFolder()
+                        else findNavController().navigateUp()
+                    }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_delete),
+                        contentDescription = "Delete",
+                        tint = colorResource(R.color.red),
+
+                        )
+                }
+            }
+        }
     }
 
     private fun handleFolderArgument() {
@@ -71,30 +111,6 @@ class FolderFragment : Fragment() {
 
         folderViewModel.errorMessages.observe(viewLifecycleOwner) { messageId ->
             activity.showSnackBar(messageId)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_save, menu)
-        inflater.inflate(R.menu.menu_delete, menu)
-
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.save_action -> {
-                createOrUpdateFolder()
-                true
-            }
-
-            R.id.delete_action -> {
-                if (::currentFolder.isInitialized) deleteFolder()
-                else findNavController().navigateUp()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
