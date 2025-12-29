@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import com.amrdeveloper.linkhub.data.Folder
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FolderDao : BaseDao<Folder> {
@@ -20,11 +21,14 @@ interface FolderDao : BaseDao<Folder> {
     @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC")
     suspend fun getSortedFolderList(): List<Folder>
 
+    @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC")
+    fun getSortedFolderListFlow(): Flow<List<Folder>>
+
     @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC LIMIT :limit")
     suspend fun getLimitedSortedFolderList(limit: Int): List<Folder>
 
     @Query("SELECT * FROM folder WHERE name LIKE '%' || :keyword || '%' ORDER BY pinned DESC, click_count DESC")
-    suspend fun getSortedFolderListByKeyword(keyword: String): List<Folder>
+    fun getSortedFolderListByKeyword(keyword: String): Flow<List<Folder>>
 
     @Query("UPDATE folder SET click_count = :count WHERE id = :folderId")
     suspend fun updateClickCountByFolderId(folderId: Int, count: Int): Int

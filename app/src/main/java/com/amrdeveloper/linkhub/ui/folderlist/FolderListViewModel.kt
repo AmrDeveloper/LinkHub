@@ -1,58 +1,59 @@
 package com.amrdeveloper.linkhub.ui.folderlist
 
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class FolderUiState(
+    var folders: List<Folder> = listOf(),
+    var isLoading: Boolean = false
+)
 
 @HiltViewModel
 class FolderListViewModel @Inject constructor(
     private val folderRepository: FolderRepository
 ) : ViewModel() {
 
-    private val _foldersLiveData = MutableLiveData<List<Folder>>()
-    val foldersLiveData = _foldersLiveData
+    private val searchQuery = MutableStateFlow(value = "")
 
-    private val _dataLoading = MutableLiveData<Boolean>()
-    val dataLoading = _dataLoading
-
-    private val _errorMessages = MutableLiveData<Int>()
-    val errorMessages = _errorMessages
-
-    fun getSortedFolderList() {
-        _dataLoading.value = true
-        viewModelScope.launch {
-            val result = folderRepository.getSortedFolderList()
-            if (result.isSuccess) {
-                _foldersLiveData.value = result.getOrDefault(listOf())
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val uiState: StateFlow<FolderUiState> =
+        combine(searchQuery) {
+            searchQuery.value
+        }.flatMapLatest { query ->
+            if (query.isEmpty()) {
+                folderRepository.getSortedFolderListFlow()
             } else {
-                _errorMessages.value = R.string.error_get_folders
+                folderRepository.getSortedFolderListByKeywordFlow(
+                    keyword = query
+                )
             }
-            _dataLoading.value = false
-        }
+        }.map { FolderUiState(folders = it, isLoading = false) }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
+            initialValue = FolderUiState(isLoading = true)
+        )
+
+    fun updateSearchQuery(query: String) {
+        searchQuery.value = query
     }
 
-    fun getSortedFolderListByKeyword(keyword: String) {
-        _dataLoading.value = true
+    fun incrementFolderClickCount(folder: Folder) {
         viewModelScope.launch {
-            val result = folderRepository.getSortedFolderListByKeyword(keyword)
-            if (result.isSuccess) {
-                _foldersLiveData.value = result.getOrDefault(listOf())
-            } else {
-                _errorMessages.value = R.string.error_get_folders
-            }
-            _dataLoading.value = false
-        }
-    }
-
-    fun updateFolderClickCount(folderId: Int, count: Int) {
-        viewModelScope.launch {
-            folderRepository.updateClickCountByFolderId(folderId, count)
+            folderRepository.updateClickCountByFolderId(folder.id, folder.clickedCount.plus(1))
         }
     }
 }

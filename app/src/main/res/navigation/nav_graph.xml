@@ -72,8 +72,7 @@
     <fragment
         android:id="@+id/folderListFragment"
         android:name="com.amrdeveloper.linkhub.ui.folderlist.FolderListFragment"
-        android:label="fragment_folder_list"
-        tools:layout="@layout/fragment_folder_list">
+        android:label="fragment_folder_list">
 
         <action
             android:id="@+id/action_folderListFragment_to_linkListFragment"

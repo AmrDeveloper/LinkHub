@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Folder
+import kotlinx.coroutines.flow.Flow
 
 interface FolderDataSource {
 
@@ -14,11 +15,13 @@ interface FolderDataSource {
 
     suspend fun getFolderList(): Result<List<Folder>>
 
+    fun getSortedFolderListFlow(): Flow<List<Folder>>
+
     suspend fun getSortedFolderList(): Result<List<Folder>>
 
     suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>>
 
-    suspend fun getSortedFolderListByKeyword(keyword: String): Result<List<Folder>>
+    fun getSortedFolderListByKeyword(keyword: String): Flow<List<Folder>>
 
     suspend fun updateFolder(folder: Folder): Result<Int>
 

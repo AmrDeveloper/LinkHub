@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Folder
+import kotlinx.coroutines.flow.Flow
 
 class FolderRepository(private val dataSource: FolderDataSource) {
 
@@ -28,11 +29,15 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.getSortedFolderList()
     }
 
+     fun getSortedFolderListFlow(): Flow<List<Folder>> {
+        return dataSource.getSortedFolderListFlow()
+    }
+
     suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> {
         return dataSource.getLimitedSortedFolderList(limit)
     }
 
-    suspend fun getSortedFolderListByKeyword(keyword: String): Result<List<Folder>> {
+     fun getSortedFolderListByKeywordFlow(keyword: String): Flow<List<Folder>> {
         return dataSource.getSortedFolderListByKeyword(keyword)
     }
 

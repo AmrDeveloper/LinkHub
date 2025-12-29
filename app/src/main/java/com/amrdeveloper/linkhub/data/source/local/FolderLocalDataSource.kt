@@ -4,6 +4,7 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.source.FolderDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class FolderLocalDataSource internal constructor(
@@ -60,6 +61,8 @@ class FolderLocalDataSource internal constructor(
         }
     }
 
+    override fun getSortedFolderListFlow(): Flow<List<Folder>> = folderDao.getSortedFolderListFlow()
+
     override suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> =
         withContext(ioDispatcher) {
             return@withContext try {
@@ -69,14 +72,8 @@ class FolderLocalDataSource internal constructor(
             }
         }
 
-    override suspend fun getSortedFolderListByKeyword(keyword: String): Result<List<Folder>> =
-        withContext(ioDispatcher) {
-            return@withContext try {
-                Result.success(folderDao.getSortedFolderListByKeyword(keyword))
-            } catch (e: Exception) {
-                Result.failure(e)
-            }
-        }
+    override fun getSortedFolderListByKeyword(keyword: String) =
+        folderDao.getSortedFolderListByKeyword(keyword)
 
     override suspend fun updateFolder(folder: Folder): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
