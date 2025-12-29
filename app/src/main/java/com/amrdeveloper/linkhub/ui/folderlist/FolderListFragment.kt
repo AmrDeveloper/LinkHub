@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,9 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -32,6 +36,8 @@ import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.ui.composables.FolderList
 import com.amrdeveloper.linkhub.ui.composables.FolderViewKind
+import com.amrdeveloper.linkhub.ui.composables.ShowItemsOptionsDropdownButton
+import com.amrdeveloper.linkhub.ui.composables.ShowOption
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,8 +64,26 @@ class FolderListFragment : Fragment() {
     @Composable
     fun FoldersScreen(viewModel: FolderListViewModel = viewModel()) {
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+        var showItemsOption by remember { mutableStateOf(FolderViewKind.List) }
+
         Column {
-            Text(text = "Folders: ${uiState.folders.size}", modifier = Modifier.padding(16.dp))
+            Row {
+                Text(
+                    text = "Folders: ${uiState.folders.size}",
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .weight(1f)
+                )
+
+                val showOptions = listOf(
+                    ShowOption(FolderViewKind.List.name, R.drawable.ic_list),
+                    ShowOption(FolderViewKind.Grid.name, R.drawable.ic_grid)
+                )
+
+                ShowItemsOptionsDropdownButton(showOptions) { showOption ->
+                    showItemsOption = FolderViewKind.valueOf(showOption.literal)
+                }
+            }
 
             if (uiState.isLoading) {
                 LinearProgressIndicator(
@@ -72,7 +96,7 @@ class FolderListFragment : Fragment() {
 
             FolderList(
                 folders = uiState.folders,
-                viewKind = FolderViewKind.List,
+                viewKind = showItemsOption,
                 onClick = { folder ->
                     folderListViewModel.incrementFolderClickCount(folder)
 
