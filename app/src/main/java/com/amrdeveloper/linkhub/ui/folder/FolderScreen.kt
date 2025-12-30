@@ -1,0 +1,223 @@
+package com.amrdeveloper.linkhub.ui.folder
+
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Folder
+import com.amrdeveloper.linkhub.data.FolderColor
+import com.amrdeveloper.linkhub.ui.components.PinnedSwitch
+import com.amrdeveloper.linkhub.ui.components.SaveDeleteActionsRow
+import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
+import com.amrdeveloper.linkhub.util.UiPreferences
+
+@Composable
+fun FolderScreen(
+    currentFolder: Folder?,
+    viewModel: FolderViewModel = viewModel(),
+    uiPreferences: UiPreferences,
+    navController: NavController
+) {
+    val folder = currentFolder ?: Folder(name = "")
+    var folderName by remember { mutableStateOf(value = folder.name) }
+    var folderNameErrorMessage by remember { mutableStateOf(value = if (folder.name.isEmpty()) "Name can't be empty" else "") }
+
+    val createOrUpdateFolder = {
+        if (currentFolder == null) {
+            viewModel.createNewFolder(folder)
+
+            // Store the created folder name only if previous fragment is LinkFragment
+            val previousFragment = navController.previousBackStackEntry?.destination?.id
+            if (previousFragment == R.id.linkFragment) {
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    CREATED_FOLDER_NAME_KEY, folder.name
+                )
+            }
+        } else {
+            viewModel.updateFolder(folder)
+        }
+    }
+
+    BackHandler(enabled = true) {
+        if (uiPreferences.isAutoSavingEnabled() && folderNameErrorMessage.isEmpty()) {
+            createOrUpdateFolder()
+        }
+        navController.popBackStack()
+    }
+
+    Scaffold { padding ->
+        Column(modifier = Modifier.padding(padding)) {
+            SaveDeleteActionsRow(onSaveActionClick = {
+                if (folderNameErrorMessage.isNotEmpty()) return@SaveDeleteActionsRow
+                createOrUpdateFolder()
+                navController.popBackStack()
+            }, onDeleteActionClick = {
+                if (currentFolder == null) {
+                    navController.popBackStack()
+                    return@SaveDeleteActionsRow
+                }
+
+                viewModel.deleteFolder(folder.id)
+
+                // Reset the default folder if it deleted
+                if (uiPreferences.isDefaultFolderEnabled() &&
+                    uiPreferences.getDefaultFolderId() == folder.id
+                ) {
+                    uiPreferences.deleteDefaultFolder()
+                }
+
+                navController.popBackStack()
+            })
+
+            FolderHeaderIcon()
+
+            OutlinedTextField(
+                value = folderName,
+                onValueChange = {
+                    folderName = it.trim()
+                    folder.name = folderName
+                    if (folderName.isEmpty()) {
+                        folderNameErrorMessage = "Name can't be empty"
+                        return@OutlinedTextField
+                    }
+
+                    if (folderName.length < 3) {
+                        folderNameErrorMessage = "Folder name can't be less than 3 characters"
+                        return@OutlinedTextField
+                    }
+
+                    folderNameErrorMessage = ""
+                },
+                label = { Text(text = "Name") },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_directory_blue),
+                        contentDescription = "Folder Icon",
+                        tint = Color.Unspecified,
+                    )
+                },
+                trailingIcon = {
+                    if (folderName.isNotEmpty()) {
+                        IconButton(onClick = { folderName = "" }) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_delete),
+                                contentDescription = "Clear Icon"
+                            )
+                        }
+                    }
+                },
+                singleLine = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                isError = folderNameErrorMessage.isNotEmpty(),
+                supportingText = {
+                    if (folderNameErrorMessage.isNotEmpty()) {
+                        Text(text = folderNameErrorMessage)
+                    }
+                })
+
+            PinnedSwitch(isChecked = folder.isPinned) { isChecked ->
+                folder.isPinned = isChecked
+            }
+
+            FolderColorSelector(
+                colors = FolderColor.entries.drop(1),
+                initIndex = if (folder.folderColor.ordinal > 0) folder.folderColor.ordinal - 1 else 0
+            ) { selectedColor ->
+                folder.folderColor = selectedColor
+            }
+        }
+    }
+}
+
+@Composable
+fun FolderHeaderIcon() {
+    Icon(
+        painter = painterResource(R.drawable.ic_folders),
+        contentDescription = "Folder Icon",
+        tint = Color.Unspecified,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(150.dp)
+    )
+}
+
+@Composable
+fun FolderColorSelector(
+    colors: List<FolderColor>, initIndex: Int = 0, onSelectedChange: (FolderColor) -> Unit = {}
+) {
+    var selectedIndex by remember { mutableStateOf(value = initIndex) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Color",
+            modifier = Modifier.weight(1f),
+            color = colorResource(R.color.light_blue_600),
+            style = MaterialTheme.typography.titleMedium,
+        )
+
+
+        IconButton(
+            onClick = {
+                selectedIndex -= 1
+                if (selectedIndex < 0) selectedIndex = colors.lastIndex
+                onSelectedChange(colors[selectedIndex])
+            }, modifier = Modifier.size(24.dp)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_back),
+                contentDescription = "Previous Icon",
+                tint = Color.Unspecified,
+            )
+        }
+
+        Icon(
+            painter = painterResource(colors[selectedIndex].drawableId),
+            contentDescription = colors[selectedIndex].name,
+            modifier = Modifier.padding(horizontal = 2.dp),
+            tint = Color.Unspecified
+        )
+
+        IconButton(
+            onClick = {
+                selectedIndex = (selectedIndex + 1) % colors.size
+                onSelectedChange(colors[selectedIndex])
+            }, modifier = Modifier.size(24.dp)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_forward),
+                contentDescription = "Next Icon",
+                tint = Color.Unspecified
+            )
+        }
+    }
+}

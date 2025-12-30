@@ -3,6 +3,7 @@ package com.amrdeveloper.linkhub.ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedIconButton
@@ -18,7 +19,7 @@ fun SaveDeleteActionsRow(
     onSaveActionClick: () -> Unit = {},
     onDeleteActionClick: () -> Unit = {}
 ) {
-    Row(modifier = Modifier.padding(5.dp), horizontalArrangement = Arrangement.End) {
+    Row(modifier = Modifier.padding(5.dp).fillMaxWidth(), horizontalArrangement = Arrangement.End) {
         OutlinedIconButton(
             border = BorderStroke(1.dp, colorResource(R.color.light_blue_600)),
             onClick = onSaveActionClick

@@ -122,8 +122,7 @@
     <fragment
         android:id="@+id/folderFragment"
         android:name="com.amrdeveloper.linkhub.ui.folder.FolderFragment"
-        android:label="fragment_folder"
-        tools:layout="@layout/fragment_folder">
+        android:label="fragment_folder">
 
         <argument
             android:name="folder"
