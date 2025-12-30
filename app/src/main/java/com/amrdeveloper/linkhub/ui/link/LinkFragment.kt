@@ -16,7 +16,7 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.databinding.FragmentLinkBinding
 import com.amrdeveloper.linkhub.ui.adapter.FolderArrayAdapter
-import com.amrdeveloper.linkhub.ui.composables.SaveDeleteActionsRow
+import com.amrdeveloper.linkhub.ui.components.SaveDeleteActionsRow
 import com.amrdeveloper.linkhub.ui.widget.PinnedLinksWidget
 import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
 import com.amrdeveloper.linkhub.util.CREATE_FOLDER_ID

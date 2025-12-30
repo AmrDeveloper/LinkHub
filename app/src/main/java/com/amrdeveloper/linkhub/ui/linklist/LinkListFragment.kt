@@ -40,7 +40,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.ui.composables.LinkList
+import com.amrdeveloper.linkhub.ui.components.LinkList
 import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.UiPreferences
 import dagger.hilt.android.AndroidEntryPoint

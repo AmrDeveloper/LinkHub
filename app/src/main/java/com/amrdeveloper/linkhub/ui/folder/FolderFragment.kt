@@ -13,7 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
-import com.amrdeveloper.linkhub.ui.composables.SaveDeleteActionsRow
+import com.amrdeveloper.linkhub.ui.components.SaveDeleteActionsRow
 import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError

@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub.ui.composables
+package com.amrdeveloper.linkhub.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row

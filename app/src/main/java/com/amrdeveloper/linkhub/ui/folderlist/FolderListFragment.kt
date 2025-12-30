@@ -34,10 +34,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.R
-import com.amrdeveloper.linkhub.ui.composables.FolderList
-import com.amrdeveloper.linkhub.ui.composables.FolderViewKind
-import com.amrdeveloper.linkhub.ui.composables.ShowItemsOptionsDropdownButton
-import com.amrdeveloper.linkhub.ui.composables.ShowOption
+import com.amrdeveloper.linkhub.ui.components.FolderList
+import com.amrdeveloper.linkhub.ui.components.FolderViewKind
+import com.amrdeveloper.linkhub.ui.components.ShowItemsOptionsDropdownButton
+import com.amrdeveloper.linkhub.ui.components.ShowOption
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

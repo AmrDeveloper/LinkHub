@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub.ui.composables
+package com.amrdeveloper.linkhub.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
