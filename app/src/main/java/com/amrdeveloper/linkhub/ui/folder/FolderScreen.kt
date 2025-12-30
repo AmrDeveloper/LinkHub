@@ -23,10 +23,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.common.TaskState
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.FolderColor
 import com.amrdeveloper.linkhub.ui.components.PinnedSwitch
@@ -41,7 +43,8 @@ fun FolderScreen(
     uiPreferences: UiPreferences,
     navController: NavController
 ) {
-    val folder = currentFolder ?: Folder(name = "")
+    val taskState = viewModel.taskState
+    val folder = currentFolder ?: Folder(name = "").apply { folderColor = FolderColor.BLUE }
     var folderName by remember { mutableStateOf(value = folder.name) }
     var folderNameErrorMessage by remember { mutableStateOf(value = if (folder.name.isEmpty()) "Name can't be empty" else "") }
 
@@ -64,7 +67,9 @@ fun FolderScreen(
     BackHandler(enabled = true) {
         if (uiPreferences.isAutoSavingEnabled() && folderNameErrorMessage.isEmpty()) {
             createOrUpdateFolder()
+            return@BackHandler
         }
+
         navController.popBackStack()
     }
 
@@ -73,7 +78,6 @@ fun FolderScreen(
             SaveDeleteActionsRow(onSaveActionClick = {
                 if (folderNameErrorMessage.isNotEmpty()) return@SaveDeleteActionsRow
                 createOrUpdateFolder()
-                navController.popBackStack()
             }, onDeleteActionClick = {
                 if (currentFolder == null) {
                     navController.popBackStack()
@@ -88,8 +92,6 @@ fun FolderScreen(
                 ) {
                     uiPreferences.deleteDefaultFolder()
                 }
-
-                navController.popBackStack()
             })
 
             FolderHeaderIcon()
@@ -151,6 +153,18 @@ fun FolderScreen(
                 folder.folderColor = selectedColor
             }
         }
+    }
+
+    when (taskState) {
+        TaskState.Success -> {
+            navController.popBackStack()
+        }
+
+        is TaskState.Error -> {
+            folderNameErrorMessage = stringResource(taskState.message)
+        }
+
+        TaskState.Idle -> {}
     }
 }
 
