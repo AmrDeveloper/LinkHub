@@ -6,16 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedIconButton
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.databinding.FragmentFolderBinding
+import com.amrdeveloper.linkhub.ui.composables.SaveDeleteActionsRow
 import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.showError
@@ -54,45 +45,22 @@ class FolderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFolderBinding.inflate(inflater, container, false)
-
-        tempActions()
+        saveAndDeleteActions()
         handleFolderArgument()
         setupObservers()
 
         return binding.root
     }
 
-    // TODO: Will be refactor later and moved to Jetpack compose part
-    private fun tempActions() {
+    private fun saveAndDeleteActions() {
         binding.composeView.setContent {
-            Row(
-                modifier = Modifier.padding(5.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                OutlinedIconButton(
-                    border = BorderStroke(1.dp, colorResource(R.color.light_blue_600)),
-                    onClick = { createOrUpdateFolder() }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_save),
-                        contentDescription = "Save",
-                        tint = colorResource(R.color.light_blue_600),
-                    )
+            SaveDeleteActionsRow(
+                onSaveActionClick = { createOrUpdateFolder() },
+                onDeleteActionClick = {
+                    if (::currentFolder.isInitialized) deleteFolder()
+                    else findNavController().navigateUp()
                 }
-
-                OutlinedIconButton(
-                    border = BorderStroke(1.dp, colorResource(R.color.red)),
-                    onClick = {
-                        if (::currentFolder.isInitialized) deleteFolder()
-                        else findNavController().navigateUp()
-                    }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_delete),
-                        contentDescription = "Delete",
-                        tint = colorResource(R.color.red),
-
-                        )
-                }
-            }
+            )
         }
     }
 
