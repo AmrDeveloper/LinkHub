@@ -1,6 +1,5 @@
 package com.amrdeveloper.linkhub.ui.links
 
-import android.app.Activity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,8 +27,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
+import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkList
-import com.amrdeveloper.linkhub.util.LinkBottomSheetDialog
 import com.amrdeveloper.linkhub.util.UiPreferences
 
 @Composable
@@ -35,8 +38,10 @@ fun LinksScreen(
     viewModel: LinkListViewModel = viewModel(),
     uiPreferences: UiPreferences,
     navController: NavController,
-    activity: Activity, // TODO: Remove and replace it with Compose solution
 ) {
+    var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
+    var showLinkActionsDialog by remember { mutableStateOf(value = false) }
+
     LaunchedEffect(true) {
         viewModel.updateFolderId(currentFolder.id)
     }
@@ -55,17 +60,29 @@ fun LinksScreen(
         }
 
         LinkList(
-            links = uiState.links, onClick = { link ->
+            links = uiState.links,
+            onClick = { link ->
                 viewModel.incrementLinkClickCount(link)
-                LinkBottomSheetDialog.launch(activity, link)
-            }, onLongClick = { link ->
+                lastClickedLink = link
+                showLinkActionsDialog = true
+            },
+            onLongClick = { link ->
                 val bundle = bundleOf("link" to link)
                 navController.navigate(
                     R.id.action_linkListFragment_to_linkFragment,
                     bundle
                 )
-            }, showClickCount = uiPreferences.isClickCounterEnabled()
+            },
+            showClickCount = uiPreferences.isClickCounterEnabled()
         )
+
+        if (showLinkActionsDialog) {
+            lastClickedLink?.let { link ->
+                LinkActionsBottomSheet(link) {
+                    showLinkActionsDialog = false
+                }
+            }
+        }
     }
 }
 

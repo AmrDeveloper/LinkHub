@@ -47,7 +47,6 @@ class LinkListFragment : Fragment() {
                     viewModel = linkListViewModel,
                     uiPreferences = uiPreferences,
                     navController = findNavController(),
-                    activity = requireActivity()
                 )
             }
         }
