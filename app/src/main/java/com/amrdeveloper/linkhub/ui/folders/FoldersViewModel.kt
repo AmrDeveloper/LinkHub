@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub.ui.folderlist
+package com.amrdeveloper.linkhub.ui.folders
 
 
 import androidx.lifecycle.ViewModel

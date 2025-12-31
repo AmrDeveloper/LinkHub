@@ -10,7 +10,7 @@ import com.amrdeveloper.linkhub.common.TaskState
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
-import com.amrdeveloper.linkhub.ui.folderlist.FolderUiState
+import com.amrdeveloper.linkhub.ui.folders.FolderUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

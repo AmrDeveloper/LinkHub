@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub.ui.linklist
+package com.amrdeveloper.linkhub.ui.links
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

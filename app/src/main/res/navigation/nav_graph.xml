@@ -70,7 +70,7 @@
 
     <fragment
         android:id="@+id/folderListFragment"
-        android:name="com.amrdeveloper.linkhub.ui.folderlist.FolderListFragment"
+        android:name="com.amrdeveloper.linkhub.ui.folders.FolderListFragment"
         android:label="fragment_folder_list">
 
         <action
@@ -93,7 +93,7 @@
 
     <fragment
         android:id="@+id/linkListFragment"
-        android:name="com.amrdeveloper.linkhub.ui.linklist.LinkListFragment"
+        android:name="com.amrdeveloper.linkhub.ui.links.LinkListFragment"
         android:label="fragment_link_list">
 
         <argument
