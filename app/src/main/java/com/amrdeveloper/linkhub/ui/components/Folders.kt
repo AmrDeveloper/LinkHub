@@ -41,11 +41,13 @@ fun FolderItem(
     folder: Folder,
     onClick: (Folder) -> Unit = {},
     onLongClick: (Folder) -> Unit = {},
-    modifier: Modifier = Modifier
+    folderItemElevation: Dp = 4.dp,
+    folderItemPadding: Dp = 8.dp,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = folderItemElevation),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         )
@@ -54,7 +56,7 @@ fun FolderItem(
             modifier = Modifier
                 .background(Color.White)
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(folderItemPadding)
                 .combinedClickable(
                     onClick = {
                         onClick(folder)

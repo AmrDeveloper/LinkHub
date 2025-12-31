@@ -75,24 +75,27 @@ fun FolderScreen(
 
     Scaffold { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            SaveDeleteActionsRow(onSaveActionClick = {
-                if (folderNameErrorMessage.isNotEmpty()) return@SaveDeleteActionsRow
-                createOrUpdateFolder()
-            }, onDeleteActionClick = {
-                if (currentFolder == null) {
-                    navController.popBackStack()
-                    return@SaveDeleteActionsRow
-                }
+            SaveDeleteActionsRow(
+                onSaveActionClick = {
+                    if (folderNameErrorMessage.isNotEmpty()) return@SaveDeleteActionsRow
+                    createOrUpdateFolder()
+                },
+                onDeleteActionClick = {
+                    if (currentFolder == null) {
+                        navController.popBackStack()
+                        return@SaveDeleteActionsRow
+                    }
 
-                viewModel.deleteFolder(folder.id)
+                    viewModel.deleteFolder(folder.id)
 
-                // Reset the default folder if it deleted
-                if (uiPreferences.isDefaultFolderEnabled() &&
-                    uiPreferences.getDefaultFolderId() == folder.id
-                ) {
-                    uiPreferences.deleteDefaultFolder()
+                    // Reset the default folder if it deleted
+                    if (uiPreferences.isDefaultFolderEnabled() &&
+                        uiPreferences.getDefaultFolderId() == folder.id
+                    ) {
+                        uiPreferences.deleteDefaultFolder()
+                    }
                 }
-            })
+            )
 
             FolderHeaderIcon()
 

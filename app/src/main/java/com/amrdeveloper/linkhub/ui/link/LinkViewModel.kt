@@ -10,9 +10,14 @@ import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.LinkInfo
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
+import com.amrdeveloper.linkhub.ui.folderlist.FolderUiState
 import com.amrdeveloper.linkhub.util.generateLinkInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URI
@@ -23,6 +28,14 @@ class LinkViewModel @Inject constructor(
     private val folderRepository: FolderRepository,
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
+
+    val selectSortedFoldersState: StateFlow<FolderUiState> =
+        folderRepository.getSortedFolderListFlow()
+            .map { FolderUiState(folders = it, isLoading = false) }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
+                initialValue = FolderUiState(isLoading = true)
+            )
 
     private val _currentFolderLiveData = MutableLiveData<Folder>()
     val currentFolderLiveData = _currentFolderLiveData
