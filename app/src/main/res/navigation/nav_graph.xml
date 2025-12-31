@@ -55,8 +55,7 @@
     <fragment
         android:id="@+id/linkFragment"
         android:name="com.amrdeveloper.linkhub.ui.link.LinkFragment"
-        android:label="fragment_link"
-        tools:layout="@layout/fragment_link">
+        android:label="fragment_link">
 
         <argument
             android:name="link"

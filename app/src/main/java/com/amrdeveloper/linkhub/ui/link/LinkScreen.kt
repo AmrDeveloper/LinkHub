@@ -1,5 +1,6 @@
 package com.amrdeveloper.linkhub.ui.link
 
+import android.webkit.URLUtil
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +26,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.common.TaskState
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.ui.components.FolderItem
@@ -40,6 +43,7 @@ import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
 import com.amrdeveloper.linkhub.util.CREATE_FOLDER_ID
 import com.amrdeveloper.linkhub.util.FOLDER_NONE_ID
 import com.amrdeveloper.linkhub.util.UiPreferences
+import java.net.URI
 import java.text.DateFormat
 
 val artificialNoneFolder = Folder(name = "None", id = FOLDER_NONE_ID)
@@ -55,6 +59,8 @@ fun LinkScreen(
     navController: NavController
 ) {
     val link = currentLink ?: Link(title = "", subtitle = "", url = "")
+
+    val taskState = viewModel.taskState
 
     var linkTitle by remember { mutableStateOf(value = link.title) }
     var linkTitleErrorMessage by remember { mutableStateOf(value = if (linkTitle.isEmpty()) "Title can't be empty" else "") }
@@ -225,9 +231,24 @@ fun LinkScreen(
                     )
                 }
             }
+
+            when (taskState) {
+                TaskState.Success -> {
+                    navController.popBackStack()
+                }
+
+                is TaskState.Error -> {
+                    linkTitleErrorMessage = stringResource(taskState.message)
+                }
+
+                TaskState.Idle -> {}
+            }
         }
     }
 }
+
+private fun isValidURI(url: String) =
+    URLUtil.isValidUrl(url) && runCatching { URI(url) }.isSuccess
 
 @Composable
 fun LinkHeaderIcon() {

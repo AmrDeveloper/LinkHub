@@ -1,26 +1,22 @@
 package com.amrdeveloper.linkhub.ui.link
 
-import android.webkit.URLUtil
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
-import com.amrdeveloper.linkhub.data.Folder
+import com.amrdeveloper.linkhub.common.TaskState
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.data.LinkInfo
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import com.amrdeveloper.linkhub.ui.folderlist.FolderUiState
-import com.amrdeveloper.linkhub.util.generateLinkInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.URI
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,29 +33,17 @@ class LinkViewModel @Inject constructor(
                 initialValue = FolderUiState(isLoading = true)
             )
 
-    private val _currentFolderLiveData = MutableLiveData<Folder>()
-    val currentFolderLiveData = _currentFolderLiveData
-
-    private val _foldersLiveData = MutableLiveData<List<Folder>>()
-    val folderLiveData = _foldersLiveData
-
-    private val _linkInfoLiveData = MutableLiveData<LinkInfo>()
-    val linkInfoLiveData = _linkInfoLiveData
-
-    private val _completeSuccessTask = MutableLiveData<Boolean>()
-    val completeSuccessTask = _completeSuccessTask
-
-    private val _errorMessages = MutableLiveData<Int>()
-    val errorMessages = _errorMessages
+    var taskState by mutableStateOf<TaskState>(TaskState.Idle)
+        private set
 
     fun createNewLink(link: Link) {
         viewModelScope.launch {
             val result = linkRepository.insertLink(link)
-            if (result.isSuccess) {
-                if (result.getOrDefault(-1) > 0) _completeSuccessTask.value = true
-                else _errorMessages.value = R.string.error_link_same_title
+            taskState = if (result.isSuccess) {
+                if (result.getOrDefault(-1) > 0) TaskState.Success
+                else TaskState.Error( R.string.error_link_same_title)
             } else {
-                _errorMessages.value = R.string.error_insert_link
+                TaskState.Error( R.string.error_insert_link)
             }
         }
     }
@@ -67,10 +51,10 @@ class LinkViewModel @Inject constructor(
     fun updateLink(link: Link) {
         viewModelScope.launch {
             val result = linkRepository.updateLink(link)
-            if (result.isSuccess && result.getOrDefault(-1) > 0) {
-                _completeSuccessTask.value = true
+            taskState = if (result.isSuccess && result.getOrDefault(-1) > 0) {
+                TaskState.Success
             } else {
-                _errorMessages.value = R.string.error_update_link
+                TaskState.Error( R.string.error_update_link)
             }
         }
     }
@@ -78,45 +62,10 @@ class LinkViewModel @Inject constructor(
     fun deleteLink(link: Link) {
         viewModelScope.launch {
             val result = linkRepository.deleteLink(link)
-            if (result.isSuccess && result.getOrDefault(-1) > 0) {
-                _completeSuccessTask.value = true
+            taskState = if (result.isSuccess && result.getOrDefault(-1) > 0) {
+                TaskState.Success
             } else {
-                _errorMessages.value = R.string.error_delete_link
-            }
-        }
-    }
-
-    private fun isValidURI(url: String) =
-        URLUtil.isValidUrl(url) && runCatching { URI(url) }.isSuccess
-
-    fun generateLinkTitleAndSubTitle(url: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (isValidURI(url).not()) return@launch
-            val linkInfo = generateLinkInfo(url)
-            withContext(Dispatchers.Main) {
-                linkInfoLiveData.value = linkInfo
-            }
-        }
-    }
-
-    fun getFolderWithId(folderId: Int) {
-        viewModelScope.launch {
-            val result = folderRepository.getFolderById(folderId)
-            if (result.isSuccess) {
-                _currentFolderLiveData.value = result.getOrNull()
-            } else {
-                _errorMessages.value = R.string.error_get_folders
-            }
-        }
-    }
-
-    fun getFolderList() {
-        viewModelScope.launch {
-            val result = folderRepository.getSortedFolderList()
-            if (result.isSuccess) {
-                _foldersLiveData.value = result.getOrDefault(listOf())
-            } else {
-                _errorMessages.value = R.string.error_get_folders
+                TaskState.Error( R.string.error_delete_link)
             }
         }
     }
