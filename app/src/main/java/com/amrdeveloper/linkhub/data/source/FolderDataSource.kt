@@ -21,6 +21,8 @@ interface FolderDataSource {
 
     suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>>
 
+    fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>>
+
     fun getSortedFolderListByKeyword(keyword: String): Flow<List<Folder>>
 
     suspend fun updateFolder(folder: Folder): Result<Int>

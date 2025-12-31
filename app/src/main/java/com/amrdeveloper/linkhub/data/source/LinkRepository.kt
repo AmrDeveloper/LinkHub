@@ -21,7 +21,7 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getPinnedLinkList()
     }
 
-    suspend fun getSortedLinkList(): Result<List<Link>> {
+     fun getSortedLinkList(): Flow<List<Link>> {
         return dataSource.getSortedLinkList()
     }
 

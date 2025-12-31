@@ -44,13 +44,7 @@ class LinkLocalDataSource internal constructor(
         }
     }
 
-    override suspend fun getSortedLinkList(): Result<List<Link>> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(linkDao.getSortedLinkList())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+    override fun getSortedLinkList(): Flow<List<Link>> = linkDao.getSortedLinkList()
 
     override suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>> =
         withContext(ioDispatcher) {

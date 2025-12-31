@@ -27,6 +27,9 @@ interface FolderDao : BaseDao<Folder> {
     @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC LIMIT :limit")
     suspend fun getLimitedSortedFolderList(limit: Int): List<Folder>
 
+    @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC LIMIT :limit")
+    fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>>
+
     @Query("SELECT * FROM folder WHERE name LIKE '%' || :keyword || '%' ORDER BY pinned DESC, click_count DESC")
     fun getSortedFolderListByKeyword(keyword: String): Flow<List<Folder>>
 

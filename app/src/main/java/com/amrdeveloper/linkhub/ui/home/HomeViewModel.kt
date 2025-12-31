@@ -1,16 +1,21 @@
 package com.amrdeveloper.linkhub.ui.home
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val NUMBER_OF_TOP_FOLDERS = 6
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -18,74 +23,31 @@ class HomeViewModel @Inject constructor(
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
 
-    private val _folderLiveData = MutableLiveData<List<Folder>>()
-    val folderLiveData = _folderLiveData
+    val mostUsedLimitedFoldersState: StateFlow<LazyValue<List<Folder>>> =
+        folderRepository.getLimitedSortedFolders(limit = NUMBER_OF_TOP_FOLDERS)
+            .map { LazyValue(data = it, isLoading = false) }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
+                initialValue = LazyValue(data = listOf(), isLoading = true)
+            )
 
-    private val _linkLiveData = MutableLiveData<List<Link>>()
-    val linkLiveData = _linkLiveData
+    val sortedLinksState: StateFlow<LazyValue<List<Link>>> =
+        linkRepository.getSortedLinkList()
+            .map { LazyValue(data = it, isLoading = false) }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
+                initialValue = LazyValue(data = listOf(), isLoading = true)
+            )
 
-    private val _errorMessages = MutableLiveData<Int>()
-    val errorMessages = _errorMessages
-
-    fun getTopLimitedFolders(limit: Int) {
+    fun incrementLinkClickCount(link: Link) {
         viewModelScope.launch {
-            val result = folderRepository.getLimitedSortedFolderList(limit)
-            if (result.isSuccess) {
-                _folderLiveData.value = result.getOrDefault(listOf())
-            } else {
-                _errorMessages.value = R.string.error_get_top_folders
-            }
+            linkRepository.updateClickCountByLinkId(link.id, link.clickedCount.plus(1))
         }
     }
 
-    fun updateFolderClickCount(folderId: Int, count: Int) {
+    fun incrementFolderClickCount(folder: Folder) {
         viewModelScope.launch {
-            folderRepository.updateClickCountByFolderId(folderId, count)
-        }
-    }
-
-    fun insertLink(link: Link) {
-        viewModelScope.launch {
-            linkRepository.insertLink(link)
-        }
-    }
-
-    fun getSortedLinks() {
-        viewModelScope.launch {
-            val result = linkRepository.getSortedLinkList()
-            if (result.isSuccess) {
-                _linkLiveData.value = result.getOrDefault(listOf())
-            } else {
-                _errorMessages.value = R.string.error_get_links
-            }
-        }
-    }
-
-    fun getSortedLinksByKeyword(keyword: String) {
-        viewModelScope.launch {
-            val result = linkRepository.getSortedLinkListByKeyword(keyword)
-            if (result.isSuccess) {
-                _linkLiveData.value = result.getOrDefault(listOf())
-            } else {
-                _errorMessages.value = R.string.error_get_links
-            }
-        }
-    }
-
-    suspend fun getFolderById(id: Int): Result<Folder> {
-        return folderRepository.getFolderById(id)
-    }
-
-    fun updateLinkClickCount(linkId: Int, count: Int) {
-        viewModelScope.launch {
-            linkRepository.updateClickCountByLinkId(linkId, count)
-        }
-    }
-
-    fun deleteLink(link: Link) {
-        viewModelScope.launch {
-            linkRepository.deleteLink(link)
-            _linkLiveData.value?.toMutableList()?.remove(link)
+            folderRepository.updateClickCountByFolderId(folder.id, folder.clickedCount.plus(1))
         }
     }
 }

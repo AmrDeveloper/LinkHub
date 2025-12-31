@@ -37,6 +37,10 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.getLimitedSortedFolderList(limit)
     }
 
+    fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>> {
+        return dataSource.getLimitedSortedFolders(limit)
+    }
+
      fun getSortedFolderListByKeywordFlow(keyword: String): Flow<List<Folder>> {
         return dataSource.getSortedFolderListByKeyword(keyword)
     }

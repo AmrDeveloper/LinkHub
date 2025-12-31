@@ -13,7 +13,7 @@ interface LinkDataSource {
 
     suspend fun getPinnedLinkList(): Result<List<Link>>
 
-    suspend fun getSortedLinkList(): Result<List<Link>>
+     fun getSortedLinkList(): Flow<List<Link>>
 
     suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>>
 

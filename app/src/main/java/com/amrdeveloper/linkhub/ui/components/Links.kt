@@ -110,10 +110,10 @@ fun LinkItem(
                 horizontalAlignment = Alignment.End) {
                 if (link.isPinned) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_pinned),
+                        painter = painterResource(id = R.drawable.ic_bookmark_heart),
                         contentDescription = "Link is pinned",
                         tint = Color.Unspecified,
-                        modifier = Modifier.size(20.dp).padding(2.dp)
+                        modifier = Modifier.size(22.dp).padding(2.dp)
                     )
                 }
 

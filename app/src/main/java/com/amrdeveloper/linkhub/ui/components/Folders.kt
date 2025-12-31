@@ -37,6 +37,47 @@ enum class FolderViewKind {
 }
 
 @Composable
+fun FolderList(
+    folders: List<Folder>,
+    viewKind: FolderViewKind,
+    onClick: (Folder) -> Unit = {},
+    onLongClick: (Folder) -> Unit = {},
+    folderItemPadding: Dp = 4.dp
+) {
+    when (viewKind) {
+        FolderViewKind.List -> {
+            LazyColumn {
+                items(folders) { folder ->
+                    FolderItem(
+                        folder = folder,
+                        onClick = onClick,
+                        onLongClick = onLongClick,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(folderItemPadding)
+                    )
+                }
+            }
+        }
+
+        FolderViewKind.Grid -> {
+            LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
+                items(folders) { folder ->
+                    FolderItem(
+                        folder = folder,
+                        onClick = onClick,
+                        onLongClick = onLongClick,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(folderItemPadding)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun FolderItem(
     folder: Folder,
     onClick: (Folder) -> Unit = {},
@@ -87,52 +128,11 @@ fun FolderItem(
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_pinned),
+                    painter = painterResource(id = R.drawable.ic_bookmark_heart),
                     contentDescription = "Folder is pinned",
                     tint = Color.Unspecified,
-                    modifier = Modifier.size(12.dp)
+                    modifier = Modifier.size(18.dp)
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun FolderList(
-    folders: List<Folder>,
-    viewKind: FolderViewKind,
-    onClick: (Folder) -> Unit = {},
-    onLongClick: (Folder) -> Unit = {},
-    folderItemPadding: Dp = 4.dp
-) {
-    when (viewKind) {
-        FolderViewKind.List -> {
-            LazyColumn {
-                items(folders) { folder ->
-                    FolderItem(
-                        folder = folder,
-                        onClick = onClick,
-                        onLongClick = onLongClick,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(folderItemPadding)
-                    )
-                }
-            }
-        }
-
-        FolderViewKind.Grid -> {
-            LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
-                items(folders) { folder ->
-                    FolderItem(
-                        folder = folder,
-                        onClick = onClick,
-                        onLongClick = onLongClick,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(folderItemPadding)
-                    )
-                }
             }
         }
     }

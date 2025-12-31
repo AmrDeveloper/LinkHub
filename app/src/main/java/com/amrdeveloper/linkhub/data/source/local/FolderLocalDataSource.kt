@@ -63,6 +63,8 @@ class FolderLocalDataSource internal constructor(
 
     override fun getSortedFolderListFlow(): Flow<List<Folder>> = folderDao.getSortedFolderListFlow()
 
+    override fun  getLimitedSortedFolders(limit: Int) = folderDao.getLimitedSortedFolders(limit)
+
     override suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> =
         withContext(ioDispatcher) {
             return@withContext try {
