@@ -2,9 +2,11 @@ package com.amrdeveloper.linkhub.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,12 +23,36 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
+
+@Composable
+fun LinkList(
+    links: List<Link>,
+    onClick: (Link) -> Unit = {},
+    onLongClick: (Link) -> Unit = {},
+    showClickCount: Boolean = false,
+    linkItemPadding: Dp = 4.dp
+) {
+    LazyColumn {
+        items(links) { link ->
+            LinkItem(
+                link = link,
+                onClick = onClick,
+                onLongClick = onLongClick,
+                showClickCount = showClickCount,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(linkItemPadding)
+            )
+        }
+    }
+}
 
 @Composable
 fun LinkItem(
@@ -78,54 +104,37 @@ fun LinkItem(
                 )
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column(horizontalAlignment = Alignment.End) {
+            Column(
+                modifier = Modifier.fillMaxHeight().width(50.dp),
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.End) {
                 if (link.isPinned) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_pinned),
                         contentDescription = "Link is pinned",
                         tint = Color.Unspecified,
-                        modifier = Modifier.size(12.dp)
+                        modifier = Modifier.size(20.dp).padding(2.dp)
                     )
                 }
 
                 if (showClickCount) {
-                    Row {
-                        Text("${link.clickedCount}")
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            "${link.clickedCount}",
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+
                         Spacer(modifier = Modifier.width(5.dp))
                         Icon(
                             painter = painterResource(id = R.drawable.ic_click),
                             contentDescription = "Link count",
                             tint = Color.Unspecified,
-                            modifier = Modifier.size(12.dp)
+                            modifier = Modifier.size(20.dp).padding(2.dp)
                         )
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun LinkList(
-    links: List<Link>,
-    onClick: (Link) -> Unit = {},
-    onLongClick: (Link) -> Unit = {},
-    showClickCount: Boolean = false,
-    folderItemPadding: Dp = 4.dp
-) {
-    LazyColumn {
-        items(links) { link ->
-            LinkItem(
-                link = link,
-                onClick = onClick,
-                onLongClick = onLongClick,
-                showClickCount = showClickCount,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(folderItemPadding)
-            )
         }
     }
 }
