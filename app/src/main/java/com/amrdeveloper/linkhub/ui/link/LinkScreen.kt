@@ -69,7 +69,6 @@ fun LinkScreen(
     var linkUrlErrorMessage by remember { mutableStateOf(value = if (linkUrl.isEmpty()) "Url can't be empty" else "") }
 
     var linkSubTitle by remember { mutableStateOf(value = link.subtitle) }
-    var linkSubTitleErrorMessage by remember { mutableStateOf(value = if (linkSubTitle.isEmpty()) "SubTitle can't be empty" else "") }
 
     val foldersState = viewModel.selectSortedFoldersState.collectAsStateWithLifecycle()
     var selectedFolder by remember { mutableStateOf(value = artificialNoneFolder) }
@@ -85,8 +84,7 @@ fun LinkScreen(
 
     BackHandler(enabled = true) {
         if (uiPreferences.isAutoSavingEnabled()
-            && (linkTitleErrorMessage.isEmpty() || linkUrlErrorMessage.isEmpty()
-                    || linkSubTitleErrorMessage.isEmpty())) {
+            && (linkTitleErrorMessage.isEmpty() || linkUrlErrorMessage.isEmpty())) {
             createOrUpdateLink()
             return@BackHandler
         }
@@ -147,6 +145,11 @@ fun LinkScreen(
                         return@LinkInputField
                     }
 
+                    if (!isValidURI(it)) {
+                        linkUrlErrorMessage = "Url is not valid"
+                        return@LinkInputField
+                    }
+
                     linkUrlErrorMessage = ""
                 }
             )
@@ -154,22 +157,10 @@ fun LinkScreen(
             LinkInputField(
                 label = "SubTitle (Optional)",
                 value = linkSubTitle,
-                errorMessage = linkSubTitleErrorMessage,
+                errorMessage = "",
                 onValueChange = {
                     linkSubTitle = it
                     link.subtitle = it
-
-                    if (it.isEmpty()) {
-                        linkSubTitleErrorMessage = "Title can't be empty"
-                        return@LinkInputField
-                    }
-
-                    if (it.length < 3) {
-                        linkSubTitleErrorMessage = "Folder name can't be less than 3 characters"
-                        return@LinkInputField
-                    }
-
-                    linkSubTitleErrorMessage = ""
                 }
             )
 
