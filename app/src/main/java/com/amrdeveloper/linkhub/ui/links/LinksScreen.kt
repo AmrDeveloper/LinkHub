@@ -43,7 +43,7 @@ fun LinksScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     Column {
-        FolderHeader(currentFolder, uiState.links.size)
+        FolderHeader(currentFolder)
 
         if (uiState.isLoading) {
             LinearProgressIndicator(
@@ -70,7 +70,7 @@ fun LinksScreen(
 }
 
 @Composable
-private fun FolderHeader(folder: Folder, linkCount: Int) {
+private fun FolderHeader(folder: Folder) {
     Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
         Icon(
             painter = painterResource(id = folder.folderColor.drawableId),
@@ -80,6 +80,6 @@ private fun FolderHeader(folder: Folder, linkCount: Int) {
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        Text(text = "${folder.name} : ${linkCount}")
+        Text(text = "/${folder.name}")
     }
 }

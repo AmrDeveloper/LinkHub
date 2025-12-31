@@ -6,11 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.common.TaskState
+import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
-import com.amrdeveloper.linkhub.ui.folders.FolderUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,12 +26,12 @@ class LinkViewModel @Inject constructor(
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
 
-    val selectSortedFoldersState: StateFlow<FolderUiState> =
+    val selectSortedFoldersState: StateFlow<LazyValue<List<Folder>>> =
         folderRepository.getSortedFolderListFlow()
-            .map { FolderUiState(folders = it, isLoading = false) }.stateIn(
+            .map { LazyValue(data = it, isLoading = false) }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
-                initialValue = FolderUiState(isLoading = true)
+                initialValue = LazyValue(data = listOf(), isLoading = true)
             )
 
     var taskState by mutableStateOf<TaskState>(TaskState.Idle)

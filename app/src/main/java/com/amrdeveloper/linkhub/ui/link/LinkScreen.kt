@@ -164,7 +164,7 @@ fun LinkScreen(
                 }
             )
 
-            val folders = foldersState.value.folders.toMutableList()
+            val folders = foldersState.value.data.toMutableList()
             folders.addAll(0, listOf(artificialNoneFolder, artificialCreateNewFolder))
 
             if (selectedFolderDry) {

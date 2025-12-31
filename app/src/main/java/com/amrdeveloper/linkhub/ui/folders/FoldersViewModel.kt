@@ -1,8 +1,8 @@
 package com.amrdeveloper.linkhub.ui.folders
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +17,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class FolderUiState(
-    var folders: List<Folder> = listOf(),
-    var isLoading: Boolean = false
-)
-
 @HiltViewModel
 class FolderListViewModel @Inject constructor(
     private val folderRepository: FolderRepository
@@ -30,7 +25,7 @@ class FolderListViewModel @Inject constructor(
     private val searchQuery = MutableStateFlow(value = "")
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val uiState: StateFlow<FolderUiState> =
+    val uiState: StateFlow<LazyValue<List<Folder>>> =
         combine(searchQuery) {
             searchQuery.value
         }.flatMapLatest { query ->
@@ -41,10 +36,10 @@ class FolderListViewModel @Inject constructor(
                     keyword = query
                 )
             }
-        }.map { FolderUiState(folders = it, isLoading = false) }.stateIn(
+        }.map { LazyValue(data = it, isLoading = false) }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
-            initialValue = FolderUiState(isLoading = true)
+            initialValue = LazyValue(data = listOf(), isLoading = true)
         )
 
     fun updateSearchQuery(query: String) {

@@ -35,7 +35,7 @@ fun FoldersScreen(
     Column {
         Row {
             Text(
-                text = "Folders: ${uiState.folders.size}",
+                text = "Folders: ${uiState.data.size}",
                 modifier = Modifier
                     .padding(16.dp)
                     .weight(1f)
@@ -61,7 +61,7 @@ fun FoldersScreen(
         }
 
         FolderList(
-            folders = uiState.folders,
+            folders = uiState.data,
             viewKind = showItemsOption,
             onClick = { folder ->
                 viewModel.incrementFolderClickCount(folder)
