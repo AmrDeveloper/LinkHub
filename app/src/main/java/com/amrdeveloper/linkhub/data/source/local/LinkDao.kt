@@ -24,7 +24,7 @@ interface LinkDao : BaseDao<Link> {
     fun getSortedLinkListByFolderIdFlow(id: Int): Flow<List<Link>>
 
     @Query("SELECT * FROM link WHERE title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count DESC")
-    suspend fun getSortedLinkListByKeyword(keyword: String): List<Link>
+     fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>>
 
     @Query("SELECT * FROM link WHERE folder_id = :id AND title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count DESC")
     suspend fun getSortedLinkListByKeywordByFolderId(id: Int, keyword: String): List<Link>

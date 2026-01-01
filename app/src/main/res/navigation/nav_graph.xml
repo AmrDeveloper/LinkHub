@@ -98,7 +98,9 @@
 
         <argument
             android:name="folder"
-            app:argType="com.amrdeveloper.linkhub.data.Folder" />
+            android:defaultValue="@null"
+            app:argType="com.amrdeveloper.linkhub.data.Folder"
+            app:nullable="true"/>
 
         <action
             android:id="@+id/action_linkListFragment_to_folderListFragment"

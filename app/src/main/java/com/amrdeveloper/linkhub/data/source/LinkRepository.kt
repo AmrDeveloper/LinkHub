@@ -33,12 +33,9 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getSortedFolderLinkListFlow(id)
     }
 
-    suspend fun getSortedLinkListByKeyword(keyword: String): Result<List<Link>> {
-        return dataSource.getSortedLinkListByKeyword(keyword)
-    }
 
-    suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String): Result<List<Link>> {
-        return dataSource.getSortedFolderLinkListByKeyword(id, keyword)
+    fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>> {
+        return dataSource.getSortedLinkListByKeyword(keyword)
     }
 
     fun getSortedFolderLinkListByKeywordFlow(id: Int, keyword: String): Flow<List<Link>> {
@@ -59,10 +56,6 @@ class LinkRepository(private val dataSource: LinkDataSource) {
 
     suspend fun deleteLink(link: Link): Result<Int> {
         return dataSource.deleteLink(link)
-    }
-
-    suspend fun deleteLinkByID(id: Int): Result<Int> {
-        return dataSource.deleteLinkByID(id)
     }
 
     suspend fun deleteAll(): Result<Int> {

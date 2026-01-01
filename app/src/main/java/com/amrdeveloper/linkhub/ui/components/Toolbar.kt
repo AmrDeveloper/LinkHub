@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
@@ -173,23 +172,22 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
                 }
             )
 
-            HorizontalDivider()
-
-//            TODO: Decide if we want to use Links and Home for show all links
-//            DropdownMenuItem(
-//                text = { Text("Links") },
-//                leadingIcon = {
-//                    Icon(
-//                        painter = painterResource(R.drawable.ic_link),
-//                        contentDescription = "Links",
-//                        tint = Color.Unspecified
-//                    )
-//                },
-//                onClick = {
-//                    navController.navigate(R.id.action_homeFragment_to_linkListFragment)
-//                    expanded = false
-//                }
-//            )
+            if (currentDestination?.id != R.id.folderListFragment) {
+                DropdownMenuItem(
+                    text = { Text("Links") },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_link),
+                            contentDescription = "Links",
+                            tint = Color.Unspecified
+                        )
+                    },
+                    onClick = {
+                        navController.navigate(R.id.action_homeFragment_to_linkListFragment)
+                        expanded = false
+                    }
+                )
+            }
 
             if (currentDestination?.id != R.id.folderListFragment) {
                 DropdownMenuItem(
@@ -207,8 +205,6 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
                     }
                 )
             }
-
-            HorizontalDivider()
 
             DropdownMenuItem(
                 text = { Text("Settings") },

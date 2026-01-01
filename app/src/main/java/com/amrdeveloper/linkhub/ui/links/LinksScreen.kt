@@ -37,7 +37,7 @@ import com.amrdeveloper.linkhub.util.UiPreferences
 
 @Composable
 fun LinksScreen(
-    currentFolder: Folder,
+    currentFolder: Folder?,
     viewModel: LinkListViewModel = viewModel(),
     uiPreferences: UiPreferences,
     navController: NavController,
@@ -46,7 +46,7 @@ fun LinksScreen(
     var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
     LaunchedEffect(true) {
-        viewModel.updateFolderId(currentFolder.id)
+        currentFolder?.let { viewModel.updateFolderId(folderId = it.id) }
     }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -56,7 +56,7 @@ fun LinksScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            FolderHeader(currentFolder)
+            currentFolder?.let { FolderHeader(it) }
 
             if (uiState.isLoading) {
                 LinearProgressIndicator(
@@ -68,7 +68,7 @@ fun LinksScreen(
             }
 
             LinkList(
-                links = uiState.links,
+                links = uiState.data,
                 onClick = { link ->
                     viewModel.incrementLinkClickCount(link)
                     lastClickedLink = link
