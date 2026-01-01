@@ -3,12 +3,14 @@ package com.amrdeveloper.linkhub.ui.links
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +32,7 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkList
+import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.util.UiPreferences
 
 @Composable
@@ -47,39 +50,45 @@ fun LinksScreen(
     }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    Column {
-        FolderHeader(currentFolder)
+    Scaffold(topBar = { LinkhubToolbar(navController) }) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+            FolderHeader(currentFolder)
 
-        if (uiState.isLoading) {
-            LinearProgressIndicator(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(6.dp)
-            )
-            return
-        }
-
-        LinkList(
-            links = uiState.links,
-            onClick = { link ->
-                viewModel.incrementLinkClickCount(link)
-                lastClickedLink = link
-                showLinkActionsDialog = true
-            },
-            onLongClick = { link ->
-                val bundle = bundleOf("link" to link)
-                navController.navigate(
-                    R.id.action_linkListFragment_to_linkFragment,
-                    bundle
+            if (uiState.isLoading) {
+                LinearProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(6.dp)
                 )
-            },
-            showClickCount = uiPreferences.isClickCounterEnabled()
-        )
+                return@Column
+            }
 
-        if (showLinkActionsDialog) {
-            lastClickedLink?.let { link ->
-                LinkActionsBottomSheet(link) {
-                    showLinkActionsDialog = false
+            LinkList(
+                links = uiState.links,
+                onClick = { link ->
+                    viewModel.incrementLinkClickCount(link)
+                    lastClickedLink = link
+                    showLinkActionsDialog = true
+                },
+                onLongClick = { link ->
+                    val bundle = bundleOf("link" to link)
+                    navController.navigate(
+                        R.id.action_linkListFragment_to_linkFragment,
+                        bundle
+                    )
+                },
+                showClickCount = uiPreferences.isClickCounterEnabled()
+            )
+
+            if (showLinkActionsDialog) {
+                lastClickedLink?.let { link ->
+                    LinkActionsBottomSheet(link) {
+                        showLinkActionsDialog = false
+                    }
                 }
             }
         }
