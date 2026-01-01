@@ -1,6 +1,5 @@
 package com.amrdeveloper.linkhub.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -89,13 +88,9 @@ fun FolderItem(
     Card(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = folderItemElevation),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
     ) {
         Row(
             modifier = Modifier
-                .background(Color.White)
                 .fillMaxWidth()
                 .padding(folderItemPadding)
                 .combinedClickable(

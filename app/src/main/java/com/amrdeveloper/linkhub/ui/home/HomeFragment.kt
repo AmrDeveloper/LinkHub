@@ -17,6 +17,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Theme
+import com.amrdeveloper.linkhub.ui.theme.LinkhubAppTheme
 import com.amrdeveloper.linkhub.util.UiPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -37,12 +39,15 @@ class HomeFragment : Fragment() {
                 ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
             )
 
+
             setContent {
-                HomeScreen(
-                    viewModel = viewModel(),
-                    navController = findNavController(),
-                    uiPreferences = uiPreferences,
-                )
+                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                    HomeScreen(
+                        viewModel = viewModel(),
+                        navController = findNavController(),
+                        uiPreferences = uiPreferences,
+                    )
+                }
             }
         }
     }

@@ -11,6 +11,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.Theme
+import com.amrdeveloper.linkhub.ui.theme.LinkhubAppTheme
 import com.amrdeveloper.linkhub.util.UiPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -38,12 +40,14 @@ class LinkFragment : Fragment() {
                 else safeArguments.link
 
             setContent {
-                LinkScreen(
-                    currentLink = currentLink,
-                    viewModel = viewModel(),
-                    uiPreferences = uiPreferences,
-                    navController = findNavController()
-                )
+                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                    LinkScreen(
+                        currentLink = currentLink,
+                        viewModel = viewModel(),
+                        uiPreferences = uiPreferences,
+                        navController = findNavController()
+                    )
+                }
             }
         }
     }

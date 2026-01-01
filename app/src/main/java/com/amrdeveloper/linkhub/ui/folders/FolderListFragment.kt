@@ -17,12 +17,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Theme
+import com.amrdeveloper.linkhub.ui.theme.LinkhubAppTheme
+import com.amrdeveloper.linkhub.util.UiPreferences
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FolderListFragment : Fragment() {
 
     private val folderListViewModel by viewModels<FolderListViewModel>()
+
+    @Inject
+    lateinit var uiPreferences: UiPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +42,12 @@ class FolderListFragment : Fragment() {
             )
 
             setContent {
-                FoldersScreen(
-                    viewModel = folderListViewModel,
-                    navController = findNavController()
-                )
+                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                    FoldersScreen(
+                        viewModel = folderListViewModel,
+                        navController = findNavController()
+                    )
+                }
             }
         }
     }

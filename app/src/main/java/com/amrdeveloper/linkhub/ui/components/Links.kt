@@ -1,6 +1,5 @@
 package com.amrdeveloper.linkhub.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -65,20 +64,19 @@ fun LinkItem(
     Card(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(4.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
     ) {
         Row(
             modifier = Modifier
-                .background(Color.White)
                 .fillMaxWidth()
                 .padding(8.dp)
-                .combinedClickable(onClick = {
-                    onClick(link)
-                }, onLongClick = {
-                    onLongClick(link)
-                }), verticalAlignment = Alignment.CenterVertically
+                .combinedClickable(
+                    onClick = {
+                        onClick(link)
+                    },
+                    onLongClick = {
+                        onLongClick(link)
+                    }
+                ), verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_link),

@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.amrdeveloper.linkhub.data.Theme
+import com.amrdeveloper.linkhub.ui.theme.LinkhubAppTheme
 import com.amrdeveloper.linkhub.util.UiPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,12 +33,14 @@ class FolderFragment : Fragment() {
             )
 
             setContent {
-                FolderScreen(
-                    currentFolder = safeArguments.folder,
-                    viewModel = viewModel(),
-                    uiPreferences = uiPreferences,
-                    navController = findNavController()
-                )
+                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                    FolderScreen(
+                        currentFolder = safeArguments.folder,
+                        viewModel = viewModel(),
+                        uiPreferences = uiPreferences,
+                        navController = findNavController()
+                    )
+                }
             }
         }
     }

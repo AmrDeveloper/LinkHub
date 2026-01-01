@@ -18,6 +18,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Theme
+import com.amrdeveloper.linkhub.ui.theme.LinkhubAppTheme
 import com.amrdeveloper.linkhub.util.UiPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -42,12 +44,14 @@ class LinkListFragment : Fragment() {
 
             val safeArguments by navArgs<LinkListFragmentArgs>()
             setContent {
-                LinksScreen(
-                    currentFolder = safeArguments.folder,
-                    viewModel = linkListViewModel,
-                    uiPreferences = uiPreferences,
-                    navController = findNavController(),
-                )
+                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                    LinksScreen(
+                        currentFolder = safeArguments.folder,
+                        viewModel = linkListViewModel,
+                        uiPreferences = uiPreferences,
+                        navController = findNavController(),
+                    )
+                }
             }
         }
     }
