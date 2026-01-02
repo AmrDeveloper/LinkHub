@@ -50,7 +50,7 @@ fun LinksScreen(
     }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    Scaffold(topBar = { LinkhubToolbar(navController) }) { padding ->
+    Scaffold(topBar = { LinkhubToolbar(viewModel(),uiPreferences, navController) }) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

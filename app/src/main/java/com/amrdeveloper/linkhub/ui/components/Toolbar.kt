@@ -2,6 +2,7 @@ package com.amrdeveloper.linkhub.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,10 +35,14 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.ui.SearchViewModel
+import com.amrdeveloper.linkhub.util.UiPreferences
 
-data class SearchSelectionParams(
+data class SearchParams(
     val isLinksSelected: Boolean = true,
     val isFoldersSelected: Boolean = true,
     val isPinnedSelected: Boolean = false,
@@ -45,11 +51,20 @@ data class SearchSelectionParams(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LinkhubToolbar(
+    viewModel: SearchViewModel = viewModel(),
+    uiPreferences: UiPreferences,
     navController: NavController
 ) {
-    var searchQuery by rememberSaveable { mutableStateOf(value ="") }
-    var searchSelectionParams by remember { mutableStateOf(value = SearchSelectionParams())}
+    var searchQuery by rememberSaveable { mutableStateOf(value = "") }
+    var searchSelectionParams by remember { mutableStateOf(value = SearchParams())}
     var expanded by rememberSaveable { mutableStateOf(value =false) }
+
+    LaunchedEffect(searchQuery, searchSelectionParams) {
+        viewModel.updateSearchParams(query = searchQuery, params = searchSelectionParams)
+    }
+
+    val folders = viewModel.sortedFoldersState.collectAsStateWithLifecycle()
+    val links = viewModel.sortedLinksState.collectAsStateWithLifecycle()
 
     Surface(
         tonalElevation = 2.dp,
@@ -129,14 +144,37 @@ fun LinkhubToolbar(
                 expanded = expanded,
                 onExpandedChange = { expanded = it },
                 content = {
-                    SearchSelectionOptions {
-                        searchSelectionParams = it
-                    }
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        SearchSelectionOptions {
+                            searchSelectionParams = it
+                        }
 
-                    // The search result
-                    // Folders
-                    // Links
-                    // Else
+                        if (searchSelectionParams.isFoldersSelected) {
+                            FolderList(
+                                folders = folders.value.data,
+                                viewKind = FolderViewKind.List,
+                                onClick = { folder ->
+
+                                },
+                                onLongClick = { folder ->
+
+                                }
+                            )
+                        }
+
+                        if (searchSelectionParams.isLinksSelected) {
+                            LinkList(
+                                links = links.value.data,
+                                onClick = { link ->
+
+                                },
+                                onLongClick = { link ->
+
+                                },
+                                showClickCount = uiPreferences.isClickCounterEnabled()
+                            )
+                        }
+                    }
                 }
             )
 
@@ -148,13 +186,13 @@ fun LinkhubToolbar(
 }
 
 @Composable
-private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchSelectionParams) -> Unit = {}) {
+private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Unit = {}) {
     var isLinksSelected by remember { mutableStateOf(value = true) }
     var isFoldersSelected by remember { mutableStateOf(value = true) }
     var isPinnedSelected by remember { mutableStateOf(value = false) }
 
     val constructSearchSelectionParams = {
-        SearchSelectionParams(
+        SearchParams(
             isLinksSelected = isLinksSelected,
             isFoldersSelected = isFoldersSelected,
             isPinnedSelected = isPinnedSelected

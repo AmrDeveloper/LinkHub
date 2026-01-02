@@ -49,7 +49,7 @@ fun HomeScreen(
     var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
     var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
-    Scaffold(topBar = { LinkhubToolbar(navController) }) { padding ->
+    Scaffold(topBar = { LinkhubToolbar(viewModel(), uiPreferences, navController) }) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -45,6 +45,7 @@ class FolderListFragment : Fragment() {
                 LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
                     FoldersScreen(
                         viewModel = folderListViewModel,
+                        uiPreferences = uiPreferences,
                         navController = findNavController()
                     )
                 }

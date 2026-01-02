@@ -29,15 +29,17 @@ import com.amrdeveloper.linkhub.ui.components.FolderViewKind
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.ui.components.ShowItemsOptionsDropdownButton
 import com.amrdeveloper.linkhub.ui.components.ShowOption
+import com.amrdeveloper.linkhub.util.UiPreferences
 
 @Composable
 fun FoldersScreen(
     viewModel: FolderListViewModel = viewModel(),
+    uiPreferences: UiPreferences,
     navController: NavController
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var showItemsOption by remember { mutableStateOf(FolderViewKind.List) }
-    Scaffold(topBar = { LinkhubToolbar(navController) }) { padding ->
+    Scaffold(topBar = { LinkhubToolbar(viewModel(), uiPreferences, navController) }) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
