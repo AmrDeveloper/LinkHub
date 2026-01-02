@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
@@ -25,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
@@ -33,13 +36,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 
+data class SearchSelectionParams(
+    val isLinksSelected: Boolean = true,
+    val isFoldersSelected: Boolean = true,
+    val isPinnedSelected: Boolean = false,
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LinkhubToolbar(
     navController: NavController
 ) {
-    var searchQuery by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var searchQuery by rememberSaveable { mutableStateOf(value ="") }
+    var searchSelectionParams by remember { mutableStateOf(value = SearchSelectionParams())}
+    var expanded by rememberSaveable { mutableStateOf(value =false) }
 
     Surface(
         tonalElevation = 2.dp,
@@ -98,13 +108,13 @@ fun LinkhubToolbar(
                             )
                         },
                         trailingIcon = {
-                            if (expanded ) {
+                            if (expanded) {
                                 IconButton(
                                     onClick = {
                                         if (searchQuery.isNotEmpty()) searchQuery = ""
                                         else expanded = false
                                     },
-                                    content =  {
+                                    content = {
                                         Icon(
                                             painter = painterResource(R.drawable.ic_delete),
                                             contentDescription = "Delete",
@@ -118,13 +128,99 @@ fun LinkhubToolbar(
                 },
                 expanded = expanded,
                 onExpandedChange = { expanded = it },
-                content = {}
+                content = {
+                    SearchSelectionOptions {
+                        searchSelectionParams = it
+                    }
+
+                    // The search result
+                    // Folders
+                    // Links
+                    // Else
+                }
             )
 
             if (!expanded) {
                 OptionsMenuWithDropDownActions(navController = navController)
             }
         }
+    }
+}
+
+@Composable
+private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchSelectionParams) -> Unit = {}) {
+    var isLinksSelected by remember { mutableStateOf(value = true) }
+    var isFoldersSelected by remember { mutableStateOf(value = true) }
+    var isPinnedSelected by remember { mutableStateOf(value = false) }
+
+    val constructSearchSelectionParams = {
+        SearchSelectionParams(
+            isLinksSelected = isLinksSelected,
+            isFoldersSelected = isFoldersSelected,
+            isPinnedSelected = isPinnedSelected
+        )
+    }
+
+    Row(modifier = Modifier.fillMaxWidth()) {
+        FilterChip(
+            onClick = {
+                isLinksSelected = !isLinksSelected
+                onSearchOptionsChanged(constructSearchSelectionParams())
+            },
+            label = { Text(text = "Links") },
+            selected = isLinksSelected,
+            leadingIcon = {
+                if (isLinksSelected) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_check),
+                        contentDescription = "Select links icon",
+                        tint = colorResource(R.color.light_blue_600),
+                        modifier = Modifier.size(FilterChipDefaults.IconSize)
+                    )
+                }
+            },
+            modifier = Modifier.padding(4.dp),
+        )
+
+        FilterChip(
+            onClick = {
+                isFoldersSelected = !isFoldersSelected
+                onSearchOptionsChanged(constructSearchSelectionParams())
+            },
+            label = { Text(text = "Folders") },
+            selected = isFoldersSelected,
+            leadingIcon = {
+                if (isFoldersSelected) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_check),
+                        contentDescription = "Select folders icon",
+                        tint = colorResource(R.color.light_blue_600),
+                        modifier = Modifier.size(FilterChipDefaults.IconSize)
+                    )
+                }
+            },
+            modifier = Modifier.padding(4.dp)
+        )
+
+        FilterChip(
+            onClick = {
+                isPinnedSelected = !isPinnedSelected
+                onSearchOptionsChanged(constructSearchSelectionParams())
+            },
+            label = { Text(text = "Pinned") },
+            selected = isPinnedSelected,
+            leadingIcon = {
+                if (isPinnedSelected) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_check),
+                        contentDescription = "Select pinned icon",
+                        tint = colorResource(R.color.light_blue_600),
+                        modifier = Modifier.size(FilterChipDefaults.IconSize)
+                    )
+                }
+            },
+            modifier = Modifier.padding(4.dp)
+        )
     }
 }
 
