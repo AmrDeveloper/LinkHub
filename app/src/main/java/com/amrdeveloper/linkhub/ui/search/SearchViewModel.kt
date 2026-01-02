@@ -1,13 +1,13 @@
-package com.amrdeveloper.linkhub.ui
+package com.amrdeveloper.linkhub.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.SearchParams
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import com.amrdeveloper.linkhub.data.source.LinkRepository
-import com.amrdeveloper.linkhub.ui.components.SearchParams
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +27,6 @@ class SearchViewModel@Inject constructor(
 ) : ViewModel() {
 
     // TODO: Support isPinned and other options
-
     private val searchQuery = MutableStateFlow(value = "")
     private val searchParams = MutableStateFlow(value = SearchParams())
 
@@ -36,7 +36,7 @@ class SearchViewModel@Inject constructor(
             searchQuery.value
         }.flatMapLatest { query ->
             if (query.isEmpty()) folderRepository.getSortedFolderListFlow()
-            else folderRepository.getSortedFolderListByKeywordFlow(query)
+            else folderRepository.getSortedFolderListByKeywordFlow(keyword = query)
         }.map { LazyValue(data = it, isLoading = false) }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
@@ -49,7 +49,7 @@ class SearchViewModel@Inject constructor(
             searchQuery.value
         }.flatMapLatest { query ->
             if (query.isEmpty()) linkRepository.getSortedLinkList()
-            else linkRepository.getSortedLinkListByKeyword(query)
+            else linkRepository.getSortedLinkListByKeyword(keyword = query)
         }.map {
             LazyValue(data = it, isLoading = false)
         }.stateIn(
@@ -61,5 +61,17 @@ class SearchViewModel@Inject constructor(
     fun updateSearchParams(query : String, params: SearchParams) {
         searchQuery.value = query
         searchParams.value = params
+    }
+
+    fun incrementLinkClickCount(link: Link) {
+        viewModelScope.launch {
+            linkRepository.updateClickCountByLinkId(link.id, link.clickedCount.plus(1))
+        }
+    }
+
+    fun incrementFolderClickCount(folder: Folder) {
+        viewModelScope.launch {
+            folderRepository.updateClickCountByFolderId(folder.id, folder.clickedCount.plus(1))
+        }
     }
 }
