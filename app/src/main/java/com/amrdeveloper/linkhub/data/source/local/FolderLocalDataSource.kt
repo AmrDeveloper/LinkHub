@@ -56,8 +56,9 @@ class FolderLocalDataSource internal constructor(
     override fun getSortedFolders(
         keyword: String?,
         isPinned: Boolean?,
+        isClicked: Boolean?,
         limit: Int
-    ) : Flow<List<Folder>> = folderDao.getSortedFolders(keyword, isPinned, limit)
+    ): Flow<List<Folder>> = folderDao.getSortedFolders(keyword, isPinned, isClicked, limit)
 
     override suspend fun updateFolder(folder: Folder): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {

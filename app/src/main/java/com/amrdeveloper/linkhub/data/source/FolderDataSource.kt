@@ -18,6 +18,7 @@ interface FolderDataSource {
     fun getSortedFolders(
         keyword: String? = null,
         isPinned: Boolean? = null,
+        isClicked: Boolean? = null,
         limit: Int = -1
     ) : Flow<List<Folder>>
 

@@ -1,10 +1,12 @@
 package com.amrdeveloper.linkhub.ui.search
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -173,16 +175,18 @@ private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Uni
     var isLinksSelected by remember { mutableStateOf(value = true) }
     var isFoldersSelected by remember { mutableStateOf(value = true) }
     var isPinnedSelected by remember { mutableStateOf<Boolean?>(value = null) }
+    var isClickedSelected by remember { mutableStateOf<Boolean?>(value = null) }
 
     val constructSearchSelectionParams = {
         SearchParams(
             isLinksSelected = isLinksSelected,
             isFoldersSelected = isFoldersSelected,
-            isPinnedSelected = if (isPinnedSelected == true) true else null
+            isPinnedSelected = if (isPinnedSelected == true) true else null,
+            isClickedSelected = if (isClickedSelected == true) true else null
         )
     }
 
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
         FilterChip(
             onClick = {
                 isLinksSelected = !isLinksSelected
@@ -235,6 +239,26 @@ private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Uni
                     Icon(
                         painter = painterResource(R.drawable.ic_check),
                         contentDescription = "Select pinned icon",
+                        tint = colorResource(R.color.light_blue_600),
+                        modifier = Modifier.size(FilterChipDefaults.IconSize)
+                    )
+                }
+            },
+            modifier = Modifier.padding(4.dp)
+        )
+
+        FilterChip(
+            onClick = {
+                isClickedSelected = !(isClickedSelected ?: false)
+                onSearchOptionsChanged(constructSearchSelectionParams())
+            },
+            label = { Text(text = "Clicked before") },
+            selected = isClickedSelected == true,
+            leadingIcon = {
+                if (isClickedSelected == true) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_check),
+                        contentDescription = "Select Clicked icon",
                         tint = colorResource(R.color.light_blue_600),
                         modifier = Modifier.size(FilterChipDefaults.IconSize)
                     )

@@ -24,6 +24,7 @@ data class SearchParams(
     val isLinksSelected: Boolean = true,
     val isFoldersSelected: Boolean = true,
     val isPinnedSelected: Boolean? = null,
+    val isClickedSelected: Boolean? = null,
 )
 
 @HiltViewModel
@@ -41,7 +42,8 @@ class SearchViewModel@Inject constructor(
         }.flatMapLatest { params ->
             folderRepository.getSortedFolders(
                 keyword = params.query,
-                isPinned = params.isPinnedSelected
+                isPinned = params.isPinnedSelected,
+                isClicked = params.isClickedSelected
             )
         }.map { LazyValue(data = it, isLoading = false) }.stateIn(
             scope = viewModelScope,
@@ -56,7 +58,8 @@ class SearchViewModel@Inject constructor(
         }.flatMapLatest { params ->
             linkRepository.getSortedLinks(
                 keyword = params.query,
-                isPinned = params.isPinnedSelected
+                isPinned = params.isPinnedSelected,
+                isClicked = params.isClickedSelected
             )
         }.map {
             LazyValue(data = it, isLoading = false)

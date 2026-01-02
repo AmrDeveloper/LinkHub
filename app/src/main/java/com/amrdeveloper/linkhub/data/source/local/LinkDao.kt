@@ -21,6 +21,7 @@ interface LinkDao : BaseDao<Link> {
         SELECT * FROM link
         WHERE ((:keyword IS NULL) OR (:keyword = '') OR (title LIKE '%' || :keyword || '%'))
         AND   ((:isPinned IS NULL) OR (pinned = :isPinned))
+        AND   ((:isClicked IS NULL) OR (click_count > 0))
         AND   ((:folderId IS NULL) OR ((:folderId = -1)) OR (folder_id = :folderId))
         ORDER BY pinned DESC, click_count DESC
         LIMIT :limit
@@ -28,6 +29,7 @@ interface LinkDao : BaseDao<Link> {
     fun getSortedLinks(
         keyword: String? = null,
         isPinned: Boolean? = null,
+        isClicked: Boolean? = null,
         folderId: Int? = null,
         limit: Int = -1
     ): Flow<List<Link>>

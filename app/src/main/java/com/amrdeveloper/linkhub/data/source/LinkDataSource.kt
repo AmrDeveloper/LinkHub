@@ -18,6 +18,7 @@ interface LinkDataSource {
     fun getSortedLinks(
         keyword: String? = null,
         isPinned: Boolean? = null,
+        isClicked: Boolean? = null,
         folderId: Int? = null,
         limit: Int = -1
     ): Flow<List<Link>>

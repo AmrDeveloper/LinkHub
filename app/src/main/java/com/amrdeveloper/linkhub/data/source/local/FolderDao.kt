@@ -22,12 +22,14 @@ interface FolderDao : BaseDao<Folder> {
         SELECT * FROM folder
         WHERE ((:keyword IS NULL) OR (:keyword = '') OR (name LIKE '%' || :keyword || '%'))
         AND   ((:isPinned IS NULL) OR (pinned = :isPinned))
+        AND   ((:isClicked IS NULL) OR (click_count > 0))
         ORDER BY pinned DESC, click_count DESC
         LIMIT :limit
     """)
     fun getSortedFolders(
         keyword: String? = null,
         isPinned: Boolean? = null,
+        isClicked: Boolean? = null,
         limit: Int = -1
     ) : Flow<List<Folder>>
 

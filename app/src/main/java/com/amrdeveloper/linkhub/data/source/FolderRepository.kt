@@ -24,8 +24,9 @@ class FolderRepository(private val dataSource: FolderDataSource) {
     fun getSortedFolders(
         keyword: String? = null,
         isPinned: Boolean? = null,
+        isClicked: Boolean? = null,
         limit: Int = -1
-    ): Flow<List<Folder>> = dataSource.getSortedFolders(keyword, isPinned, limit)
+    ): Flow<List<Folder>> = dataSource.getSortedFolders(keyword, isPinned, isClicked, limit)
 
     suspend fun updateFolder(folder: Folder): Result<Int> {
         return dataSource.updateFolder(folder)

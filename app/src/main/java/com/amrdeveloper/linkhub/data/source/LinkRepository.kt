@@ -28,9 +28,10 @@ class LinkRepository(private val dataSource: LinkDataSource) {
     fun getSortedLinks(
         keyword: String? = null,
         isPinned: Boolean? = null,
+        isClicked: Boolean? = null,
         folderId: Int? = null,
         limit: Int = -1
-    ): Flow<List<Link>> = dataSource.getSortedLinks(keyword, isPinned, folderId, limit)
+    ): Flow<List<Link>> = dataSource.getSortedLinks(keyword, isPinned, isClicked, folderId, limit)
 
     suspend fun updateLink(link: Link): Result<Int> {
         return dataSource.updateLink(link)
