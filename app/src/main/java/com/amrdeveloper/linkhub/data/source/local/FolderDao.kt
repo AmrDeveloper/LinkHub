@@ -16,16 +16,10 @@ interface FolderDao : BaseDao<Folder> {
     suspend fun getFolderByName(name: String): Folder
 
     @Query("SELECT * FROM folder")
-    suspend fun getFolderList(): List<Folder>
+    suspend fun getFolders(): List<Folder>
 
     @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC")
-    suspend fun getSortedFolderList(): List<Folder>
-
-    @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC")
-    fun getSortedFolderListFlow(): Flow<List<Folder>>
-
-    @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC LIMIT :limit")
-    suspend fun getLimitedSortedFolderList(limit: Int): List<Folder>
+    fun getSortedFolderList(): Flow<List<Folder>>
 
     @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC LIMIT :limit")
     fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>>

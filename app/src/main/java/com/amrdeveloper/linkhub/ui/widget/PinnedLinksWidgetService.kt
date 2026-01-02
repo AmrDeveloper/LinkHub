@@ -21,7 +21,7 @@ class PinnedLinksWidgetService : RemoteViewsService() {
         return PinnedWidgetItemFactory(linkRepository)
     }
 
-    private inner class PinnedWidgetItemFactory(
+    private class PinnedWidgetItemFactory(
         private val linkRepository: LinkRepository
     ) : RemoteViewsFactory {
 

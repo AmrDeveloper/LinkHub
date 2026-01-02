@@ -15,7 +15,7 @@ interface LinkDao : BaseDao<Link> {
     suspend fun getPinnedLinkList(): List<Link>
 
     @Query("SELECT * FROM link ORDER BY pinned DESC, click_count DESC")
-     fun getSortedLinkList(): Flow<List<Link>>
+    fun getSortedLinkList(): Flow<List<Link>>
 
     @Query("SELECT * FROM link WHERE folder_id = :id ORDER BY pinned  DESC, click_count DESC")
     suspend fun getSortedLinkListByFolderId(id: Int): List<Link>
@@ -24,13 +24,10 @@ interface LinkDao : BaseDao<Link> {
     fun getSortedLinkListByFolderIdFlow(id: Int): Flow<List<Link>>
 
     @Query("SELECT * FROM link WHERE title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count DESC")
-     fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>>
+    fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>>
 
     @Query("SELECT * FROM link WHERE folder_id = :id AND title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count DESC")
-    suspend fun getSortedLinkListByKeywordByFolderId(id: Int, keyword: String): List<Link>
-
-    @Query("SELECT * FROM link WHERE folder_id = :id AND title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count DESC")
-     fun getSortedLinkListByKeywordByFolderIdFlow(id: Int, keyword: String): Flow<List<Link>>
+    fun getSortedLinkListByKeywordByFolderIdFlow(id: Int, keyword: String): Flow<List<Link>>
 
     @Query("UPDATE link SET click_count = :count WHERE id = :linkId")
     suspend fun updateClickCountByLinkId(linkId: Int, count: Int): Int

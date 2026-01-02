@@ -61,17 +61,6 @@ class LinkLocalDataSource internal constructor(
     override fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>> =
         linkDao.getSortedLinkListByKeyword(keyword)
 
-    override suspend fun getSortedFolderLinkListByKeyword(
-        id: Int,
-        keyword: String
-    ): Result<List<Link>> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(linkDao.getSortedLinkListByKeywordByFolderId(id, keyword))
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
     override fun getSortedFolderLinkListByKeywordFlow(
         id: Int,
         keyword: String

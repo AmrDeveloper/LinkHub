@@ -33,7 +33,6 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getSortedFolderLinkListFlow(id)
     }
 
-
     fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>> {
         return dataSource.getSortedLinkListByKeyword(keyword)
     }

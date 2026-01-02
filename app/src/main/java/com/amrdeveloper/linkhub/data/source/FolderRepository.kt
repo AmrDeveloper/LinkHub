@@ -13,10 +13,6 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.insertFolders(folders)
     }
 
-    suspend fun getFolderById(folderId: Int): Result<Folder> {
-        return dataSource.getFolderById(folderId)
-    }
-
     suspend fun getFolderByName(name: String): Result<Folder> {
         return dataSource.getFolderByName(name)
     }
@@ -25,16 +21,8 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.getFolderList()
     }
 
-    suspend fun getSortedFolderList(): Result<List<Folder>> {
-        return dataSource.getSortedFolderList()
-    }
-
      fun getSortedFolderListFlow(): Flow<List<Folder>> {
         return dataSource.getSortedFolderListFlow()
-    }
-
-    suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> {
-        return dataSource.getLimitedSortedFolderList(limit)
     }
 
     fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>> {

@@ -47,32 +47,15 @@ class FolderLocalDataSource internal constructor(
 
     override suspend fun getFolderList(): Result<List<Folder>> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.success(folderDao.getFolderList())
+            Result.success(folderDao.getFolders())
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun getSortedFolderList(): Result<List<Folder>> = withContext(ioDispatcher) {
-        return@withContext try {
-            Result.success(folderDao.getSortedFolderList())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    override fun getSortedFolderListFlow(): Flow<List<Folder>> = folderDao.getSortedFolderListFlow()
+    override fun getSortedFolderListFlow(): Flow<List<Folder>> = folderDao.getSortedFolderList()
 
     override fun  getLimitedSortedFolders(limit: Int) = folderDao.getLimitedSortedFolders(limit)
-
-    override suspend fun getLimitedSortedFolderList(limit: Int): Result<List<Folder>> =
-        withContext(ioDispatcher) {
-            return@withContext try {
-                Result.success(folderDao.getLimitedSortedFolderList(limit))
-            } catch (e: Exception) {
-                Result.failure(e)
-            }
-        }
 
     override fun getSortedFolderListByKeyword(keyword: String) =
         folderDao.getSortedFolderListByKeyword(keyword)

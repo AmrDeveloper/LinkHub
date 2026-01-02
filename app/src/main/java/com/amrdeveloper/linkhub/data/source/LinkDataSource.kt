@@ -21,8 +21,6 @@ interface LinkDataSource {
 
     fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>>
 
-    suspend fun getSortedFolderLinkListByKeyword(id: Int, keyword: String): Result<List<Link>>
-
     fun getSortedFolderLinkListByKeywordFlow(id: Int, keyword: String): Flow<List<Link>>
 
     suspend fun updateLink(link: Link): Result<Int>
