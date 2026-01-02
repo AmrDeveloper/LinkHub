@@ -227,24 +227,27 @@ private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Uni
             modifier = Modifier.padding(4.dp)
         )
 
-        FilterChip(
-            onClick = {
-                isPinnedSelected = !isPinnedSelected
-                onSearchOptionsChanged(constructSearchSelectionParams())
-            },
-            label = { Text(text = "Pinned") },
-            selected = isPinnedSelected,
-            leadingIcon = {
-                if (isPinnedSelected) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_check),
-                        contentDescription = "Select pinned icon",
-                        tint = colorResource(R.color.light_blue_600),
-                        modifier = Modifier.size(FilterChipDefaults.IconSize)
-                    )
-                }
-            },
-            modifier = Modifier.padding(4.dp)
-        )
+        // TODO: To be enabled later
+        if (false) {
+            FilterChip(
+                onClick = {
+                    isPinnedSelected = !isPinnedSelected
+                    onSearchOptionsChanged(constructSearchSelectionParams())
+                },
+                label = { Text(text = "Pinned") },
+                selected = isPinnedSelected,
+                leadingIcon = {
+                    if (isPinnedSelected) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_check),
+                            contentDescription = "Select pinned icon",
+                            tint = colorResource(R.color.light_blue_600),
+                            modifier = Modifier.size(FilterChipDefaults.IconSize)
+                        )
+                    }
+                },
+                modifier = Modifier.padding(4.dp)
+            )
+        }
     }
 }
