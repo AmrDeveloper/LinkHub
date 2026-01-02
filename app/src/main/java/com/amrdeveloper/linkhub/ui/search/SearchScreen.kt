@@ -34,7 +34,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.data.SearchParams
 import com.amrdeveloper.linkhub.ui.components.FolderList
 import com.amrdeveloper.linkhub.ui.components.FolderViewKind
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
@@ -50,15 +49,14 @@ fun SearchScreen(
     navController: NavController,
     onSearchExpandedChanged: (Boolean) -> Unit = {}
 ) {
-    var searchQuery by rememberSaveable { mutableStateOf(value = "") }
     var searchSelectionParams by remember { mutableStateOf(value = SearchParams())}
     var expanded by rememberSaveable { mutableStateOf(value =false) }
 
     var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
     var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
-    LaunchedEffect(searchQuery, searchSelectionParams) {
-        viewModel.updateSearchParams(query = searchQuery, params = searchSelectionParams)
+    LaunchedEffect(searchSelectionParams) {
+        viewModel.updateSearchParams(params = searchSelectionParams)
     }
 
     LaunchedEffect(expanded) {
@@ -72,9 +70,9 @@ fun SearchScreen(
         modifier = modifier.semantics { traversalIndex = 0f },
         inputField = {
             SearchBarDefaults.InputField(
-                query = searchQuery,
+                query = searchSelectionParams.query,
                 onQueryChange = {
-                    searchQuery = it
+                    searchSelectionParams.query = it
                 },
                 onSearch = {
                     expanded = false
@@ -101,10 +99,8 @@ fun SearchScreen(
                     if (expanded) {
                         IconButton(
                             onClick = {
-                                if (searchQuery.isNotEmpty()) searchQuery = ""
-                                else {
-                                    expanded = false
-                                }
+                                if (searchSelectionParams.query.isNotEmpty()) searchSelectionParams.query = ""
+                                else expanded = false
                             },
                             content = {
                                 Icon(
@@ -176,13 +172,13 @@ fun SearchScreen(
 private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Unit = {}) {
     var isLinksSelected by remember { mutableStateOf(value = true) }
     var isFoldersSelected by remember { mutableStateOf(value = true) }
-    var isPinnedSelected by remember { mutableStateOf(value = false) }
+    var isPinnedSelected by remember { mutableStateOf<Boolean?>(value = null) }
 
     val constructSearchSelectionParams = {
         SearchParams(
             isLinksSelected = isLinksSelected,
             isFoldersSelected = isFoldersSelected,
-            isPinnedSelected = isPinnedSelected
+            isPinnedSelected = if (isPinnedSelected == true) true else null
         )
     }
 
@@ -227,27 +223,24 @@ private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Uni
             modifier = Modifier.padding(4.dp)
         )
 
-        // TODO: To be enabled later
-        if (false) {
-            FilterChip(
-                onClick = {
-                    isPinnedSelected = !isPinnedSelected
-                    onSearchOptionsChanged(constructSearchSelectionParams())
-                },
-                label = { Text(text = "Pinned") },
-                selected = isPinnedSelected,
-                leadingIcon = {
-                    if (isPinnedSelected) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_check),
-                            contentDescription = "Select pinned icon",
-                            tint = colorResource(R.color.light_blue_600),
-                            modifier = Modifier.size(FilterChipDefaults.IconSize)
-                        )
-                    }
-                },
-                modifier = Modifier.padding(4.dp)
-            )
-        }
+        FilterChip(
+            onClick = {
+                isPinnedSelected = !(isPinnedSelected ?: false)
+                onSearchOptionsChanged(constructSearchSelectionParams())
+            },
+            label = { Text(text = "Pinned") },
+            selected = isPinnedSelected == true,
+            leadingIcon = {
+                if (isPinnedSelected == true) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_check),
+                        contentDescription = "Select pinned icon",
+                        tint = colorResource(R.color.light_blue_600),
+                        modifier = Modifier.size(FilterChipDefaults.IconSize)
+                    )
+                }
+            },
+            modifier = Modifier.padding(4.dp)
+        )
     }
 }
