@@ -21,17 +21,11 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         return dataSource.getFolderList()
     }
 
-     fun getSortedFolderListFlow(): Flow<List<Folder>> {
-        return dataSource.getSortedFolderListFlow()
-    }
-
-    fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>> {
-        return dataSource.getLimitedSortedFolders(limit)
-    }
-
-     fun getSortedFolderListByKeywordFlow(keyword: String): Flow<List<Folder>> {
-        return dataSource.getSortedFolderListByKeyword(keyword)
-    }
+    fun getSortedFolders(
+        keyword: String? = null,
+        isPinned: Boolean? = null,
+        limit: Int = -1
+    ): Flow<List<Folder>> = dataSource.getSortedFolders(keyword, isPinned, limit)
 
     suspend fun updateFolder(folder: Folder): Result<Int> {
         return dataSource.updateFolder(folder)

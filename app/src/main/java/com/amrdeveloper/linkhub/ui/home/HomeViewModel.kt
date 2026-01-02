@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val mostUsedLimitedFoldersState: StateFlow<LazyValue<List<Folder>>> =
-        folderRepository.getLimitedSortedFolders(limit = NUMBER_OF_TOP_FOLDERS)
+        folderRepository.getSortedFolders(limit = NUMBER_OF_TOP_FOLDERS)
             .map { LazyValue(data = it, isLoading = false) }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
             )
 
     val sortedLinksState: StateFlow<LazyValue<List<Link>>> =
-        linkRepository.getSortedLinkList()
+        linkRepository.getSortedLinks()
             .map { LazyValue(data = it, isLoading = false) }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),

@@ -15,11 +15,11 @@ interface FolderDataSource {
 
     suspend fun getFolderList(): Result<List<Folder>>
 
-    fun getSortedFolderListFlow(): Flow<List<Folder>>
-
-    fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>>
-
-    fun getSortedFolderListByKeyword(keyword: String): Flow<List<Folder>>
+    fun getSortedFolders(
+        keyword: String? = null,
+        isPinned: Boolean? = null,
+        limit: Int = -1
+    ) : Flow<List<Folder>>
 
     suspend fun updateFolder(folder: Folder): Result<Int>
 

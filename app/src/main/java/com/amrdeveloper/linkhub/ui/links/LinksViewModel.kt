@@ -6,7 +6,6 @@ import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.data.source.LinkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -34,7 +33,7 @@ class LinkListViewModel @Inject constructor(
         combine(currentFolderId, searchQuery) { folderId, query ->
             QueryParam(folderId, query)
         }.flatMapLatest { queryParam ->
-            performLinksQuery(queryParam)
+            linkRepository.getSortedLinks(keyword = queryParam.query, folderId = queryParam.folderId)
         }.map {
             LazyValue(data = it, isLoading = false)
         }.stateIn(
@@ -42,16 +41,6 @@ class LinkListViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
             initialValue = LazyValue(data = listOf(), isLoading = true)
         )
-
-    private fun performLinksQuery(queryParam: QueryParam) : Flow<List<Link>> {
-        if (queryParam.query.isEmpty()) {
-            return if (queryParam.folderId == -1) linkRepository.getSortedLinkListByKeyword(queryParam.query)
-            else linkRepository.getSortedFolderLinkListByKeywordFlow(id = queryParam.folderId, keyword = queryParam.query)
-        }
-
-        return if (queryParam.folderId == -1) linkRepository.getSortedLinkList()
-        else linkRepository.getSortedFolderLinkListFlow(id = queryParam.folderId)
-    }
 
     fun updateFolderId(folderId: Int) {
         currentFolderId.value = folderId

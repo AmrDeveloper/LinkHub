@@ -13,15 +13,14 @@ interface LinkDataSource {
 
     suspend fun getPinnedLinkList(): Result<List<Link>>
 
-    fun getSortedLinkList(): Flow<List<Link>>
-
     suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>>
 
-    fun getSortedFolderLinkListFlow(id: Int): Flow<List<Link>>
-
-    fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>>
-
-    fun getSortedFolderLinkListByKeywordFlow(id: Int, keyword: String): Flow<List<Link>>
+    fun getSortedLinks(
+        keyword: String? = null,
+        isPinned: Boolean? = null,
+        folderId: Int? = null,
+        limit: Int = -1
+    ): Flow<List<Link>>
 
     suspend fun updateLink(link: Link): Result<Int>
 

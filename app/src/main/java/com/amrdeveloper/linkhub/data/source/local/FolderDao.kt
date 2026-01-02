@@ -18,14 +18,18 @@ interface FolderDao : BaseDao<Folder> {
     @Query("SELECT * FROM folder")
     suspend fun getFolders(): List<Folder>
 
-    @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC")
-    fun getSortedFolderList(): Flow<List<Folder>>
-
-    @Query("SELECT * FROM folder ORDER BY pinned DESC, click_count DESC LIMIT :limit")
-    fun getLimitedSortedFolders(limit: Int): Flow<List<Folder>>
-
-    @Query("SELECT * FROM folder WHERE name LIKE '%' || :keyword || '%' ORDER BY pinned DESC, click_count DESC")
-    fun getSortedFolderListByKeyword(keyword: String): Flow<List<Folder>>
+    @Query("""
+        SELECT * FROM folder
+        WHERE ((:keyword IS NULL) OR (:keyword = '') OR (name LIKE '%' || :keyword || '%'))
+        AND   ((:isPinned IS NULL) OR (pinned = :isPinned))
+        ORDER BY pinned DESC, click_count DESC
+        LIMIT :limit
+    """)
+    fun getSortedFolders(
+        keyword: String? = null,
+        isPinned: Boolean? = null,
+        limit: Int = -1
+    ) : Flow<List<Folder>>
 
     @Query("UPDATE folder SET click_count = :count WHERE id = :folderId")
     suspend fun updateClickCountByFolderId(folderId: Int, count: Int): Int

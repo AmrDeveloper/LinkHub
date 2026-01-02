@@ -27,7 +27,7 @@ class LinkViewModel @Inject constructor(
 ) : ViewModel() {
 
     val selectSortedFoldersState: StateFlow<LazyValue<List<Folder>>> =
-        folderRepository.getSortedFolderListFlow()
+        folderRepository.getSortedFolders()
             .map { LazyValue(data = it, isLoading = false) }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),

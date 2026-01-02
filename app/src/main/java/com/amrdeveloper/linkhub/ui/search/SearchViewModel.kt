@@ -35,8 +35,7 @@ class SearchViewModel@Inject constructor(
         combine(searchQuery) {
             searchQuery.value
         }.flatMapLatest { query ->
-            if (query.isEmpty()) folderRepository.getSortedFolderListFlow()
-            else folderRepository.getSortedFolderListByKeywordFlow(keyword = query)
+            folderRepository.getSortedFolders(keyword = query)
         }.map { LazyValue(data = it, isLoading = false) }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
@@ -48,8 +47,7 @@ class SearchViewModel@Inject constructor(
         combine(searchQuery) {
             searchQuery.value
         }.flatMapLatest { query ->
-            if (query.isEmpty()) linkRepository.getSortedLinkList()
-            else linkRepository.getSortedLinkListByKeyword(keyword = query)
+            linkRepository.getSortedLinks(keyword = query)
         }.map {
             LazyValue(data = it, isLoading = false)
         }.stateIn(

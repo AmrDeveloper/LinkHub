@@ -7,7 +7,6 @@ import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -30,17 +29,12 @@ class FolderListViewModel @Inject constructor(
         combine(searchQuery) {
             searchQuery.value
         }.flatMapLatest { query ->
-            performFoldersQuery(query)
+            folderRepository.getSortedFolders(keyword = query)
         }.map { LazyValue(data = it, isLoading = false) }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
             initialValue = LazyValue(data = listOf(), isLoading = true)
         )
-
-    private fun performFoldersQuery(query: String) : Flow<List<Folder>> {
-        return if (query.isEmpty()) folderRepository.getSortedFolderListFlow()
-        else folderRepository.getSortedFolderListByKeywordFlow(query)
-    }
 
     fun updateSearchQuery(query: String) {
         searchQuery.value = query

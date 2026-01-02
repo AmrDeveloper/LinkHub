@@ -14,20 +14,23 @@ interface LinkDao : BaseDao<Link> {
     @Query("SELECT * FROM link WHERE pinned = 1")
     suspend fun getPinnedLinkList(): List<Link>
 
-    @Query("SELECT * FROM link ORDER BY pinned DESC, click_count DESC")
-    fun getSortedLinkList(): Flow<List<Link>>
-
     @Query("SELECT * FROM link WHERE folder_id = :id ORDER BY pinned  DESC, click_count DESC")
     suspend fun getSortedLinkListByFolderId(id: Int): List<Link>
 
-    @Query("SELECT * FROM link WHERE folder_id = :id ORDER BY pinned  DESC, click_count DESC")
-    fun getSortedLinkListByFolderIdFlow(id: Int): Flow<List<Link>>
-
-    @Query("SELECT * FROM link WHERE title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count DESC")
-    fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>>
-
-    @Query("SELECT * FROM link WHERE folder_id = :id AND title LIKE '%' || :keyword || '%' ORDER BY pinned  DESC, click_count DESC")
-    fun getSortedLinkListByKeywordByFolderIdFlow(id: Int, keyword: String): Flow<List<Link>>
+    @Query("""
+        SELECT * FROM link
+        WHERE ((:keyword IS NULL) OR (:keyword = '') OR (title LIKE '%' || :keyword || '%'))
+        AND   ((:isPinned IS NULL) OR (pinned = :isPinned))
+        AND   ((:folderId IS NULL) OR ((:folderId = -1)) OR (folder_id = :folderId))
+        ORDER BY pinned DESC, click_count DESC
+        LIMIT :limit
+    """)
+    fun getSortedLinks(
+        keyword: String? = null,
+        isPinned: Boolean? = null,
+        folderId: Int? = null,
+        limit: Int = -1
+    ): Flow<List<Link>>
 
     @Query("UPDATE link SET click_count = :count WHERE id = :linkId")
     suspend fun updateClickCountByLinkId(linkId: Int, count: Int): Int

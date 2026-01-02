@@ -21,25 +21,16 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         return dataSource.getPinnedLinkList()
     }
 
-     fun getSortedLinkList(): Flow<List<Link>> {
-        return dataSource.getSortedLinkList()
-    }
-
     suspend fun getSortedFolderLinkList(id: Int): Result<List<Link>> {
         return dataSource.getSortedFolderLinkList(id)
     }
 
-    fun getSortedFolderLinkListFlow(id: Int): Flow<List<Link>> {
-        return dataSource.getSortedFolderLinkListFlow(id)
-    }
-
-    fun getSortedLinkListByKeyword(keyword: String): Flow<List<Link>> {
-        return dataSource.getSortedLinkListByKeyword(keyword)
-    }
-
-    fun getSortedFolderLinkListByKeywordFlow(id: Int, keyword: String): Flow<List<Link>> {
-        return dataSource.getSortedFolderLinkListByKeywordFlow(id, keyword)
-    }
+    fun getSortedLinks(
+        keyword: String? = null,
+        isPinned: Boolean? = null,
+        folderId: Int? = null,
+        limit: Int = -1
+    ): Flow<List<Link>> = dataSource.getSortedLinks(keyword, isPinned, folderId, limit)
 
     suspend fun updateLink(link: Link): Result<Int> {
         return dataSource.updateLink(link)
