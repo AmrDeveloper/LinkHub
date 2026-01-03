@@ -55,78 +55,82 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            Text(
-                text = "Most used Folders",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                maxLines = 1,
-                style = MaterialTheme.typography.titleMedium,
-                color = colorResource(R.color.light_blue_600)
-            )
-
-            FolderList(
-                folders = folders.value.data,
-                viewKind = FolderViewKind.Grid,
-                onClick = { folder ->
-                    viewModel.incrementFolderClickCount(folder)
-                    val bundle = bundleOf("folder" to folder)
-                    navController.navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
-                },
-                onLongClick = { folder ->
-                    val bundle = bundleOf("folder" to folder)
-                    navController.navigate(R.id.action_homeFragment_to_folderFragment, bundle)
-                }
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp)
-                    .clickable {
-                        navController.navigate(R.id.action_homeFragment_to_folderListFragment)
-                    },
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            if (folders.value.data.isNotEmpty()) {
                 Text(
-                    text = "Show all",
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
+                    text = "Most used Folders",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium,
                     color = colorResource(R.color.light_blue_600)
                 )
 
-                Icon(
-                    painter = painterResource(R.drawable.ic_arrow_forward),
-                    contentDescription = "Show all",
-                    tint = Color.Unspecified,
-                    modifier = Modifier.size(18.dp)
+                FolderList(
+                    folders = folders.value.data,
+                    viewKind = FolderViewKind.Grid,
+                    onClick = { folder ->
+                        viewModel.incrementFolderClickCount(folder)
+                        val bundle = bundleOf("folder" to folder)
+                        navController.navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
+                    },
+                    onLongClick = { folder ->
+                        val bundle = bundleOf("folder" to folder)
+                        navController.navigate(R.id.action_homeFragment_to_folderFragment, bundle)
+                    }
                 )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp)
+                        .clickable {
+                            navController.navigate(R.id.action_homeFragment_to_folderListFragment)
+                        },
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Show all",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(R.color.light_blue_600)
+                    )
+
+                    Icon(
+                        painter = painterResource(R.drawable.ic_arrow_forward),
+                        contentDescription = "Show all",
+                        tint = Color.Unspecified,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
 
-            Text(
-                text = "Links",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                maxLines = 1,
-                style = MaterialTheme.typography.titleMedium,
-                color = colorResource(R.color.light_blue_600)
-            )
+            if (links.value.data.isNotEmpty()) {
+                Text(
+                    text = "Links",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = colorResource(R.color.light_blue_600)
+                )
 
-            LinkList(
-                links = links.value.data,
-                onClick = { link ->
-                    viewModel.incrementLinkClickCount(link)
-                    lastClickedLink = link
-                    showLinkActionsDialog = true
-                },
-                onLongClick = { link ->
-                    val bundle = bundleOf("link" to link)
-                    navController.navigate(R.id.action_homeFragment_to_linkFragment, bundle)
-                },
-                showClickCount = uiPreferences.isClickCounterEnabled()
-            )
+                LinkList(
+                    links = links.value.data,
+                    onClick = { link ->
+                        viewModel.incrementLinkClickCount(link)
+                        lastClickedLink = link
+                        showLinkActionsDialog = true
+                    },
+                    onLongClick = { link ->
+                        val bundle = bundleOf("link" to link)
+                        navController.navigate(R.id.action_homeFragment_to_linkFragment, bundle)
+                    },
+                    showClickCount = uiPreferences.isClickCounterEnabled()
+                )
+            }
 
             if (showLinkActionsDialog) {
                 lastClickedLink?.let { link ->
