@@ -19,6 +19,7 @@ interface LinkDataSource {
         keyword: String? = null,
         isPinned: Boolean? = null,
         isClicked: Boolean? = null,
+        isInsideFolder: Boolean? = null,
         folderId: Int? = null,
         limit: Int = -1
     ): Flow<List<Link>>

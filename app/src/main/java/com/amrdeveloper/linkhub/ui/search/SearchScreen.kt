@@ -51,14 +51,15 @@ fun SearchScreen(
     navController: NavController,
     onSearchExpandedChanged: (Boolean) -> Unit = {}
 ) {
-    var searchSelectionParams by remember { mutableStateOf(value = SearchParams())}
-    var expanded by rememberSaveable { mutableStateOf(value =false) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var searchSelectionParams by remember { mutableStateOf(value = SearchParams()) }
+    var expanded by rememberSaveable { mutableStateOf(value = false) }
 
     var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
     var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
-    LaunchedEffect(searchSelectionParams) {
-        viewModel.updateSearchParams(params = searchSelectionParams)
+    LaunchedEffect(searchQuery, searchSelectionParams) {
+        viewModel.updateSearchParams(params = searchSelectionParams.copy(query = searchQuery))
     }
 
     LaunchedEffect(expanded) {
@@ -72,9 +73,9 @@ fun SearchScreen(
         modifier = modifier.semantics { traversalIndex = 0f },
         inputField = {
             SearchBarDefaults.InputField(
-                query = searchSelectionParams.query,
+                query = searchQuery,
                 onQueryChange = {
-                    searchSelectionParams.query = it
+                    searchQuery = it
                 },
                 onSearch = {
                     expanded = false
@@ -101,7 +102,7 @@ fun SearchScreen(
                     if (expanded) {
                         IconButton(
                             onClick = {
-                                if (searchSelectionParams.query.isNotEmpty()) searchSelectionParams.query = ""
+                                if (searchQuery.isNotEmpty()) searchQuery = ""
                                 else expanded = false
                             },
                             content = {
@@ -133,11 +134,17 @@ fun SearchScreen(
                         onClick = { folder ->
                             viewModel.incrementFolderClickCount(folder)
                             val bundle = bundleOf("folder" to folder)
-                            navController.navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
+                            navController.navigate(
+                                R.id.action_homeFragment_to_linkListFragment,
+                                bundle
+                            )
                         },
                         onLongClick = { folder ->
                             val bundle = bundleOf("folder" to folder)
-                            navController.navigate(R.id.action_homeFragment_to_folderFragment, bundle)
+                            navController.navigate(
+                                R.id.action_homeFragment_to_folderFragment,
+                                bundle
+                            )
                         }
                     )
                 }
@@ -176,17 +183,23 @@ private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Uni
     var isFoldersSelected by remember { mutableStateOf(value = true) }
     var isPinnedSelected by remember { mutableStateOf<Boolean?>(value = null) }
     var isClickedSelected by remember { mutableStateOf<Boolean?>(value = null) }
+    var isInsideFolderSelected by remember { mutableStateOf<Boolean?>(value = null) }
 
     val constructSearchSelectionParams = {
         SearchParams(
             isLinksSelected = isLinksSelected,
             isFoldersSelected = isFoldersSelected,
             isPinnedSelected = if (isPinnedSelected == true) true else null,
-            isClickedSelected = if (isClickedSelected == true) true else null
+            isClickedSelected = if (isClickedSelected == true) true else null,
+            isInsideFolder = if (isInsideFolderSelected == true) true else null,
         )
     }
 
-    Row(modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState())
+    ) {
         FilterChip(
             onClick = {
                 isLinksSelected = !isLinksSelected
@@ -239,6 +252,26 @@ private fun SearchSelectionOptions(onSearchOptionsChanged: (SearchParams) -> Uni
                     Icon(
                         painter = painterResource(R.drawable.ic_check),
                         contentDescription = "Select pinned icon",
+                        tint = colorResource(R.color.light_blue_600),
+                        modifier = Modifier.size(FilterChipDefaults.IconSize)
+                    )
+                }
+            },
+            modifier = Modifier.padding(4.dp)
+        )
+
+        FilterChip(
+            onClick = {
+                isInsideFolderSelected = !(isInsideFolderSelected ?: false)
+                onSearchOptionsChanged(constructSearchSelectionParams())
+            },
+            label = { Text(text = "In Folder") },
+            selected = isInsideFolderSelected == true,
+            leadingIcon = {
+                if (isInsideFolderSelected == true) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_check),
+                        contentDescription = "Select Clicked icon",
                         tint = colorResource(R.color.light_blue_600),
                         modifier = Modifier.size(FilterChipDefaults.IconSize)
                     )

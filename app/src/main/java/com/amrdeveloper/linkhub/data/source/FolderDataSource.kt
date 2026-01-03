@@ -19,6 +19,7 @@ interface FolderDataSource {
         keyword: String? = null,
         isPinned: Boolean? = null,
         isClicked: Boolean? = null,
+        isInsideFolder: Boolean? = null,
         folderId: Int? = -1,
         limit: Int = -1
     ) : Flow<List<Folder>>

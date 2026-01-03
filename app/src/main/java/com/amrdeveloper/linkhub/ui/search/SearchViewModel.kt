@@ -25,10 +25,11 @@ data class SearchParams(
     val isFoldersSelected: Boolean = true,
     val isPinnedSelected: Boolean? = null,
     val isClickedSelected: Boolean? = null,
+    val isInsideFolder: Boolean? = null,
 )
 
 @HiltViewModel
-class SearchViewModel@Inject constructor(
+class SearchViewModel @Inject constructor(
     private val folderRepository: FolderRepository,
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
@@ -43,7 +44,8 @@ class SearchViewModel@Inject constructor(
             folderRepository.getSortedFolders(
                 keyword = params.query,
                 isPinned = params.isPinnedSelected,
-                isClicked = params.isClickedSelected
+                isClicked = params.isClickedSelected,
+                isInsideFolder = params.isInsideFolder,
             )
         }.map { LazyValue(data = it, isLoading = false) }.stateIn(
             scope = viewModelScope,
@@ -59,7 +61,8 @@ class SearchViewModel@Inject constructor(
             linkRepository.getSortedLinks(
                 keyword = params.query,
                 isPinned = params.isPinnedSelected,
-                isClicked = params.isClickedSelected
+                isClicked = params.isClickedSelected,
+                isInsideFolder = params.isInsideFolder,
             )
         }.map {
             LazyValue(data = it, isLoading = false)

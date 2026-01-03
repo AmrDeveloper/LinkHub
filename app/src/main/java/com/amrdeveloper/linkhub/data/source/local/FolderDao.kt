@@ -23,6 +23,7 @@ interface FolderDao : BaseDao<Folder> {
         WHERE ((:keyword IS NULL) OR (:keyword = '') OR (name LIKE '%' || :keyword || '%'))
         AND   ((:isPinned IS NULL) OR (pinned = :isPinned))
         AND   ((:isClicked IS NULL) OR (click_count > 0))
+        AND   ((:isInsideFolder IS NULL) OR (folder_id != -1))
         AND   ((:folderId IS NULL) OR ((:folderId = -1)) OR (folder_id = :folderId))
         ORDER BY pinned DESC, click_count DESC
         LIMIT :limit
@@ -31,6 +32,7 @@ interface FolderDao : BaseDao<Folder> {
         keyword: String? = null,
         isPinned: Boolean? = null,
         isClicked: Boolean? = null,
+        isInsideFolder: Boolean? = null,
         folderId: Int? = null,
         limit: Int = -1
     ) : Flow<List<Folder>>

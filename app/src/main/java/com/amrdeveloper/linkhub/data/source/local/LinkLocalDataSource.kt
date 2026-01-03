@@ -57,9 +57,11 @@ class LinkLocalDataSource internal constructor(
         keyword: String?,
         isPinned: Boolean?,
         isClicked: Boolean?,
+        isInsideFolder: Boolean?,
         folderId: Int?,
         limit: Int
-    ): Flow<List<Link>> = linkDao.getSortedLinks(keyword, isPinned, isClicked, folderId, limit)
+    ): Flow<List<Link>> =
+        linkDao.getSortedLinks(keyword, isPinned, isClicked, isInsideFolder, folderId, limit)
 
     override suspend fun updateLink(link: Link): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {
