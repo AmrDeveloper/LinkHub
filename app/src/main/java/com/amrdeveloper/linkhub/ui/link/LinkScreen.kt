@@ -255,7 +255,7 @@ fun LinkInputField(
 ) {
     OutlinedTextField(
         value = value,
-        onValueChange = { onValueChange(it.trim()) },
+        onValueChange = { onValueChange(it) },
         label = { Text(text = label) },
         leadingIcon = {
             Icon(
