@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+Version 2.0.0 *(2026-01-04)*
+-----------------------------
+
+- Migrate to Jetpack Compose.
+- Improve the design.
+- Support List and Grid view for Folders.
+- Improve Error messages.
+- Fix can't see "All Folders" options.
+- Implement multi type search.
+- Support filter by click count, pinned, is inside folder.
+- Support nested folders.
+
 Version 1.6.7 *(2025-12-29)*
 -----------------------------
 
