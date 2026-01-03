@@ -7,7 +7,6 @@
 <p align="center">
 A simple and effective link management app that help you to easily manage your own links without ads,
 Linkhub help you to organize and access links fast and easily, it automatically sorted elements depend on how many time you used them,
-you can copy, edit, open your link just by one click
 </p>
 
 ![Build CI](https://github.com/amrdeveloper/linkhub/actions/workflows/build.yml/badge.svg)
