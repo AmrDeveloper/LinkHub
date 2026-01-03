@@ -25,16 +25,21 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.common.TaskState
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.FolderColor
+import com.amrdeveloper.linkhub.ui.components.FolderSelector
 import com.amrdeveloper.linkhub.ui.components.PinnedSwitch
 import com.amrdeveloper.linkhub.ui.components.SaveDeleteActionsRow
 import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
+import com.amrdeveloper.linkhub.util.FOLDER_NONE_ID
 import com.amrdeveloper.linkhub.util.UiPreferences
+
+private val artificialNoneFolder = Folder(name = "None", id = FOLDER_NONE_ID)
 
 @Composable
 fun FolderScreen(
@@ -47,6 +52,10 @@ fun FolderScreen(
     val folder = currentFolder ?: Folder(name = "").apply { folderColor = FolderColor.BLUE }
     var folderName by remember { mutableStateOf(value = folder.name) }
     var folderNameErrorMessage by remember { mutableStateOf(value = if (folder.name.isEmpty()) "Name can't be empty" else "") }
+
+    val foldersState = viewModel.selectSortedFoldersState.collectAsStateWithLifecycle()
+    var selectedFolder by remember { mutableStateOf(value = artificialNoneFolder) }
+    var selectedFolderDry by remember { mutableStateOf(value = true) }
 
     val createOrUpdateFolder = {
         if (currentFolder == null) {
@@ -144,6 +153,24 @@ fun FolderScreen(
                         Text(text = folderNameErrorMessage)
                     }
                 })
+
+            val folders = foldersState.value.data.toMutableList()
+            folders.addAll(0, listOf(artificialNoneFolder))
+
+            if (selectedFolderDry) {
+                if (uiPreferences.isDefaultFolderEnabled()) {
+                    val defFolderId = uiPreferences.getDefaultFolderId()
+                    selectedFolder = folders.find { it.id == defFolderId } ?: folders.find { it.id == folder.folderId } ?: folders[0]
+                } else {
+                    selectedFolder = folders.find { it.id == folder.folderId } ?: folders[0]
+                }
+            }
+
+            FolderSelector(selectedFolder = selectedFolder, folders = folders) {
+                folder.folderId = it.id
+                selectedFolder = it
+                selectedFolderDry = false
+            }
 
             PinnedSwitch(isChecked = folder.isPinned) { isChecked ->
                 folder.isPinned = isChecked

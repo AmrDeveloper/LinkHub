@@ -6,10 +6,15 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.common.TaskState
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +22,14 @@ import javax.inject.Inject
 class FolderViewModel @Inject constructor(
     private val folderRepository: FolderRepository
 ) : ViewModel() {
+
+    val selectSortedFoldersState: StateFlow<LazyValue<List<Folder>>> =
+        folderRepository.getSortedFolders()
+            .map { LazyValue(data = it, isLoading = false) }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
+                initialValue = LazyValue(data = listOf(), isLoading = true)
+            )
 
     var taskState by mutableStateOf<TaskState>(TaskState.Idle)
         private set

@@ -5,14 +5,9 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuAnchorType
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -36,7 +31,7 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.common.TaskState
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.ui.components.FolderItem
+import com.amrdeveloper.linkhub.ui.components.FolderSelector
 import com.amrdeveloper.linkhub.ui.components.PinnedSwitch
 import com.amrdeveloper.linkhub.ui.components.SaveDeleteActionsRow
 import com.amrdeveloper.linkhub.util.CREATED_FOLDER_NAME_KEY
@@ -46,10 +41,8 @@ import com.amrdeveloper.linkhub.util.UiPreferences
 import java.net.URI
 import java.text.DateFormat
 
-val artificialNoneFolder = Folder(name = "None", id = FOLDER_NONE_ID)
-val artificialCreateNewFolder = Folder(name = "Create Folder", id = CREATE_FOLDER_ID)
-
-// TODO: generateLinkTitleAndSubTitle
+private val artificialNoneFolder = Folder(name = "None", id = FOLDER_NONE_ID)
+private val artificialCreateNewFolder = Folder(name = "Create Folder", id = CREATE_FOLDER_ID)
 
 @Composable
 fun LinkScreen(
@@ -186,14 +179,14 @@ fun LinkScreen(
                 navController.currentBackStackEntry?.savedStateHandle?.remove<String>(CREATED_FOLDER_NAME_KEY)
             }
 
-            FoldersDropDownSelector(selectedFolder = selectedFolder, folders = folders) { folder ->
-                if (folder.id == CREATE_FOLDER_ID) {
+            FolderSelector(selectedFolder = selectedFolder, folders = folders) {
+                if (it.id == CREATE_FOLDER_ID) {
                     navController.navigate(R.id.action_linkFragment_to_folderFragment)
-                    return@FoldersDropDownSelector
+                    return@FolderSelector
                 }
 
-                link.folderId = folder.id
-                selectedFolder = folder
+                link.folderId = it.id
+                selectedFolder = it
                 selectedFolderDry = false
             }
 
@@ -291,60 +284,4 @@ fun LinkInputField(
                 Text(text = errorMessage)
             }
         })
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun FoldersDropDownSelector(
-    selectedFolder: Folder,
-    folders: List<Folder>,
-    onFolderSelected: (Folder) -> Unit = {}
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded }) {
-
-        OutlinedTextField(
-            value = selectedFolder.name,
-            onValueChange = {},
-            readOnly = true,
-            label = { Text("Folder (Optional") },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(selectedFolder.folderColor.drawableId),
-                    contentDescription = "Folder Icon",
-                    tint = Color.Unspecified
-                )
-            },
-            trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 8.dp)
-                .menuAnchor(
-                    type = ExposedDropdownMenuAnchorType.PrimaryNotEditable,
-                    enabled = true
-                ),
-        )
-
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.heightIn(max = 200.dp)
-        ) {
-            folders.forEach { folder ->
-                FolderItem(
-                    folder = folder,
-                    onClick = { folder ->
-                        expanded = false
-                        onFolderSelected(folder)
-                    },
-                    folderItemElevation = 0.dp
-                )
-            }
-        }
-    }
 }
