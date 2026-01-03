@@ -14,6 +14,7 @@ import kotlinx.parcelize.Parcelize
 data class Folder(
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "pinned") var isPinned: Boolean = false,
+    @ColumnInfo(name = "folder_id", defaultValue = "-1") var folderId: Int = -1,
     @ColumnInfo(name = "click_count") var clickedCount: Int = 0,
     @ColumnInfo(name = "color_name") var folderColor: FolderColor = FolderColor.NONE,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
