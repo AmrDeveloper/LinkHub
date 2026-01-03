@@ -69,7 +69,7 @@
 
     <fragment
         android:id="@+id/folderListFragment"
-        android:name="com.amrdeveloper.linkhub.ui.folders.FolderListFragment"
+        android:name="com.amrdeveloper.linkhub.ui.folders.FoldersFragment"
         android:label="fragment_folder_list">
 
         <action
@@ -92,7 +92,7 @@
 
     <fragment
         android:id="@+id/linkListFragment"
-        android:name="com.amrdeveloper.linkhub.ui.links.LinkListFragment"
+        android:name="com.amrdeveloper.linkhub.ui.explorer.ExplorerFragment"
         android:label="fragment_link_list">
 
         <argument
@@ -113,6 +113,14 @@
         <action
             android:id="@+id/action_linkListFragment_to_linkFragment"
             app:destination="@id/linkFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_linkListFragment_self"
+            app:destination="@id/linkListFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

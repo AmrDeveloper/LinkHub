@@ -76,15 +76,15 @@ class SearchViewModel @Inject constructor(
         searchParams.value = params
     }
 
-    fun incrementLinkClickCount(link: Link) {
-        viewModelScope.launch {
-            linkRepository.updateClickCountByLinkId(link.id, link.clickedCount.plus(1))
-        }
-    }
-
     fun incrementFolderClickCount(folder: Folder) {
         viewModelScope.launch {
             folderRepository.updateClickCountByFolderId(folder.id, folder.clickedCount.plus(1))
+        }
+    }
+
+    fun incrementLinkClickCount(link: Link) {
+        viewModelScope.launch {
+            linkRepository.updateClickCountByLinkId(link.id, link.clickedCount.plus(1))
         }
     }
 }

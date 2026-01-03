@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub.ui.home
+package com.amrdeveloper.linkhub.ui.folders
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class FoldersFragment : Fragment() {
 
     @Inject
     lateinit var uiPreferences: UiPreferences
@@ -32,10 +32,10 @@ class HomeFragment : Fragment() {
 
             setContent {
                 LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
-                    HomeScreen(
+                    FoldersScreen(
                         viewModel = viewModel(),
-                        navController = findNavController(),
                         uiPreferences = uiPreferences,
+                        navController = findNavController()
                     )
                 }
             }

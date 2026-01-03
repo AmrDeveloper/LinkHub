@@ -129,11 +129,11 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
 
             if (currentDestination?.id != R.id.folderListFragment) {
                 DropdownMenuItem(
-                    text = { Text("Links") },
+                    text = { Text("Explorer") },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(R.drawable.ic_link),
-                            contentDescription = "Links",
+                            contentDescription = "Explorer",
                             tint = Color.Unspecified
                         )
                     },

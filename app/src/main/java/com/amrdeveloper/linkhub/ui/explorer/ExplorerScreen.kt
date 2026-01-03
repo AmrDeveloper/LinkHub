@@ -1,4 +1,4 @@
-package com.amrdeveloper.linkhub.ui.links
+package com.amrdeveloper.linkhub.ui.explorer
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,13 +30,15 @@ import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.ui.components.FolderList
+import com.amrdeveloper.linkhub.ui.components.FolderViewKind
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkList
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.util.UiPreferences
 
 @Composable
-fun LinksScreen(
+fun ExplorerScreen(
     currentFolder: Folder?,
     viewModel: LinkListViewModel = viewModel(),
     uiPreferences: UiPreferences,
@@ -49,8 +51,9 @@ fun LinksScreen(
         currentFolder?.let { viewModel.updateFolderId(folderId = it.id) }
     }
 
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    Scaffold(topBar = { LinkhubToolbar(viewModel(),uiPreferences, navController) }) { padding ->
+    val sortedFoldersState by viewModel.sortedFoldersState.collectAsStateWithLifecycle()
+    val sortedLinksState by viewModel.sortedLinksState.collectAsStateWithLifecycle()
+    Scaffold(topBar = { LinkhubToolbar(viewModel(), uiPreferences, navController) }) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -58,7 +61,7 @@ fun LinksScreen(
         ) {
             currentFolder?.let { FolderHeader(it) }
 
-            if (uiState.isLoading) {
+            if (sortedFoldersState.isLoading || sortedLinksState.isLoading) {
                 LinearProgressIndicator(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -67,8 +70,28 @@ fun LinksScreen(
                 return@Column
             }
 
+            FolderList(
+                folders = sortedFoldersState.data,
+                viewKind = FolderViewKind.List,
+                onClick = { folder ->
+                    viewModel.incrementFolderClickCount(folder)
+                    val bundle = bundleOf("folder" to folder)
+                    navController.navigate(
+                        R.id.linkListFragment,
+                        bundle
+                    )
+                },
+                onLongClick = { folder ->
+                    val bundle = bundleOf("folder" to folder)
+                    navController.navigate(
+                        R.id.folderFragment,
+                        bundle
+                    )
+                }
+            )
+
             LinkList(
-                links = uiState.data,
+                links = sortedLinksState.data,
                 onClick = { link ->
                     viewModel.incrementLinkClickCount(link)
                     lastClickedLink = link
@@ -77,7 +100,7 @@ fun LinksScreen(
                 onLongClick = { link ->
                     val bundle = bundleOf("link" to link)
                     navController.navigate(
-                        R.id.action_linkListFragment_to_linkFragment,
+                        R.id.linkFragment,
                         bundle
                     )
                 },
