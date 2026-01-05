@@ -3,6 +3,7 @@ package com.amrdeveloper.linkhub.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var uiPreferences: UiPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
