@@ -47,12 +47,12 @@ private val artificialCreateNewFolder = Folder(name = "Create Folder", id = CREA
 @Composable
 fun LinkScreen(
     currentLink: Link?,
+    isSharedLink: Boolean = false,
     viewModel: LinkViewModel = viewModel(),
     uiPreferences: UiPreferences,
     navController: NavController
 ) {
     val link = currentLink ?: Link(title = "", subtitle = "", url = "")
-
     val taskState = viewModel.taskState
 
     var linkTitle by remember { mutableStateOf(value = link.title) }
@@ -68,10 +68,18 @@ fun LinkScreen(
     var selectedFolderDry by remember { mutableStateOf(value = true) }
 
     val createOrUpdateLink = {
-        if (currentLink == null) {
+        if (isSharedLink || currentLink == null) {
             viewModel.createNewLink(link)
         } else {
             viewModel.updateLink(link)
+        }
+    }
+
+    val navigateUpOrHome = {
+        if (navController.previousBackStackEntry != null) {
+            navController.popBackStack()
+        } else {
+            navController.navigate(R.id.homeFragment)
         }
     }
 
@@ -81,7 +89,7 @@ fun LinkScreen(
             createOrUpdateLink()
             return@BackHandler
         }
-        navController.popBackStack()
+        navigateUpOrHome()
     }
 
     Scaffold { padding ->
@@ -93,11 +101,11 @@ fun LinkScreen(
             SaveDeleteActionsRow(
                 onSaveActionClick = {
                     createOrUpdateLink()
-                    navController.navigateUp()
+                    navigateUpOrHome()
                 },
                 onDeleteActionClick = {
                     if (currentLink != null) viewModel.deleteLink(currentLink)
-                    navController.navigateUp()
+                    navigateUpOrHome()
                 }
             )
 
@@ -218,7 +226,7 @@ fun LinkScreen(
 
             when (taskState) {
                 TaskState.Success -> {
-                    navController.popBackStack()
+                    navigateUpOrHome()
                 }
 
                 is TaskState.Error -> {

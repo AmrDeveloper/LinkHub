@@ -35,14 +35,16 @@ class LinkFragment : Fragment() {
             )
 
             val sharedLink = arguments?.getString("shared_link")
+            val isSharedLink = sharedLink != null
             val currentLink =
-                if (sharedLink != null) Link(title = "", subtitle = "", url = sharedLink)
+                if (isSharedLink) Link(title = "", subtitle = "", url = sharedLink)
                 else safeArguments.link
 
             setContent {
                 LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
                     LinkScreen(
                         currentLink = currentLink,
+                        isSharedLink = isSharedLink,
                         viewModel = viewModel(),
                         uiPreferences = uiPreferences,
                         navController = findNavController()
