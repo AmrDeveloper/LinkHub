@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 2.0.1 *(2026-01-05)*
+-----------------------------
+
+- Fix navigation after saving shared link.
+- Support edge-to-edge.
+
 Version 2.0.0 *(2026-01-04)*
 -----------------------------
 
