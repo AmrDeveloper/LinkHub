@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.0.2 *(2026-01-06)*
+-----------------------------
+
+- Fix navigation when creating link/folder inside folder.
+
 Version 2.0.1 *(2026-01-05)*
 -----------------------------
 
