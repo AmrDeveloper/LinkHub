@@ -135,14 +135,14 @@ fun SearchScreen(
                             viewModel.incrementFolderClickCount(folder)
                             val bundle = bundleOf("folder" to folder)
                             navController.navigate(
-                                R.id.action_homeFragment_to_linkListFragment,
+                                R.id.linkListFragment,
                                 bundle
                             )
                         },
                         onLongClick = { folder ->
                             val bundle = bundleOf("folder" to folder)
                             navController.navigate(
-                                R.id.action_homeFragment_to_folderFragment,
+                                R.id.folderFragment,
                                 bundle
                             )
                         }
@@ -159,7 +159,7 @@ fun SearchScreen(
                         },
                         onLongClick = { link ->
                             val bundle = bundleOf("link" to link)
-                            navController.navigate(R.id.action_homeFragment_to_linkFragment, bundle)
+                            navController.navigate(R.id.linkFragment, bundle)
                         },
                         showClickCount = uiPreferences.isClickCounterEnabled()
                     )

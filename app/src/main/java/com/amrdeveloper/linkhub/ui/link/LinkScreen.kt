@@ -189,7 +189,7 @@ fun LinkScreen(
 
             FolderSelector(selectedFolder = selectedFolder, folders = folders) {
                 if (it.id == CREATE_FOLDER_ID) {
-                    navController.navigate(R.id.action_linkFragment_to_folderFragment)
+                    navController.navigate(R.id.folderFragment)
                     return@FolderSelector
                 }
 

@@ -72,11 +72,11 @@ fun HomeScreen(
                     onClick = { folder ->
                         viewModel.incrementFolderClickCount(folder)
                         val bundle = bundleOf("folder" to folder)
-                        navController.navigate(R.id.action_homeFragment_to_linkListFragment, bundle)
+                        navController.navigate(R.id.linkListFragment, bundle)
                     },
                     onLongClick = { folder ->
                         val bundle = bundleOf("folder" to folder)
-                        navController.navigate(R.id.action_homeFragment_to_folderFragment, bundle)
+                        navController.navigate(R.id.folderFragment, bundle)
                     }
                 )
 
@@ -85,7 +85,7 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .padding(4.dp)
                         .clickable {
-                            navController.navigate(R.id.action_homeFragment_to_folderListFragment)
+                            navController.navigate(R.id.folderListFragment)
                         },
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
@@ -126,7 +126,7 @@ fun HomeScreen(
                     },
                     onLongClick = { link ->
                         val bundle = bundleOf("link" to link)
-                        navController.navigate(R.id.action_homeFragment_to_linkFragment, bundle)
+                        navController.navigate(R.id.linkFragment, bundle)
                     },
                     showClickCount = uiPreferences.isClickCounterEnabled()
                 )

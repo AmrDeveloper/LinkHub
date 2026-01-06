@@ -83,14 +83,14 @@ fun FoldersScreen(
 
                     val bundle = bundleOf("folder" to folder)
                     navController.navigate(
-                        R.id.action_folderListFragment_to_linkListFragment,
+                        R.id.linkListFragment,
                         bundle
                     )
                 },
                 onLongClick = { folder ->
                     val bundle = bundleOf("folder" to folder)
                     navController.navigate(
-                        R.id.action_folderListFragment_to_folderFragment,
+                        R.id.folderFragment,
                         bundle
                     )
                 }

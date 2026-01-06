@@ -107,7 +107,7 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
                     )
                 },
                 onClick = {
-                    navController.navigate(R.id.action_homeFragment_to_linkFragment)
+                    navController.navigate(R.id.linkFragment)
                     expanded = false
                 }
             )
@@ -122,7 +122,7 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
                     )
                 },
                 onClick = {
-                    navController.navigate(R.id.action_homeFragment_to_folderFragment)
+                    navController.navigate(R.id.folderFragment)
                     expanded = false
                 }
             )
@@ -138,7 +138,7 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
                         )
                     },
                     onClick = {
-                        navController.navigate(R.id.action_homeFragment_to_linkListFragment)
+                        navController.navigate(R.id.linkListFragment)
                         expanded = false
                     }
                 )
@@ -155,7 +155,7 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
                         )
                     },
                     onClick = {
-                        navController.navigate(R.id.action_homeFragment_to_folderListFragment)
+                        navController.navigate(R.id.folderListFragment)
                         expanded = false
                     }
                 )

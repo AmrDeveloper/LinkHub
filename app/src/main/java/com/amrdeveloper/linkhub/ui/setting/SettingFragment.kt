@@ -86,7 +86,7 @@ class SettingFragment : Fragment() {
         }
 
         binding.importExportTxt.setOnClickListener {
-            findNavController().navigate(R.id.action_settingFragment_to_importExportFragment)
+            findNavController().navigate(R.id.importExportFragment)
         }
 
         binding.contributorsTxt.setOnClickListener {
@@ -102,7 +102,7 @@ class SettingFragment : Fragment() {
         }
 
         binding.passwordTxt.setOnClickListener {
-            findNavController().navigate(R.id.action_settingFragment_to_configPasswordFragment)
+            findNavController().navigate(R.id.configPasswordFragment)
         }
 
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
