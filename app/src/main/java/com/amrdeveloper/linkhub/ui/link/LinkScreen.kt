@@ -101,10 +101,12 @@ fun LinkScreen(
             SaveDeleteActionsRow(
                 onSaveActionClick = {
                     createOrUpdateLink()
-                    navigateUpOrHome()
                 },
                 onDeleteActionClick = {
-                    if (currentLink != null) viewModel.deleteLink(currentLink)
+                    if (currentLink != null) {
+                        viewModel.deleteLink(currentLink)
+                        return@SaveDeleteActionsRow
+                    }
                     navigateUpOrHome()
                 }
             )
