@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 2.0.3 *(2026-01-10)*
+-----------------------------
+
+- Fix auto saving constraints.
+- Fix error message when saving link with same title.
+- Fix the flow of saving link when it shared from outside the app.
+
 Version 2.0.2 *(2026-01-06)*
 -----------------------------
 
