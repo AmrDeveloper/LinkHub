@@ -76,7 +76,7 @@ fun LinkScreen(
     }
 
     val navigateUpOrHome = {
-        if (navController.previousBackStackEntry != null) {
+        if (!isSharedLink && navController.previousBackStackEntry != null) {
             navController.popBackStack()
         } else {
             navController.navigate(R.id.homeFragment)
