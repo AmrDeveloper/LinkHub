@@ -85,7 +85,7 @@ fun LinkScreen(
 
     BackHandler(enabled = true) {
         if (uiPreferences.isAutoSavingEnabled()
-            && (linkTitleErrorMessage.isEmpty() || linkUrlErrorMessage.isEmpty())) {
+            && linkTitleErrorMessage.isEmpty() && linkUrlErrorMessage.isEmpty()) {
             createOrUpdateLink()
             return@BackHandler
         }
