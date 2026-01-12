@@ -86,7 +86,9 @@ fun LinkItem(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Column(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier
+                .weight(1f)
+                .padding(3.dp)) {
                 Text(
                     link.title,
                     maxLines = 1,
@@ -94,24 +96,31 @@ fun LinkItem(
                     style = MaterialTheme.typography.titleMedium,
                 )
 
-                Text(
-                    link.subtitle,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.titleSmall,
-                )
+                if (link.subtitle.isNotEmpty()) {
+                    Text(
+                        link.subtitle,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.titleSmall,
+                    )
+                }
             }
 
             Column(
-                modifier = Modifier.fillMaxHeight().width(50.dp),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(50.dp),
                 verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.End) {
+                horizontalAlignment = Alignment.End
+            ) {
                 if (link.isPinned) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_bookmark_heart),
                         contentDescription = "Link is pinned",
                         tint = Color.Unspecified,
-                        modifier = Modifier.size(22.dp).padding(2.dp)
+                        modifier = Modifier
+                            .size(22.dp)
+                            .padding(2.dp)
                     )
                 }
 
@@ -128,7 +137,9 @@ fun LinkItem(
                             painter = painterResource(id = R.drawable.ic_click),
                             contentDescription = "Link count",
                             tint = Color.Unspecified,
-                            modifier = Modifier.size(20.dp).padding(2.dp)
+                            modifier = Modifier
+                                .size(20.dp)
+                                .padding(2.dp)
                         )
                     }
                 }
