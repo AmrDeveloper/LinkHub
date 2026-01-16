@@ -68,10 +68,12 @@ fun LinkScreen(
     var selectedFolderDry by remember { mutableStateOf(value = true) }
 
     val createOrUpdateLink = {
-        if (isSharedLink || currentLink == null) {
-            viewModel.createNewLink(link)
-        } else {
-            viewModel.updateLink(link)
+        if (isValidURI(linkUrl) && linkTitleErrorMessage.isEmpty() && linkUrlErrorMessage.isEmpty()) {
+            if (isSharedLink || currentLink == null) {
+                viewModel.createNewLink(link)
+            } else {
+                viewModel.updateLink(link)
+            }
         }
     }
 
