@@ -1,11 +1,12 @@
 package com.amrdeveloper.linkhub.ui.search
 
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -36,10 +37,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.ui.components.FolderList
-import com.amrdeveloper.linkhub.ui.components.FolderViewKind
+import com.amrdeveloper.linkhub.ui.components.FolderItem
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
-import com.amrdeveloper.linkhub.ui.components.LinkList
+import com.amrdeveloper.linkhub.ui.components.LinkItem
 import com.amrdeveloper.linkhub.util.UiPreferences
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -122,54 +122,65 @@ fun SearchScreen(
             expanded = it
         },
         content = {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                SearchSelectionOptions {
-                    searchSelectionParams = it
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                item {
+                    SearchSelectionOptions {
+                        searchSelectionParams = it
+                    }
                 }
 
                 if (searchSelectionParams.isFoldersSelected) {
-                    FolderList(
-                        folders = folders.value.data,
-                        viewKind = FolderViewKind.List,
-                        onClick = { folder ->
-                            viewModel.incrementFolderClickCount(folder)
-                            val bundle = bundleOf("folder" to folder)
-                            navController.navigate(
-                                R.id.linkListFragment,
-                                bundle
-                            )
-                        },
-                        onLongClick = { folder ->
-                            val bundle = bundleOf("folder" to folder)
-                            navController.navigate(
-                                R.id.folderFragment,
-                                bundle
-                            )
-                        }
-                    )
+                    items(folders.value.data) { folder ->
+                        FolderItem(
+                            folder = folder,
+                            onClick = {
+                                viewModel.incrementFolderClickCount(folder)
+                                val bundle = bundleOf("folder" to folder)
+                                navController.navigate(
+                                    R.id.linkListFragment,
+                                    bundle
+                                )
+                            },
+                            onLongClick = {
+                                val bundle = bundleOf("folder" to folder)
+                                navController.navigate(
+                                    R.id.folderFragment,
+                                    bundle
+                                )
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp)
+                        )
+                    }
                 }
 
                 if (searchSelectionParams.isLinksSelected) {
-                    LinkList(
-                        links = links.value.data,
-                        onClick = { link ->
-                            viewModel.incrementLinkClickCount(link)
-                            lastClickedLink = link
-                            showLinkActionsDialog = true
-                        },
-                        onLongClick = { link ->
-                            val bundle = bundleOf("link" to link)
-                            navController.navigate(R.id.linkFragment, bundle)
-                        },
-                        showClickCount = uiPreferences.isClickCounterEnabled()
-                    )
+                    items(links.value.data) { link ->
+                        LinkItem(
+                            link = link,
+                            onClick = {
+                                viewModel.incrementLinkClickCount(link)
+                                lastClickedLink = link
+                                showLinkActionsDialog = true
+                            },
+                            onLongClick = {
+                                val bundle = bundleOf("link" to link)
+                                navController.navigate(R.id.linkFragment, bundle)
+                            },
+                            showClickCount = uiPreferences.isClickCounterEnabled(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp)
+                        )
+                    }
                 }
+            }
 
-                if (showLinkActionsDialog) {
-                    lastClickedLink?.let { link ->
-                        LinkActionsBottomSheet(link) {
-                            showLinkActionsDialog = false
-                        }
+            if (showLinkActionsDialog) {
+                lastClickedLink?.let { link ->
+                    LinkActionsBottomSheet(link) {
+                        showLinkActionsDialog = false
                     }
                 }
             }
