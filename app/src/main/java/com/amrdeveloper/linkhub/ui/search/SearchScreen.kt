@@ -179,9 +179,10 @@ fun SearchScreen(
 
             if (showLinkActionsDialog) {
                 lastClickedLink?.let { link ->
-                    LinkActionsBottomSheet(link) {
-                        showLinkActionsDialog = false
-                    }
+                    LinkActionsBottomSheet(
+                        link = link,
+                        navController = navController,
+                        onDialogDismiss = { showLinkActionsDialog = false })
                 }
             }
         }
