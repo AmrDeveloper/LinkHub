@@ -120,6 +120,11 @@ fun SearchScreen(
         expanded = expanded,
         onExpandedChange = {
             expanded = it
+
+            // When SearchBar is collapsed, clear search query
+            if (!expanded) {
+                searchQuery = ""
+            }
         },
         content = {
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
