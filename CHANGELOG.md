@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+Version 2.0.4 *(2026-01-20)*
+-----------------------------
+
+- Add Edit option to link action.
+- Improve the scrolling in the SearchScreen.
+- Add verification to link before save.
+- Improve the UI when subtitle is empty.
+- Clear SearchBar when user click back press on SearchBar.
+
 Version 2.0.3 *(2026-01-10)*
 -----------------------------
 
