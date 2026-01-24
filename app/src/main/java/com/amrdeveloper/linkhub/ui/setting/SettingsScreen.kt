@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.ui.setting
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,12 +12,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -55,6 +59,8 @@ fun SettingsScreen(
     uiPreferences: UiPreferences,
     navController: NavController
 ) {
+    val scrollState = rememberScrollState()
+
     var selectedUrlOptionToOpen by remember { mutableStateOf("") }
     val context = LocalContext.current
 
@@ -65,15 +71,17 @@ fun SettingsScreen(
         }
     }
 
-    Column(modifier = Modifier.padding(8.dp)) {
-        // Info section
+    Column(modifier = Modifier.padding(8.dp).verticalScroll(scrollState)) {
+        SettingSectionDivider(text = "App Info")
+
         SimpleSettingOption(
             text = "Version ${BuildConfig.VERSION_NAME}",
             icon = R.drawable.ic_version,
             onClick = {}
         )
 
-        // UI Settings section
+        SettingSectionDivider(text = "UI Settings")
+
         SwitchSettingOption(
             text = "Dark mode",
             icon = R.drawable.ic_dark_mode,
@@ -117,6 +125,8 @@ fun SettingsScreen(
             }
         )
 
+        SettingSectionDivider(text = "Options")
+
         SwitchSettingOption(
             text = "Remember last folder",
             icon = R.drawable.ic_folders,
@@ -138,7 +148,8 @@ fun SettingsScreen(
             onClick = { navController.navigate(R.id.importExportFragment) }
         )
 
-        // Open source section
+        SettingSectionDivider(text = "Open source")
+
         SimpleSettingOption(
             text = "Source code",
             icon = R.drawable.ic_code,
@@ -174,6 +185,17 @@ fun SettingsScreen(
             icon = R.drawable.ic_share,
             onClick = { selectedUrlOptionToOpen = PLAY_STORE_URL }
         )
+    }
+}
+
+@Composable
+private fun SettingSectionDivider(text: String) {
+    Row(modifier = Modifier.fillMaxWidth().padding(4.dp),
+        verticalAlignment = Alignment.CenterVertically) {
+        Text(text = text, color = colorResource(R.color.light_blue_600))
+        HorizontalDivider(modifier = Modifier
+            .weight(1f).padding(2.dp)
+            .background(color = colorResource(R.color.light_blue_600)))
     }
 }
 
