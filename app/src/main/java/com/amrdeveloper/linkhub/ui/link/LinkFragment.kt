@@ -24,11 +24,9 @@ class LinkFragment : Fragment() {
     lateinit var uiPreferences: UiPreferences
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-         val safeArguments by navArgs<LinkFragmentArgs>()
+        val safeArguments by navArgs<LinkFragmentArgs>()
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(
                 ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
@@ -36,12 +34,14 @@ class LinkFragment : Fragment() {
 
             val sharedLink = arguments?.getString("shared_link")
             val isSharedLink = sharedLink != null
-            val currentLink =
-                if (isSharedLink) Link(title = "", subtitle = "", url = sharedLink)
-                else safeArguments.link
+            val currentLink = if (isSharedLink) Link(title = "", subtitle = "", url = sharedLink)
+            else safeArguments.link
 
             setContent {
-                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                LinkhubAppTheme(
+                    isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK,
+                    fontFamilyName = uiPreferences.getFontFamilyName()
+                ) {
                     LinkScreen(
                         currentLink = currentLink,
                         isSharedLink = isSharedLink,

@@ -33,7 +33,10 @@ class ExplorerFragment : Fragment() {
 
             val safeArguments by navArgs<ExplorerFragmentArgs>()
             setContent {
-                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                LinkhubAppTheme(
+                    isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK,
+                    fontFamilyName = uiPreferences.getFontFamilyName()
+                ) {
                     ExplorerScreen(
                         currentFolder = safeArguments.folder,
                         viewModel = viewModel(),

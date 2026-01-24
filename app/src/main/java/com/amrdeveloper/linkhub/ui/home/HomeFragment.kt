@@ -31,7 +31,10 @@ class HomeFragment : Fragment() {
             )
 
             setContent {
-                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                LinkhubAppTheme(
+                    isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK,
+                    fontFamilyName = uiPreferences.getFontFamilyName()
+                ) {
                     HomeScreen(
                         viewModel = viewModel(),
                         navController = findNavController(),

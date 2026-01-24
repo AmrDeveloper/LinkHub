@@ -6,6 +6,7 @@ import com.amrdeveloper.linkhub.data.Theme
 
 private const val UI_PREFERENCE_NAME = "linkhub_settings"
 private const val UI_THEME_KEY = "theme"
+private const val UI_FONT_FAMILY_KEY = "font_family"
 private const val UI_COUNTER_KEY = "counter"
 private const val UI_AUTO_SAVE_KEY = "auto_save"
 private const val UI_DEFAULT_FOLDER_KEY = "default_folder_mode"
@@ -57,6 +58,12 @@ class UiPreferences(private val context: Context) {
         return Theme.valueOf(themeName.toString())
     }
 
+    fun setFontFamilyName(name : String) {
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putString(UI_FONT_FAMILY_KEY, name)
+        }
+    }
+
     fun setEnablePassword(enable: Boolean) {
         context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
             putBoolean(PASSWORD_ENABLE_KEY, enable)
@@ -87,6 +94,11 @@ class UiPreferences(private val context: Context) {
     fun getDefaultFolderId(): Int {
         val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
         return preferences.getInt(DEFAULT_FOLDER_NAME, -1)
+    }
+
+    fun getFontFamilyName(): String {
+        val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return preferences.getString(UI_FONT_FAMILY_KEY, "Default") ?: "Default"
     }
 
     fun isPasswordEnabled(): Boolean {

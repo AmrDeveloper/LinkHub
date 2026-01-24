@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontFamily
 
 private val LightColors = lightColorScheme(
     primary = lightBlue600,
@@ -35,11 +36,12 @@ private val DarkColors = darkColorScheme(
 @Composable
 fun LinkhubAppTheme(
     isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
+    fontFamilyName: String = "Default",
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
         colorScheme = if (isSystemInDarkTheme) DarkColors else LightColors,
-        typography = Typography,
+        typography = getLinkhubTypography(supportedFontFamilies[fontFamilyName] ?: FontFamily.Default),
         content = content
     )
 }

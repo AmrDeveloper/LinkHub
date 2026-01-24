@@ -6,12 +6,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -34,6 +39,7 @@ import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.BuildConfig
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Theme
+import com.amrdeveloper.linkhub.ui.theme.supportedFontFamilies
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.openLinkIntent
 import com.amrdeveloper.linkhub.util.packageName
@@ -60,13 +66,15 @@ fun SettingsScreen(
     }
 
     Column(modifier = Modifier.padding(8.dp)) {
-        TextMenuOption(
+        // Info section
+        SimpleSettingOption(
             text = "Version ${BuildConfig.VERSION_NAME}",
             icon = R.drawable.ic_version,
             onClick = {}
         )
 
-        TextSwitchMenuOption(
+        // UI Settings section
+        SwitchSettingOption(
             text = "Dark mode",
             icon = R.drawable.ic_dark_mode,
             isChecked = uiPreferences.getThemeType() == Theme.DARK,
@@ -80,7 +88,18 @@ fun SettingsScreen(
             }
         )
 
-        TextSwitchMenuOption(
+        DropdownSettingOption(
+            text = "Font family",
+            icon = R.drawable.ic_font,
+            defaultSelectedIndex = supportedFontFamilies.keys.indexOf(uiPreferences.getFontFamilyName())
+                .coerceAtLeast(0),
+            options = supportedFontFamilies.keys.toList(),
+            onOptionSelected = { fondFamily ->
+                uiPreferences.setFontFamilyName(fondFamily)
+            }
+        )
+
+        SwitchSettingOption(
             text = "Show Counter",
             icon = R.drawable.ic_click,
             isChecked = uiPreferences.isClickCounterEnabled(),
@@ -89,7 +108,7 @@ fun SettingsScreen(
             }
         )
 
-        TextSwitchMenuOption(
+        SwitchSettingOption(
             text = "Auto saving",
             icon = R.drawable.ic_save,
             isChecked = uiPreferences.isAutoSavingEnabled(),
@@ -98,7 +117,7 @@ fun SettingsScreen(
             }
         )
 
-        TextSwitchMenuOption(
+        SwitchSettingOption(
             text = "Remember last folder",
             icon = R.drawable.ic_folders,
             isChecked = uiPreferences.isDefaultFolderEnabled(),
@@ -107,26 +126,26 @@ fun SettingsScreen(
             }
         )
 
-        TextMenuOption(
+        SimpleSettingOption(
             text = "Password",
             icon = R.drawable.ic_password,
             onClick = { navController.navigate(R.id.configPasswordFragment) }
         )
 
-        TextMenuOption(
+        SimpleSettingOption(
             text = "Import/Export",
             icon = R.drawable.ic_import_export,
             onClick = { navController.navigate(R.id.importExportFragment) }
         )
 
-        // Open source
-        TextMenuOption(
+        // Open source section
+        SimpleSettingOption(
             text = "Source code",
             icon = R.drawable.ic_code,
             onClick = { selectedUrlOptionToOpen = REPOSITORY_URL }
         )
 
-        TextMenuOption(
+        SimpleSettingOption(
             text = "Sponsor",
             icon = R.drawable.ic_github_sponsor,
             onClick = {
@@ -134,7 +153,7 @@ fun SettingsScreen(
             }
         )
 
-        TextMenuOption(
+        SimpleSettingOption(
             text = "Contributors",
             icon = R.drawable.ic_team,
             onClick = {
@@ -142,7 +161,7 @@ fun SettingsScreen(
             }
         )
 
-        TextMenuOption(
+        SimpleSettingOption(
             text = "Issues",
             icon = R.drawable.ic_problems,
             onClick = {
@@ -150,7 +169,7 @@ fun SettingsScreen(
             }
         )
 
-        TextMenuOption(
+        SimpleSettingOption(
             text = "Share",
             icon = R.drawable.ic_share,
             onClick = { selectedUrlOptionToOpen = PLAY_STORE_URL }
@@ -159,19 +178,15 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun TextMenuOption(text: String, icon: Int, onClick: () -> Unit = {}) {
+private fun SimpleSettingOption(text: String, icon: Int, onClick: () -> Unit = {}) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
             .padding(4.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        )
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -195,7 +210,7 @@ private fun TextMenuOption(text: String, icon: Int, onClick: () -> Unit = {}) {
 }
 
 @Composable
-private fun TextSwitchMenuOption(
+private fun SwitchSettingOption(
     text: String,
     icon: Int,
     isChecked: Boolean = false,
@@ -248,4 +263,92 @@ private fun TextSwitchMenuOption(
             )
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DropdownSettingOption(
+    text: String,
+    icon: Int,
+    options: List<String>,
+    defaultSelectedIndex: Int = 0,
+    onOptionSelected: (String) -> Unit = {}
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedIndex by remember { mutableStateOf(defaultSelectedIndex) }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Icon(
+                painter = painterResource(icon),
+                contentDescription = "Font Icon",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(20.dp)
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = { expanded = !expanded }) {
+
+                Row(
+                    modifier = Modifier.clickable {
+                        expanded = true
+                    },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_arrow_down),
+                        contentDescription = "Arrow down",
+                        tint = Color.Unspecified,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(options[selectedIndex])
+                }
+
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier
+                        .heightIn(max = 200.dp)
+                        .widthIn(min = 100.dp)
+                ) {
+                    options.forEachIndexed { index, selectionOption ->
+                        DropdownMenuItem(
+                            text = { Text(selectionOption) },
+                            onClick = {
+                                expanded = false
+                                selectedIndex = index
+                                onOptionSelected(selectionOption)
+                            },
+                        )
+                    }
+                }
+            }
+        }
+    }
+
 }

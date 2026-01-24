@@ -6,7 +6,7 @@ targetSdk = "36"
 minSdk = "23"
 
 activityCompose = "1.12.2"
-composeBom = "2025.12.01"
+composeBom = "2026.01.00"
 material3 = "1.4.0"
 navigation-compose = "2.9.6"
 

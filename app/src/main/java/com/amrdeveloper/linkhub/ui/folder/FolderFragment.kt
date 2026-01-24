@@ -33,7 +33,10 @@ class FolderFragment : Fragment() {
             )
 
             setContent {
-                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                LinkhubAppTheme(
+                    isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK,
+                    fontFamilyName = uiPreferences.getFontFamilyName()
+                ) {
                     FolderScreen(
                         currentFolder = safeArguments.folder,
                         viewModel = viewModel(),

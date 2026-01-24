@@ -31,7 +31,10 @@ class SettingFragment : Fragment() {
             )
 
             setContent {
-                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                LinkhubAppTheme(
+                    isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK,
+                    fontFamilyName = uiPreferences.getFontFamilyName()
+                ) {
                     SettingsScreen(
                         uiPreferences = uiPreferences,
                         navController = findNavController()

@@ -31,7 +31,10 @@ class FoldersFragment : Fragment() {
             )
 
             setContent {
-                LinkhubAppTheme(isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK) {
+                LinkhubAppTheme(
+                    isSystemInDarkTheme = uiPreferences.getThemeType() == Theme.DARK,
+                    fontFamilyName = uiPreferences.getFontFamilyName()
+                ) {
                     FoldersScreen(
                         viewModel = viewModel(),
                         uiPreferences = uiPreferences,
