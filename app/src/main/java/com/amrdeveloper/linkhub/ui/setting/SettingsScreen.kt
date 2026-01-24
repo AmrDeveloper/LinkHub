@@ -125,8 +125,6 @@ fun SettingsScreen(
             }
         )
 
-        SettingSectionDivider(text = "Options")
-
         SwitchSettingOption(
             text = "Remember last folder",
             icon = R.drawable.ic_folders,
@@ -135,6 +133,8 @@ fun SettingsScreen(
                 uiPreferences.setEnableDefaultFolderEnabled(isEnabled)
             }
         )
+
+        SettingSectionDivider(text = "Options")
 
         SimpleSettingOption(
             text = "Password",
