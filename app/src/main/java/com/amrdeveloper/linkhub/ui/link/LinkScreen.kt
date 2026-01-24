@@ -70,6 +70,9 @@ fun LinkScreen(
     val createOrUpdateLink = {
         if (isValidURI(linkUrl) && linkTitleErrorMessage.isEmpty() && linkUrlErrorMessage.isEmpty()) {
             if (isSharedLink || currentLink == null) {
+                link.title = linkTitle
+                link.url = linkUrl
+                link.subtitle = linkSubTitle
                 viewModel.createNewLink(link)
             } else {
                 viewModel.updateLink(link)
