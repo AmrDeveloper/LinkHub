@@ -231,6 +231,11 @@ fun LinkScreen(
             when (taskState) {
                 TaskState.Success -> {
                     navigateUpOrHome()
+
+                    // Keep tracking last folder ID
+                    if (uiPreferences.isDefaultFolderEnabled()) {
+                        uiPreferences.setDefaultFolderId(selectedFolder.id)
+                    }
                 }
 
                 is TaskState.Error -> {
