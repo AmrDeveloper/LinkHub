@@ -56,8 +56,7 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.amrdeveloper.linkhub.ui.setting.SettingFragment"
-        android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting">
+        android:label="fragment_setting">
     </fragment>
 
     <fragment
