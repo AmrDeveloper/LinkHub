@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.util
 
 import android.content.Context
+import androidx.core.content.edit
 import com.amrdeveloper.linkhub.data.Theme
 
 private const val UI_PREFERENCE_NAME = "linkhub_settings"
@@ -15,39 +16,39 @@ private const val PASSWORD_TEXT_KEY = "password_text"
 class UiPreferences(private val context: Context) {
 
     fun setThemeType(theme: Theme) {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putString(UI_THEME_KEY, theme.name)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putString(UI_THEME_KEY, theme.name)
+        }
     }
 
     fun setEnableClickCounter(enable: Boolean) {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putBoolean(UI_COUNTER_KEY, enable)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putBoolean(UI_COUNTER_KEY, enable)
+        }
     }
 
     fun setEnableAutoSave(enable: Boolean) {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putBoolean(UI_AUTO_SAVE_KEY, enable)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putBoolean(UI_AUTO_SAVE_KEY, enable)
+        }
     }
 
     fun setEnableDefaultFolderEnabled(enable: Boolean) {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putBoolean(UI_DEFAULT_FOLDER_KEY, enable)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putBoolean(UI_DEFAULT_FOLDER_KEY, enable)
+        }
     }
 
     fun setDefaultFolderId(folderId: Int) {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putInt(DEFAULT_FOLDER_NAME, folderId)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putInt(DEFAULT_FOLDER_NAME, folderId)
+        }
     }
 
     fun deleteDefaultFolder() {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putInt(DEFAULT_FOLDER_NAME, -1)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putInt(DEFAULT_FOLDER_NAME, -1)
+        }
     }
 
     fun getThemeType(): Theme {
@@ -57,15 +58,15 @@ class UiPreferences(private val context: Context) {
     }
 
     fun setEnablePassword(enable: Boolean) {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putBoolean(PASSWORD_ENABLE_KEY, enable)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putBoolean(PASSWORD_ENABLE_KEY, enable)
+        }
     }
 
     fun setPasswordText(password: String) {
-        val editor = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
-        editor.putString(PASSWORD_TEXT_KEY, password)
-        editor.apply()
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putString(PASSWORD_TEXT_KEY, password)
+        }
     }
 
     fun isClickCounterEnabled(): Boolean {
