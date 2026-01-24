@@ -79,16 +79,18 @@ fun LinkItem(
                 ), verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_link),
+                painter = painterResource(id = findPlatformDomainIcon(link.url)),
                 contentDescription = "Link Icon",
                 tint = Color.Unspecified
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Column(modifier = Modifier
-                .weight(1f)
-                .padding(3.dp)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(3.dp)
+            ) {
                 Text(
                     link.title,
                     maxLines = 1,
@@ -146,6 +148,28 @@ fun LinkItem(
             }
         }
     }
+}
+
+private val platformDomainIconsForUrl = mutableMapOf(
+    "instagram.com" to R.drawable.ic_platform_instagram,
+    "facebook.com" to R.drawable.ic_platform_facebook,
+    "reddit.com" to R.drawable.ic_platform_reddit,
+    "twitch.com" to R.drawable.ic_platform_twitch,
+    "youtube.com" to R.drawable.ic_platform_youtube,
+
+    "github.com" to R.drawable.ic_platform_github,
+    "linkedin.com" to R.drawable.ic_platform_linkedin,
+    "www.amazon" to R.drawable.ic_platform_amazon,
+    "google.com" to R.drawable.ic_platform_google
+)
+
+private fun findPlatformDomainIcon(url: String): Int {
+    for (domain in platformDomainIconsForUrl.keys) {
+        if (url.contains(other = domain)) {
+            return platformDomainIconsForUrl[domain]!!
+        }
+    }
+    return R.drawable.ic_link
 }
 
 @Preview(showBackground = true)
