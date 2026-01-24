@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+Version 2.0.5 *(2026-01-24)*
+-----------------------------
+
+- Extend search functionality to support title, subtitle, and URL.
+- Migrate SettingsScreen to JetpackCompose.
+- Fix tracking the last used folder.
+- Add a setting option to change font family.
+- Fix saving link when all fields are from the clipboard.
+- Support dynamic icons for the common platform.
+
 Version 2.0.4 *(2026-01-20)*
 -----------------------------
 
