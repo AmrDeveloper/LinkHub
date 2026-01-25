@@ -3,9 +3,12 @@ package com.amrdeveloper.linkhub.ui.link
 import android.webkit.URLUtil
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -18,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -90,7 +94,8 @@ fun LinkScreen(
 
     BackHandler(enabled = true) {
         if (uiPreferences.isAutoSavingEnabled()
-            && linkTitleErrorMessage.isEmpty() && linkUrlErrorMessage.isEmpty()) {
+            && linkTitleErrorMessage.isEmpty() && linkUrlErrorMessage.isEmpty()
+        ) {
             createOrUpdateLink()
             return@BackHandler
         }
@@ -178,7 +183,8 @@ fun LinkScreen(
             if (selectedFolderDry) {
                 if (uiPreferences.isDefaultFolderEnabled()) {
                     val defFolderId = uiPreferences.getDefaultFolderId()
-                    selectedFolder = folders.find { it.id == defFolderId } ?: folders.find { it.id == link.folderId } ?: folders[0]
+                    selectedFolder = folders.find { it.id == defFolderId }
+                        ?: folders.find { it.id == link.folderId } ?: folders[0]
                 } else {
                     selectedFolder = folders.find { it.id == link.folderId } ?: folders[0]
                 }
@@ -186,12 +192,16 @@ fun LinkScreen(
 
             // Check if user created a new folder for this link and suggest it as the current link folder
             val newFolderCreatedName =
-                navController.currentBackStackEntry?.savedStateHandle?.get<String>(CREATED_FOLDER_NAME_KEY)
+                navController.currentBackStackEntry?.savedStateHandle?.get<String>(
+                    CREATED_FOLDER_NAME_KEY
+                )
             if (newFolderCreatedName != null) {
                 selectedFolder =
                     folders.find { it.name == newFolderCreatedName } ?: selectedFolder
                 link.folderId = selectedFolder.id
-                navController.currentBackStackEntry?.savedStateHandle?.remove<String>(CREATED_FOLDER_NAME_KEY)
+                navController.currentBackStackEntry?.savedStateHandle?.remove<String>(
+                    CREATED_FOLDER_NAME_KEY
+                )
             }
 
             FolderSelector(selectedFolder = selectedFolder, folders = folders) {
@@ -210,26 +220,7 @@ fun LinkScreen(
             }
 
             // Link metadata
-            if (currentLink != null) {
-                val dateFormatter = DateFormat.getDateTimeInstance()
-                Text(
-                    text = "Created at ${dateFormatter.format(currentLink.createdTime)}",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(4.dp)
-                )
-
-                if (currentLink.isUpdated) {
-                    Text(
-                        text = "Updated at ${dateFormatter.format(currentLink.lastUpdatedTime)}",
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(4.dp)
-                    )
-                }
-            }
+            currentLink?.let { LinkCreatedAndUpdatedTime(it) }
 
             when (taskState) {
                 TaskState.Success -> {
@@ -255,7 +246,7 @@ private fun isValidURI(url: String) =
     URLUtil.isValidUrl(url) && runCatching { URI(url) }.isSuccess
 
 @Composable
-fun LinkHeaderIcon() {
+private fun LinkHeaderIcon() {
     Icon(
         painter = painterResource(R.drawable.ic_link),
         contentDescription = "Link Icon",
@@ -267,7 +258,7 @@ fun LinkHeaderIcon() {
 }
 
 @Composable
-fun LinkInputField(
+private fun LinkInputField(
     label: String,
     value: String,
     errorMessage: String,
@@ -304,4 +295,63 @@ fun LinkInputField(
                 Text(text = errorMessage)
             }
         })
+}
+
+@Composable
+private fun LinkCreatedAndUpdatedTime(link: Link) {
+    val dateFormatter = DateFormat.getDateTimeInstance()
+
+    Row(
+        modifier = Modifier.padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_clock),
+            contentDescription = "Time Icon",
+            tint = Color.Unspecified,
+            modifier = Modifier
+                .size(20.dp)
+                .padding(4.dp)
+        )
+
+        Text(
+            text = "Created at: ",
+            textAlign = TextAlign.Center,
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text(
+            text = "${dateFormatter.format(link.createdTime)}",
+            textAlign = TextAlign.Center,
+        )
+    }
+
+    if (link.lastUpdatedTime == -1L) return
+
+    Row(
+        modifier = Modifier.padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_clock),
+            contentDescription = "Time Icon",
+            tint = Color.Unspecified,
+            modifier = Modifier
+                .size(20.dp)
+                .padding(4.dp)
+        )
+
+        Text(
+            text = "Updated at: ",
+            textAlign = TextAlign.Center,
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text(
+            text = "${dateFormatter.format(link.lastUpdatedTime)}",
+            textAlign = TextAlign.Center,
+        )
+    }
 }
