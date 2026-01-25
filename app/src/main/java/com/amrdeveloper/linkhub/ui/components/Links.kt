@@ -155,7 +155,9 @@ private val platformDomainIconsForUrl = mutableMapOf(
     "facebook.com" to R.drawable.ic_platform_facebook,
     "reddit.com" to R.drawable.ic_platform_reddit,
     "twitch.com" to R.drawable.ic_platform_twitch,
+
     "youtube.com" to R.drawable.ic_platform_youtube,
+    "youtu.be" to R.drawable.ic_platform_youtube,
 
     "github.com" to R.drawable.ic_platform_github,
     "linkedin.com" to R.drawable.ic_platform_linkedin,
