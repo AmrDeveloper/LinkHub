@@ -153,6 +153,7 @@ fun SearchScreen(
                                     bundle
                                 )
                             },
+                            minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(4.dp)
@@ -174,6 +175,7 @@ fun SearchScreen(
                                 navController.navigate(R.id.linkFragment, bundle)
                             },
                             showClickCount = uiPreferences.isClickCounterEnabled(),
+                            minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(4.dp)

@@ -77,7 +77,8 @@ fun HomeScreen(
                     onLongClick = { folder ->
                         val bundle = bundleOf("folder" to folder)
                         navController.navigate(R.id.folderFragment, bundle)
-                    }
+                    },
+                    minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
                 )
 
                 Row(
@@ -128,7 +129,8 @@ fun HomeScreen(
                         val bundle = bundleOf("link" to link)
                         navController.navigate(R.id.linkFragment, bundle)
                     },
-                    showClickCount = uiPreferences.isClickCounterEnabled()
+                    showClickCount = uiPreferences.isClickCounterEnabled(),
+                    minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
                 )
             }
 

@@ -41,6 +41,7 @@ fun FolderList(
     viewKind: FolderViewKind,
     onClick: (Folder) -> Unit = {},
     onLongClick: (Folder) -> Unit = {},
+    minimalModeEnabled: Boolean = false,
     folderItemPadding: Dp = 4.dp
 ) {
     when (viewKind) {
@@ -51,6 +52,7 @@ fun FolderList(
                         folder = folder,
                         onClick = onClick,
                         onLongClick = onLongClick,
+                        minimalModeEnabled = minimalModeEnabled,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(folderItemPadding)
@@ -66,6 +68,7 @@ fun FolderList(
                         folder = folder,
                         onClick = onClick,
                         onLongClick = onLongClick,
+                        minimalModeEnabled = minimalModeEnabled,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(folderItemPadding)
@@ -81,6 +84,7 @@ fun FolderItem(
     folder: Folder,
     onClick: (Folder) -> Unit = {},
     onLongClick: (Folder) -> Unit = {},
+    minimalModeEnabled: Boolean = false,
     folderItemElevation: Dp = 4.dp,
     folderItemPadding: Dp = 8.dp,
     modifier: Modifier = Modifier,
@@ -103,13 +107,15 @@ fun FolderItem(
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id = folder.folderColor.drawableId),
-                contentDescription = "Folder Icon",
-                tint = Color.Unspecified
-            )
+            if (minimalModeEnabled.not()) {
+                Icon(
+                    painter = painterResource(id = folder.folderColor.drawableId),
+                    contentDescription = "Folder Icon",
+                    tint = Color.Unspecified
+                )
 
-            Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+            }
 
             Text(
                 folder.name,

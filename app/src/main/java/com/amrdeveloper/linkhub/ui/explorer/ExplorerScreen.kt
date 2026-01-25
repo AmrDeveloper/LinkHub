@@ -87,7 +87,8 @@ fun ExplorerScreen(
                         R.id.folderFragment,
                         bundle
                     )
-                }
+                },
+                minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
             )
 
             LinkList(
@@ -104,7 +105,8 @@ fun ExplorerScreen(
                         bundle
                     )
                 },
-                showClickCount = uiPreferences.isClickCounterEnabled()
+                showClickCount = uiPreferences.isClickCounterEnabled(),
+                minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
             )
 
             if (showLinkActionsDialog) {

@@ -93,7 +93,8 @@ fun FoldersScreen(
                         R.id.folderFragment,
                         bundle
                     )
-                }
+                },
+                minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
             )
         }
 

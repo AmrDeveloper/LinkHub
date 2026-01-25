@@ -7,6 +7,7 @@ import com.amrdeveloper.linkhub.data.Theme
 private const val UI_PREFERENCE_NAME = "linkhub_settings"
 private const val UI_THEME_KEY = "theme"
 private const val UI_FONT_FAMILY_KEY = "font_family"
+private const val UI_MINIMAL_MODE_KEY = "minimal_mode"
 private const val UI_COUNTER_KEY = "counter"
 private const val UI_AUTO_SAVE_KEY = "auto_save"
 private const val UI_DEFAULT_FOLDER_KEY = "default_folder_mode"
@@ -37,6 +38,12 @@ class UiPreferences(private val context: Context) {
     fun setEnableDefaultFolderEnabled(enable: Boolean) {
         context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
             putBoolean(UI_DEFAULT_FOLDER_KEY, enable)
+        }
+    }
+
+    fun setMinimalModeEnabled(enable: Boolean) {
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putBoolean(UI_MINIMAL_MODE_KEY, enable)
         }
     }
 
@@ -89,6 +96,11 @@ class UiPreferences(private val context: Context) {
     fun isDefaultFolderEnabled(): Boolean {
         val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
         return preferences.getBoolean(UI_DEFAULT_FOLDER_KEY, false)
+    }
+
+    fun isMinimalModeEnabled(): Boolean {
+        val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return preferences.getBoolean(UI_MINIMAL_MODE_KEY, false)
     }
 
     fun getDefaultFolderId(): Int {

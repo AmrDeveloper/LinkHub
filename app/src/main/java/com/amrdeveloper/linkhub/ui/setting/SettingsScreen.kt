@@ -96,6 +96,15 @@ fun SettingsScreen(
             }
         )
 
+        SwitchSettingOption(
+            text = "Minimal mode",
+            icon = R.drawable.ic_eye,
+            isChecked = uiPreferences.isMinimalModeEnabled(),
+            onCheckedChange = { isEnabled ->
+                uiPreferences.setMinimalModeEnabled(isEnabled)
+            }
+        )
+
         DropdownSettingOption(
             text = "Font family",
             icon = R.drawable.ic_font,

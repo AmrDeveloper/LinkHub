@@ -36,6 +36,7 @@ fun LinkList(
     onClick: (Link) -> Unit = {},
     onLongClick: (Link) -> Unit = {},
     showClickCount: Boolean = false,
+    minimalModeEnabled: Boolean = false,
     linkItemPadding: Dp = 4.dp
 ) {
     LazyColumn {
@@ -45,6 +46,7 @@ fun LinkList(
                 onClick = onClick,
                 onLongClick = onLongClick,
                 showClickCount = showClickCount,
+                minimalModeEnabled = minimalModeEnabled,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(linkItemPadding)
@@ -58,6 +60,7 @@ fun LinkItem(
     link: Link,
     onClick: (Link) -> Unit = {},
     onLongClick: (Link) -> Unit = {},
+    minimalModeEnabled: Boolean = false,
     showClickCount: Boolean = false,
     modifier: Modifier = Modifier
 ) {
@@ -78,13 +81,15 @@ fun LinkItem(
                     }
                 ), verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id = findPlatformDomainIcon(link.url)),
-                contentDescription = "Link Icon",
-                tint = Color.Unspecified
-            )
+            if (minimalModeEnabled.not()) {
+                Icon(
+                    painter = painterResource(id = findPlatformDomainIcon(link.url)),
+                    contentDescription = "Link Icon",
+                    tint = Color.Unspecified
+                )
 
-            Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+            }
 
             Column(
                 modifier = Modifier
@@ -128,21 +133,24 @@ fun LinkItem(
 
                 if (showClickCount) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
+                        val suffix = if (minimalModeEnabled) "x" else ""
                         Text(
-                            "${link.clickedCount}",
+                            "${link.clickedCount}${suffix}",
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelSmall
                         )
 
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_click),
-                            contentDescription = "Link count",
-                            tint = Color.Unspecified,
-                            modifier = Modifier
-                                .size(20.dp)
-                                .padding(2.dp)
-                        )
+                        if (minimalModeEnabled.not()) {
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_click),
+                                contentDescription = "Link count",
+                                tint = Color.Unspecified,
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .padding(2.dp)
+                            )
+                        }
                     }
                 }
             }
