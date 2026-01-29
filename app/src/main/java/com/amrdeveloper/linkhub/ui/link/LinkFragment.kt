@@ -33,8 +33,9 @@ class LinkFragment : Fragment() {
             )
 
             val sharedLink = arguments?.getString("shared_link")
+            val sharedLinkSubject = arguments?.getString("shared_link_subject") ?: ""
             val isSharedLink = sharedLink != null
-            val currentLink = if (isSharedLink) Link(title = "", subtitle = "", url = sharedLink)
+            val currentLink = if (isSharedLink) Link(title = sharedLinkSubject, subtitle = "", url = sharedLink)
             else safeArguments.link
 
             setContent {

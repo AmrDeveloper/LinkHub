@@ -1,7 +1,6 @@
 package com.amrdeveloper.linkhub.ui
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -41,21 +40,20 @@ class MainActivity : AppCompatActivity() {
             Intent.ACTION_VIEW -> return
             Intent.ACTION_SEND -> {
                 val sharedLink = intent.getStringExtra(Intent.EXTRA_TEXT)
-                val bundle = bundleOf("shared_link" to sharedLink)
+                val sharedLinkSubject = intent.getStringExtra(Intent.EXTRA_SUBJECT) ?: ""
+                val bundle = bundleOf("shared_link" to sharedLink, "shared_link_subject" to sharedLinkSubject)
                 findNavHostController(R.id.nav_host_fragment).navigate(R.id.linkFragment, bundle)
                 return
             }
 
             Intent.ACTION_PROCESS_TEXT -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    val sharedLink =
-                        intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
-                    val bundle = bundleOf("shared_link" to sharedLink)
-                    findNavHostController(R.id.nav_host_fragment).navigate(
-                        R.id.linkFragment,
-                        bundle
-                    )
-                }
+                val sharedLink =
+                    intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
+                val bundle = bundleOf("shared_link" to sharedLink)
+                findNavHostController(R.id.nav_host_fragment).navigate(
+                    R.id.linkFragment,
+                    bundle
+                )
             }
 
             ACTION_CREATE_LINK -> {
