@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 2.0.6 *(2026-02-01)*
+-----------------------------
+
+- Implement Minimal mode in the UI.
+- Support icon for youtube shorted url.
+- Receive subtitle when link is shared from external app.
+
 Version 2.0.5 *(2026-01-24)*
 -----------------------------
 
