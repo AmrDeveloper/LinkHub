@@ -125,6 +125,8 @@ fun SettingsScreen(
             }
         )
 
+        SettingSectionDivider(text = "Configs")
+
         SwitchSettingOption(
             text = "Auto saving",
             icon = R.drawable.ic_save,
@@ -137,9 +139,18 @@ fun SettingsScreen(
         SwitchSettingOption(
             text = "Remember last folder",
             icon = R.drawable.ic_folders,
-            isChecked = uiPreferences.isDefaultFolderEnabled(),
+            isChecked = uiPreferences.isOpenLinkByClickOptionEnabled(),
             onCheckedChange = { isEnabled ->
                 uiPreferences.setEnableDefaultFolderEnabled(isEnabled)
+            }
+        )
+
+        SwitchSettingOption(
+            text = "Single Click open link",
+            icon = R.drawable.ic_click,
+            isChecked = uiPreferences.isDefaultFolderEnabled(),
+            onCheckedChange = { isEnabled ->
+                uiPreferences.setEnableOpenLinkByClickOption(isEnabled)
             }
         )
 

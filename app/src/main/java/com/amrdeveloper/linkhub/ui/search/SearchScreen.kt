@@ -25,6 +25,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
@@ -41,6 +42,7 @@ import com.amrdeveloper.linkhub.ui.components.FolderItem
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkItem
 import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.openLinkIntent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,6 +53,7 @@ fun SearchScreen(
     navController: NavController,
     onSearchExpandedChanged: (Boolean) -> Unit = {}
 ) {
+    val context = LocalContext.current
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var searchSelectionParams by remember { mutableStateOf(value = SearchParams()) }
     var expanded by rememberSaveable { mutableStateOf(value = false) }
@@ -168,7 +171,15 @@ fun SearchScreen(
                             onClick = {
                                 viewModel.incrementLinkClickCount(link)
                                 lastClickedLink = link
-                                showLinkActionsDialog = true
+                                if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
+                                    try {
+                                        openLinkIntent(context = context, link = link.url)
+                                    } catch (_: Exception) {
+
+                                    }
+                                } else {
+                                    showLinkActionsDialog = true
+                                }
                             },
                             onLongClick = {
                                 val bundle = bundleOf("link" to link)

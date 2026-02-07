@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
@@ -36,6 +37,7 @@ import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkList
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.openLinkIntent
 
 @Composable
 fun ExplorerScreen(
@@ -44,6 +46,7 @@ fun ExplorerScreen(
     uiPreferences: UiPreferences,
     navController: NavController,
 ) {
+    val context = LocalContext.current
     var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
     var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
@@ -96,7 +99,15 @@ fun ExplorerScreen(
                 onClick = { link ->
                     viewModel.incrementLinkClickCount(link)
                     lastClickedLink = link
-                    showLinkActionsDialog = true
+                    if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
+                        try {
+                            openLinkIntent(context = context, link = link.url)
+                        } catch (_: Exception) {
+
+                        }
+                    } else {
+                        showLinkActionsDialog = true
+                    }
                 },
                 onLongClick = { link ->
                     val bundle = bundleOf("link" to link)

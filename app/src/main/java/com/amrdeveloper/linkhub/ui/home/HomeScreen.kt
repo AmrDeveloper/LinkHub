@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +37,7 @@ import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkList
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.openLinkIntent
 
 @Composable
 fun HomeScreen(
@@ -43,6 +45,7 @@ fun HomeScreen(
     uiPreferences: UiPreferences,
     navController: NavController
 ) {
+    val context = LocalContext.current
     val folders = viewModel.mostUsedLimitedFoldersState.collectAsStateWithLifecycle()
     val links = viewModel.sortedLinksState.collectAsStateWithLifecycle()
 
@@ -123,7 +126,15 @@ fun HomeScreen(
                     onClick = { link ->
                         viewModel.incrementLinkClickCount(link)
                         lastClickedLink = link
-                        showLinkActionsDialog = true
+                        if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
+                            try {
+                                openLinkIntent(context = context, link = link.url)
+                            } catch (_: Exception) {
+
+                            }
+                        } else {
+                            showLinkActionsDialog = true
+                        }
                     },
                     onLongClick = { link ->
                         val bundle = bundleOf("link" to link)

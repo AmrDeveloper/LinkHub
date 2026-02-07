@@ -5,13 +5,20 @@ import androidx.core.content.edit
 import com.amrdeveloper.linkhub.data.Theme
 
 private const val UI_PREFERENCE_NAME = "linkhub_settings"
+
+// UI
 private const val UI_THEME_KEY = "theme"
 private const val UI_FONT_FAMILY_KEY = "font_family"
 private const val UI_MINIMAL_MODE_KEY = "minimal_mode"
 private const val UI_COUNTER_KEY = "counter"
+
+// Functionality
 private const val UI_AUTO_SAVE_KEY = "auto_save"
 private const val UI_DEFAULT_FOLDER_KEY = "default_folder_mode"
 private const val DEFAULT_FOLDER_NAME = "default_folder_name"
+private const val LINK_DEFAULT_ACTION_KEY = "link_default_action"
+
+// Options
 private const val PASSWORD_ENABLE_KEY = "password_enable"
 private const val PASSWORD_TEXT_KEY = "password_text"
 
@@ -38,6 +45,12 @@ class UiPreferences(private val context: Context) {
     fun setEnableDefaultFolderEnabled(enable: Boolean) {
         context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
             putBoolean(UI_DEFAULT_FOLDER_KEY, enable)
+        }
+    }
+
+    fun setEnableOpenLinkByClickOption(enable: Boolean) {
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putBoolean(LINK_DEFAULT_ACTION_KEY, enable)
         }
     }
 
@@ -101,6 +114,11 @@ class UiPreferences(private val context: Context) {
     fun isMinimalModeEnabled(): Boolean {
         val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
         return preferences.getBoolean(UI_MINIMAL_MODE_KEY, false)
+    }
+
+    fun isOpenLinkByClickOptionEnabled(): Boolean {
+        val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return preferences.getBoolean(LINK_DEFAULT_ACTION_KEY, false)
     }
 
     fun getDefaultFolderId(): Int {
