@@ -48,6 +48,7 @@ class LinkListViewModel @Inject constructor(
             initialValue = LazyValue(data = listOf(), isLoading = true)
         )
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val sortedLinksState: StateFlow<LazyValue<List<Link>>> =
         combine(currentFolderId, searchQuery) { folderId, query ->
             QueryParam(folderId, query)

@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.3.0"
-androidGradlePlugin = "8.13.2"
+androidGradlePlugin = "9.0.0"
 compileSdk = "36"
 targetSdk = "36"
 minSdk = "23"
@@ -14,13 +14,12 @@ appcompat = "1.7.1"
 fragment-ktx = "1.8.9"
 core-ktx = "1.17.0"
 material = "1.13.0"
-multidex = "2.0.1"
 lifecycle-livedata-ktx = "2.10.0"
 navigation-fragment-ktx = "2.9.6"
 navigation-safeargs = "2.9.6"
 room = "2.8.4"
 paging = "3.4.0"
-hilt = "2.57.2"
+hilt = "2.59.1"
 legacy_support = "1.0.0"
 
 kotlinx-coroutines = "1.10.2"
@@ -48,7 +47,6 @@ androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-livedata-ktx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle-livedata-ktx" }
-androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation-fragment-ktx" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }

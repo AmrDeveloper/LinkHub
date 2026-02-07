@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigation.safeargs)
@@ -101,7 +100,6 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
-    implementation(libs.androidx.multidex)
 
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.truth)
