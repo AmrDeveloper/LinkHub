@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+Version 2.0.7 *(2026-02-07)*
+-----------------------------
+
+- Home page now show all folders with pagination (GH: #94).
+- Add setting option to open click by single click (GH: #95).
+- Add sorting options for folder (GH: #96).
+- Add setting option to enable quick actions fab (Requested via mail)
+
 Version 2.0.6 *(2026-02-01)*
 -----------------------------
 
