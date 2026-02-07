@@ -6,12 +6,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_LINK
 import com.amrdeveloper.linkhub.util.UiPreferences
-import com.amrdeveloper.linkhub.util.findNavHostController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         handleMultiThemeOption()
 
         if (uiPreferences.isPasswordEnabled()) {
-            findNavHostController(R.id.nav_host_fragment).navigate(R.id.checkPasswordFragment)
+            findNavController(R.id.nav_host_fragment).navigate(R.id.checkPasswordFragment)
         } else {
             handleLinkHubIntent()
         }
@@ -72,4 +74,9 @@ class MainActivity : AppCompatActivity() {
         else AppCompatDelegate.MODE_NIGHT_NO
         AppCompatDelegate.setDefaultNightMode(themeMode)
     }
+}
+
+fun AppCompatActivity.findNavHostController(hostId: Int): NavController {
+    val navHostFragment = supportFragmentManager.findFragmentById(hostId) as NavHostFragment
+    return navHostFragment.navController
 }

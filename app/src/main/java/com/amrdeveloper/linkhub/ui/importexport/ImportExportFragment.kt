@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,7 +22,7 @@ import com.amrdeveloper.linkhub.databinding.FragmentImportExportBinding
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.getFileName
 import com.amrdeveloper.linkhub.util.getFileText
-import com.amrdeveloper.linkhub.util.showSnackBar
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -168,5 +169,15 @@ class ImportExportFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+}
+
+fun Activity?.showSnackBar(message: Int) {
+    this ?: return
+    val snackBar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+    snackBar.apply {
+        setTextColor(ContextCompat.getColor(context, R.color.sky))
+        setBackgroundTint(ContextCompat.getColor(context, R.color.dark_sky))
+        show()
     }
 }
