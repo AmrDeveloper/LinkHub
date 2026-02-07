@@ -1,5 +1,6 @@
 package com.amrdeveloper.linkhub.data.source.local
 
+import androidx.paging.PagingSource
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.source.FolderDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -51,6 +52,10 @@ class FolderLocalDataSource internal constructor(
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    override fun getMoseUsedFoldersWithPagination(): PagingSource<Int, Folder> {
+        return folderDao.getMoseUsedFoldersWithPagination()
     }
 
     override fun getSortedFolders(

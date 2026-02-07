@@ -2,6 +2,9 @@ package com.amrdeveloper.linkhub.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
@@ -23,13 +26,10 @@ class HomeViewModel @Inject constructor(
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
 
-    val mostUsedLimitedFoldersState: StateFlow<LazyValue<List<Folder>>> =
-        folderRepository.getSortedFolders(limit = NUMBER_OF_TOP_FOLDERS)
-            .map { LazyValue(data = it, isLoading = false) }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
-                initialValue = LazyValue(data = listOf(), isLoading = true)
-            )
+    val mostUsedLimitedFoldersState =
+        Pager(config = PagingConfig(pageSize = NUMBER_OF_TOP_FOLDERS, prefetchDistance = 2)) {
+            folderRepository.getMoseUsedFoldersWithPagination()
+        }.flow.cachedIn(viewModelScope)
 
     val sortedLinksState: StateFlow<LazyValue<List<Link>>> =
         linkRepository.getSortedLinks()

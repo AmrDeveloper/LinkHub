@@ -19,6 +19,7 @@ lifecycle-livedata-ktx = "2.10.0"
 navigation-fragment-ktx = "2.9.6"
 navigation-safeargs = "2.9.6"
 room = "2.8.4"
+paging = "3.4.0"
 hilt = "2.57.2"
 legacy_support = "1.0.0"
 
@@ -69,7 +70,11 @@ jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 
+paging-runtime = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
+
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 
@@ -88,7 +93,8 @@ kotlinx-coroutines-testing = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary-android" }
 
 [bundles]
-room = ["room-runtime", "room-ktx"]
+room = ["room-runtime", "room-paging", "room-ktx"]
+paging = ["paging-runtime", "paging-compose"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

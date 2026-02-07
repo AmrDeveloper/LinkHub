@@ -1,5 +1,6 @@
 package com.amrdeveloper.linkhub.data.source.local
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
@@ -17,6 +18,12 @@ interface FolderDao : BaseDao<Folder> {
 
     @Query("SELECT * FROM folder")
     suspend fun getFolders(): List<Folder>
+
+    @Query("""
+        SELECT * FROM folder
+        ORDER BY pinned DESC, click_count DESC
+    """)
+    fun getMoseUsedFoldersWithPagination(): PagingSource<Int, Folder>
 
     @Query("""
         SELECT * FROM folder

@@ -1,5 +1,6 @@
 package com.amrdeveloper.linkhub.data.source
 
+import androidx.paging.PagingSource
 import com.amrdeveloper.linkhub.data.Folder
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +20,10 @@ class FolderRepository(private val dataSource: FolderDataSource) {
 
     suspend fun getFolderList(): Result<List<Folder>> {
         return dataSource.getFolderList()
+    }
+
+    fun getMoseUsedFoldersWithPagination(): PagingSource<Int, Folder> {
+        return dataSource.getMoseUsedFoldersWithPagination()
     }
 
     fun getSortedFolders(
