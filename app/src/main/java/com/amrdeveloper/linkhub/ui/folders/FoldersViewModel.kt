@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.data.Folder
+import com.amrdeveloper.linkhub.data.FolderSortingOption
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,22 +23,22 @@ class FolderListViewModel @Inject constructor(
     private val folderRepository: FolderRepository
 ) : ViewModel() {
 
-    private val searchQuery = MutableStateFlow(value = "")
+    private val sortingOption = MutableStateFlow(value = FolderSortingOption.DEFAULT)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<LazyValue<List<Folder>>> =
-        combine(searchQuery) {
-            searchQuery.value
-        }.flatMapLatest { query ->
-            folderRepository.getSortedFolders(keyword = query)
+        combine(sortingOption) {
+            sortingOption.value
+        }.flatMapLatest { option ->
+            folderRepository.getSortedFolders(sortingOption = option)
         }.map { LazyValue(data = it, isLoading = false) }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
             initialValue = LazyValue(data = listOf(), isLoading = true)
         )
 
-    fun updateSearchQuery(query: String) {
-        searchQuery.value = query
+    fun setSortingOption(option: FolderSortingOption) {
+        sortingOption.value = option
     }
 
     fun incrementFolderClickCount(folder: Folder) {

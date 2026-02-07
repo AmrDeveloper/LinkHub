@@ -2,6 +2,7 @@ package com.amrdeveloper.linkhub.data.source
 
 import androidx.paging.PagingSource
 import com.amrdeveloper.linkhub.data.Folder
+import com.amrdeveloper.linkhub.data.FolderSortingOption
 import kotlinx.coroutines.flow.Flow
 
 class FolderRepository(private val dataSource: FolderDataSource) {
@@ -32,9 +33,18 @@ class FolderRepository(private val dataSource: FolderDataSource) {
         isClicked: Boolean? = null,
         isInsideFolder: Boolean? = null,
         folderId: Int? = -1,
+        sortingOption: FolderSortingOption = FolderSortingOption.DEFAULT,
         limit: Int = -1
     ): Flow<List<Folder>> =
-        dataSource.getSortedFolders(keyword, isPinned, isClicked, isInsideFolder, folderId, limit)
+        dataSource.getSortedFolders(
+            keyword,
+            isPinned,
+            isClicked,
+            isInsideFolder,
+            folderId,
+            sortingOption,
+            limit
+        )
 
     suspend fun updateFolder(folder: Folder): Result<Int> {
         return dataSource.updateFolder(folder)

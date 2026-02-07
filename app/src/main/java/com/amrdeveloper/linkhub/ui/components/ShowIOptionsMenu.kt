@@ -32,7 +32,7 @@ data class ShowOption(
 fun ShowItemsOptionsDropdownButton(
     options: List<ShowOption>,
     selectedOptionIndex: Int = 0,
-    onOptionSelected: (ShowOption) -> Unit = {},
+    onOptionSelected: (Int) -> Unit = {},
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableStateOf(selectedOptionIndex) }
@@ -67,7 +67,7 @@ fun ShowItemsOptionsDropdownButton(
                         }
                     },
                     onClick = {
-                        onOptionSelected(option)
+                        onOptionSelected(index)
                         selectedIndex = index
                         isExpanded = false
                     },
