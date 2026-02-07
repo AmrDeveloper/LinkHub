@@ -29,6 +29,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.ui.components.FloatingQuickActionsButton
 import com.amrdeveloper.linkhub.ui.components.FolderItem
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkList
@@ -57,112 +58,123 @@ fun HomeScreen(
     var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
     var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
-    Scaffold(topBar = { LinkhubToolbar(viewModel(), uiPreferences, navController) }) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            if (folders.itemCount != 0) {
-                Text(
-                    text = "Folders",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    maxLines = 1,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = colorResource(R.color.light_blue_600)
-                )
+    Scaffold(
+        topBar = { LinkhubToolbar(viewModel(), uiPreferences, navController) },
+        floatingActionButton = {
+            if (uiPreferences.isQuickActionButtonEnabled()) {
+                FloatingQuickActionsButton(navController)
+            }
+        },
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
+                if (folders.itemCount != 0) {
+                    Text(
+                        text = "Folders",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        maxLines = 1,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = colorResource(R.color.light_blue_600)
+                    )
 
-                HorizontalPager(
-                    state = foldersPagerState,
-                    key = folders.itemKey { it.id },
-                    verticalAlignment = Alignment.Top,
-                    beyondViewportPageCount = 1,
-                    modifier = Modifier.fillMaxWidth(),
-                    pageContent = { pageIndex ->
-                        LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
-                            for (elementIndexInUI in 0 until NUMBER_OF_FOLDERS_PER_PAGE) {
-                                val itemIndex =
-                                    (pageIndex * NUMBER_OF_FOLDERS_PER_PAGE) + elementIndexInUI
-                                if (itemIndex >= folders.itemCount) {
-                                    break
-                                }
+                    HorizontalPager(
+                        state = foldersPagerState,
+                        key = folders.itemKey { it.id },
+                        verticalAlignment = Alignment.Top,
+                        beyondViewportPageCount = 1,
+                        modifier = Modifier.fillMaxWidth(),
+                        pageContent = { pageIndex ->
+                            LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
+                                for (elementIndexInUI in 0 until NUMBER_OF_FOLDERS_PER_PAGE) {
+                                    val itemIndex =
+                                        (pageIndex * NUMBER_OF_FOLDERS_PER_PAGE) + elementIndexInUI
+                                    if (itemIndex >= folders.itemCount) {
+                                        break
+                                    }
 
-                                folders[itemIndex]?.let { folder ->
-                                    item {
-                                        FolderItem(
-                                            folder = folder,
-                                            onClick = { folder ->
-                                                viewModel.incrementFolderClickCount(folder)
-                                                val bundle = bundleOf("folder" to folder)
-                                                navController.navigate(
-                                                    R.id.linkListFragment,
-                                                    bundle
-                                                )
-                                            },
-                                            onLongClick = { folder ->
-                                                val bundle = bundleOf("folder" to folder)
-                                                navController.navigate(R.id.folderFragment, bundle)
-                                            },
-                                            minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(4.dp)
-                                        )
+                                    folders[itemIndex]?.let { folder ->
+                                        item {
+                                            FolderItem(
+                                                folder = folder,
+                                                onClick = { folder ->
+                                                    viewModel.incrementFolderClickCount(folder)
+                                                    val bundle = bundleOf("folder" to folder)
+                                                    navController.navigate(
+                                                        R.id.linkListFragment,
+                                                        bundle
+                                                    )
+                                                },
+                                                onLongClick = { folder ->
+                                                    val bundle = bundleOf("folder" to folder)
+                                                    navController.navigate(
+                                                        R.id.folderFragment,
+                                                        bundle
+                                                    )
+                                                },
+                                                minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(4.dp)
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                )
+                    )
 
-                PagerIndicator(pagerState = foldersPagerState)
-            }
+                    PagerIndicator(pagerState = foldersPagerState)
+                }
 
-            if (links.value.data.isNotEmpty()) {
-                Text(
-                    text = "Links",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    maxLines = 1,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = colorResource(R.color.light_blue_600)
-                )
+                if (links.value.data.isNotEmpty()) {
+                    Text(
+                        text = "Links",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        maxLines = 1,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = colorResource(R.color.light_blue_600)
+                    )
 
-                LinkList(
-                    links = links.value.data,
-                    onClick = { link ->
-                        viewModel.incrementLinkClickCount(link)
-                        lastClickedLink = link
-                        if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
-                            try {
-                                openLinkIntent(context = context, link = link.url)
-                            } catch (_: Exception) {
+                    LinkList(
+                        links = links.value.data,
+                        onClick = { link ->
+                            viewModel.incrementLinkClickCount(link)
+                            lastClickedLink = link
+                            if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
+                                try {
+                                    openLinkIntent(context = context, link = link.url)
+                                } catch (_: Exception) {
 
+                                }
+                            } else {
+                                showLinkActionsDialog = true
                             }
-                        } else {
-                            showLinkActionsDialog = true
-                        }
-                    },
-                    onLongClick = { link ->
-                        val bundle = bundleOf("link" to link)
-                        navController.navigate(R.id.linkFragment, bundle)
-                    },
-                    showClickCount = uiPreferences.isClickCounterEnabled(),
-                    minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
-                )
-            }
+                        },
+                        onLongClick = { link ->
+                            val bundle = bundleOf("link" to link)
+                            navController.navigate(R.id.linkFragment, bundle)
+                        },
+                        showClickCount = uiPreferences.isClickCounterEnabled(),
+                        minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
+                    )
+                }
 
-            if (showLinkActionsDialog) {
-                lastClickedLink?.let { link ->
-                    LinkActionsBottomSheet(
-                        link = link,
-                        navController = navController,
-                        onDialogDismiss = { showLinkActionsDialog = false })
+                if (showLinkActionsDialog) {
+                    lastClickedLink?.let { link ->
+                        LinkActionsBottomSheet(
+                            link = link,
+                            navController = navController,
+                            onDialogDismiss = { showLinkActionsDialog = false })
+                    }
                 }
             }
         }
-    }
+    )
 }

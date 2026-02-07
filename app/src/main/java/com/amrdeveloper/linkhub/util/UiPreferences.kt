@@ -11,6 +11,7 @@ private const val UI_THEME_KEY = "theme"
 private const val UI_FONT_FAMILY_KEY = "font_family"
 private const val UI_MINIMAL_MODE_KEY = "minimal_mode"
 private const val UI_COUNTER_KEY = "counter"
+private const val UI_QUICK_ACTION_BUTTON_KEY = "quick_action_button"
 
 // Functionality
 private const val UI_AUTO_SAVE_KEY = "auto_save"
@@ -33,6 +34,12 @@ class UiPreferences(private val context: Context) {
     fun setEnableClickCounter(enable: Boolean) {
         context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
             putBoolean(UI_COUNTER_KEY, enable)
+        }
+    }
+
+    fun setEnableQuickActionButton(enable: Boolean) {
+        context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
+            putBoolean(UI_QUICK_ACTION_BUTTON_KEY, enable)
         }
     }
 
@@ -78,7 +85,7 @@ class UiPreferences(private val context: Context) {
         return Theme.valueOf(themeName.toString())
     }
 
-    fun setFontFamilyName(name : String) {
+    fun setFontFamilyName(name: String) {
         context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE).edit {
             putString(UI_FONT_FAMILY_KEY, name)
         }
@@ -99,6 +106,11 @@ class UiPreferences(private val context: Context) {
     fun isClickCounterEnabled(): Boolean {
         val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
         return preferences.getBoolean(UI_COUNTER_KEY, true)
+    }
+
+    fun isQuickActionButtonEnabled(): Boolean {
+        val preferences = context.getSharedPreferences(UI_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return preferences.getBoolean(UI_QUICK_ACTION_BUTTON_KEY, false)
     }
 
     fun isAutoSavingEnabled(): Boolean {

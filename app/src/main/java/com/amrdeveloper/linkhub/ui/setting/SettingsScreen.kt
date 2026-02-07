@@ -71,7 +71,11 @@ fun SettingsScreen(
         }
     }
 
-    Column(modifier = Modifier.padding(8.dp).verticalScroll(scrollState)) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .verticalScroll(scrollState)
+    ) {
         SettingSectionDivider(text = "App Info")
 
         SimpleSettingOption(
@@ -122,6 +126,15 @@ fun SettingsScreen(
             isChecked = uiPreferences.isClickCounterEnabled(),
             onCheckedChange = { isEnabled ->
                 uiPreferences.setEnableClickCounter(isEnabled)
+            }
+        )
+
+        SwitchSettingOption(
+            text = "Quick actions button",
+            icon = R.drawable.ic_button,
+            isChecked = uiPreferences.isQuickActionButtonEnabled(),
+            onCheckedChange = { isEnabled ->
+                uiPreferences.setEnableQuickActionButton(isEnabled)
             }
         )
 
@@ -210,12 +223,19 @@ fun SettingsScreen(
 
 @Composable
 private fun SettingSectionDivider(text: String) {
-    Row(modifier = Modifier.fillMaxWidth().padding(4.dp),
-        verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Text(text = text, color = colorResource(R.color.light_blue_600))
-        HorizontalDivider(modifier = Modifier
-            .weight(1f).padding(2.dp)
-            .background(color = colorResource(R.color.light_blue_600)))
+        HorizontalDivider(
+            modifier = Modifier
+                .weight(1f)
+                .padding(2.dp)
+                .background(color = colorResource(R.color.light_blue_600))
+        )
     }
 }
 
