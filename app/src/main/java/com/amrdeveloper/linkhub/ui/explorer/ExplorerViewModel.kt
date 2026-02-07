@@ -25,7 +25,7 @@ private data class QueryParam(
 )
 
 @HiltViewModel
-class LinkListViewModel @Inject constructor(
+class ExplorerViewModel @Inject constructor(
     private val folderRepository: FolderRepository,
     private val linkRepository: LinkRepository
 ) : ViewModel() {
@@ -64,10 +64,6 @@ class LinkListViewModel @Inject constructor(
 
     fun updateFolderId(folderId: Int) {
         currentFolderId.value = folderId
-    }
-
-    fun updateSearchQuery(query: String) {
-        searchQuery.value = query
     }
 
     fun incrementFolderClickCount(folder: Folder) {

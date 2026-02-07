@@ -42,7 +42,7 @@ import com.amrdeveloper.linkhub.util.openLinkIntent
 @Composable
 fun ExplorerScreen(
     currentFolder: Folder?,
-    viewModel: LinkListViewModel = viewModel(),
+    viewModel: ExplorerViewModel = viewModel(),
     uiPreferences: UiPreferences,
     navController: NavController,
 ) {
