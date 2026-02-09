@@ -154,7 +154,7 @@ fun SettingsScreen(
             icon = R.drawable.ic_folders,
             isChecked = uiPreferences.isOpenLinkByClickOptionEnabled(),
             onCheckedChange = { isEnabled ->
-                uiPreferences.setEnableDefaultFolderEnabled(isEnabled)
+                uiPreferences.setEnableOpenLinkByClickOption(isEnabled)
             }
         )
 
