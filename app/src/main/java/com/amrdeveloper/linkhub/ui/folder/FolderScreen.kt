@@ -111,14 +111,14 @@ fun FolderScreen(
             OutlinedTextField(
                 value = folderName,
                 onValueChange = {
-                    folderName = it.trim()
-                    folder.name = folderName
-                    if (folderName.isEmpty()) {
+                    folderName = it
+                    folder.name = folderName.trim()
+                    if (folder.name.isEmpty()) {
                         folderNameErrorMessage = "Name can't be empty"
                         return@OutlinedTextField
                     }
 
-                    if (folderName.length < 3) {
+                    if (folder.name.length < 3) {
                         folderNameErrorMessage = "Folder name can't be less than 3 characters"
                         return@OutlinedTextField
                     }
