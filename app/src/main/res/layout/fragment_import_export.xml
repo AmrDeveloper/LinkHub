@@ -6,16 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.importexport.ImportExportFragment">
 
-    <com.airbnb.lottie.LottieAnimationView
+    <ImageView
         android:id="@+id/logo_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen300dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/import_export"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/file_imported" />
+        android:src="@drawable/ic_import_export" />
 
     <LinearLayout
         android:id="@+id/button_layout"

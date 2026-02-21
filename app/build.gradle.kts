@@ -93,8 +93,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.jsoup)
 
-    implementation(libs.lottie)
-
     implementation(libs.timber)
     debugImplementation(libs.leakcanary.android)
 

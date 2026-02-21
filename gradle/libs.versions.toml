@@ -24,8 +24,6 @@ legacy_support = "1.0.0"
 
 kotlinx-coroutines = "1.10.2"
 
-lottie = "6.1.0"
-
 gson = "2.10.1"
 jsoup = "1.13.1"
 
@@ -65,8 +63,6 @@ material3 = { group = "androidx.compose.material3", name = "material3", version.
 
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
-
-lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 
 paging-runtime = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
