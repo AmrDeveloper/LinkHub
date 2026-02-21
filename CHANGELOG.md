@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 2.0.8 *(2026-02-21)*
+-----------------------------
+
+- Make page indicator scrollable.
+- Allow space inside folder name.
+- Remove Lottie and resources.
+
 Version 2.0.7 *(2026-02-07)*
 -----------------------------
 
