@@ -79,6 +79,8 @@ fun LinkScreen(
                 link.subtitle = linkSubTitle
                 viewModel.createNewLink(link)
             } else {
+                link.isUpdated = true
+                link.lastUpdatedTime = System.currentTimeMillis()
                 viewModel.updateLink(link)
             }
         }
