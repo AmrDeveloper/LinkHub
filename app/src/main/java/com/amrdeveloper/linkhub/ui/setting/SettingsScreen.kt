@@ -152,16 +152,16 @@ fun SettingsScreen(
         SwitchSettingOption(
             text = "Remember last folder",
             icon = R.drawable.ic_folders,
-            isChecked = uiPreferences.isOpenLinkByClickOptionEnabled(),
+            isChecked = uiPreferences.isDefaultFolderEnabled(),
             onCheckedChange = { isEnabled ->
-                uiPreferences.setEnableOpenLinkByClickOption(isEnabled)
+                uiPreferences.setEnableDefaultFolderEnabled(isEnabled)
             }
         )
 
         SwitchSettingOption(
             text = "Single Click open link",
             icon = R.drawable.ic_click,
-            isChecked = uiPreferences.isDefaultFolderEnabled(),
+            isChecked = uiPreferences.isOpenLinkByClickOptionEnabled(),
             onCheckedChange = { isEnabled ->
                 uiPreferences.setEnableOpenLinkByClickOption(isEnabled)
             }
