@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 2.0.9 *(2026-03-01)*
+-----------------------------
+
+- Fix connection between settings options (GH #95).
+- Fix link updated at timestamp (GH #97).
+
 Version 2.0.8 *(2026-02-21)*
 -----------------------------
 
