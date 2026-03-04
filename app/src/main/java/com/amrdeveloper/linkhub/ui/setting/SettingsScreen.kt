@@ -145,7 +145,7 @@ fun SettingsScreen(
             icon = R.drawable.ic_save,
             isChecked = uiPreferences.isAutoSavingEnabled(),
             onCheckedChange = { isEnabled ->
-                uiPreferences.setEnableClickCounter(isEnabled)
+                uiPreferences.setEnableAutoSave(isEnabled)
             }
         )
 
