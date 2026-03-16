@@ -11,6 +11,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -148,6 +149,11 @@ fun FolderScreen(
                     .fillMaxWidth()
                     .padding(8.dp),
                 isError = folderNameErrorMessage.isNotEmpty(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    cursorColor = colorResource(R.color.light_blue_600),
+                    focusedBorderColor = colorResource(R.color.light_blue_600),
+                    focusedLabelColor =  colorResource(R.color.light_blue_600)
+                ),
                 supportingText = {
                     if (folderNameErrorMessage.isNotEmpty()) {
                         Text(text = folderNameErrorMessage)
@@ -160,7 +166,8 @@ fun FolderScreen(
             if (selectedFolderDry) {
                 if (uiPreferences.isDefaultFolderEnabled()) {
                     val defFolderId = uiPreferences.getDefaultFolderId()
-                    selectedFolder = folders.find { it.id == defFolderId } ?: folders.find { it.id == folder.folderId } ?: folders[0]
+                    selectedFolder = folders.find { it.id == defFolderId }
+                        ?: folders.find { it.id == folder.folderId } ?: folders[0]
                 } else {
                     selectedFolder = folders.find { it.id == folder.folderId } ?: folders[0]
                 }
