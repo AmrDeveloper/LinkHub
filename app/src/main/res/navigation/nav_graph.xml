@@ -30,9 +30,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/linkListFragment"
+        android:id="@+id/explorerFragment"
         android:name="com.amrdeveloper.linkhub.ui.explorer.ExplorerFragment"
-        android:label="fragment_link_list">
+        android:label="fragment_explorer">
 
         <argument
             android:name="folder"

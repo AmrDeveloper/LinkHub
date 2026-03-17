@@ -138,7 +138,7 @@ private fun OptionsMenuWithDropDownActions(navController: NavController) {
                         )
                     },
                     onClick = {
-                        navController.navigate(R.id.linkListFragment)
+                        navController.navigate(R.id.explorerFragment)
                         expanded = false
                     }
                 )

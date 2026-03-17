@@ -110,7 +110,7 @@ fun FoldersScreen(
 
                     val bundle = bundleOf("folder" to folder)
                     navController.navigate(
-                        R.id.linkListFragment,
+                        R.id.explorerFragment,
                         bundle
                     )
                 },

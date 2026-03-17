@@ -3,14 +3,15 @@ package com.amrdeveloper.linkhub.util
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.os.bundleOf
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.ui.MainActivity
+import com.google.gson.Gson
 
 // Static shortcuts actions
 const val ACTION_CREATE_LINK = "com.amrdeveloper.linkhub.action.create_link"
@@ -18,6 +19,7 @@ const val ACTION_CREATE_FOLDER = "com.amrdeveloper.linkhub.action.create_folder"
 
 // Dynamic shortcuts actions
 const val ACTION_OPEN_LINK = "com.amrdeveloper.linkhub.action.open_link"
+const val ACTION_OPEN_FOLDER = "com.amrdeveloper.linkhub.action.open_folder"
 
 fun createLinkDynamicPinnedShortcut(context: Context, link: Link): Boolean {
     return createDynamicPinnedShortcut(
@@ -27,10 +29,28 @@ fun createLinkDynamicPinnedShortcut(context: Context, link: Link): Boolean {
         iconId = R.drawable.ic_link,
         shortcutId = link.hashCode().toString(),
         shortcutAction = ACTION_OPEN_LINK,
-        extras = bundleOf(
-            "link_id" to link.id.toString(),
-            "link_url" to link.url
-        ),
+        addExtras = { intent ->
+            val bundle = bundleOf(
+                "link_id" to link.id.toString(),
+                "link_url" to link.url
+            )
+            intent.putExtras(bundle)
+        },
+    )
+}
+
+fun createFolderDynamicPinnedShortcut(context: Context, folder: Folder): Boolean {
+    return createDynamicPinnedShortcut(
+        context = context,
+        shortLabel = folder.name,
+        longLabel = folder.name,
+        iconId = R.drawable.ic_link,
+        shortcutId = folder.hashCode().toString(),
+        shortcutAction = ACTION_OPEN_FOLDER,
+        addExtras = { intent ->
+            val folder_json = Gson().toJson(folder)
+            intent.putExtra("folder_json", folder_json)
+        },
     )
 }
 
@@ -41,7 +61,7 @@ private fun createDynamicPinnedShortcut(
     iconId: Int,
     shortcutId: String,
     shortcutAction: String,
-    extras: Bundle,
+    addExtras: (Intent) -> Unit,
 ): Boolean {
     if (!ShortcutManagerCompat.isRequestPinShortcutSupported(context)) {
         return false
@@ -54,7 +74,7 @@ private fun createDynamicPinnedShortcut(
         .setIntent(
             Intent(context, MainActivity::class.java).apply {
                 action = shortcutAction
-                putExtras(extras)
+                addExtras(this)
             }
         )
         .build()

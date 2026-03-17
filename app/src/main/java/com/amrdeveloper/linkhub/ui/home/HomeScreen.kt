@@ -29,6 +29,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.ui.components.DropDownOption
+import com.amrdeveloper.linkhub.ui.components.DropdownContainer
 import com.amrdeveloper.linkhub.ui.components.FloatingQuickActionsButton
 import com.amrdeveloper.linkhub.ui.components.FolderItem
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
@@ -36,6 +38,7 @@ import com.amrdeveloper.linkhub.ui.components.LinkList
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.ui.components.PagerIndicator
 import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.createFolderDynamicPinnedShortcut
 import com.amrdeveloper.linkhub.util.openLinkIntent
 
 private const val NUMBER_OF_FOLDERS_PER_PAGE = 6
@@ -99,27 +102,53 @@ fun HomeScreen(
 
                                     folders[itemIndex]?.let { folder ->
                                         item {
-                                            FolderItem(
-                                                folder = folder,
-                                                onClick = { folder ->
-                                                    viewModel.incrementFolderClickCount(folder)
-                                                    val bundle = bundleOf("folder" to folder)
-                                                    navController.navigate(
-                                                        R.id.linkListFragment,
-                                                        bundle
+                                            DropdownContainer(
+                                                options = listOf(
+                                                    DropDownOption(
+                                                        text = "Edit",
+                                                        icon = R.drawable.ic_pin_edit
+                                                    ),
+                                                    DropDownOption(
+                                                        text = "Shortcut",
+                                                        icon = R.drawable.ic_shortcut
                                                     )
+                                                ),
+                                                onOptionSelected = { option ->
+                                                    if (option.text == "Edit") {
+                                                        val bundle = bundleOf("folder" to folder)
+                                                        navController.navigate(
+                                                            R.id.folderFragment,
+                                                            bundle
+                                                        )
+                                                    } else {
+                                                        createFolderDynamicPinnedShortcut(
+                                                            context,
+                                                            folder
+                                                        )
+                                                    }
                                                 },
-                                                onLongClick = { folder ->
-                                                    val bundle = bundleOf("folder" to folder)
-                                                    navController.navigate(
-                                                        R.id.folderFragment,
-                                                        bundle
+                                                anchorContent = { openMenu ->
+                                                    FolderItem(
+                                                        folder = folder,
+                                                        onClick = { folder ->
+                                                            viewModel.incrementFolderClickCount(
+                                                                folder
+                                                            )
+
+                                                            val bundle =
+                                                                bundleOf("folder" to folder)
+                                                            navController.navigate(
+                                                                R.id.explorerFragment,
+                                                                bundle
+                                                            )
+                                                        },
+                                                        onLongClick = { openMenu() },
+                                                        minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
+                                                        modifier = Modifier
+                                                            .fillMaxWidth()
+                                                            .padding(4.dp)
                                                     )
-                                                },
-                                                minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .padding(4.dp)
+                                                }
                                             )
                                         }
                                     }

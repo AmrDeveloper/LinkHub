@@ -84,7 +84,7 @@ fun ExplorerScreen(
                         viewModel.incrementFolderClickCount(folder)
                         val bundle = bundleOf("folder" to folder)
                         navController.navigate(
-                            R.id.linkListFragment,
+                            R.id.explorerFragment,
                             bundle
                         )
                     },

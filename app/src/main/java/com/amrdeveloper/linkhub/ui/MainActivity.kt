@@ -10,12 +10,15 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.Folder
 import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_LINK
+import com.amrdeveloper.linkhub.util.ACTION_OPEN_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_OPEN_LINK
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.openLinkIntent
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -77,6 +80,17 @@ class MainActivity : AppCompatActivity() {
                         openLinkIntent(this, linkUrl)
                     }
                 } catch (e: Exception) {
+                }
+            }
+
+            ACTION_OPEN_FOLDER -> {
+                intent.getStringExtra("folder_json")?.let { folderJson ->
+                    val folder = Gson().fromJson(folderJson, Folder::class.java)
+                    val bundle = bundleOf("folder" to folder)
+                    findNavHostController(R.id.nav_host_fragment).navigate(
+                        R.id.explorerFragment,
+                        bundle
+                    )
                 }
             }
         }
