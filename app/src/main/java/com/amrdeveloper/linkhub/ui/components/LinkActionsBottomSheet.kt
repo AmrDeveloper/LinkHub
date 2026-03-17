@@ -13,6 +13,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.util.createLinkDynamicPinnedShortcut
 import com.amrdeveloper.linkhub.util.openLinkIntent
 import com.amrdeveloper.linkhub.util.shareTextIntent
 
@@ -21,6 +22,7 @@ private enum class LinkActions {
     Open,
     Edit,
     Copy,
+    Shortcut,
     Share
 }
 
@@ -34,6 +36,7 @@ fun LinkActionsBottomSheet(
         BottomSheetAction(name = LinkActions.Open.name, R.drawable.ic_open_in_browser),
         BottomSheetAction(name = LinkActions.Edit.name, R.drawable.ic_pin_edit),
         BottomSheetAction(name = LinkActions.Copy.name, R.drawable.ic_copy),
+        BottomSheetAction(name = LinkActions.Shortcut.name, R.drawable.ic_pin_edit),
         BottomSheetAction(name = LinkActions.Share.name, R.drawable.ic_share)
     )
 
@@ -70,6 +73,11 @@ fun LinkActionsBottomSheet(
             LinkActions.Copy -> {
                 val clipboardManager = LocalClipboard.current
                 clipboardManager.nativeClipboard.text = AnnotatedString(link.url)
+            }
+
+            LinkActions.Shortcut -> {
+                val context = LocalContext.current
+                createLinkDynamicPinnedShortcut(context, link)
             }
 
             LinkActions.Share -> {

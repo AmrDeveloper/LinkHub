@@ -13,7 +13,9 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Theme
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_FOLDER
 import com.amrdeveloper.linkhub.util.ACTION_CREATE_LINK
+import com.amrdeveloper.linkhub.util.ACTION_OPEN_LINK
 import com.amrdeveloper.linkhub.util.UiPreferences
+import com.amrdeveloper.linkhub.util.openLinkIntent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -43,7 +45,10 @@ class MainActivity : AppCompatActivity() {
             Intent.ACTION_SEND -> {
                 val sharedLink = intent.getStringExtra(Intent.EXTRA_TEXT)
                 val sharedLinkSubject = intent.getStringExtra(Intent.EXTRA_SUBJECT) ?: ""
-                val bundle = bundleOf("shared_link" to sharedLink, "shared_link_subject" to sharedLinkSubject)
+                val bundle = bundleOf(
+                    "shared_link" to sharedLink,
+                    "shared_link_subject" to sharedLinkSubject
+                )
                 findNavHostController(R.id.nav_host_fragment).navigate(R.id.linkFragment, bundle)
                 return
             }
@@ -64,6 +69,15 @@ class MainActivity : AppCompatActivity() {
 
             ACTION_CREATE_FOLDER -> {
                 findNavHostController(R.id.nav_host_fragment).navigate(R.id.folderFragment)
+            }
+
+            ACTION_OPEN_LINK -> {
+                try {
+                    intent.getStringExtra("link_url")?.let { linkUrl ->
+                        openLinkIntent(this, linkUrl)
+                    }
+                } catch (e: Exception) {
+                }
             }
         }
     }
