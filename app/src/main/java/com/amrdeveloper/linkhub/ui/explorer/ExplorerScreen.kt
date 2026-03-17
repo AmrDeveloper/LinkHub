@@ -16,9 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,10 +28,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.ui.components.FolderWithActions
-import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
-import com.amrdeveloper.linkhub.ui.components.LinkItem
+import com.amrdeveloper.linkhub.ui.components.LinkWithActions
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.openLinkIntent
@@ -47,9 +42,6 @@ fun ExplorerScreen(
     navController: NavController,
 ) {
     val context = LocalContext.current
-    var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
-    var showLinkActionsDialog by remember { mutableStateOf(value = false) }
-
     LaunchedEffect(true) {
         currentFolder?.let { viewModel.updateFolderId(folderId = it.id) }
     }
@@ -92,43 +84,23 @@ fun ExplorerScreen(
             }
 
             items(sortedLinksState.data) { link ->
-                LinkItem(
+                LinkWithActions(
                     link = link,
                     onClick = {
                         viewModel.incrementLinkClickCount(link)
-                        lastClickedLink = link
-                        if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
-                            try {
-                                openLinkIntent(context = context, link = link.url)
-                            } catch (_: Exception) {
+                        try {
+                            openLinkIntent(context = context, link = link.url)
+                        } catch (_: Exception) {
 
-                            }
-                        } else {
-                            showLinkActionsDialog = true
                         }
                     },
-                    onLongClick = {
-                        val bundle = bundleOf("link" to link)
-                        navController.navigate(
-                            R.id.linkFragment,
-                            bundle
-                        )
-                    },
+                    navController = navController,
                     showClickCount = uiPreferences.isClickCounterEnabled(),
                     minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(4.dp)
                 )
-            }
-        }
-
-        if (showLinkActionsDialog) {
-            lastClickedLink?.let { link ->
-                LinkActionsBottomSheet(
-                    link = link,
-                    navController = navController,
-                    onDialogDismiss = { showLinkActionsDialog = false })
             }
         }
     }

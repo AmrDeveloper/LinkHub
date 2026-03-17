@@ -21,32 +21,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.util.createLinkDynamicPinnedShortcut
+import com.amrdeveloper.linkhub.util.shareTextIntent
 
 @Composable
 fun LinkList(
     links: List<Link>,
     onClick: (Link) -> Unit = {},
-    onLongClick: (Link) -> Unit = {},
+    navController: NavController,
     showClickCount: Boolean = false,
     minimalModeEnabled: Boolean = false,
     linkItemPadding: Dp = 4.dp
 ) {
     LazyColumn {
         items(links) { link ->
-            LinkItem(
+            LinkWithActions(
                 link = link,
                 onClick = onClick,
-                onLongClick = onLongClick,
                 showClickCount = showClickCount,
                 minimalModeEnabled = minimalModeEnabled,
+                navController = navController,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(linkItemPadding)
@@ -56,13 +62,13 @@ fun LinkList(
 }
 
 @Composable
-fun LinkItem(
+fun LinkContent(
+    modifier: Modifier = Modifier,
     link: Link,
     onClick: (Link) -> Unit = {},
     onLongClick: (Link) -> Unit = {},
     minimalModeEnabled: Boolean = false,
-    showClickCount: Boolean = false,
-    modifier: Modifier = Modifier
+    showClickCount: Boolean = false
 ) {
     Card(
         modifier = modifier,
@@ -158,6 +164,62 @@ fun LinkItem(
     }
 }
 
+private val linkLongClickOptions = listOf(
+    DropDownOption("Edit", R.drawable.ic_shortcut),
+    DropDownOption("Copy", R.drawable.ic_shortcut),
+    DropDownOption("Shortcut", R.drawable.ic_shortcut),
+    DropDownOption("Share", R.drawable.ic_shortcut)
+)
+
+@Composable
+fun LinkWithActions(
+    modifier: Modifier = Modifier,
+    link: Link,
+    onClick: (Link) -> Unit,
+    navController: NavController,
+    minimalModeEnabled: Boolean = false,
+    showClickCount: Boolean = false
+) {
+    val context = LocalContext.current
+    val clipboardManager = LocalClipboard.current
+
+    DropdownContainer(
+        options = linkLongClickOptions,
+        onOptionSelected = { option ->
+            when (option.text) {
+                "Edit" -> {
+                    val bundle = bundleOf("link" to link)
+                    navController.navigate(R.id.linkFragment, bundle)
+                }
+
+                "Copy" -> {
+                    clipboardManager.nativeClipboard.text = AnnotatedString(link.url)
+                }
+
+                "Shortcut" -> {
+                    createLinkDynamicPinnedShortcut(context, link)
+                }
+
+                "Share" -> {
+                    shareTextIntent(context = context, text = "${link.title}\n${link.url}")
+                }
+            }
+        },
+        anchorContent = { openMenu ->
+            LinkContent(
+                modifier,
+                link = link,
+                onClick = onClick,
+                onLongClick = {
+                    openMenu()
+                },
+                minimalModeEnabled = minimalModeEnabled,
+                showClickCount = showClickCount
+            )
+        }
+    )
+}
+
 private val platformDomainIconsForUrl = mutableMapOf(
     "instagram.com" to R.drawable.ic_platform_instagram,
     "facebook.com" to R.drawable.ic_platform_facebook,
@@ -180,18 +242,4 @@ private fun findPlatformDomainIcon(url: String): Int {
         }
     }
     return R.drawable.ic_link
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LinkListPreview() {
-    val links = listOf(
-        Link("A_001", "sub_title", url = "", isPinned = true),
-        Link("A_002", "sub_title", url = "", isPinned = false),
-        Link("A_003", "sub_title", url = "", isPinned = true),
-        Link("A_004", "sub_title", url = "", isPinned = false),
-    )
-
-    LinkList(links, showClickCount = true)
-    LinkList(links, showClickCount = false)
 }

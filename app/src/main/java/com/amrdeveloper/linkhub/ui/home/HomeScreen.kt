@@ -12,10 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,10 +24,8 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.amrdeveloper.linkhub.R
-import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.ui.components.FloatingQuickActionsButton
 import com.amrdeveloper.linkhub.ui.components.FolderWithActions
-import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkList
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.ui.components.PagerIndicator
@@ -54,9 +48,6 @@ fun HomeScreen(
     val foldersPagerState = rememberPagerState(pageCount = { totalPages })
 
     val links = viewModel.sortedLinksState.collectAsStateWithLifecycle()
-
-    var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
-    var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
     Scaffold(
         topBar = { LinkhubToolbar(viewModel(), uiPreferences, navController) },
@@ -104,11 +95,16 @@ fun HomeScreen(
                                                 onClick = { folder ->
                                                     viewModel.incrementFolderClickCount(folder)
                                                     val bundle = bundleOf("folder" to folder)
-                                                    navController.navigate(R.id.explorerFragment, bundle)
+                                                    navController.navigate(
+                                                        R.id.explorerFragment,
+                                                        bundle
+                                                    )
                                                 },
                                                 navController = navController,
                                                 minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
-                                                modifier = Modifier.fillMaxWidth().padding(4.dp)
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(4.dp)
                                             )
                                         }
                                     }
@@ -135,33 +131,16 @@ fun HomeScreen(
                         links = links.value.data,
                         onClick = { link ->
                             viewModel.incrementLinkClickCount(link)
-                            lastClickedLink = link
-                            if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
-                                try {
-                                    openLinkIntent(context = context, link = link.url)
-                                } catch (_: Exception) {
+                            try {
+                                openLinkIntent(context = context, link = link.url)
+                            } catch (_: Exception) {
 
-                                }
-                            } else {
-                                showLinkActionsDialog = true
                             }
                         },
-                        onLongClick = { link ->
-                            val bundle = bundleOf("link" to link)
-                            navController.navigate(R.id.linkFragment, bundle)
-                        },
+                        navController = navController,
                         showClickCount = uiPreferences.isClickCounterEnabled(),
                         minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
                     )
-                }
-
-                if (showLinkActionsDialog) {
-                    lastClickedLink?.let { link ->
-                        LinkActionsBottomSheet(
-                            link = link,
-                            navController = navController,
-                            onDialogDismiss = { showLinkActionsDialog = false })
-                    }
                 }
             }
         }

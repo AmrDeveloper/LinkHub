@@ -17,7 +17,6 @@ private const val UI_QUICK_ACTION_BUTTON_KEY = "quick_action_button"
 private const val UI_AUTO_SAVE_KEY = "auto_save"
 private const val UI_DEFAULT_FOLDER_KEY = "default_folder_mode"
 private const val DEFAULT_FOLDER_NAME = "default_folder_name"
-private const val LINK_DEFAULT_ACTION_KEY = "link_default_action"
 
 // Options
 private const val PASSWORD_ENABLE_KEY = "password_enable"
@@ -56,12 +55,6 @@ class UiPreferences(private val context: Context) {
     fun setEnableDefaultFolderEnabled(enable: Boolean) {
         preferences.edit {
             putBoolean(UI_DEFAULT_FOLDER_KEY, enable)
-        }
-    }
-
-    fun setEnableOpenLinkByClickOption(enable: Boolean) {
-        preferences.edit {
-            putBoolean(LINK_DEFAULT_ACTION_KEY, enable)
         }
     }
 
@@ -130,11 +123,6 @@ class UiPreferences(private val context: Context) {
     fun isMinimalModeEnabled(): Boolean {
         val preferences = preferences
         return preferences.getBoolean(UI_MINIMAL_MODE_KEY, false)
-    }
-
-    fun isOpenLinkByClickOptionEnabled(): Boolean {
-        val preferences = preferences
-        return preferences.getBoolean(LINK_DEFAULT_ACTION_KEY, false)
     }
 
     fun getDefaultFolderId(): Int {

@@ -157,19 +157,17 @@ fun FolderWithActions(
     val context = LocalContext.current
 
     DropdownContainer(
-        folderLongClickOptions,
+        options = folderLongClickOptions,
         onOptionSelected = { option ->
-            if (option.text == "Edit") {
-                val bundle = bundleOf("folder" to folder)
-                navController.navigate(
-                    R.id.folderFragment,
-                    bundle
-                )
-            } else {
-                createFolderDynamicPinnedShortcut(
-                    context,
-                    folder
-                )
+            when (option.text) {
+                "Edit" -> {
+                    val bundle = bundleOf("folder" to folder)
+                    navController.navigate(R.id.folderFragment, bundle)
+                }
+
+                "Shortcut" -> {
+                    createFolderDynamicPinnedShortcut(context, folder)
+                }
             }
         },
         anchorContent = { openMenu ->

@@ -158,14 +158,6 @@ fun SettingsScreen(
             }
         )
 
-        SwitchSettingOption(
-            text = "Single Click open link",
-            icon = R.drawable.ic_click,
-            isChecked = uiPreferences.isOpenLinkByClickOptionEnabled(),
-            onCheckedChange = { isEnabled ->
-                uiPreferences.setEnableOpenLinkByClickOption(isEnabled)
-            }
-        )
 
         SettingSectionDivider(text = "Options")
 

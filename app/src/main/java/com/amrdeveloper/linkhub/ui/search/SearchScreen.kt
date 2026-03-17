@@ -37,10 +37,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
-import com.amrdeveloper.linkhub.data.Link
 import com.amrdeveloper.linkhub.ui.components.FolderWithActions
-import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
-import com.amrdeveloper.linkhub.ui.components.LinkItem
+import com.amrdeveloper.linkhub.ui.components.LinkWithActions
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.openLinkIntent
 
@@ -57,9 +55,6 @@ fun SearchScreen(
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var searchSelectionParams by remember { mutableStateOf(value = SearchParams()) }
     var expanded by rememberSaveable { mutableStateOf(value = false) }
-
-    var lastClickedLink by remember { mutableStateOf<Link?>(value = null) }
-    var showLinkActionsDialog by remember { mutableStateOf(value = false) }
 
     LaunchedEffect(searchQuery, searchSelectionParams) {
         viewModel.updateSearchParams(params = searchSelectionParams.copy(query = searchQuery))
@@ -148,32 +143,26 @@ fun SearchScreen(
                             },
                             navController = navController,
                             minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
-                            modifier = Modifier.fillMaxWidth().padding(4.dp)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp)
                         )
                     }
                 }
 
                 if (searchSelectionParams.isLinksSelected) {
                     items(links.value.data) { link ->
-                        LinkItem(
+                        LinkWithActions(
                             link = link,
                             onClick = {
                                 viewModel.incrementLinkClickCount(link)
-                                lastClickedLink = link
-                                if (uiPreferences.isOpenLinkByClickOptionEnabled()) {
-                                    try {
-                                        openLinkIntent(context = context, link = link.url)
-                                    } catch (_: Exception) {
+                                try {
+                                    openLinkIntent(context = context, link = link.url)
+                                } catch (_: Exception) {
 
-                                    }
-                                } else {
-                                    showLinkActionsDialog = true
                                 }
                             },
-                            onLongClick = {
-                                val bundle = bundleOf("link" to link)
-                                navController.navigate(R.id.linkFragment, bundle)
-                            },
+                            navController = navController,
                             showClickCount = uiPreferences.isClickCounterEnabled(),
                             minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
                             modifier = Modifier
@@ -181,15 +170,6 @@ fun SearchScreen(
                                 .padding(4.dp)
                         )
                     }
-                }
-            }
-
-            if (showLinkActionsDialog) {
-                lastClickedLink?.let { link ->
-                    LinkActionsBottomSheet(
-                        link = link,
-                        navController = navController,
-                        onDialogDismiss = { showLinkActionsDialog = false })
                 }
             }
         }
