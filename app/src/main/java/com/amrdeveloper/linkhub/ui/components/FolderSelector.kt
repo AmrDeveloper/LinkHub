@@ -64,7 +64,7 @@ fun FolderSelector(
             modifier = Modifier.heightIn(max = 200.dp)
         ) {
             folders.forEach { folder ->
-                FolderItem(
+                FolderContent(
                     folder = folder,
                     onClick = { folder ->
                         expanded = false

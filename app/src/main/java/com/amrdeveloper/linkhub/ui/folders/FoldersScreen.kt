@@ -107,20 +107,10 @@ fun FoldersScreen(
                 viewKind = showItemsOption,
                 onClick = { folder ->
                     viewModel.incrementFolderClickCount(folder)
-
                     val bundle = bundleOf("folder" to folder)
-                    navController.navigate(
-                        R.id.explorerFragment,
-                        bundle
-                    )
+                    navController.navigate(R.id.explorerFragment, bundle)
                 },
-                onLongClick = { folder ->
-                    val bundle = bundleOf("folder" to folder)
-                    navController.navigate(
-                        R.id.folderFragment,
-                        bundle
-                    )
-                },
+                navController = navController,
                 minimalModeEnabled = uiPreferences.isMinimalModeEnabled()
             )
         }

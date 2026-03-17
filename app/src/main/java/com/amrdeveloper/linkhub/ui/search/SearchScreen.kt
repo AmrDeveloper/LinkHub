@@ -38,7 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Link
-import com.amrdeveloper.linkhub.ui.components.FolderItem
+import com.amrdeveloper.linkhub.ui.components.FolderWithActions
 import com.amrdeveloper.linkhub.ui.components.LinkActionsBottomSheet
 import com.amrdeveloper.linkhub.ui.components.LinkItem
 import com.amrdeveloper.linkhub.util.UiPreferences
@@ -139,27 +139,16 @@ fun SearchScreen(
 
                 if (searchSelectionParams.isFoldersSelected) {
                     items(folders.value.data) { folder ->
-                        FolderItem(
+                        FolderWithActions(
                             folder = folder,
                             onClick = {
                                 viewModel.incrementFolderClickCount(folder)
                                 val bundle = bundleOf("folder" to folder)
-                                navController.navigate(
-                                    R.id.explorerFragment,
-                                    bundle
-                                )
+                                navController.navigate(R.id.explorerFragment, bundle)
                             },
-                            onLongClick = {
-                                val bundle = bundleOf("folder" to folder)
-                                navController.navigate(
-                                    R.id.folderFragment,
-                                    bundle
-                                )
-                            },
+                            navController = navController,
                             minimalModeEnabled = uiPreferences.isMinimalModeEnabled(),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(4.dp)
+                            modifier = Modifier.fillMaxWidth().padding(4.dp)
                         )
                     }
                 }

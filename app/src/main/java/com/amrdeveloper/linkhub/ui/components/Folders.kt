@@ -21,14 +21,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.FolderColor
+import com.amrdeveloper.linkhub.util.createFolderDynamicPinnedShortcut
 
 enum class FolderViewKind {
     List,
@@ -40,7 +42,7 @@ fun FolderList(
     folders: List<Folder>,
     viewKind: FolderViewKind,
     onClick: (Folder) -> Unit = {},
-    onLongClick: (Folder) -> Unit = {},
+    navController: NavController,
     minimalModeEnabled: Boolean = false,
     folderItemPadding: Dp = 4.dp
 ) {
@@ -48,10 +50,10 @@ fun FolderList(
         FolderViewKind.List -> {
             LazyColumn {
                 items(folders) { folder ->
-                    FolderItem(
+                    FolderWithActions(
                         folder = folder,
                         onClick = onClick,
-                        onLongClick = onLongClick,
+                        navController = navController,
                         minimalModeEnabled = minimalModeEnabled,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -64,14 +66,14 @@ fun FolderList(
         FolderViewKind.Grid -> {
             LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
                 items(folders) { folder ->
-                    FolderItem(
+                    FolderWithActions(
                         folder = folder,
                         onClick = onClick,
-                        onLongClick = onLongClick,
+                        navController = navController,
                         minimalModeEnabled = minimalModeEnabled,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(folderItemPadding)
+                            .padding(folderItemPadding),
                     )
                 }
             }
@@ -80,14 +82,14 @@ fun FolderList(
 }
 
 @Composable
-fun FolderItem(
+fun FolderContent(
+    modifier: Modifier = Modifier,
     folder: Folder,
     onClick: (Folder) -> Unit = {},
     onLongClick: (Folder) -> Unit = {},
     minimalModeEnabled: Boolean = false,
     folderItemElevation: Dp = 4.dp,
     folderItemPadding: Dp = 8.dp,
-    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier,
@@ -139,15 +141,47 @@ fun FolderItem(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun FolderListPreview() {
-    val folders = listOf(
-        Folder("A_001", folderColor = FolderColor.BLUE),
-        Folder("A_002", folderColor = FolderColor.RED),
-        Folder("A_003", folderColor = FolderColor.RED),
-    )
+private val folderLongClickOptions = listOf(
+    DropDownOption("Edit", R.drawable.ic_pin_edit),
+    DropDownOption("Shortcut", R.drawable.ic_shortcut)
+)
 
-    FolderList(folders, FolderViewKind.List)
-    FolderList(folders, FolderViewKind.Grid)
+@Composable
+fun FolderWithActions(
+    modifier: Modifier = Modifier,
+    folder: Folder,
+    onClick: (Folder) -> Unit,
+    navController: NavController,
+    minimalModeEnabled: Boolean = false,
+) {
+    val context = LocalContext.current
+
+    DropdownContainer(
+        folderLongClickOptions,
+        onOptionSelected = { option ->
+            if (option.text == "Edit") {
+                val bundle = bundleOf("folder" to folder)
+                navController.navigate(
+                    R.id.folderFragment,
+                    bundle
+                )
+            } else {
+                createFolderDynamicPinnedShortcut(
+                    context,
+                    folder
+                )
+            }
+        },
+        anchorContent = { openMenu ->
+            FolderContent(
+                modifier,
+                folder = folder,
+                onClick = onClick,
+                onLongClick = {
+                    openMenu()
+                },
+                minimalModeEnabled = minimalModeEnabled,
+            )
+        }
+    )
 }
