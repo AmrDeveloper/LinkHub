@@ -29,7 +29,7 @@ fun createLinkDynamicPinnedShortcut(context: Context, link: Link): Boolean {
         iconId = R.drawable.ic_link,
         shortcutId = link.hashCode().toString(),
         shortcutAction = ACTION_OPEN_LINK,
-        addExtras = { intent ->
+        populateIntentWithExtras = { intent ->
             val bundle = bundleOf(
                 "link_id" to link.id.toString(),
                 "link_url" to link.url
@@ -47,9 +47,9 @@ fun createFolderDynamicPinnedShortcut(context: Context, folder: Folder): Boolean
         iconId = R.drawable.ic_link,
         shortcutId = folder.hashCode().toString(),
         shortcutAction = ACTION_OPEN_FOLDER,
-        addExtras = { intent ->
-            val folder_json = Gson().toJson(folder)
-            intent.putExtra("folder_json", folder_json)
+        populateIntentWithExtras = { intent ->
+            val folderJson = Gson().toJson(folder)
+            intent.putExtra("folder_json", folderJson)
         },
     )
 }
@@ -61,7 +61,7 @@ private fun createDynamicPinnedShortcut(
     iconId: Int,
     shortcutId: String,
     shortcutAction: String,
-    addExtras: (Intent) -> Unit,
+    populateIntentWithExtras: (Intent) -> Unit,
 ): Boolean {
     if (!ShortcutManagerCompat.isRequestPinShortcutSupported(context)) {
         return false
@@ -74,7 +74,7 @@ private fun createDynamicPinnedShortcut(
         .setIntent(
             Intent(context, MainActivity::class.java).apply {
                 action = shortcutAction
-                addExtras(this)
+                populateIntentWithExtras(this)
             }
         )
         .build()

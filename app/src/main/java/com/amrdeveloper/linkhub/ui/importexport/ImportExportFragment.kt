@@ -3,11 +3,14 @@ package com.amrdeveloper.linkhub.ui.importexport
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +23,10 @@ import com.amrdeveloper.linkhub.R
 import com.amrdeveloper.linkhub.data.ImportExportFileType
 import com.amrdeveloper.linkhub.databinding.FragmentImportExportBinding
 import com.amrdeveloper.linkhub.util.UiPreferences
-import com.amrdeveloper.linkhub.util.getFileName
-import com.amrdeveloper.linkhub.util.getFileText
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -113,7 +116,7 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun exportFileFromDeviceWthPermission(fileType: ImportExportFileType) {
-        if (Build.VERSION_CODES.R > Build.VERSION.SDK_INT && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION_CODES.R > Build.VERSION.SDK_INT) {
             val readPermissionState =
                 checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
             if (readPermissionState == PackageManager.PERMISSION_GRANTED)
@@ -172,6 +175,7 @@ class ImportExportFragment : Fragment() {
     }
 }
 
+// FIXME
 fun Activity?.showSnackBar(message: Int) {
     this ?: return
     val snackBar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
@@ -180,4 +184,31 @@ fun Activity?.showSnackBar(message: Int) {
         setBackgroundTint(ContextCompat.getColor(context, R.color.dark_sky))
         show()
     }
+}
+
+// FIXME
+fun ContentResolver.getFileText(fileUri: Uri): String {
+    val inputStream = openInputStream(fileUri)
+    val stringBuilder = StringBuilder()
+    val bufferReader = BufferedReader(InputStreamReader(inputStream))
+    var line: String? = bufferReader.readLine()
+    while (line != null) {
+        stringBuilder.appendLine(line)
+        line = bufferReader.readLine()
+    }
+    inputStream?.close()
+    return stringBuilder.toString()
+}
+
+// FIXME
+fun ContentResolver.getFileName(fileUri: Uri): String {
+    var name = ""
+    val returnCursor = this.query(fileUri, null, null, null, null)
+    if (returnCursor != null) {
+        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        returnCursor.moveToFirst()
+        name = returnCursor.getString(nameIndex)
+        returnCursor.close()
+    }
+    return name
 }

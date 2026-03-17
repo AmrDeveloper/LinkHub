@@ -2,10 +2,11 @@ package com.amrdeveloper.linkhub.util
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 
+// FIXME: Return result for error message and handle exceptions
 fun openLinkIntent(context: Context, link: String) {
-    val openIntent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(link))
+    val openIntent = Intent(Intent.ACTION_VIEW).setData(link.toUri())
     context.startActivity(openIntent)
 }
 
