@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+Version 2.1.0 *(2026-03-21)*
+-----------------------------
+
+* Fix cursor and border color in dark theme.
+* Support pin link in home screen.
+* Support pin folder in home screen.
+* Add drop down menu for link long click.
+
 Version 2.0.9 *(2026-03-01)*
 -----------------------------
 
