@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.2.0 *(2026-05-15)*
+-----------------------------
+
+- Support generating QR code for sharing links.
+
 Version 2.1.0 *(2026-03-21)*
 -----------------------------
 

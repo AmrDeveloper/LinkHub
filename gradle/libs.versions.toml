@@ -2,7 +2,7 @@
 kotlin = "2.3.20"
 androidGradlePlugin = "9.0.0"
 compileSdk = "37"
-targetSdk = "36"
+targetSdk = "37"
 minSdk = "23"
 
 activityCompose = "1.13.0"
