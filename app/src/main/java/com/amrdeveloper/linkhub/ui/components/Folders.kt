@@ -142,7 +142,7 @@ fun FolderContent(
 }
 
 private val folderLongClickOptions = listOf(
-    DropDownOption("Edit", R.drawable.ic_pin_edit),
+    DropDownOption("Info", R.drawable.ic_pin_edit),
     DropDownOption("Shortcut", R.drawable.ic_shortcut)
 )
 
@@ -160,7 +160,7 @@ fun FolderWithActions(
         options = folderLongClickOptions,
         onOptionSelected = { option ->
             when (option.text) {
-                "Edit" -> {
+                "Info" -> {
                     val bundle = bundleOf("folder" to folder)
                     navController.navigate(R.id.folderFragment, bundle)
                 }

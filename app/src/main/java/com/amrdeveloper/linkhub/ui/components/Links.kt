@@ -165,7 +165,7 @@ fun LinkContent(
 }
 
 private val linkLongClickOptions = listOf(
-    DropDownOption("Edit", R.drawable.ic_shortcut),
+    DropDownOption("Info", R.drawable.ic_shortcut),
     DropDownOption("Copy", R.drawable.ic_shortcut),
     DropDownOption("Shortcut", R.drawable.ic_shortcut),
     DropDownOption("Share", R.drawable.ic_shortcut)
@@ -187,7 +187,7 @@ fun LinkWithActions(
         options = linkLongClickOptions,
         onOptionSelected = { option ->
             when (option.text) {
-                "Edit" -> {
+                "Info" -> {
                     val bundle = bundleOf("link" to link)
                     navController.navigate(R.id.linkFragment, bundle)
                 }
