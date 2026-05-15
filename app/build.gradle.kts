@@ -93,10 +93,10 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.jsoup)
 
+    implementation(libs.qr.zxing.core)
+
     implementation(libs.timber)
     debugImplementation(libs.leakcanary.android)
-
-    implementation("com.google.zxing:core:3.5.4")
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
