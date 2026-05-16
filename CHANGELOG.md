@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 2.2.1 *(2026-05-16)*
+-----------------------------
+
+- Fix the size of link icon.
+- Back to compile with SDK 36 (#93).
+
 Version 2.2.0 *(2026-05-15)*
 -----------------------------
 

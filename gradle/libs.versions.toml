@@ -1,8 +1,8 @@
 [versions]
 kotlin = "2.3.21"
 androidGradlePlugin = "9.2.1"
-compileSdk = "37"
-targetSdk = "37"
+compileSdk = "36"
+targetSdk = "36"
 minSdk = "23"
 
 activityCompose = "1.13.0"
