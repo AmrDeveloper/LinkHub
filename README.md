@@ -16,11 +16,31 @@ Linkhub help you to organize and access links fast and easily, it automatically 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-LinkHub-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/8305)
 
 ## Download
+# Download
+
 <p align="center">
-<a href='https://play.google.com/store/apps/details?id=com.amrdeveloper.linkhub'><img alt='Get it on Google Play' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png' width="auto" height="55"/></a>
-<a href="https://galaxystore.samsung.com/detail/com.amrdeveloper.linkhub"><img src="https://img.samsungapps.com/seller/images/badges/galaxyStore/png_big/GalaxyStore_English.png" alt="Samsung Galaxy Store" width="auto" height="55"></a>
-<a href="https://www.amazon.com/gp/product/B09B19R8K5"><img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" alt="Amazon App Store" width="auto" height="55"></a>
-<a href="https://appgallery.huawei.com/#/app/C104553823"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Huawei_AppGallery_white_badge_EN.png" alt="Huawei AppGallery" width="auto" height="55"></a>
+<a href='https://play.google.com/store/apps/details?id=com.amrdeveloper.linkhub'>
+    <img alt='Get it on Google Play' 
+    src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' 
+    width="auto" height="80"/>
+</a>
+<a href='https://github.com/AmrDeveloper/Linkhub/releases'>
+    <img alt='Get it on Google Play' 
+    src='media/badges/get_on_github.png'
+    width="auto" 
+    height="80"/>
+</a>
+<a href="https://f-droid.org/packages/com.amrdeveloper.linkhub">
+    <img src="https://f-droid.org/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">
+</a>
+<a href='https://apt.izzysoft.de/packages/com.amrdeveloper.linkhub'>
+    <img src='https://codeberg.org/IzzyOnDroid/assets/raw/branch/main/IzzyOnDroidButtonGreyBorder.svg'
+    alt='Get it on Google Play' 
+    width="189"
+    height="80"/>
+</a>    
 </p>
 
 ## Screenshots
