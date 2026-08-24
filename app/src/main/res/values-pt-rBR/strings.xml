@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Labels-->
+    <string name="app_name">LinkHub</string>
+    <string name="top_folders">Pastas principais</string>
+    <string name="folder">Pasta</string>
+    <string name="folders">Pastas</string>
+    <string name="links">Links</string>
+    <string name="search">Pesquisar</string>
+    <string name="link_icon">Ícone do link</string>
+    <string name="all_folders">Todas as pastas</string>
+    <string name="link_title">Título do link</string>
+    <string name="link_subtitle">Subtítulo do link</string>
+    <string name="link_url">URL do link</string>
+    <string name="pinned">Fixado</string>
+    <string name="folder_name">Nome da pasta</string>
+    <string name="none">Nenhuma</string>
+    <string name="created_at">Criado em</string>
+    <string name="updated_at">Última atualização em</string>
+    <string name="settings">Configurações</string>
+    <string name="issues">Problemas</string>
+    <string name="contributors">Colaboradores</string>
+    <string name="source_code">Código-fonte</string>
+    <string name="sponsor">Apoiar</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="show_counter">Mostrar contador</string>
+    <string name="auto_saving">Salvamento automático</string>
+    <string name="folder_color_preview">Prévia da cor da pasta</string>
+    <string name="next_folder_color">Próxima cor da pasta</string>
+    <string name="previous_folder_color">Cor anterior da pasta</string>
+    <string name="import_export">Importar e exportar</string>
+    <string name="import_export_choose_file_type">Escolha um tipo de arquivo</string>
+    <string name="password">Senha</string>
+    <string name="enable_password">Ativar senha</string>
+    <string name="default_folder">Lembrar a última pasta</string>
+    <string name="language">Idioma</string>
+    <string name="system_default">Padrão do sistema</string>
+    <string name="portuguese_brazil">Português (Brasil)</string>
+    <string name="app_info">Informações do app</string>
+    <string name="ui_settings">Interface</string>
+    <string name="dark_mode">Modo escuro</string>
+    <string name="minimal_mode">Modo minimalista</string>
+    <string name="font_family">Fonte</string>
+    <string name="quick_actions_button">Botão de ações rápidas</string>
+    <string name="configs">Configurações</string>
+    <string name="options">Opções</string>
+    <string name="open_source">Código aberto</string>
+    <string name="explorer">Explorador</string>
+    <string name="in_folder">Em uma pasta</string>
+    <string name="clicked_before">Acessados anteriormente</string>
+    <string name="link_actions">Ações do link</string>
+    <string name="color">Cor</string>
+    <string name="folder_optional">Pasta (opcional)</string>
+    <string name="link_subtitle_optional">Subtítulo (opcional)</string>
+    <string name="generated_qr_code">Código QR gerado</string>
+
+    <!--Actions-->
+    <string name="add_link">Adicionar link</string>
+    <string name="add_new_link">Adicionar novo link</string>
+    <string name="show_add_options">Mostrar opções de adição</string>
+    <string name="add_link_option">Opção para adicionar link</string>
+    <string name="add_folder_option">Opção para adicionar pasta</string>
+    <string name="save">Salvar</string>
+    <string name="delete">Excluir</string>
+    <string name="open_in_browser">Abrir no navegador</string>
+    <string name="copy">Copiar</string>
+    <string name="undo">Desfazer</string>
+    <string name="share">Compartilhar</string>
+    <string name="imports">Importar</string>
+    <string name="export">Exportar</string>
+    <string name="check">Verificar</string>
+
+    <!--Messages-->
+    <string name="message_link_copy">A URL do link foi copiada</string>
+    <string name="message_link_invalid">Não foi possível abrir a URL do link no navegador</string>
+    <string name="message_link_deleted">O link foi excluído</string>
+    <string name="message_links_empty">Você não possui links</string>
+
+    <string name="message_folders_empty">Você não possui pastas</string>
+
+    <string name="message_data_imported">Dados importados com sucesso</string>
+    <string name="message_data_exported">Dados exportados com sucesso para a pasta Downloads</string>
+
+    <string name="message_invalid_extension">Extensão de arquivo inválida</string>
+    <string name="message_invalid_data_format">Formato de dados inválido</string>
+    <string name="message_invalid_export">Não foi possível exportar estes dados</string>
+
+    <string name="message_password_enabled">Senha ativada</string>
+    <string name="message_password_disabled">Senha desativada</string>
+
+    <!--Counters-->
+    <string name="folder_count">Pastas: %1$d</string>
+    <string name="version">Versão %1$s</string>
+
+    <!--Error Messages-->
+    <!--Link Error Messages-->
+    <string name="error_get_links">Não foi possível encontrar os links</string>
+    <string name="error_insert_link">Não foi possível adicionar este link</string>
+    <string name="error_update_link">Não foi possível atualizar este link</string>
+    <string name="error_delete_link">Não foi possível excluir este link</string>
+    <string name="error_link_title_empty">O título do link não pode ficar vazio</string>
+    <string name="error_link_title_small">O título do link deve ter pelo menos 3 caracteres</string>
+    <string name="error_link_subtitle_empty">O subtítulo do link não pode ficar vazio</string>
+    <string name="error_link_url_empty">A URL do link não pode ficar vazia</string>
+    <string name="error_link_url_invalid">A URL do link é inválida</string>
+    <string name="error_link_same_title">Já existe um link com o mesmo título</string>
+
+    <!--Folder Error Messages-->
+    <string name="error_get_top_folders">Não foi possível encontrar as pastas principais</string>
+    <string name="error_get_folders">Não foi possível encontrar as pastas</string>
+    <string name="error_insert_folder">Não foi possível adicionar esta pasta</string>
+    <string name="error_update_folder">Não foi possível atualizar esta pasta</string>
+    <string name="error_delete_folder">Não foi possível excluir esta pasta</string>
+    <string name="error_folder_name_empty">O nome da pasta não pode ficar vazio</string>
+    <string name="error_folder_name_small">O nome da pasta deve ter pelo menos 3 caracteres</string>
+    <string name="error_folder_same_name">Já existe uma pasta com o mesmo nome</string>
+
+    <!-- Password error message -->
+    <string name="error_password_empty">A senha não pode ficar vazia</string>
+    <string name="error_incorrect_password">A senha está incorreta</string>
+    <string name="error_password_back_from_check">Não é possível ignorar a verificação da senha</string>
+
+    <!--Shortcuts-->
+    <string name="folder_create">Criar pasta</string>
+    <string name="link_create">Criar link</string>
+</resources>
