@@ -1,11 +1,11 @@
 [versions]
-kotlin = "2.3.21"
-androidGradlePlugin = "9.2.1"
+kotlin = "2.4.21"
+androidGradlePlugin = "9.4.1"
 compileSdk = "37"
 minSdk = "24"
 
 activityCompose = "1.13.0"
-composeBom = "2026.06.01"
+composeBom = "2026.09.00"
 material3 = "1.4.0"
 navigation-compose = "2.9.8"
 
@@ -16,9 +16,9 @@ material = "1.14.0"
 lifecycle-livedata-ktx = "2.10.0"
 navigation-fragment-ktx = "2.9.6"
 navigation-safeargs = "2.9.6"
-room = "2.8.4"
-paging = "3.5.0"
-hilt = "2.59.2"
+room = "2.8.5"
+paging = "3.5.3"
+hilt = "2.60.1"
 legacy_support = "1.0.0"
 
 kotlinx-coroutines = "1.11.0"
