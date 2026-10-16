@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -32,7 +31,6 @@ import com.amrdeveloper.linkhub.ui.search.SearchScreen
 import com.amrdeveloper.linkhub.ui.search.SearchViewModel
 import com.amrdeveloper.linkhub.util.UiPreferences
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LinkhubToolbar(
     viewModel: SearchViewModel = viewModel(),
@@ -56,13 +54,23 @@ fun LinkhubToolbar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (!expanded) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_link),
-                    contentDescription = "LinkHub",
-                    tint = Color.Unspecified,
-                    modifier = Modifier
-                        .size(22.dp)
-                        .weight(0.2f)
+                IconButton(
+                    onClick = {
+                        val currentDestination = navController.currentDestination
+                        if (currentDestination?.id != R.id.homeFragment) {
+                            navController.navigate(resId = R.id.homeFragment)
+                        }
+                    },
+                    content = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_link),
+                            contentDescription = "LinkHub",
+                            tint = Color.Unspecified,
+                            modifier = Modifier
+                                .size(22.dp)
+                                .weight(0.2f)
+                        )
+                    }
                 )
             }
 
