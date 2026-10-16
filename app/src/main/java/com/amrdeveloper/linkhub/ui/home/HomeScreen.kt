@@ -113,7 +113,7 @@ fun HomeScreen(
                         }
                     )
 
-                    PagerIndicator(pagerState = foldersPagerState)
+                    if (foldersPagerState.pageCount > 1) PagerIndicator(pagerState = foldersPagerState)
                 }
 
                 if (links.value.data.isNotEmpty()) {
