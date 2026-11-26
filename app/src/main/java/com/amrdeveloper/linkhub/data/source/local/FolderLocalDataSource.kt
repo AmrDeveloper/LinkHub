@@ -2,7 +2,7 @@ package com.amrdeveloper.linkhub.data.source.local
 
 import androidx.paging.PagingSource
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.FolderSortingOption
+import com.amrdeveloper.linkhub.data.SortingOptions
 import com.amrdeveloper.linkhub.data.source.FolderDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -65,7 +65,7 @@ class FolderLocalDataSource internal constructor(
         isClicked: Boolean?,
         isInsideFolder: Boolean?,
         folderId: Int?,
-        sortingOption: FolderSortingOption,
+        sortingOption: SortingOptions,
         limit: Int
     ): Flow<List<Folder>> =
         folderDao.getSortedFolders(

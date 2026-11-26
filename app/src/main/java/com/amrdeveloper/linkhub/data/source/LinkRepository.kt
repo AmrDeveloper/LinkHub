@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.SortingOptions
 import kotlinx.coroutines.flow.Flow
 
 class LinkRepository(private val dataSource: LinkDataSource) {
@@ -31,9 +32,18 @@ class LinkRepository(private val dataSource: LinkDataSource) {
         isClicked: Boolean? = null,
         isInsideFolder: Boolean? = null,
         folderId: Int? = null,
+        sortingOption: SortingOptions = SortingOptions.DEFAULT,
         limit: Int = -1
     ): Flow<List<Link>> =
-        dataSource.getSortedLinks(keyword, isPinned, isClicked, isInsideFolder, folderId, limit)
+        dataSource.getSortedLinks(
+            keyword,
+            isPinned,
+            isClicked,
+            isInsideFolder,
+            folderId,
+            sortingOption,
+            limit
+        )
 
     suspend fun updateLink(link: Link): Result<Int> {
         return dataSource.updateLink(link)

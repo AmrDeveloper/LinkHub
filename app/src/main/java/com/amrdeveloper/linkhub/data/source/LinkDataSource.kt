@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.data.source
 
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.SortingOptions
 import kotlinx.coroutines.flow.Flow
 
 interface LinkDataSource {
@@ -21,6 +22,7 @@ interface LinkDataSource {
         isClicked: Boolean? = null,
         isInsideFolder: Boolean? = null,
         folderId: Int? = null,
+        sortingOption: SortingOptions = SortingOptions.DEFAULT,
         limit: Int = -1
     ): Flow<List<Link>>
 

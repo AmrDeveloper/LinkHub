@@ -3,6 +3,7 @@ package com.amrdeveloper.linkhub.data.source.local
 import androidx.room.Dao
 import androidx.room.Query
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.SortingOptions
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,7 +29,13 @@ interface LinkDao : BaseDao<Link> {
         AND   ((:isClicked IS NULL) OR (click_count > 0))
         AND   ((:isInsideFolder IS NULL) OR (folder_id != -1))
         AND   ((:folderId IS NULL) OR ((:folderId = -1)) OR (folder_id = :folderId))
-        ORDER BY pinned DESC, click_count DESC
+        ORDER BY 
+            CASE WHEN :sortingOption = 'NAME_ASC' THEN title END ASC,
+            CASE WHEN :sortingOption = 'NAME_DESC' THEN title END DESC,
+            CASE WHEN :sortingOption = 'CLICK_COUNT_ASC' THEN click_count END ASC,
+            CASE WHEN :sortingOption = 'CLICK_COUNT_DESC' THEN click_count END DESC,
+            CASE WHEN :sortingOption = 'DEFAULT' THEN pinned END DESC,
+            CASE WHEN :sortingOption = 'DEFAULT' THEN click_count END DESC
         LIMIT :limit
     """
     )
@@ -38,6 +45,7 @@ interface LinkDao : BaseDao<Link> {
         isClicked: Boolean? = null,
         isInsideFolder: Boolean? = null,
         folderId: Int? = null,
+        sortingOption: SortingOptions = SortingOptions.DEFAULT,
         limit: Int = -1
     ): Flow<List<Link>>
 

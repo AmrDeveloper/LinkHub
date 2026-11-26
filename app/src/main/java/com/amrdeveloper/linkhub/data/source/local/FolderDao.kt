@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.FolderSortingOption
+import com.amrdeveloper.linkhub.data.SortingOptions
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -52,7 +52,7 @@ interface FolderDao : BaseDao<Folder> {
         isClicked: Boolean? = null,
         isInsideFolder: Boolean? = null,
         folderId: Int? = null,
-        sortingOption: FolderSortingOption = FolderSortingOption.DEFAULT,
+        sortingOption: SortingOptions = SortingOptions.DEFAULT,
         limit: Int = -1
     ): Flow<List<Folder>>
 

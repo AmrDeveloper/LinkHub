@@ -2,7 +2,7 @@ package com.amrdeveloper.linkhub.data.source
 
 import androidx.paging.PagingSource
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.FolderSortingOption
+import com.amrdeveloper.linkhub.data.SortingOptions
 import kotlinx.coroutines.flow.Flow
 
 interface FolderDataSource {
@@ -25,7 +25,7 @@ interface FolderDataSource {
         isClicked: Boolean? = null,
         isInsideFolder: Boolean? = null,
         folderId: Int? = -1,
-        sortingOption: FolderSortingOption = FolderSortingOption.DEFAULT,
+        sortingOption: SortingOptions = SortingOptions.DEFAULT,
         limit: Int = -1
     ): Flow<List<Folder>>
 

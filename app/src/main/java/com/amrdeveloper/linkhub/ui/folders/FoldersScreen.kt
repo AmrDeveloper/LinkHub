@@ -25,7 +25,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.amrdeveloper.linkhub.R
-import com.amrdeveloper.linkhub.data.FolderSortingOption
+import com.amrdeveloper.linkhub.data.SortingOptions
+import com.amrdeveloper.linkhub.data.sortingOptions
 import com.amrdeveloper.linkhub.ui.components.FolderList
 import com.amrdeveloper.linkhub.ui.components.FolderViewKind
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
@@ -38,14 +39,6 @@ private val showOptions = listOf(
     ShowOption(FolderViewKind.Grid.name, R.drawable.ic_grid)
 )
 
-private val sortingOptions = listOf(
-    ShowOption("Default", R.drawable.ic_sorting),
-    ShowOption("Name A-Z", R.drawable.ic_sort_az),
-    ShowOption("Name Z-A", R.drawable.ic_sort_za),
-    ShowOption("Clicks Asc", R.drawable.ic_sort_12),
-    ShowOption("Clicks Desc", R.drawable.ic_sort_21),
-)
-
 @Composable
 fun FoldersScreen(
     viewModel: FolderListViewModel = viewModel(),
@@ -54,8 +47,7 @@ fun FoldersScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var showItemsOption by remember { mutableStateOf(FolderViewKind.List) }
-    var sortItemsOption by remember { mutableStateOf(FolderSortingOption.DEFAULT) }
-
+    var sortItemsOption by remember { mutableStateOf(SortingOptions.DEFAULT) }
     LaunchedEffect(sortItemsOption) {
         viewModel.setSortingOption(sortItemsOption)
     }
@@ -79,12 +71,12 @@ fun FoldersScreen(
 
                 ShowItemsOptionsDropdownButton(sortingOptions) { index ->
                     sortItemsOption = when (index) {
-                        0 -> FolderSortingOption.DEFAULT
-                        1 -> FolderSortingOption.NAME_ASC
-                        2 -> FolderSortingOption.NAME_DESC
-                        3 -> FolderSortingOption.CLICK_COUNT_ASC
-                        4 -> FolderSortingOption.CLICK_COUNT_DESC
-                        else -> FolderSortingOption.DEFAULT
+                        0 -> SortingOptions.DEFAULT
+                        1 -> SortingOptions.NAME_ASC
+                        2 -> SortingOptions.NAME_DESC
+                        3 -> SortingOptions.CLICK_COUNT_ASC
+                        4 -> SortingOptions.CLICK_COUNT_DESC
+                        else -> SortingOptions.DEFAULT
                     }
                 }
 

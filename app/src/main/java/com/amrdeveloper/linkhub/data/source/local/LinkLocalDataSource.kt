@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.data.source.local
 
 import com.amrdeveloper.linkhub.data.Link
+import com.amrdeveloper.linkhub.data.SortingOptions
 import com.amrdeveloper.linkhub.data.source.LinkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -59,9 +60,18 @@ class LinkLocalDataSource internal constructor(
         isClicked: Boolean?,
         isInsideFolder: Boolean?,
         folderId: Int?,
+        sortingOption: SortingOptions,
         limit: Int
     ): Flow<List<Link>> =
-        linkDao.getSortedLinks(keyword, isPinned, isClicked, isInsideFolder, folderId, limit)
+        linkDao.getSortedLinks(
+            keyword,
+            isPinned,
+            isClicked,
+            isInsideFolder,
+            folderId,
+            sortingOption,
+            limit
+        )
 
     override suspend fun updateLink(link: Link): Result<Int> = withContext(ioDispatcher) {
         return@withContext try {

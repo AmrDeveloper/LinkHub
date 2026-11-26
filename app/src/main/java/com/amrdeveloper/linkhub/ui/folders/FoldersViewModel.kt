@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amrdeveloper.linkhub.common.LazyValue
 import com.amrdeveloper.linkhub.data.Folder
-import com.amrdeveloper.linkhub.data.FolderSortingOption
+import com.amrdeveloper.linkhub.data.SortingOptions
 import com.amrdeveloper.linkhub.data.source.FolderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +23,7 @@ class FolderListViewModel @Inject constructor(
     private val folderRepository: FolderRepository
 ) : ViewModel() {
 
-    private val sortingOption = MutableStateFlow(value = FolderSortingOption.DEFAULT)
+    private val sortingOption = MutableStateFlow(value = SortingOptions.DEFAULT)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<LazyValue<List<Folder>>> =
@@ -37,7 +37,7 @@ class FolderListViewModel @Inject constructor(
             initialValue = LazyValue(data = listOf(), isLoading = true)
         )
 
-    fun setSortingOption(option: FolderSortingOption) {
+    fun setSortingOption(option: SortingOptions) {
         sortingOption.value = option
     }
 

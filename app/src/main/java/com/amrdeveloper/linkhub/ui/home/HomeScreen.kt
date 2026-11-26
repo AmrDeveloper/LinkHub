@@ -1,6 +1,7 @@
 package com.amrdeveloper.linkhub.ui.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,6 +13,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,11 +30,14 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.amrdeveloper.linkhub.R
+import com.amrdeveloper.linkhub.data.SortingOptions
+import com.amrdeveloper.linkhub.data.sortingOptions
 import com.amrdeveloper.linkhub.ui.components.FloatingQuickActionsButton
 import com.amrdeveloper.linkhub.ui.components.FolderWithActions
 import com.amrdeveloper.linkhub.ui.components.LinkList
 import com.amrdeveloper.linkhub.ui.components.LinkhubToolbar
 import com.amrdeveloper.linkhub.ui.components.PagerIndicator
+import com.amrdeveloper.linkhub.ui.components.ShowItemsOptionsDropdownButton
 import com.amrdeveloper.linkhub.util.UiPreferences
 import com.amrdeveloper.linkhub.util.openLinkIntent
 
@@ -46,6 +55,11 @@ fun HomeScreen(
     val totalPages =
         (folders.itemCount + NUMBER_OF_FOLDERS_PER_PAGE - 1) / NUMBER_OF_FOLDERS_PER_PAGE
     val foldersPagerState = rememberPagerState(pageCount = { totalPages })
+
+    var linksSortItemsOption by remember { mutableStateOf(SortingOptions.DEFAULT) }
+    LaunchedEffect(linksSortItemsOption) {
+        viewModel.setLinksSortOption(linksSortItemsOption)
+    }
 
     val links = viewModel.sortedLinksState.collectAsStateWithLifecycle()
 
@@ -117,15 +131,27 @@ fun HomeScreen(
                 }
 
                 if (links.value.data.isNotEmpty()) {
-                    Text(
-                        text = "Links",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        maxLines = 1,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = colorResource(R.color.light_blue_600)
-                    )
+                    Row {
+                        Text(
+                            text = "Links",
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .weight(1f),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = colorResource(R.color.light_blue_600)
+                        )
+
+                        ShowItemsOptionsDropdownButton(sortingOptions) { index ->
+                            linksSortItemsOption = when (index) {
+                                0 -> SortingOptions.DEFAULT
+                                1 -> SortingOptions.NAME_ASC
+                                2 -> SortingOptions.NAME_DESC
+                                3 -> SortingOptions.CLICK_COUNT_ASC
+                                4 -> SortingOptions.CLICK_COUNT_DESC
+                                else -> SortingOptions.DEFAULT
+                            }
+                        }
+                    }
 
                     LinkList(
                         links = links.value.data,
