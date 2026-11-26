@@ -15,10 +15,9 @@ android {
         applicationId = "com.amrdeveloper.linkhub"
         minSdk = libs.versions.minSdk.get().toInt()
         multiDexEnabled = true
-        versionCode = 48
-        versionName = "2.2.1"
+        versionCode = 49
+        versionName = "2.2.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }

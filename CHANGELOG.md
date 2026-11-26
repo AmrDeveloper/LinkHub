@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 2.3.0 *(TBU)*
+Version 2.2.2 *(2026-11-26)*
 -----------------------------
 
 - Make app icon back to the home screen.
