@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 2.3.0 *(TBU)*
+-----------------------------
+
+- Make app icon back to the home screen.
+- Show PagerIndicator only if there is more than one page.
+
 Version 2.2.1 *(2026-05-16)*
 -----------------------------
 
