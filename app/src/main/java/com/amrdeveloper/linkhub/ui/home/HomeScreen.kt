@@ -56,9 +56,10 @@ fun HomeScreen(
         (folders.itemCount + NUMBER_OF_FOLDERS_PER_PAGE - 1) / NUMBER_OF_FOLDERS_PER_PAGE
     val foldersPagerState = rememberPagerState(pageCount = { totalPages })
 
-    var linksSortItemsOption by remember { mutableStateOf(SortingOptions.DEFAULT) }
+    var linksSortItemsOption by remember { mutableStateOf(uiPreferences.getLinkSortingOption()) }
     LaunchedEffect(linksSortItemsOption) {
         viewModel.setLinksSortOption(linksSortItemsOption)
+        uiPreferences.setLinkSortingOption(linksSortItemsOption)
     }
 
     val links = viewModel.sortedLinksState.collectAsStateWithLifecycle()
@@ -141,16 +142,22 @@ fun HomeScreen(
                             color = colorResource(R.color.light_blue_600)
                         )
 
-                        ShowItemsOptionsDropdownButton(sortingOptions) { index ->
-                            linksSortItemsOption = when (index) {
-                                0 -> SortingOptions.DEFAULT
-                                1 -> SortingOptions.NAME_ASC
-                                2 -> SortingOptions.NAME_DESC
-                                3 -> SortingOptions.CLICK_COUNT_ASC
-                                4 -> SortingOptions.CLICK_COUNT_DESC
-                                else -> SortingOptions.DEFAULT
+                        ShowItemsOptionsDropdownButton(
+                            options = sortingOptions,
+                            selectedOptionIndex = SortingOptions.entries.indexOf(
+                                linksSortItemsOption
+                            ),
+                            onOptionSelected = { index ->
+                                linksSortItemsOption = when (index) {
+                                    0 -> SortingOptions.DEFAULT
+                                    1 -> SortingOptions.NAME_ASC
+                                    2 -> SortingOptions.NAME_DESC
+                                    3 -> SortingOptions.CLICK_COUNT_ASC
+                                    4 -> SortingOptions.CLICK_COUNT_DESC
+                                    else -> SortingOptions.DEFAULT
+                                }
                             }
-                        }
+                        )
                     }
 
                     LinkList(

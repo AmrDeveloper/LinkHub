@@ -6,6 +6,8 @@ Version 2.3.0 *(TBU)*
 
 - Make app icon back to the home screen.
 - Show PagerIndicator only if there is more than one page.
+- Implement sorting options for links in home screen.
+- Save selected sorting options in user pref.
 
 Version 2.2.1 *(2026-05-16)*
 -----------------------------

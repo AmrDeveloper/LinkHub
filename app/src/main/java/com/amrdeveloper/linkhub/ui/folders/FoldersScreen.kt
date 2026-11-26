@@ -47,9 +47,10 @@ fun FoldersScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var showItemsOption by remember { mutableStateOf(FolderViewKind.List) }
-    var sortItemsOption by remember { mutableStateOf(SortingOptions.DEFAULT) }
+    var sortItemsOption by remember { mutableStateOf(uiPreferences.getFolderSortingOption()) }
     LaunchedEffect(sortItemsOption) {
         viewModel.setSortingOption(sortItemsOption)
+        uiPreferences.setFolderSortingOption(sortItemsOption)
     }
 
     Scaffold(topBar = { LinkhubToolbar(viewModel(), uiPreferences, navController) }) { padding ->
@@ -69,16 +70,22 @@ fun FoldersScreen(
                         .weight(1f)
                 )
 
-                ShowItemsOptionsDropdownButton(sortingOptions) { index ->
-                    sortItemsOption = when (index) {
-                        0 -> SortingOptions.DEFAULT
-                        1 -> SortingOptions.NAME_ASC
-                        2 -> SortingOptions.NAME_DESC
-                        3 -> SortingOptions.CLICK_COUNT_ASC
-                        4 -> SortingOptions.CLICK_COUNT_DESC
-                        else -> SortingOptions.DEFAULT
+                ShowItemsOptionsDropdownButton(
+                    options = sortingOptions,
+                    selectedOptionIndex = SortingOptions.entries.indexOf(
+                        sortItemsOption
+                    ),
+                    onOptionSelected = { index ->
+                        sortItemsOption = when (index) {
+                            0 -> SortingOptions.DEFAULT
+                            1 -> SortingOptions.NAME_ASC
+                            2 -> SortingOptions.NAME_DESC
+                            3 -> SortingOptions.CLICK_COUNT_ASC
+                            4 -> SortingOptions.CLICK_COUNT_DESC
+                            else -> SortingOptions.DEFAULT
+                        }
                     }
-                }
+                )
 
                 ShowItemsOptionsDropdownButton(showOptions) { index ->
                     showItemsOption = FolderViewKind.valueOf(showOptions[index].literal)

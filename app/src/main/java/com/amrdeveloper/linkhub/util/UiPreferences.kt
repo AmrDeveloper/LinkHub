@@ -2,6 +2,7 @@ package com.amrdeveloper.linkhub.util
 
 import android.content.Context
 import androidx.core.content.edit
+import com.amrdeveloper.linkhub.data.SortingOptions
 import com.amrdeveloper.linkhub.data.Theme
 
 private const val UI_PREFERENCE_NAME = "linkhub_settings"
@@ -18,9 +19,13 @@ private const val UI_AUTO_SAVE_KEY = "auto_save"
 private const val UI_DEFAULT_FOLDER_KEY = "default_folder_mode"
 private const val DEFAULT_FOLDER_NAME = "default_folder_name"
 
-// Options
+// Password Options
 private const val PASSWORD_ENABLE_KEY = "password_enable"
 private const val PASSWORD_TEXT_KEY = "password_text"
+
+// Sorting Options
+private const val LINKS_SORT_OPTION = "links_sort_option"
+private const val FOLDERS_SORT_OPTION = "links_sort_option"
 
 class UiPreferences(private val context: Context) {
 
@@ -31,6 +36,18 @@ class UiPreferences(private val context: Context) {
     fun setThemeType(theme: Theme) {
         preferences.edit {
             putString(UI_THEME_KEY, theme.name)
+        }
+    }
+
+    fun setLinkSortingOption(option: SortingOptions) {
+        preferences.edit {
+            putString(LINKS_SORT_OPTION, option.name)
+        }
+    }
+
+    fun setFolderSortingOption(option: SortingOptions) {
+        preferences.edit {
+            putString(FOLDERS_SORT_OPTION, option.name)
         }
     }
 
@@ -77,9 +94,18 @@ class UiPreferences(private val context: Context) {
     }
 
     fun getThemeType(): Theme {
-        val preferences = preferences
         val themeName = preferences.getString(UI_THEME_KEY, Theme.WHITE.name)
         return Theme.valueOf(themeName.toString())
+    }
+
+    fun getLinkSortingOption(): SortingOptions {
+        val themeName = preferences.getString(LINKS_SORT_OPTION, SortingOptions.DEFAULT.name)
+        return SortingOptions.valueOf(themeName.toString())
+    }
+
+    fun getFolderSortingOption(): SortingOptions {
+        val themeName = preferences.getString(FOLDERS_SORT_OPTION, SortingOptions.DEFAULT.name)
+        return SortingOptions.valueOf(themeName.toString())
     }
 
     fun setFontFamilyName(name: String) {
